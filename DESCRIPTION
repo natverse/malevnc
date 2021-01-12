@@ -15,9 +15,11 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
+Imports:
+    nat
 Suggests: 
     testthat,
-    nat
+    neuprintr
 URL: https://github.com/flyconnectome/malevnc
 BugReports: https://github.com/flyconnectome/malevnc/issues
 Depends: 
