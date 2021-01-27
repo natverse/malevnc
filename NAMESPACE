@@ -2,3 +2,5 @@
 
 export(manc_scene)
 export(manc_user_annotations)
+export(read_draco_meshes)
+export(read_manc_meshes)
