@@ -1,0 +1,13 @@
+! TYPEDSTREAM 2.4
+
+registration {
+	reference_study "../refbrain/mancsym-4-flip.nrrd"
+	floating_study "../refbrain/mancsym-4.nrrd"
+	affine_xform {
+		xlate 17.5 3.8 -1.35
+		rotate 0.925104826 4.199390584 -12.365451885
+		scale 1 1 1
+		shear 0 0 0
+		center 171.776 212.224 327.424
+	}
+}
