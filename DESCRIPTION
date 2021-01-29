@@ -18,16 +18,20 @@ RoxygenNote: 7.1.1
 Imports:
     nat,
     checkmate,
-    nat.templatebrains
+    nat.templatebrains,
+    tibble
 Suggests: 
     testthat,
     neuprintr,
     dracor,
-    rgl
+    rgl,
+    httr,
+    jsonlite
 URL: https://github.com/flyconnectome/malevnc
 BugReports: https://github.com/flyconnectome/malevnc/issues
 Depends: 
     R (>= 2.10)
 Remotes: 
     natverse/nat,
+    natverse/neuprintr,
     natverse/nat.templatebrains

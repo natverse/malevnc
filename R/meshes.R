@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # NB you need VPN access for this
 #' m=read_manc_meshes(23547362285)
 #' plot3d(m)
@@ -23,13 +23,13 @@ read_draco_meshes <- function(x) {
   if(is.url(x)) {
     tf=tempfile(fileext = 'tar')
     on.exit(unlink(tf))
-    download.file(x, tf)
+    utils::download.file(x, tf)
     x=tf
   }
   td <- tempfile()
   dir.create(td)
   on.exit(unlink(td, recursive = T), add = TRUE)
-  untar(x, exdir = td)
+  utils::untar(x, exdir = td)
   ff=dir(td, full.names = T)
   # check for empty meshes
   fs=file.size(ff)

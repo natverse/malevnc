@@ -26,7 +26,7 @@ the low-level \code{read_draco_meshes} reads meshes from tarballs
 \code{read_manc_meshes} reads the meshes for a single MANC body id.
 }
 \examples{
-\donttest{
+\dontrun{
 # NB you need VPN access for this
 m=read_manc_meshes(23547362285)
 plot3d(m)

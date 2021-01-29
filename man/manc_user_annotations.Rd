@@ -8,6 +8,7 @@ manc_user_annotations(
   email = "jefferis@gmail.com",
   node = "36e0b",
   raw = FALSE,
+  simplifyVector = TRUE,
   neuprint_connection = NULL,
   tz = "UTC"
 )
@@ -17,20 +18,21 @@ manc_user_annotations(
 
 \item{node}{The DVID node identifier}
 
-\item{raw}{Whether to return the raw \code{httr::\link{GET}} response
-(default \code{FALSE}).}
+\item{raw}{Whether to return the raw \code{httr::\link[httr]{GET}} response
+(default \code{FALSE}) so that you can process it yourself rather than a
+pre-processed R list.}
 
-\item{neuprint_connection}{A \code{\link{neuprintr}} connection object
-returned by \code{neuprint_login}. This includes the required authorisation
-information to connect to DVID.}
+\item{simplifyVector}{Whether to simplify lists to vectors (and data frames
+where appropriate). Default \code{TRUE}, see
+\code{jsonlite::\link[jsonlite]{fromJSON}} for details.}
+
+\item{neuprint_connection}{A \code{\link[neuprintr]{neuprintr}} connection
+object returned by \code{\link[neuprintr]{neuprint_login}}. This includes
+the required authorisation information to connect to DVID.}
 
 \item{tz}{Time zone for edit timestamps. Defaults to "UTC" i.e. Universal
 Time, Coordinated. Set to "" for your current timezone. See
 \code{\link{as.POSIXct}} for more details.}
-
-\item{simplifyVector}{Whether to simplify lists to vectors (and data frames
-where appropriate). Default \code{TRUE}, see
-\code{jsonlite::\link{fromJSON}} for details.}
 }
 \value{
 A data.frame
@@ -42,6 +44,6 @@ Read point annotations from DVID using neuprint authentication
 \donttest{
 df=manc_user_annotations()
 head(df)
-json=httr::content(manc_read_annotations(raw=TRUE))
+json=httr::content(manc_user_annotations(raw=TRUE))
 }
 }
