@@ -1,0 +1,3 @@
+R has strict path lenght limits, so I renamed the warping registration as follows:
+
+file.rename("inst/reg/mancsym-4_vnc-tbar-vol-512nm-g1-flip_01_warp_m0g80c8e1e-1x26r4.list/", "inst/reg/mancsym-4_warp.list/")

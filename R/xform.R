@@ -86,7 +86,7 @@ mirror_manc_reglist <- function(direction=c("forward", "reverse"), level=c(5,4))
   pkg = utils::packageName()
   f1 = system.file(
     sprintf(
-      "reg/mancsym-4_vnc-tbar-vol-512nm-g1-flip_01_warp_m0g80c8e1e-1x26r4.list/level-0%d.list",level),
+      "reg/mancsym-4_warp.list/level-0%d.list",level),
     package = pkg,
     mustWork = TRUE
   )
