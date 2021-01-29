@@ -63,11 +63,12 @@ plot3d(MANC.surf)
 wire3d(MANC.surf.m)
 }
 
-\donttest{
+\dontrun{
 symmetric_manc(MANC.surf)
 # mirror across the midline in symmetric space also
 MANCsym.surf.m=symmetric_manc(MANC.surf, mirror=T)
 
+# plot the two symmetric surfaces
 plot3d(MANCsym.surf)
 wire3d(MANCsym.surf.m)
 }

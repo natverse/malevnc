@@ -59,12 +59,14 @@ mirror_manc <- function(x, level=c(5,4), ...) {
 #'   optionally mirroring across the midline.
 #' @param mirror Whether to mirror across the midline when using
 #'   \code{symmetric_manc}
+#' @export
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' symmetric_manc(MANC.surf)
 #' # mirror across the midline in symmetric space also
 #' MANCsym.surf.m=symmetric_manc(MANC.surf, mirror=T)
 #'
+#' # plot the two symmetric surfaces
 #' plot3d(MANCsym.surf)
 #' wire3d(MANCsym.surf.m)
 #' }
@@ -81,17 +83,16 @@ symmetric_manc <- function(x, level=c(5,4), mirror=FALSE, ...) {
 # internal function to return a CMTK mirroring registration
 mirror_manc_reglist <- function(direction=c("forward", "reverse"), level=c(5,4)) {
   if(length(level)>1) level=level[1]
-  level=checkmate::asInt(5.0, lower=4L, upper = 5L)
+  level=checkmate::asInt(level, lower=4L, upper = 5L)
   direction=match.arg(direction)
   pkg = utils::packageName()
   f1 = system.file(
-    sprintf(
-      "reg/mancsym-4_warp.list/level-0%d.list",level),
-    package = pkg,
-    mustWork = TRUE
+    sprintf("reg/mancsym-4_warp.list/level-0%d.list", level),
+    package = pkg, mustWork = TRUE
   )
-  f2=system.file("reg/mancsym-4-flip_mancsym-4-halved.list", package = pkg,
-                 mustWork = TRUE)
+
+  f2=system.file("reg/mancsym-4-flip_mancsym-4-halved.list",
+                 package = pkg, mustWork = TRUE)
   # nb in CMTK direction is defined by the image transform which is the opposite
   # of the points transform, hence swap=T
   mirror_reg_f <- reglist(nat::cmtkreg(f1), nat::cmtkreg(f2), swap = c(T,T))
