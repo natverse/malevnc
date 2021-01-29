@@ -2,5 +2,11 @@
 
 export(manc_scene)
 export(manc_user_annotations)
+export(mirror_manc)
 export(read_draco_meshes)
 export(read_manc_meshes)
+importFrom(nat,invert_reglist)
+importFrom(nat,reglist)
+importFrom(nat,xform)
+importFrom(nat.templatebrains,as.templatebrain)
+importFrom(nat.templatebrains,mirror_brain)
