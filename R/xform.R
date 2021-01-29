@@ -86,10 +86,12 @@ mirror_manc_reglist <- function(direction=c("forward", "reverse"), level=c(5,4))
   pkg = utils::packageName()
   f1 = system.file(
     sprintf(
-      "inst/reg/mancsym-4_vnc-tbar-vol-512nm-g1-flip_01_warp_m0g80c8e1e-1x26r4.list/level-0%d.list",level),
-    package = pkg
+      "reg/mancsym-4_vnc-tbar-vol-512nm-g1-flip_01_warp_m0g80c8e1e-1x26r4.list/level-0%d.list",level),
+    package = pkg,
+    mustWork = TRUE
   )
-  f2=system.file("inst/reg/mancsym-4-flip_mancsym-4-halved.list", package = pkg)
+  f2=system.file("reg/mancsym-4-flip_mancsym-4-halved.list", package = pkg,
+                 mustWork = TRUE)
   # nb in CMTK direction is defined by the image transform which is the opposite
   # of the points transform, hence swap=T
   mirror_reg_f <- reglist(nat::cmtkreg(f1), nat::cmtkreg(f2), swap = c(T,T))
