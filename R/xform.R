@@ -2,9 +2,11 @@
 #'
 #' @details These registration functions depend on an installation of the CMTK
 #'   registration toolkit. See \code{\link[nat]{cmtk.bindir}} for details.
-#' @param x 3D vertices (or object containing them) in MANC microns. Could be \code{\link{neuron}}, \code{\link{neuronlist}}, \code{\link{hxsurf}} etc.
-#' @param level Which level of the CMTK registrations to use (for expert/testing
-#'   purposes only)
+#' @param x 3D vertices (or object containing them) in MANC microns. Could be
+#'   \code{\link{neuron}}, \code{\link{neuronlist}}, \code{\link{hxsurf}} etc.
+#' @param level Which resolution level of the CMTK registrations to use. Higher
+#'   number = higher resolution. This is for expert/testing purposes only - just
+#'   stick with the default.
 #' @param ... additional arguments passed to xform and friends
 #'
 #' @return Transformed points/object

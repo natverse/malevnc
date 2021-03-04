@@ -10,10 +10,12 @@ mirror_manc(x, level = c(5, 4), ...)
 symmetric_manc(x, level = c(5, 4), mirror = FALSE, ...)
 }
 \arguments{
-\item{x}{3D vertices (or object containing them) in MANC microns. Could be \code{\link{neuron}}, \code{\link{neuronlist}}, \code{\link{hxsurf}} etc.}
+\item{x}{3D vertices (or object containing them) in MANC microns. Could be
+\code{\link{neuron}}, \code{\link{neuronlist}}, \code{\link{hxsurf}} etc.}
 
-\item{level}{Which level of the CMTK registrations to use (for expert/testing
-purposes only)}
+\item{level}{Which resolution level of the CMTK registrations to use. Higher
+number = higher resolution. This is for expert/testing purposes only - just
+stick with the default.}
 
 \item{...}{additional arguments passed to xform and friends}
 
