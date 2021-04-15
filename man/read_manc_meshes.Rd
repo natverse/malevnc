@@ -7,7 +7,7 @@
 \usage{
 read_draco_meshes(x)
 
-read_manc_meshes(id, node = "bc3b")
+read_manc_meshes(id, node = "aefff")
 }
 \arguments{
 \item{x}{A URL to a remote location or path to a file on disk}

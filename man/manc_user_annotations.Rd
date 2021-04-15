@@ -6,7 +6,7 @@
 \usage{
 manc_user_annotations(
   email = "jefferis@gmail.com",
-  node = "36e0b",
+  node = "aefff",
   raw = FALSE,
   simplifyVector = TRUE,
   neuprint_connection = NULL,

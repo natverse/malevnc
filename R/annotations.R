@@ -25,7 +25,7 @@
 #' json=httr::content(manc_user_annotations(raw=TRUE))
 #' }
 manc_user_annotations <- function(email = "jefferis@gmail.com",
-                                  node = "36e0b",
+                                  node = "aefff",
                                   raw = FALSE,
                                   simplifyVector=TRUE,
                                   neuprint_connection = NULL,

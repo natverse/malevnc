@@ -50,7 +50,7 @@ read_draco_meshes <- function(x) {
 #' @param node the dvid node containing the dataset
 #' @export
 #' @rdname read_manc_meshes
-read_manc_meshes <- function(id, node="bc3b") {
+read_manc_meshes <- function(id, node="aefff") {
   checkmate::checkIntegerish(id, lower=0, len = 1)
   url="http://emdata4.int.janelia.org:8450/api/node/%s/segmentation_sv_meshes/tarfile/%s"
   surl=sprintf(url, node, as.character(id))
