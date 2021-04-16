@@ -34,7 +34,7 @@ manc_user_annotations <- function(email = "jefferis@gmail.com",
     if(!requireNamespace('neuprintr'))
       stop("Please install suggested package neuprintr!\n",
            'natmanager::install(pkgs="neuprintr")')
-    neuprint_connection = neuprintr::neuprint_login(server = "https://neuprint.janelia.org")
+    neuprint_connection = manc_neuprint()
     neuprint_connection$config
   }
   u = sprintf(
