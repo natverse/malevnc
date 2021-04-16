@@ -19,10 +19,10 @@ Imports:
     nat,
     checkmate,
     nat.templatebrains,
-    tibble
+    tibble,
+    neuprintr
 Suggests: 
     testthat,
-    neuprintr,
     dracor,
     rgl,
     httr,
