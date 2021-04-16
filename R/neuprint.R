@@ -12,11 +12,9 @@
 #' # the last connection will be used by default
 #' anchormeta <- neuprintr::neuprint_get_meta("status:Anchor")
 #'
-#' plot(cumsum(sort(anchormeta$pre, decreasing = T)), ylab='Cumulative presynapses')
-#' plot(cumsum(sort(anchormeta$post, decreasing = T)), ylab='Cumulative postsynapses')
-#'
+#' plot(cumsum(sort(anchormeta$pre, decreasing = TRUE)), ylab='Cumulative presynapses')
+#' plot(cumsum(sort(anchormeta$post, decreasing = TRUE)), ylab='Cumulative postsynapses')
 #' }
 manc_neuprint <- function(...) {
   neuprintr::neuprint_login(server='https://neuprint-pre.janelia.org', dataset = "vnc", token=Sys.getenv("neuprint_token"), ...)
 }
-
