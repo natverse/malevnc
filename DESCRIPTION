@@ -20,6 +20,8 @@ Imports:
     checkmate,
     nat.templatebrains,
     tibble,
+    memoise,
+    pbapply,
     neuprintr
 Suggests: 
     testthat,
