@@ -4,7 +4,10 @@
 <!-- badges: end -->
 
 The goal of malevnc is to provide a package to support analysis on the Janelia
-male VNC dataset aka (MANC)
+male VNC dataset aka (MANC). Note that this package points to private resources
+made available by the male VNC project led by the FlyEM team at Janelia.
+Please do not share with anyone who does not have permissions to access the VNC
+neuprint dataset.
 
 ## Installation
 
