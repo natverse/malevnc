@@ -6,3 +6,8 @@ mancsomapos[,c("X","Y","Z")] <- xyzmatrix(mancsomapos.orig$mid_point)
 
 mancsomapos=mancsomapos[c("n", "X",'Y', 'Z', "kind", "from", "to", "comment")]
 usethis::use_data(mancsomapos, overwrite = T)
+
+
+mancneckseeds=read.csv('data-raw/neck-posterior-seed-points.csv')
+
+usethis::use_data(mancneckseeds)
