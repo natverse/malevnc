@@ -1,0 +1,23 @@
+#' Soma locations for all intrinsic neurons of the ventral nerve cord
+#'
+#' These were generated as neuroglancer annotations by Chris Ordish of the FlyEM
+#' team and
+#' \href{https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1614781577010700}{passed
+#' to Greg Jefferis on 3rd March 2021 by Pat Rivlin}.
+#'
+#' Note that these positions are raw (8nm voxel) locations.
+#'
+#' @name mancsomapos
+#' @docType data
+#' @examples
+#' head(mancsomapos)
+#'
+#' library(nat)
+#' points3d(xyzmatrix(mancsomapos))
+#' plot3d(boundingbox(xyzmatrix(mancsomapos)))
+#'
+#' # nm
+#' summary(xyzmatrix(mancsomapos)*8)
+#' # microns
+#' summary(xyzmatrix(mancsomapos)/125)
+"mancsomapos"
