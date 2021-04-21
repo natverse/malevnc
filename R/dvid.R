@@ -37,7 +37,7 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint"), cached=TRUE) {
     node=ds$vnc$uuid
     if(is.null(node))
       stop("Unable to find neuprint node")
-
+    return(node)
   }
   if(isFALSE(cached))
     memoise::forget(manc_dvid_info)
