@@ -82,6 +82,32 @@ symmetric_manc <- function(x, level=c(5,4), mirror=FALSE, ...) {
 }
 
 
+
+#' Calculate the left-right position wrt to the symmetrised MANC midline
+#'
+#' @param x An object containing XYZ vertex locations in microns, compatible
+#'   with \code{\link{xyzmatrix}}
+#' @param ... Additional arguments passed to \code{\link{xform}}
+#'
+#' @return A vector of point displacements in microns where 0 is at the midline
+#'   and positive values are to the fly's right.
+#' @export
+#' @importFrom nat xyzmatrix
+#' @examples
+#' library(nat)
+#' lr=manc_lr_position(xyzmatrix(mancsomapos)/125)
+#' # red for left, green for right (nautical convention)
+#' points3d(xyzmatrix(mancsomapos), col=ifelse(lr<0, "red","green"))
+#' plot3d(boundingbox(mancsomapos))
+manc_lr_position <- function(x, ...) {
+  mirror_reg_f=mirror_manc_reglist(level=5)
+  xyz=xyzmatrix(x)
+  xyzt=xform(xyzmatrix(xyz), reg=mirror_reg_f, ... )
+  xyzt2=mirror_brain(xyzt, brain = MANCsym, mirrorAxis = 'X', transform='flip')
+  mldiff=xyzt[,1]-xyzt2[,1]
+  mldiff
+}
+
 # internal function to return a CMTK mirroring registration
 mirror_manc_reglist <- function(direction=c("forward", "reverse"), level=c(5,4)) {
   if(length(level)>1) level=level[1]
