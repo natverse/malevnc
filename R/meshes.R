@@ -79,6 +79,7 @@ read_draco_meshes <- function(x) {
 #' @examples
 #' # Giant Fibre neurons
 #' \donttest{
+#' library(nat)
 #' gfs=read_manc_meshes(c(10000,10002))
 #' gfs.latest=read_manc_meshes(c(10000,10002), node=manc_dvid_node("neutu"))
 #' plot3d(gfs)
