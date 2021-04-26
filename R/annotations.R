@@ -37,8 +37,8 @@ manc_user_annotations <- function(email = "jefferis@gmail.com",
     neuprint_connection = manc_neuprint()
     neuprint_connection$config
   }
-  u = sprintf(
-    "https://hemibrain-dvid2.janelia.org/api/node/%s/neuroglancer_todo/tag/user:%s?app=Neuroglancer&u=%s",
+  u = manc_serverurl(
+    "api/node/%s/neuroglancer_todo/tag/user:%s?app=Neuroglancer&u=%s",
     node,
     email,
     email

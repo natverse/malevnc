@@ -98,17 +98,17 @@ read_manc_meshes <- function(id, node=manc_dvid_node("clio"), type=c('merged', '
     return(as.neuronlist(res, AddClassToNeurons=F))
   }
   checkmate::checkIntegerish(id, lower=0, len = 1)
-  url="https://emdata5-avempartha.janelia.org/api/node/%s/segmentation_sv_meshes/tarfile/%s"
-  # url="http://emdata4.int.janelia.org:8450/api/node/%s/segmentation_sv_meshes/tarfile/%s"
 
-  surl=sprintf(url, node, as.character(id))
+  surl=manc_serverurl("api/node/%s/segmentation_sv_meshes/tarfile/%s",
+                      node, as.character(id))
   read_draco_meshes(surl)
 }
 
 # read_neuroglancer_mesh(10373)
 read_neuroglancer_mesh <- function(id, node=manc_dvid_node("clio")) {
-  u='https://emdata5-avempartha.janelia.org/api/node/%s/segmentation_meshes/key/%s.ngmesh?app=Neuroglancer'
-  u=sprintf(u, node, id)
+  u=manc_serverurl(
+    "api/node/%s/segmentation_meshes/key/%s.ngmesh?app=Neuroglancer",
+    node, id)
   res=httr::GET(u)
   httr::stop_for_status(res)
   bytes=httr::content(res, as='raw')

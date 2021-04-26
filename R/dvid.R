@@ -2,8 +2,7 @@ manc_dvid_info <-
   memoise::memoise(cache = cachem::cache_mem(max_age = 3600),
                    function() {
   rootnode = "1ec355123bf94e588557a4568d26d258"
-  u = sprintf("https://emdata5-avempartha.janelia.org/api/repo/%s/info",
-             rootnode)
+  u = manc_serverurl("api/repo/%s/info", rootnode)
   info = try(jsonlite::fromJSON(readLines(u, warn = F)))
   if (inherits(info, 'try-error'))
    stop("Failed to read DVID summary information!")
