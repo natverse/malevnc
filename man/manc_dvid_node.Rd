@@ -9,7 +9,7 @@ manc_dvid_node(type = c("clio", "neutu", "neuprint"), cached = TRUE)
 \arguments{
 \item{type}{Whether to return the latest committed node (clio) or the active
 node being edited in neutu (the very latest) or the node in neuprint (a
-committed node that may lag behin clio)}
+committed node that may lag behind clio)}
 
 \item{cached}{Whether to return a cached value (updated every hour) or to
 force a new query.}

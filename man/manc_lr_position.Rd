@@ -25,6 +25,4 @@ lr=manc_lr_position(xyzmatrix(mancsomapos)/125)
 # red for left, green for right (nautical convention)
 points3d(xyzmatrix(mancsomapos), col=ifelse(lr<0, "red","green"))
 plot3d(boundingbox(mancsomapos))
-
-
 }

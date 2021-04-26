@@ -22,7 +22,9 @@ Imports:
     tibble,
     memoise,
     pbapply,
-    neuprintr
+    neuprintr,
+    curl,
+    cachem
 Suggests: 
     testthat,
     dracor,

@@ -10,6 +10,15 @@ Will provide regional surface meshes and template
     brain support for the Janelia FlyEM / Hess lab male VNC data set
     currently for which proofreading started Autumn 2020.
 }
+\section{Package Options}{
+ \itemize{
+
+  \item \code{malevnc.server} The https URL to the main Janelia server
+  hosting male VNC data.
+
+  }
+}
+
 \seealso{
 Useful links:
 \itemize{
