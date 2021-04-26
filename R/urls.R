@@ -31,12 +31,12 @@ manc_scene <- function(server=c("appspot", "janelia")) {
 }
 
 manc_server <-
-  memoise::memoise(function(server = getOption("malevnc.emdata")) {
+  memoise::memoise(function(server = getOption("malevnc.server")) {
     if (is.null(server))
-      stop("Please use options(malevnc.emdata) to set the URL of the emdata server!")
+      stop("Please use options(malevnc.server) to set the URL of the emdata server!")
     server_down <- is.null(curl::nslookup(server, error = FALSE))
     if (server_down)
-      stop("Cannot reach the `malevnc.emdata` server. Please check internet or option value!")
+      stop("Cannot reach the malevnc server. Please check internet or option value!")
     server
     }, cache = cachem::cache_mem(max_age = 60 * 15))
 
