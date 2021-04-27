@@ -24,13 +24,13 @@ Imports:
     pbapply,
     neuprintr,
     curl,
-    cachem
+    cachem,
+    httr,
+    jsonlite
 Suggests: 
     testthat,
     dracor,
     rgl,
-    httr,
-    jsonlite
 URL: https://github.com/flyconnectome/malevnc
 BugReports: https://github.com/flyconnectome/malevnc/issues
 Depends: 

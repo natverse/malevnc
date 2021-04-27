@@ -86,3 +86,62 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
   # l
   tibble::as_tibble(l, ...)
 }
+
+
+#' Return all DVID body annotations
+#' @details See
+#'   \href{https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1619201195032400}{this
+#'    Slack post} from Stuart Berg for details.
+#'
+#' @param rval Whether to return a fully parsed data.frame (the default) or an R
+#'   list. The data.frame is easier to work with but typically includes NAs for
+#'   many values that would be missing in the list.
+#' @param node A DVID node as returned by \code{\link{manc_dvid_node}}. The
+#'   default is to return the current active (unlocked) node being used through
+#'   neutu.
+#'
+#' @return A \code{tibble} containing with columns including \itemize{
+#'
+#'   \item bodyid
+#'
+#'   \item status
+#'
+#'   \item user
+#'
+#'   \item naming_user
+#'
+#'   \item instance
+#'
+#'   \item status_user
+#'
+#'   \item comment }
+#'
+#'   NB these are slightly modified from
+#'
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' mdf=manc_dvid_annotations()
+#' head(mdf)
+#' table(mdf$status)
+#'
+#' \dontrun{
+#' # compare live body annotations with version in clio
+#' mdf.clio=manc_dvid_annotations(manc_dvid_node('clio'))
+#' waldo::compare(mdf.clio, mdf)
+#' }
+#' }
+manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
+                                  rval=c("data.frame", "list")) {
+  rval=match.arg(rval)
+  u=manc_serverurl("api/node/%s:master/segmentation_annotations/keyrangevalues/0/Z?json=true", node)
+  res=httr::GET(u)
+  httr::stop_for_status(res)
+  d=jsonlite::fromJSON(httr::content(res, as='text', encoding = 'UTF-8'), simplifyVector = F)
+  df=list2df(d)
+  cdf=sub("body ID", "bodyid", colnames(df), fixed = T)
+  cdf=sub(" ", "_", cdf, fixed = T)
+  names(df)=cdf
+  df
+}
