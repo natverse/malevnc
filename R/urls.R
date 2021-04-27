@@ -34,9 +34,17 @@ manc_server <-
   memoise::memoise(function(server = getOption("malevnc.server")) {
     if (is.null(server))
       stop("Please use options(malevnc.server) to set the URL of the emdata server!")
-    server_down <- is.null(curl::nslookup(server, error = FALSE))
-    if (server_down)
-      stop("Cannot reach the malevnc server. Please check internet or option value!")
+    pu=tryCatch(httr::parse_url(server), error=function(e)
+      stop("Unable to parse malevnc.server URL:", server))
+    server_down <- is.null(curl::nslookup(pu$hostname, error = FALSE))
+    if (server_down) {
+      internet_ok <- !is.null(curl::nslookup("google.com", error = FALSE))
+      if(internet_ok)
+        stop("Cannot reach malevnc server. Please check `options('malevnc.server')")
+      else
+        stop("Cannot reach malevnc server or google. Please check your internet connection!")
+    }
+
     server
     }, cache = cachem::cache_mem(max_age = 60 * 15))
 
