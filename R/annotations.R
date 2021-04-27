@@ -69,7 +69,7 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
     raw_col[sapply(raw_col, is.null)]=NA
     sublens=sapply(raw_col, length)
     if(all(sublens==1)){
-      raw_col=unlist(raw_col)
+      raw_col=unlist(raw_col, use.names = FALSE)
     } else if(grepl("^point", i) && all(sublens==3L)) {
       if(points=='expand') {
         raw_col=lapply(1:3, function(j) sapply(raw_col, "[[", j))
