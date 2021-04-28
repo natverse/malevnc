@@ -4,29 +4,45 @@
 \alias{manc_scene}
 \title{Return a sample Neuroglancer scene URL for MANC dataset}
 \usage{
-manc_scene(server = c("appspot", "janelia"))
+manc_scene(server = c("appspot", "janelia"), return.json = FALSE)
 }
 \arguments{
 \item{server}{Whether to use the Google server (newest version of
-neuroglancer) or Janelia server (apparently required for annotation).}
+neuroglancer) or Janelia server (required for annotation in early 2021).}
+
+\item{return.json}{Whether to return a JSON fragment defining the scene or
+(by default) a Neuroglancer URL.}
 }
 \value{
-A character vector containing a single Neuroglancer URL.
+A character vector containing a single Neuroglancer URL or a JSON
+  fragment.
 }
 \description{
 Return a sample Neuroglancer scene URL for MANC dataset
 }
 \details{
-You will need to authenticate at \url{https://neuprint.janelia.org/}
-  in order to use the annotation features. I recommend logging in and out of
-  neuprint if you still get authentication errors from Neuroglancer when
-  attempting to use the annotation layer.
+Neuroglancer scenes can be pasted into a variety of different
+  variants. Use the \code{return.json} to get a JSON fragment that can be
+  pasted into any neuroglancer instance using the closed curly bracket
+  symbol.
+
+  In early 2021 we were using a Janelia server hosting neuroglancer that
+  allowed annotation through a hybrid DVID backend. By April 2021 we were
+  using \href{https://clio.janelia.org/}{Clio} for annotations.
+
+  The early 2021 server required authentication at
+  \url{https://neuprint.janelia.org/} in order to use the annotation
+  features. I recommend logging in and out of neuprint if you still get
+  authentication errors from Neuroglancer when attempting to use the
+  annotation layer.
 
   Awkwardly the mesh and label field ROIs currently default to different
   colours.
 }
 \examples{
-\donttest{
+\dontrun{
 browseURL(manc_scene())
+# copy scene information to clipboard
+clipr::read_clip(manc_scene(return.json = TRUE))
 }
 }
