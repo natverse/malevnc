@@ -20,6 +20,11 @@
 #' summary(xyzmatrix(mancsomapos)*8)
 #' # microns
 #' summary(xyzmatrix(mancsomapos)/125)
+#'
+#' \dontrun{
+#' # find bodyid for all somata
+#' mancsomapos$bodyid=manc_xyz2bodyid(mancsomapos)
+#' }
 "mancsomapos"
 
 #' Seed plane for the Neck Connective
