@@ -107,7 +107,7 @@ read_manc_meshes <- function(id, node=manc_dvid_node("clio"), type=c('merged', '
 # read_neuroglancer_mesh(10373)
 read_neuroglancer_mesh <- function(id, node=manc_dvid_node("clio")) {
   u=manc_serverurl(
-    "api/node/%s/segmentation_meshes/key/%s.ngmesh?app=Neuroglancer",
+    "api/node/%s/segmentation_meshes/key/%s.ngmesh?app=natverse",
     node, id)
   res=httr::GET(u)
   httr::stop_for_status(res)

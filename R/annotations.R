@@ -38,7 +38,7 @@ manc_user_annotations <- function(email = "jefferis@gmail.com",
     neuprint_connection$config
   }
   u = manc_serverurl(
-    "api/node/%s/neuroglancer_todo/tag/user:%s?app=Neuroglancer&u=%s",
+    "api/node/%s/neuroglancer_todo/tag/user:%s?app=natverse&u=%s",
     node,
     email,
     email
