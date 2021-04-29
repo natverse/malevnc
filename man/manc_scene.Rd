@@ -4,11 +4,13 @@
 \alias{manc_scene}
 \title{Return a sample Neuroglancer scene URL for MANC dataset}
 \usage{
-manc_scene(server = c("appspot", "janelia"), return.json = FALSE)
+manc_scene(ids = NULL, server = c("appspot", "janelia"), return.json = FALSE)
 }
 \arguments{
+\item{ids}{A set of body ids to add to the neuroglancer scene}
+
 \item{server}{Whether to use the Google server (newest version of
-neuroglancer) or Janelia server (required for annotation in early 2021).}
+neuroglancer) or Janelia server (required for annotation in early 2021, but now deprecated in favour of Clio?).}
 
 \item{return.json}{Whether to return a JSON fragment defining the scene or
 (by default) a Neuroglancer URL.}
