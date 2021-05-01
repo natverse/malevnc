@@ -39,4 +39,5 @@ Depends:
 Remotes: 
     natverse/nat,
     natverse/neuprintr,
-    natverse/nat.templatebrains
+    natverse/nat.templatebrains,
+    natverse/fafbseg
