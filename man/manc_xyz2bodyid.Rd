@@ -27,8 +27,6 @@ table(tids)
 
 dups=names(tids[tids>1])
 \dontrun{
-library(fafbseg)
-sc=manc_scene()
-ngl_segments(sc) <- dups
+manc_scene(ids=dups)
 }
 }

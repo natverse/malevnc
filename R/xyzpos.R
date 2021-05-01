@@ -15,9 +15,7 @@
 #'
 #' dups=names(tids[tids>1])
 #' \dontrun{
-#' library(fafbseg)
-#' sc=manc_scene()
-#' ngl_segments(sc) <- dups
+#' manc_scene(ids=dups)
 #' }
 manc_xyz2bodyid <- function(xyz, node = manc_dvid_node('neutu'), viafile=NA) {
   xyzmat=nat::xyzmatrix(xyz)
