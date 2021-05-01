@@ -1,11 +1,11 @@
 .onLoad <- function(libname, pkgname) {
-  op.fanc <- list('malevnc.server'="https://emdata5-avempartha.janelia.org")
+  op.manc <- list('malevnc.server'="https://emdata5-avempartha.janelia.org")
 
   op<-options()
-  toset <- !(names(op.fanc) %in% names(op))
-  if(any(toset)) options(op.fanc[toset])
+  toset <- !(names(op.manc) %in% names(op))
+  if(any(toset)) options(op.manc[toset])
 
-  # TODO make MANC<->FANC/JRCVNC2018U bridging registrations available
+  # TODO make MANC<->manc/JRCVNC2018U bridging registrations available
 
   invisible()
 }
