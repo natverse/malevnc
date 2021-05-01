@@ -2,15 +2,25 @@
 % Please edit documentation in R/urls.R
 \name{manc_scene}
 \alias{manc_scene}
-\title{Return a sample Neuroglancer scene URL for MANC dataset}
+\title{Return a Neuroglancer scene URL for MANC dataset}
 \usage{
-manc_scene(ids = NULL, server = c("appspot", "janelia"), return.json = FALSE)
+manc_scene(
+  ids = NULL,
+  node = manc_dvid_node("clio"),
+  server = c("appspot", "janelia"),
+  return.json = FALSE
+)
 }
 \arguments{
 \item{ids}{A set of body ids to add to the neuroglancer scene}
 
+\item{node}{A DVID node e.g. as returned by \code{manc_dvid_node}. The
+(recommended) default behaviour is to use the current Clio node.}
+
 \item{server}{Whether to use the Google server (newest version of
-neuroglancer) or Janelia server (required for annotation in early 2021, but now deprecated in favour of Clio?).}
+neuroglancer) or Janelia server (required for annotation in early 2021, but
+now deprecated in favour of Clio?). 99% of the time you should keep the
+default.}
 
 \item{return.json}{Whether to return a JSON fragment defining the scene or
 (by default) a Neuroglancer URL.}
@@ -20,7 +30,11 @@ A character vector containing a single Neuroglancer URL or a JSON
   fragment.
 }
 \description{
-Return a sample Neuroglancer scene URL for MANC dataset
+The defaul behaviour is to generate a rich neuroglancer scene
+  with including any passed \code{ids} using the current Clio DVID node. This
+  means that meshes should be in sync. See
+  \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1619825198227100?thread_ts=1619816902.216600&cid=C01MYQ1AQ5D}{this
+  slack} post from Stuart Berg for more details.
 }
 \details{
 Neuroglancer scenes can be pasted into a variety of different
@@ -44,7 +58,11 @@ Neuroglancer scenes can be pasted into a variety of different
 \examples{
 \dontrun{
 browseURL(manc_scene())
-# copy scene information to clipboard
+# copy scene information with a sample neuron to the clipboard
+clipr::read_clip(manc_scene(ids=13749))
+
+# JSON fragment that could be copied into Clio
 clipr::read_clip(manc_scene(return.json = TRUE))
+
 }
 }
