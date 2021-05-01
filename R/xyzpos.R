@@ -18,6 +18,8 @@
 #' manc_scene(ids=dups)
 #' }
 manc_xyz2bodyid <- function(xyz, node = manc_dvid_node('neutu'), viafile=NA) {
+  if(isFALSE(nzchar(Sys.which('curl'))))
+    stop("manc_xyz2bodyid currently requires the curl command line tool to be present in your path!")
   xyzmat=nat::xyzmatrix(xyz)
   if(!is.matrix(xyzmat) && is.numeric(xyzmat) && length(xyzmat)==3) {
     xyzmat=matrix(xyzmat, ncol=3)
