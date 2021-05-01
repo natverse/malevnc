@@ -14,7 +14,7 @@ manc_dvid_info <-
 #'
 #' @param type Whether to return the latest committed node (clio) or the active
 #'   node being edited in neutu (the very latest) or the node in neuprint (a
-#'   committed node that may lag behind clio)
+#'   committed node that may lag behind clio). master is an alias for neutu.
 #' @param cached Whether to return a cached value (updated every hour) or to
 #'   force a new query.
 #'
@@ -28,7 +28,7 @@ manc_dvid_info <-
 #' # force
 #' manc_dvid_node('neuprint', cached=FALSE)
 #' }
-manc_dvid_node <- function(type=c("clio", "neutu", "neuprint"), cached=TRUE) {
+manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached=TRUE) {
   type=match.arg(type)
   if(type=='neuprint') {
     vncc=manc_neuprint()
