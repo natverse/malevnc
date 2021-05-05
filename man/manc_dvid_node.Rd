@@ -4,12 +4,12 @@
 \alias{manc_dvid_node}
 \title{Return the latest DVID node}
 \usage{
-manc_dvid_node(type = c("clio", "neutu", "neuprint"), cached = TRUE)
+manc_dvid_node(type = c("clio", "neutu", "neuprint", "master"), cached = TRUE)
 }
 \arguments{
 \item{type}{Whether to return the latest committed node (clio) or the active
 node being edited in neutu (the very latest) or the node in neuprint (a
-committed node that may lag behind clio)}
+committed node that may lag behind clio). master is an alias for neutu.}
 
 \item{cached}{Whether to return a cached value (updated every hour) or to
 force a new query.}
