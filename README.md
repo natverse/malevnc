@@ -1,6 +1,8 @@
 # malevnc
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/flyconnectome/malevnc/workflows/R-CMD-check/badge.svg)](https://github.com/flyconnectome/malevnc/actions)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://flyconnectome.github.io/malevnc/reference/)
 <!-- badges: end -->
 
 The goal of malevnc is to provide a package to support analysis on the Janelia
