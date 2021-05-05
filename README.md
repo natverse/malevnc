@@ -34,6 +34,7 @@ gory details.
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
+library(nat)
 library(malevnc)
 plot3d(MANC.surf)
 ```
