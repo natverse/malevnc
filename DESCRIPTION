@@ -32,7 +32,8 @@ Suggests:
     testthat,
     dracor,
     rgl,
-    fafbseg
+    fafbseg,
+    reticulate
 URL: https://github.com/flyconnectome/malevnc
 BugReports: https://github.com/flyconnectome/malevnc/issues
 Depends: 
