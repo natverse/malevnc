@@ -23,7 +23,7 @@ read_draco_meshes <- function(x) {
   if(is.url(x)) {
     tf=tempfile(fileext = 'tar')
     on.exit(unlink(tf))
-    utils::download.file(x, tf)
+    utils::download.file(x, tf, quiet=!interactive())
     x=tf
   }
   td <- tempfile()
