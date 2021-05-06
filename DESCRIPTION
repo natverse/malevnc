@@ -26,7 +26,8 @@ Imports:
     curl,
     cachem,
     httr,
-    jsonlite
+    jsonlite,
+    dplyr
 Suggests: 
     testthat,
     dracor,

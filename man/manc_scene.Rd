@@ -7,6 +7,7 @@
 manc_scene(
   ids = NULL,
   node = manc_dvid_node("clio"),
+  basescene = c("2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
   server = c("appspot", "janelia"),
   return.json = FALSE
 )
@@ -16,6 +17,9 @@ manc_scene(
 
 \item{node}{A DVID node e.g. as returned by \code{manc_dvid_node}. The
 (recommended) default behaviour is to use the current Clio node.}
+
+\item{basescene}{Which neuroglancer scene url to use as a base. You can also
+supply your own URL.}
 
 \item{server}{Whether to use the Google server (newest version of
 neuroglancer) or Janelia server (required for annotation in early 2021, but
@@ -34,35 +38,46 @@ The defaul behaviour is to generate a rich neuroglancer scene
   with including any passed \code{ids} using the current Clio DVID node. This
   means that meshes should be in sync. See
   \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1619825198227100?thread_ts=1619816902.216600&cid=C01MYQ1AQ5D}{this
-  slack} post from Stuart Berg for more details.
+   slack} post from Stuart Berg for more details.
 }
 \details{
 Neuroglancer scenes can be pasted into a variety of different
   variants. Use the \code{return.json} to get a JSON fragment that can be
   pasted into any neuroglancer instance using the closed curly bracket
   symbol.
-
-  In early 2021 we were using a Janelia server hosting neuroglancer that
-  allowed annotation through a hybrid DVID backend. By April 2021 we were
-  using \href{https://clio.janelia.org/}{Clio} for annotations.
-
-  The early 2021 server required authentication at
-  \url{https://neuprint.janelia.org/} in order to use the annotation
-  features. I recommend logging in and out of neuprint if you still get
-  authentication errors from Neuroglancer when attempting to use the
-  annotation layer.
-
-  Awkwardly the mesh and label field ROIs currently default to different
-  colours.
 }
+\section{scenes}{
+ The following scenes (named by the approximate date that we
+  started using them) are available. \itemize{
+
+  \item \code{2021-05-05} Like \code{2021-05-04} but with a voxelwise ROI segmentation layer copied over from \code{2021-04-01}.
+\item \code{2021-05-04} Added nerves and full VNC (cell body rind) surface
+mesh. See
+\href{https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1620164087077600}{Slack
+message from Stuart Berg}. GSXEJ added the ROIs to
+
+\item \code{2021-04-01} With VNC ROIs. By April 2021 we were using
+\href{https://clio.janelia.org/}{Clio} for annotations.
+
+\item \code{2021-02-01} In early 2021 we were using a Janelia server hosting
+neuroglancer that allowed annotation through a hybrid DVID backend.
+
+The early 2021 server required authentication at
+\url{https://neuprint.janelia.org/} in order to use the annotation features.
+I recommend logging in and out of neuprint if you still get authentication
+errors from Neuroglancer when attempting to use the annotation layer.
+
+}
+}
+
 \examples{
 \dontrun{
 browseURL(manc_scene())
 # copy scene information with a sample neuron to the clipboard
-clipr::read_clip(manc_scene(ids=13749))
+clipr::write_clip(manc_scene(ids=13749))
 
 # JSON fragment that could be copied into Clio
-clipr::read_clip(manc_scene(return.json = TRUE))
+clipr::write_clip(manc_scene(return.json = TRUE))
 
 }
 }
