@@ -80,7 +80,6 @@ manc_scene <- function(ids=NULL, node=manc_dvid_node('clio'),
     )
 
   url <- if(isTRUE(basescene=='2021-02-01')) {
-    url=fafbseg::ngl_decode_scene(url)
     if(isTRUE(length(ids)>0))
       fafbseg::ngl_segments(url) <- ids
     url
