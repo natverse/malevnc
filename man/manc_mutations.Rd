@@ -27,16 +27,17 @@ A \code{tibble} with columns including: \itemize{
 
   \item Action: merge, cleave, supervoxel-split
 
-  \item App: NeuTu/Neu3
+  \item App: Typically NeuTu/Neu3
 
   \item Target: For NeuTu the bodyid of the (larger) target object
 
   \item Labels: For NeuTu the bodyids of the (smaller) objects being merged
-  in
+  into the (larger) target object.
 
-  \item CleavedLabel: For Neu3 the label of the smaller cleaved body
+  \item CleavedLabel: For Neu3 the label of the new smaller cleaved body
 
-  \item OrigLabel: For Neu3 the label of the larger cleaved body
+  \item OrigLabel: For Neu3 the label of the larger cleaved body (which
+  should retain its id)
 
   \item Timestamp: Absolute time in UTC at which change was committed in
   \code{POSIXct} format.

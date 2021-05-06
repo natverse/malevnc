@@ -4,7 +4,7 @@
 \name{malevnc-package}
 \alias{malevnc}
 \alias{malevnc-package}
-\title{malevnc: Support for working with Janelia FlyEM Male VNC dataset}
+\title{malevnc: Support for Working with Janelia FlyEM Male VNC Dataset}
 \description{
 Will provide regional surface meshes and template
     brain support for the Janelia FlyEM / Hess lab male VNC data set
