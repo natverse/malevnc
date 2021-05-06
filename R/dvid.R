@@ -49,3 +49,59 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
   names(info$DAG$Nodes)[which.max(versions)]
 }
 
+# private for now, but when we have a spec we like we should make it public
+manc_nodespec <- function(nodes, include_first=NA) {
+  if(isTRUE(nodes=='all')) {
+    nodes=manc_node_chain()
+  } else {
+    nodes=gsub("(master|neutu)", manc_dvid_node("neutu"), nodes)
+    nodes=gsub("clio", manc_dvid_node('clio'), nodes)
+    nodes=gsub("neuprint", manc_dvid_node('clio'), nodes)
+
+    if(grepl(":", nodes)) {
+      nn=unlist(strsplit(nodes, ":", fixed=T))
+      stopifnot(length(nn)==2)
+      # accept integer versions also
+      rint=suppressWarnings(as.integer(nn[1]))
+      if(isTRUE(rint<1e6)) nn[1]=rint
+      hint=suppressWarnings(as.integer(nn[2]))
+      if(isTRUE(hint<1e6)) nn[2]=hint
+
+      nodes=manc_node_chain(root=nn[1], head=nn[2])
+      if(is.na(include_first) || !include_first)
+        nodes=nodes[-1]
+    }
+  }
+  nodes
+}
+
+# return the chain of nodes between the root and the current head
+# not too clever: someday we might want to use a proper graph traversal
+# specifying the nodes
+# can optionally specify a different root or head node
+manc_node_chain <- function(root=NULL, head=NULL) {
+  info=manc_dvid_info()
+  dagdf=list2df(manc_dvid_info()$DAG$Nodes)
+  dagdf=dagdf[order(dagdf$VersionID),,drop=F]
+  dagdf=dagdf[nchar(dagdf$Children)>0 | !dagdf$Locked, ]
+
+  if(!is.null(head)) {
+    stopversion <- if(is.integer(head)) head
+    else {
+      stopifnot(head %in% dagdf$UUID)
+      stopversion=dagdf$VersionID[match(head, dagdf$UUID)]
+    }
+    stopifnot(stopversion %in% dagdf$VersionID)
+    dagdf=dagdf[dagdf$VersionID <= stopversion,]
+  }
+  if(!is.null(root)) {
+    startversion <- if(is.integer(root)) root
+    else {
+      stopifnot(root %in% dagdf$UUID)
+      startversion=dagdf$VersionID[match(root, dagdf$UUID)]
+    }
+    stopifnot(startversion %in% dagdf$VersionID)
+    dagdf=dagdf[dagdf$VersionID >= startversion,]
+  }
+  dagdf$UUID
+}

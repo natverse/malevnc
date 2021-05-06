@@ -3,6 +3,7 @@
 export(manc_dvid_annotations)
 export(manc_dvid_node)
 export(manc_lr_position)
+export(manc_mutations)
 export(manc_neuprint)
 export(manc_scene)
 export(manc_user_annotations)
