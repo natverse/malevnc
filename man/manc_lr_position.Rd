@@ -20,9 +20,13 @@ A vector of point displacements in microns where 0 is at the midline
 Calculate the left-right position wrt to the symmetrised MANC midline
 }
 \examples{
+\donttest{
 library(nat)
+if(!is.null(cmtk.bindir())) {
 lr=manc_lr_position(xyzmatrix(mancsomapos)/125)
 # red for left, green for right (nautical convention)
 points3d(xyzmatrix(mancsomapos), col=ifelse(lr<0, "red","green"))
 plot3d(boundingbox(mancsomapos))
+}
+}
 }

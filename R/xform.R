@@ -94,11 +94,15 @@ symmetric_manc <- function(x, level=c(5,4), mirror=FALSE, ...) {
 #' @export
 #' @importFrom nat xyzmatrix
 #' @examples
+#' \donttest{
 #' library(nat)
+#' if(!is.null(cmtk.bindir())) {
 #' lr=manc_lr_position(xyzmatrix(mancsomapos)/125)
 #' # red for left, green for right (nautical convention)
 #' points3d(xyzmatrix(mancsomapos), col=ifelse(lr<0, "red","green"))
 #' plot3d(boundingbox(mancsomapos))
+#' }
+#' }
 manc_lr_position <- function(x, ...) {
   mirror_reg_f=mirror_manc_reglist(level=5)
   xyz=xyzmatrix(x)
