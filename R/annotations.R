@@ -145,3 +145,61 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
   names(df)=cdf
   df
 }
+
+
+#' Return clio-store body annotations for set of ids or a flexible query
+#'
+#' @param ids A vector of one or more ids
+#' @param query A json query string (see examples or documentation)
+#' @param config An optional httr::config (expert use only, must include a
+#'   bearer token)
+#' @param json Whether to return unparsed JSON rather than an R list (default
+#'   \code{FALSE}).
+#'
+#' @return An R list or a character vector containing JSON
+#' @export
+#'
+#' @family manc-annotation
+#' @seealso
+#' \href{https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit}{basic
+#' docs from Bill Katz}.
+#' @examples
+#' \dontrun{
+#' manc_body_annotations(ids=11442)
+#' manc_body_annotations(query='{"hemilineage": "0B"}')
+#'
+#' }
+manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL) {
+  nmissing=sum(is.null(ids), is.null(query))
+  if(nmissing!=1)
+    stop("you must provide exactly one of `ids` or `query` as input!")
+  if(isTRUE(length(ids)>1)) {
+    ids=paste(as.character(bit64::as.integer64(ids)), collapse = ',')
+  }
+  if (is.null(config))
+    config = c(httr::config(),
+               httr::add_headers(Authorization = paste("Bearer", clio_token(token.only = T))))
+  baseurl="https://clio-store-vwzoicitea-uk.a.run.app/v2/json-annotations/VNC/neurons"
+  if(!is.null(ids)) {
+    u=sprintf("%s/id-number/%s", baseurl, ids)
+    body=NULL
+  } else {
+    u=sprintf("%s/query", baseurl)
+    body <- if(is.list(query))
+      jsonlite::toJSON(query, auto_unbox = TRUE)
+    else {
+      if(!isTRUE(jsonlite::validate(query)))
+        stop("Query is not valid JSON!")
+      query
+    }
+  }
+  resp=httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
+                  config=config,
+                  url = u,
+                  body = body,
+                  # encode = "json",
+                  query = list(changes = "false", id_field = "bodyid"))
+  httr::stop_for_status(resp)
+  res=httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
+  if(json) res else jsonlite::fromJSON(res, )
+}
