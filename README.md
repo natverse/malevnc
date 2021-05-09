@@ -8,8 +8,8 @@
 The goal of malevnc is to provide a package to support analysis on the Janelia
 male VNC dataset aka (MANC). Note that this package points to private resources
 made available by the male VNC project led by the FlyEM team at Janelia.
-Please do not share with anyone who does not have permissions to access the VNC
-neuprint dataset.
+You will therefore need appropriate authorisation both to install the package
+from github and access the data.
 
 ## Installation
 
@@ -30,6 +30,10 @@ natmanager::check_pat()
 to check and follow the instructions if necessary to create. 
 See https://usethis.r-lib.org/articles/articles/git-credentials.html for the 
 gory details.
+
+Access to neuprint / Clio then depends on authorisation. For neuprint, please
+see https://github.com/natverse/neuprintr. For Clio, you will prompted to 
+authenticate via a Google OAuth "dance" in your web browser.
 
 ## Example
 
