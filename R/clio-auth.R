@@ -64,7 +64,7 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
 #' @description \code{clio_token} returns a token to use for clio store queries.
 #'   Experts may wish to use this to construct their own API requests.
 #' @param token.only Whether to return just the Bearer token as a character
-#'   vector (default FALSE returns a \code{\link{Token2.0}} object).
+#'   vector (default \code{FALSE} returns a \code{\link{Token2.0}} object).
 #' @export
 clio_token <- function(token.only=FALSE) {
   if (isFALSE(.auth$auth_active))

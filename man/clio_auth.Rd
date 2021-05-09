@@ -24,7 +24,7 @@ clio_token(token.only = FALSE)
 \item{...}{Additional arguments passed to \code{gargle::\link{token_fetch}}}
 
 \item{token.only}{Whether to return just the Bearer token as a character
-vector (default FALSE returns a \code{\link{Token2.0}} object).}
+vector (default \code{FALSE} returns a \code{\link{Token2.0}} object).}
 }
 \description{
 \code{clio_auth} authorises malevnc to view and edit data in the
