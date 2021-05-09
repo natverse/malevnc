@@ -5,6 +5,8 @@
   auth_active = TRUE
 )
 
+.authinfo <- new.env()
+
 #' Clio authorisation infrastructure using Google via the gargle package
 #'
 #' @description \code{clio_auth} authorises malevnc to view and edit data in the
@@ -36,7 +38,7 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
                                         gargle::gargle_oauth_email()),
                       cache = gargle::gargle_oauth_cache(),
                       ...) {
-  cred <-
+  token <-
     gargle::token_fetch(
       package = 'malevnc',
       email = getOption("malevnc.clio_email", gargle::gargle_oauth_email()),
@@ -44,14 +46,17 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
       ...
     )
   # scopes = "https://www.googleapis.com/auth/datastore",
-  if (!inherits(cred, "Token2.0")) {
+  if (!inherits(token, "Token2.0")) {
+    store_token_expiry(NULL)
     stop(
       "Clio/Google auth failure. Do you have access rights to VNC clio?\n",
       "Try specifying the email linked to clio in a call to `clio_auth` or setting `options(malevnc.clio_email)`!"
     )
   }
-  .auth$set_cred(cred)
+  now=Sys.time()
+  .auth$set_cred(token)
   .auth$set_auth_active(TRUE)
+  store_token_expiry(token, now)
   invisible()
 }
 
@@ -67,5 +72,25 @@ clio_token <- function(token.only=FALSE) {
 
   if (!inherits(.auth$cred, "Token2.0"))
     clio_auth()
+
+  token=.auth$cred
+
+  if(!is.null(.authinfo$expires)) {
+    now <- Sys.time()
+    # if we have less than a minute left, refresh
+    if(difftime(.authinfo$expires, now, units='s')<60){
+      token$refresh()
+      store_token_expiry(token, now)
+    }
+  }
+
   if(token.only) .auth$cred$credentials$id_token else .auth$cred
+}
+
+store_token_expiry <- function(token=NULL, start=Sys.time()) {
+  if(is.null(token))
+    .authinfo$expires=NULL
+  else
+    .authinfo$expires=start+token$credentials$expires_in
+  invisible()
 }
