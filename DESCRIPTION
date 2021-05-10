@@ -27,7 +27,9 @@ Imports:
     cachem,
     httr,
     jsonlite,
-    dplyr
+    dplyr,
+    bit64,
+    gargle
 Suggests: 
     testthat,
     dracor,
