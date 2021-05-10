@@ -127,7 +127,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-server-connections-and-ids" class="hasAnchor"><a href="#section-server-connections-and-ids" class="anchor"></a>Server connections and ids</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -139,16 +139,41 @@
       <tr>
         
         <td>
-          <p><code><a href="MANC.surf.html">MANC.surf</a></code> </p>
+          <p><code><a href="manc_neuprint.html">manc_neuprint()</a></code> </p>
         </td>
-        <td><p>Surface model of neuropils in the MANC dataset</p></td>
+        <td><p>Login to MANC neuprint server</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="clio_auth.html">clio_auth()</a></code> <code><a href="clio_auth.html">clio_token()</a></code> </p>
+          <p><code><a href="manc_dvid_node.html">manc_dvid_node()</a></code> </p>
         </td>
-        <td><p>Clio authorisation infrastructure using Google via the gargle package</p></td>
+        <td><p>Return the latest DVID node</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_scene.html">manc_scene()</a></code> </p>
+        </td>
+        <td><p>Return a Neuroglancer scene URL for MANC dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_xyz2bodyid.html">manc_xyz2bodyid()</a></code> </p>
+        </td>
+        <td><p>Find the bodyid for an XYZ location</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-annotations" class="hasAnchor"><a href="#section-annotations" class="anchor"></a>Annotations</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="manc_body_annotations.html">manc_body_annotations()</a></code> </p>
@@ -163,9 +188,40 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="manc_dvid_node.html">manc_dvid_node()</a></code> </p>
+          <p><code><a href="manc_mutations.html">manc_mutations()</a></code> </p>
         </td>
-        <td><p>Return the latest DVID node</p></td>
+        <td><p>Get all the modifications associated with one or more DVID nodes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="clio_auth.html">clio_auth()</a></code> <code><a href="clio_auth.html">clio_token()</a></code> </p>
+        </td>
+        <td><p>Clio authorisation infrastructure using Google via the gargle package</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-meshes-and-geometry" class="hasAnchor"><a href="#section-meshes-and-geometry" class="anchor"></a>Meshes and Geometry</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="read_manc_meshes.html">read_draco_meshes()</a></code> <code><a href="read_manc_meshes.html">read_manc_meshes()</a></code> </p>
+        </td>
+        <td><p>Read draco encoded 3D meshes from tarballs (as used by Janelia FlyEM)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mirror_manc.html">mirror_manc()</a></code> <code><a href="mirror_manc.html">symmetric_manc()</a></code> </p>
+        </td>
+        <td><p>Mirror points or other 3D objects along the MANC midline</p></td>
       </tr><tr>
         
         <td>
@@ -175,34 +231,23 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="manc_mutations.html">manc_mutations()</a></code> </p>
-        </td>
-        <td><p>Get all the modifications associated with one or more DVID nodes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="manc_neuprint.html">manc_neuprint()</a></code> </p>
-        </td>
-        <td><p>Login to MANC neuprint server</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="manc_scene.html">manc_scene()</a></code> </p>
-        </td>
-        <td><p>Return a Neuroglancer scene URL for MANC dataset</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="manc_user_annotations.html">manc_user_annotations()</a></code> </p>
         </td>
         <td><p>Read point annotations from DVID using neuprint authentication</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="manc_xyz2bodyid.html">manc_xyz2bodyid()</a></code> </p>
-        </td>
-        <td><p>Find the bodyid for an XYZ location</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data-objects" class="hasAnchor"><a href="#section-data-objects" class="anchor"></a>Data objects</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="mancneckseeds.html">mancneckseeds</a></code> </p>
@@ -217,15 +262,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="mirror_manc.html">mirror_manc()</a></code> <code><a href="mirror_manc.html">symmetric_manc()</a></code> </p>
+          <p><code><a href="MANC.surf.html">MANC.surf</a></code> </p>
         </td>
-        <td><p>Mirror points or other 3D objects along the MANC midline</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_manc_meshes.html">read_draco_meshes()</a></code> <code><a href="read_manc_meshes.html">read_manc_meshes()</a></code> </p>
-        </td>
-        <td><p>Read draco encoded 3D meshes from tarballs (as used by Janelia FlyEM)</p></td>
+        <td><p>Surface model of neuropils in the MANC dataset</p></td>
       </tr>
     </tbody>
     </table>
