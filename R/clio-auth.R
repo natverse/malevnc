@@ -38,6 +38,9 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
                                         gargle::gargle_oauth_email()),
                       cache = gargle::gargle_oauth_cache(),
                       ...) {
+  # seems like we must force authentication on session startup
+  if(is.null(.authinfo$expires))
+    cache=FALSE
   token <-
     gargle::token_fetch(
       package = 'malevnc',
