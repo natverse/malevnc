@@ -137,3 +137,19 @@ manc_islatest <- function(ids, node=manc_dvid_node("neutu"), ...) {
   res=httr::HEAD(u, ...)
   httr::status_code(res)==200L
 }
+
+
+#' Retun the size (in voxels) of specified bodies
+#'
+#' @inheritParams manc_islatest
+#' @return Numeric vector of voxel sizes
+#' @export
+#'
+#' @examples
+#' manc_size(10056)
+manc_size <- function(ids, node=manc_dvid_node("neutu")) {
+  # we don't want them to look like character
+  bodyj=jsonlite::toJSON(bit64::as.integer64(ids))
+  res=manc_get("api/node/%s/segmentation/sizes", body=bodyj, node)
+  res
+}
