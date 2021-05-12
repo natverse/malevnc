@@ -105,3 +105,35 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
   }
   rr
 }
+
+
+#' Check if a bodyid still exists in the specified DVID node
+#'
+#' @details Note that this is still quite slow (5-10 bodies per second from Cambridge)
+
+#' @param ids A set of body ids
+#' @param node A DVID node (defaults to the current neutu node, see
+#'   \code{\link{manc_dvid_node}})
+#' @param ... Additional arguments passed to \code{\link{pbsapply}} and then
+#'   eventually to \code{httr::\link{HEAD}}
+#'
+#' @return A logical vector indicating if the body exists (TRUE) or not (FALSE).
+#' @export
+#'
+#' @examples
+#' manc_islatest(10056)
+#'
+#' \dontrun{
+#' manc_islatest(10056:10058)
+#'
+#' manc_islatest(10056:10058, manc_dvid_node("clio"))
+#' }
+manc_islatest <- function(ids, node=manc_dvid_node("neutu"), ...) {
+  if(length(ids)>1) {
+    res=pbapply::pbsapply(ids, manc_islatest, node=node, ...)
+    return(res)
+  }
+  u=manc_serverurl("api/node/%s/segmentation/sparsevol/%s", node, ids)
+  res=httr::HEAD(u, ...)
+  httr::status_code(res)==200L
+}
