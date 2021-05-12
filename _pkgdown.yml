@@ -29,16 +29,22 @@ navbar:
       href: SUPPORT.html
 
 reference:
-- title: Server connections and ids
+- title: Server connections
   contents:
   - '`manc_neuprint`'
   - '`manc_dvid_node`'
   - '`manc_scene`'
+  title: Body information and ids
+  contents:
   - '`manc_xyz2bodyid`'
+  - '`manc_islatest`'
+  - '`manc_size`'
 - title: Annotations
   contents:
   - '`manc_body_annotations`'
   - '`manc_dvid_annotations`'
+  - '`manc_point_annotations`'
+  - '`manc_user_annotations`'
   - '`manc_mutations`'
   - '`clio_auth`'
 - title: Meshes and Geometry
@@ -46,7 +52,6 @@ reference:
   - '`read_draco_meshes`'
   - '`mirror_manc`'
   - '`manc_lr_position`'
-  - '`manc_user_annotations`'
 - title: Data objects
   contents:
   - '`mancneckseeds`'
