@@ -9,7 +9,8 @@ manc_body_annotations(ids = NULL, query = NULL, json = FALSE, config = NULL)
 \arguments{
 \item{ids}{A vector of one or more ids}
 
-\item{query}{A json query string (see examples or documentation)}
+\item{query}{A json query string (see examples or documentation) or an R list
+with field names as elements.}
 
 \item{json}{Whether to return unparsed JSON rather than an R list (default
 \code{FALSE}).}
@@ -18,10 +19,16 @@ manc_body_annotations(ids = NULL, query = NULL, json = FALSE, config = NULL)
 bearer token)}
 }
 \value{
-An R list or a character vector containing JSON
+An R data.frame or a character vector containing JSON (when
+  \code{json=TRUE}).
 }
 \description{
 Return clio-store body annotations for set of ids or a flexible query
+}
+\details{
+Missing values in each output column are filled with NA. But if a
+  whole column is missing from the results of a particular query then it will
+  not appear at all.
 }
 \examples{
 \dontrun{

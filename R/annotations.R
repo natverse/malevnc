@@ -149,14 +149,19 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
 
 #' Return clio-store body annotations for set of ids or a flexible query
 #'
+#' @details Missing values in each output column are filled with NA. But if a
+#'   whole column is missing from the results of a particular query then it will
+#'   not appear at all.
 #' @param ids A vector of one or more ids
-#' @param query A json query string (see examples or documentation)
+#' @param query A json query string (see examples or documentation) or an R list
+#'   with field names as elements.
 #' @param config An optional httr::config (expert use only, must include a
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
 #'   \code{FALSE}).
 #'
-#' @return An R list or a character vector containing JSON
+#' @return An R data.frame or a character vector containing JSON (when
+#'   \code{json=TRUE}).
 #' @export
 #'
 #' @family manc-annotation
@@ -201,5 +206,5 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL)
                   query = list(changes = "false", id_field = "bodyid"))
   httr::stop_for_status(resp)
   res=httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
-  if(json) res else jsonlite::fromJSON(res, )
+  if(json) res else jsonlite::fromJSON(res)
 }
