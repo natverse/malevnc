@@ -4,14 +4,12 @@
 \alias{manc_xyz2bodyid}
 \title{Find the bodyid for an XYZ location}
 \usage{
-manc_xyz2bodyid(xyz, node = manc_dvid_node("neutu"), viafile = NA)
+manc_xyz2bodyid(xyz, node = manc_dvid_node("neutu"))
 }
 \arguments{
 \item{xyz}{location in raw pixels}
 
 \item{node}{a DVID node}
-
-\item{viafile}{whether to use a file to pass data to curl (expert use only)}
 }
 \value{
 A character vector of body ids

@@ -2,7 +2,6 @@
 #'
 #' @param xyz location in raw pixels
 #' @param node a DVID node
-#' @param viafile whether to use a file to pass data to curl (expert use only)
 #'
 #' @return A character vector of body ids
 #' @export
@@ -17,7 +16,7 @@
 #' \dontrun{
 #' manc_scene(ids=dups)
 #' }
-manc_xyz2bodyid <- function(xyz, node = manc_dvid_node('neutu'), viafile=NA) {
+manc_xyz2bodyid <- function(xyz, node = manc_dvid_node('neutu')) {
   if(isFALSE(nzchar(Sys.which('curl'))))
     stop("manc_xyz2bodyid currently requires the curl command line tool to be present in your path!")
   if(!is.matrix(xyz) && is.numeric(xyz) && length(xyz)==3) {
@@ -27,24 +26,7 @@ manc_xyz2bodyid <- function(xyz, node = manc_dvid_node('neutu'), viafile=NA) {
   xyzmat=round(xyzmat)
   mode(xyzmat)='integer'
 
-  if(is.na(viafile))
-    viafile=nrow(xyzmat)>4000
-
-  if(viafile) {
-    tf <- tempfile()
-    on.exit(unlink(tf))
-  }
-
-  bodyj <- jsonlite::toJSON(xyzmat)
-  url <- manc_serverurl('api/node/%s/segmentation/labels', node)
-  if(viafile) {
-    writeLines(bodyj, con=tf)
-    cmd=sprintf('curl -X GET --silent --data-binary "@%s" %s', tf, url)
-  } else {
-    cmd=sprintf('curl -X GET --silent --data "%s" %s', bodyj, url)
-  }
-  res=system(cmd, intern=T)
-  res2=jsonlite::fromJSON(res, simplifyVector = T)
+  res2=manc_get('api/node/%s/segmentation/labels', body=xyzmat, node)
   res2
 }
 
