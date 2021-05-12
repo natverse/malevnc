@@ -201,3 +201,27 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL)
 
 }
 
+
+#' Return point annotations from Clio store
+#'
+#' @param groups Defines a group for which we would like to see all annotations. When NULL, only returns annotations for your own user.
+#'
+#' @family manc-annotation
+#' @return A data.frame of annotations
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' mpa=manc_point_annotations()
+#' head(mpa)
+#' }
+manc_point_annotations <- function(groups="UK Drosophila Connectomics") {
+
+  u="https://clio-store-vwzoicitea-uk.a.run.app/v2/annotations/VNC"
+
+  if(!is.null(groups)) {
+    groups=gsub(" ", "+", groups)
+    u=paste0(u, "?groups=", groups)
+  }
+  clio_fetch(u)
+}

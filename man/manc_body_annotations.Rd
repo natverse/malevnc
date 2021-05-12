@@ -40,5 +40,8 @@ manc_body_annotations(query='{"hemilineage": "0B"}')
 \seealso{
 \href{https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit}{basic
 docs from Bill Katz}.
+
+Other manc-annotation: 
+\code{\link{manc_point_annotations}()}
 }
 \concept{manc-annotation}

@@ -103,13 +103,21 @@ clio_fetch <- function(url, body=NULL, query=NULL, config=NULL, json=FALSE, ...)
   if (is.null(config))
     config = c(httr::config(),
                httr::add_headers(Authorization = paste("Bearer", clio_token(token.only = T))))
+  resp <- if(is.null(query)){
+    httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
+                    config=config,
+                    url = url,
+                    body = body,
+                    ...)
+  } else {
+    httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
+                    config=config,
+                    url = url,
+                    body = body,
+                    query = query,
+                    ...)
 
-  resp=httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
-                  config=config,
-                  url = url,
-                  body = body,
-                  # encode = "json",
-                  query = query, ...)
+  }
   httr::stop_for_status(resp)
   res=httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
   if(json) res else jsonlite::fromJSON(res)
