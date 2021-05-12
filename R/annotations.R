@@ -181,9 +181,6 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL)
   if(isTRUE(length(ids)>1)) {
     ids=paste(as.character(bit64::as.integer64(ids)), collapse = ',')
   }
-  if (is.null(config))
-    config = c(httr::config(),
-               httr::add_headers(Authorization = paste("Bearer", clio_token(token.only = T))))
   baseurl="https://clio-store-vwzoicitea-uk.a.run.app/v2/json-annotations/VNC/neurons"
   if(!is.null(ids)) {
     u=sprintf("%s/id-number/%s", baseurl, ids)
@@ -198,13 +195,9 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL)
       query
     }
   }
-  resp=httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
-                  config=config,
-                  url = u,
-                  body = body,
-                  # encode = "json",
-                  query = list(changes = "false", id_field = "bodyid"))
-  httr::stop_for_status(resp)
-  res=httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
-  if(json) res else jsonlite::fromJSON(res)
+  clio_fetch(u, body = body,
+           query=list(changes = "false", id_field = "bodyid"),
+           config = config, json = json)
+
 }
+
