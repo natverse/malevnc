@@ -80,7 +80,7 @@ jobs:
 
       - name: Install fafbseg + python
         run: |
-          remotes::install_local()
+          remotes::install_local(force=TRUE)
           library(fafbseg)
           simple_python()
           dr_fafbseg()
