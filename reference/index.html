@@ -127,7 +127,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-server-connections-and-ids" class="hasAnchor"><a href="#section-server-connections-and-ids" class="anchor"></a>Server connections and ids</h2>
+          <h2 id="section-server-connections" class="hasAnchor"><a href="#section-server-connections" class="anchor"></a>Server connections</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -154,12 +154,43 @@
           <p><code><a href="manc_scene.html">manc_scene()</a></code> </p>
         </td>
         <td><p>Return a Neuroglancer scene URL for MANC dataset</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-body-information-and-ids" class="hasAnchor"><a href="#section-body-information-and-ids" class="anchor"></a>Body information and ids</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="manc_xyz2bodyid.html">manc_xyz2bodyid()</a></code> </p>
         </td>
         <td><p>Find the bodyid for an XYZ location</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_islatest.html">manc_islatest()</a></code> </p>
+        </td>
+        <td><p>Check if a bodyid still exists in the specified DVID node</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_size.html">manc_size()</a></code> </p>
+        </td>
+        <td><p>Retun the size (in voxels) of specified bodies</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_mutations.html">manc_mutations()</a></code> </p>
+        </td>
+        <td><p>Get all the modifications associated with one or more DVID nodes</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -188,9 +219,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="manc_mutations.html">manc_mutations()</a></code> </p>
+          <p><code><a href="manc_point_annotations.html">manc_point_annotations()</a></code> </p>
         </td>
-        <td><p>Get all the modifications associated with one or more DVID nodes</p></td>
+        <td><p>Return point annotations from Clio store</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_user_annotations.html">manc_user_annotations()</a></code> </p>
+        </td>
+        <td><p>Read point annotations from DVID using neuprint authentication</p></td>
       </tr><tr>
         
         <td>
@@ -228,12 +265,6 @@
           <p><code><a href="manc_lr_position.html">manc_lr_position()</a></code> </p>
         </td>
         <td><p>Calculate the left-right position wrt to the symmetrised MANC midline</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="manc_user_annotations.html">manc_user_annotations()</a></code> </p>
-        </td>
-        <td><p>Read point annotations from DVID using neuprint authentication</p></td>
       </tr>
     </tbody><tbody>
       <tr>
