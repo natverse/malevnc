@@ -16,7 +16,7 @@ A data.frame of annotations
 Return point annotations from Clio store
 }
 \examples{
-\donttest{
+\dontrun{
 mpa=manc_point_annotations()
 head(mpa)
 }

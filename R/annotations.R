@@ -211,7 +211,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL)
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' mpa=manc_point_annotations()
 #' head(mpa)
 #' }
