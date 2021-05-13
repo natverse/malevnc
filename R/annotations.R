@@ -159,6 +159,7 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
 #'   \code{FALSE}).
+#' @param ... Additional arguments passed to \code{pbapply::\link{pblapply}}
 #'
 #' @return An R data.frame or a character vector containing JSON (when
 #'   \code{json=TRUE}).
@@ -172,17 +173,26 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
 #' \dontrun{
 #' manc_body_annotations(ids=11442)
 #' manc_body_annotations(query='{"hemilineage": "0B"}')
-#'
+#' manc_body_annotations(query=list(user="janedoe@gmail.com"))
+#' manc_body_annotations(query=list(soma_side="RHS"))
+#' manc_body_annotations(ids=manc_xyz2id(mancneckseeds))
 #' }
-manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL) {
+manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
+                                  ...) {
   nmissing=sum(is.null(ids), is.null(query))
   if(nmissing!=1)
     stop("you must provide exactly one of `ids` or `query` as input!")
-  if(isTRUE(length(ids)>1)) {
-    ids=paste(as.character(bit64::as.integer64(ids)), collapse = ',')
-  }
   baseurl="https://clio-store-vwzoicitea-uk.a.run.app/v2/json-annotations/VNC/neurons"
   if(!is.null(ids)) {
+    chunksize=1000
+    if(length(ids)>chunksize) {
+      chunknums=floor((seq_along(ids)-1)/chunksize)+1
+      chunkedids=split(ids, chunknums)
+      res=pbapply::pblapply(chunkedids, manc_body_annotations, json=json, config=config, ...)
+      return(dplyr::bind_rows(res))
+    }
+    if(length(ids)>1)
+      ids=paste(as.character(bit64::as.integer64(ids)), collapse = ',')
     u=sprintf("%s/id-number/%s", baseurl, ids)
     body=NULL
   } else {

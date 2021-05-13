@@ -4,7 +4,13 @@
 \alias{manc_body_annotations}
 \title{Return clio-store body annotations for set of ids or a flexible query}
 \usage{
-manc_body_annotations(ids = NULL, query = NULL, json = FALSE, config = NULL)
+manc_body_annotations(
+  ids = NULL,
+  query = NULL,
+  json = FALSE,
+  config = NULL,
+  ...
+)
 }
 \arguments{
 \item{ids}{A vector of one or more ids}
@@ -17,6 +23,8 @@ with field names as elements.}
 
 \item{config}{An optional httr::config (expert use only, must include a
 bearer token)}
+
+\item{...}{Additional arguments passed to \code{pbapply::\link{pblapply}}}
 }
 \value{
 An R data.frame or a character vector containing JSON (when
@@ -34,7 +42,9 @@ Missing values in each output column are filled with NA. But if a
 \dontrun{
 manc_body_annotations(ids=11442)
 manc_body_annotations(query='{"hemilineage": "0B"}')
-
+manc_body_annotations(query=list(user="janedoe@gmail.com"))
+manc_body_annotations(query=list(soma_side="RHS"))
+manc_body_annotations(ids=manc_xyz2id(mancneckseeds))
 }
 }
 \seealso{
