@@ -149,25 +149,26 @@ that useful for many. Default <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to pbapply</p></td>
+      <td><p>Additional arguments passed to <code>pbapply</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>tibble</code> with columns including:</p><ul>
-<li><p>Action: merge, cleave, supervoxel-split</p></li>
-<li><p>App: Typically NeuTu/Neu3</p></li>
-<li><p>Target: For NeuTu the bodyid of the (larger) target object</p></li>
-<li><p>Labels: For NeuTu the bodyids of the (smaller) objects being merged
-  into the (larger) target object.</p></li>
-<li><p>CleavedLabel: For Neu3 the label of the new smaller cleaved body</p></li>
-<li><p>OrigLabel: For Neu3 the label of the larger cleaved body (which
-  should retain its id)</p></li>
-<li><p>Timestamp: Absolute time in UTC at which change was committed in
-  <code>POSIXct</code> format.</p></li>
-<li><p>Reltimestamp: Relative timestamp (in seconds) referenced to the time
-  at which new DVID node was opened.</p></li>
+<li><p><code>Action</code>: merge, cleave, supervoxel-split</p></li>
+<li><p><code>App</code>: Typically NeuTu/Neu3</p></li>
+<li><p><code>Target</code>: For NeuTu the bodyid of the (larger) target object</p></li>
+<li><p><code>Labels</code>: For NeuTu the bodyids of the (smaller) objects being
+  merged into the (larger) target object.</p></li>
+<li><p><code>CleavedLabel</code>: For Neu3 the label of the new smaller cleaved
+  body</p></li>
+<li><p><code>OrigLabel</code>: For Neu3 the label of the larger cleaved body
+  (which should retain its id)</p></li>
+<li><p><code>Timestamp</code>: Absolute time in UTC at which change was committed
+  in <code>POSIXct</code> format.</p></li>
+<li><p><code>Reltimestamp</code>: Relative timestamp (in seconds) referenced to
+  the time at which new DVID node was opened.</p></li>
 </ul>
 
 
