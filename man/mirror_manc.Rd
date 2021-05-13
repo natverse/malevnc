@@ -17,7 +17,7 @@ symmetric_manc(x, level = c(5, 4), mirror = FALSE, ...)
 number = higher resolution. This is for expert/testing purposes only - just
 stick with the default.}
 
-\item{...}{additional arguments passed to xform and friends}
+\item{...}{additional arguments passed to \code{\link{xform}} and friends}
 
 \item{mirror}{Whether to mirror across the midline when using
 \code{symmetric_manc}}

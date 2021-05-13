@@ -62,7 +62,7 @@ read_draco_meshes <- function(x) {
 #'   is 5-10x greater.
 #'
 #'   In general we recommend using the \code{merged} format, especially as this
-#'   means that you can fethc many meshes at once.
+#'   means that you can fetch many meshes at once.
 #'
 #' @param id One or more MANC bodyids
 #' @param type Whether to return a single lower resolution mesh for each body id
@@ -72,7 +72,7 @@ read_draco_meshes <- function(x) {
 #' @param ... Additional arguments passed to \code{\link{pbsapply}}. to
 #' @param node the dvid node containing the dataset. See
 #'   \code{\link{manc_dvid_node}}
-#' @return a neuronlist containing one or more meshes
+#' @return a \code{\link{neuronlist}} containing one or more meshes
 #' @export
 #' @importFrom nat as.neuronlist
 #' @rdname read_manc_meshes

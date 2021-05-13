@@ -7,7 +7,7 @@
 #' @param level Which resolution level of the CMTK registrations to use. Higher
 #'   number = higher resolution. This is for expert/testing purposes only - just
 #'   stick with the default.
-#' @param ... additional arguments passed to xform and friends
+#' @param ... additional arguments passed to \code{\link{xform}} and friends
 #'
 #' @return Transformed points/object
 #' @export

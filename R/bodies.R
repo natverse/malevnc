@@ -27,29 +27,30 @@ manc_last_modified <- function(ids, node=manc_dvid_node('neutu'), ...) {
 #' @param bigcols Whether to include big columns in the results. The
 #'   CleavedSupervoxels column in particular is very large and probably is not
 #'   that useful for many. Default \code{FALSE}.
-#' @param ... Additional arguments passed to pbapply
+#' @param ... Additional arguments passed to \code{\link{pbapply}}
 #'
 #' @return A \code{tibble} with columns including: \itemize{
 #'
-#'   \item Action: merge, cleave, supervoxel-split
+#'   \item \code{Action}: merge, cleave, supervoxel-split
 #'
-#'   \item App: Typically NeuTu/Neu3
+#'   \item \code{App}: Typically NeuTu/Neu3
 #'
-#'   \item Target: For NeuTu the bodyid of the (larger) target object
+#'   \item \code{Target}: For NeuTu the bodyid of the (larger) target object
 #'
-#'   \item Labels: For NeuTu the bodyids of the (smaller) objects being merged
-#'   into the (larger) target object.
+#'   \item \code{Labels}: For NeuTu the bodyids of the (smaller) objects being
+#'   merged into the (larger) target object.
 #'
-#'   \item CleavedLabel: For Neu3 the label of the new smaller cleaved body
+#'   \item \code{CleavedLabel}: For Neu3 the label of the new smaller cleaved
+#'   body
 #'
-#'   \item OrigLabel: For Neu3 the label of the larger cleaved body (which
-#'   should retain its id)
+#'   \item \code{OrigLabel}: For Neu3 the label of the larger cleaved body
+#'   (which should retain its id)
 #'
-#'   \item Timestamp: Absolute time in UTC at which change was committed in
-#'   \code{POSIXct} format.
+#'   \item \code{Timestamp}: Absolute time in UTC at which change was committed
+#'   in \code{POSIXct} format.
 #'
-#'   \item Reltimestamp: Relative timestamp (in seconds) referenced to the time
-#'   at which new DVID node was opened. }
+#'   \item \code{Reltimestamp}: Relative timestamp (in seconds) referenced to
+#'   the time at which new DVID node was opened. }
 #'
 #' @export
 #'
@@ -134,7 +135,7 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
 manc_islatest <- function(ids, node=manc_dvid_node("neutu"),
                           method=c("auto", "size", 'sparsevol'), ...) {
   method=match.arg(method)
-  if(method=='auto') method=ifelse(length(ids)>1)
+  if(method=='auto') method=ifelse(length(ids)>1, "size", "sparsevol")
   if(method=='sparsevol') {
     manc_islatest_sparsevol(ids, node = node, ...)
   } else {

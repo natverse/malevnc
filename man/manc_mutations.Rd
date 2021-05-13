@@ -20,30 +20,31 @@ of "all".}
 CleavedSupervoxels column in particular is very large and probably is not
 that useful for many. Default \code{FALSE}.}
 
-\item{...}{Additional arguments passed to pbapply}
+\item{...}{Additional arguments passed to \code{\link{pbapply}}}
 }
 \value{
 A \code{tibble} with columns including: \itemize{
 
-  \item Action: merge, cleave, supervoxel-split
+  \item \code{Action}: merge, cleave, supervoxel-split
 
-  \item App: Typically NeuTu/Neu3
+  \item \code{App}: Typically NeuTu/Neu3
 
-  \item Target: For NeuTu the bodyid of the (larger) target object
+  \item \code{Target}: For NeuTu the bodyid of the (larger) target object
 
-  \item Labels: For NeuTu the bodyids of the (smaller) objects being merged
-  into the (larger) target object.
+  \item \code{Labels}: For NeuTu the bodyids of the (smaller) objects being
+  merged into the (larger) target object.
 
-  \item CleavedLabel: For Neu3 the label of the new smaller cleaved body
+  \item \code{CleavedLabel}: For Neu3 the label of the new smaller cleaved
+  body
 
-  \item OrigLabel: For Neu3 the label of the larger cleaved body (which
-  should retain its id)
+  \item \code{OrigLabel}: For Neu3 the label of the larger cleaved body
+  (which should retain its id)
 
-  \item Timestamp: Absolute time in UTC at which change was committed in
-  \code{POSIXct} format.
+  \item \code{Timestamp}: Absolute time in UTC at which change was committed
+  in \code{POSIXct} format.
 
-  \item Reltimestamp: Relative timestamp (in seconds) referenced to the time
-  at which new DVID node was opened. }
+  \item \code{Reltimestamp}: Relative timestamp (in seconds) referenced to
+  the time at which new DVID node was opened. }
 }
 \description{
 Get all the modifications associated with one or more DVID nodes

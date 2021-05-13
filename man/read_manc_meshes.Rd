@@ -33,7 +33,7 @@ resolution mesh for every supervoxel in a single bodyid
 A \code{\link{neuronlist}} object containing
   \code{rgl::\link[rgl]{mesh3d}} objects
 
-a neuronlist containing one or more meshes
+a \code{\link{neuronlist}} containing one or more meshes
 }
 \description{
 the low-level \code{read_draco_meshes} reads meshes from tarballs
@@ -58,7 +58,7 @@ There are currently two sets of meshes available: \itemize{
   is 5-10x greater.
 
   In general we recommend using the \code{merged} format, especially as this
-  means that you can fethc many meshes at once.
+  means that you can fetch many meshes at once.
 }
 \examples{
 \dontrun{

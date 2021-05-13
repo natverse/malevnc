@@ -34,7 +34,7 @@ A character vector containing a single Neuroglancer URL or a JSON
   fragment.
 }
 \description{
-The defaul behaviour is to generate a rich neuroglancer scene
+The default behaviour is to generate a rich neuroglancer scene
   with including any passed \code{ids} using the current Clio DVID node. This
   means that meshes should be in sync. See
   \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1619825198227100?thread_ts=1619816902.216600&cid=C01MYQ1AQ5D}{this

@@ -35,7 +35,8 @@ Suggests:
     dracor,
     rgl,
     fafbseg,
-    reticulate
+    reticulate,
+    spelling
 URL: https://github.com/flyconnectome/malevnc
 BugReports: https://github.com/flyconnectome/malevnc/issues
 Depends: 
@@ -45,3 +46,4 @@ Remotes:
     natverse/neuprintr,
     natverse/nat.templatebrains,
     natverse/fafbseg
+Language: en-GB
