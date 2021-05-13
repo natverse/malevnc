@@ -123,7 +123,13 @@
     <p>Return clio-store body annotations for set of ids or a flexible query</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_body_annotations</span><span class='op'>(</span>ids <span class='op'>=</span> <span class='cn'>NULL</span>, query <span class='op'>=</span> <span class='cn'>NULL</span>, json <span class='op'>=</span> <span class='cn'>FALSE</span>, config <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>manc_body_annotations</span><span class='op'>(</span>
+  ids <span class='op'>=</span> <span class='cn'>NULL</span>,
+  query <span class='op'>=</span> <span class='cn'>NULL</span>,
+  json <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  config <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,6 +153,10 @@ with field names as elements.</p></td>
       <td><p>An optional httr::config (expert use only, must include a
 bearer token)</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to <code><a href='https://rdrr.io/pkg/pbapply/man/pbapply.html'>pbapply::pblapply</a></code></p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -169,7 +179,9 @@ docs from Bill Katz</a>.</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='fu'>manc_body_annotations</span><span class='op'>(</span>ids<span class='op'>=</span><span class='fl'>11442</span><span class='op'>)</span>
 <span class='fu'>manc_body_annotations</span><span class='op'>(</span>query<span class='op'>=</span><span class='st'>'{"hemilineage": "0B"}'</span><span class='op'>)</span>
-
+<span class='fu'>manc_body_annotations</span><span class='op'>(</span>query<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>user<span class='op'>=</span><span class='st'>"janedoe@gmail.com"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>manc_body_annotations</span><span class='op'>(</span>query<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>soma_side<span class='op'>=</span><span class='st'>"RHS"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>manc_body_annotations</span><span class='op'>(</span>ids<span class='op'>=</span><span class='fu'>manc_xyz2id</span><span class='op'>(</span><span class='va'>mancneckseeds</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
