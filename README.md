@@ -32,7 +32,8 @@ See https://usethis.r-lib.org/articles/articles/git-credentials.html for the
 gory details.
 
 Access to neuprint / Clio then depends on authorisation. For neuprint, please
-see https://github.com/natverse/neuprintr. For Clio, you will prompted to 
+see https://github.com/natverse/neuprintr#authentication; you only need to set
+the `neuprint_token` environment variable. For Clio, you will prompted to 
 authenticate via a Google OAuth "dance" in your web browser.
 
 ## Example
