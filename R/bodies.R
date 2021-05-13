@@ -109,11 +109,14 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
 
 #' Check if a bodyid still exists in the specified DVID node
 #'
-#' @details Note that this is still quite slow (5-10 bodies per second from Cambridge)
+#' @details Note that this is still quite slow (typically 5-30 bodies per second
+#'   from Cambridge). When more than one body id is provided this actually uses
+#'   \code{\link{manc_size}} to check if the body has >0 voxels.
 
 #' @param ids A set of body ids
 #' @param node A DVID node (defaults to the current neutu node, see
 #'   \code{\link{manc_dvid_node}})
+#' @param method Which DVID endpoint to use. Expert use only.
 #' @param ... Additional arguments passed to \code{\link{pbsapply}} and then
 #'   eventually to \code{httr::\link{HEAD}}
 #'
@@ -128,7 +131,19 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
 #'
 #' manc_islatest(10056:10058, manc_dvid_node("clio"))
 #' }
-manc_islatest <- function(ids, node=manc_dvid_node("neutu"), ...) {
+manc_islatest <- function(ids, node=manc_dvid_node("neutu"),
+                          method=c("auto", "size", 'sparsevol'), ...) {
+  method=match.arg(method)
+  if(method=='auto') method=ifelse(length(ids)>1)
+  if(method=='sparsevol') {
+    manc_islatest_sparsevol(ids, node = node, ...)
+  } else {
+    sizes=manc_size(ids, node=node)
+    # should be 0 when missing, but just in case
+    sizes>0 & !is.na(sizes)
+  }
+}
+manc_islatest_sparsevol <- function(ids, node=manc_dvid_node("neutu"), ...) {
   if(length(ids)>1) {
     res=pbapply::pbsapply(ids, manc_islatest, node=node, ...)
     return(res)
@@ -138,8 +153,7 @@ manc_islatest <- function(ids, node=manc_dvid_node("neutu"), ...) {
   httr::status_code(res)==200L
 }
 
-
-#' Retun the size (in voxels) of specified bodies
+#' Return the size (in voxels) of specified bodies
 #'
 #' @inheritParams manc_islatest
 #' @return Numeric vector of voxel sizes
@@ -147,9 +161,13 @@ manc_islatest <- function(ids, node=manc_dvid_node("neutu"), ...) {
 #'
 #' @examples
 #' manc_size(10056)
+#' # zero as doesn't exist
+#' manc_size(10000056)
 manc_size <- function(ids, node=manc_dvid_node("neutu")) {
   # we don't want them to look like character
   bodyj=jsonlite::toJSON(bit64::as.integer64(ids))
-  res=manc_get("api/node/%s/segmentation/sizes", body=bodyj, node)
-  res
+  sizes=manc_get("api/node/%s/segmentation/sizes", body=bodyj, node)
+  if(length(sizes)!=length(ids))
+    stop("DVID sizes endpoint did not return the right number of elements!")
+  sizes
 }

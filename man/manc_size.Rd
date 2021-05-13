@@ -2,7 +2,7 @@
 % Please edit documentation in R/bodies.R
 \name{manc_size}
 \alias{manc_size}
-\title{Retun the size (in voxels) of specified bodies}
+\title{Return the size (in voxels) of specified bodies}
 \usage{
 manc_size(ids, node = manc_dvid_node("neutu"))
 }
@@ -16,8 +16,10 @@ manc_size(ids, node = manc_dvid_node("neutu"))
 Numeric vector of voxel sizes
 }
 \description{
-Retun the size (in voxels) of specified bodies
+Return the size (in voxels) of specified bodies
 }
 \examples{
 manc_size(10056)
+# zero as doesn't exist
+manc_size(10000056)
 }

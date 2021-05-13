@@ -4,13 +4,20 @@
 \alias{manc_islatest}
 \title{Check if a bodyid still exists in the specified DVID node}
 \usage{
-manc_islatest(ids, node = manc_dvid_node("neutu"), ...)
+manc_islatest(
+  ids,
+  node = manc_dvid_node("neutu"),
+  method = c("auto", "size", "sparsevol"),
+  ...
+)
 }
 \arguments{
 \item{ids}{A set of body ids}
 
 \item{node}{A DVID node (defaults to the current neutu node, see
 \code{\link{manc_dvid_node}})}
+
+\item{method}{Which DVID endpoint to use. Expert use only.}
 
 \item{...}{Additional arguments passed to \code{\link{pbsapply}} and then
 eventually to \code{httr::\link{HEAD}}}
@@ -22,7 +29,9 @@ A logical vector indicating if the body exists (TRUE) or not (FALSE).
 Check if a bodyid still exists in the specified DVID node
 }
 \details{
-Note that this is still quite slow (5-10 bodies per second from Cambridge)
+Note that this is still quite slow (typically 5-30 bodies per second
+  from Cambridge). When more than one body id is provided this actually uses
+  \code{\link{manc_size}} to check if the body has >0 voxels.
 }
 \examples{
 manc_islatest(10056)
