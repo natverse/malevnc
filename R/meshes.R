@@ -94,7 +94,7 @@ read_manc_meshes <- function(id, node=manc_dvid_node("clio"), type=c('merged', '
   type=match.arg(type)
   if(type=='merged') {
     checkmate::checkIntegerish(id, lower=1)
-    res=pbapply::pbsapply(id, read_neuroglancer_mesh, node=node, ..., simplify = F)
+    res=pbapply::pbsapply(id, read_manc_neuroglancer_mesh, node=node, ..., simplify = F)
     return(as.neuronlist(res, AddClassToNeurons=F))
   }
   checkmate::checkIntegerish(id, lower=0, len = 1)
@@ -105,11 +105,15 @@ read_manc_meshes <- function(id, node=manc_dvid_node("clio"), type=c('merged', '
 }
 
 # read_neuroglancer_mesh(10373)
-read_neuroglancer_mesh <- function(id, node=manc_dvid_node("clio")) {
+read_manc_neuroglancer_mesh <- function(id, node=manc_dvid_node("clio")) {
   u=manc_serverurl(
     "api/node/%s/segmentation_meshes/key/%s.ngmesh?app=natverse",
     node, id)
-  res=httr::GET(u)
+  read_neuroglancer_mesh(u)
+}
+
+read_neuroglancer_mesh <- function(u, ...) {
+  res=httr::GET(u, ...)
   httr::stop_for_status(res)
   bytes=httr::content(res, as='raw')
   decode_neuroglancer_mesh(bytes)
