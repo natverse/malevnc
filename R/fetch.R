@@ -1,5 +1,5 @@
 # simple get request
-manc_get <- function(path, body=NULL, ...) {
+manc_get <- function(path, ..., body=NULL) {
   u=manc_serverurl(path, ...)
   if(!is.null(body))
     return(manc_get_body(u, body, ...))
