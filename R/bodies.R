@@ -82,6 +82,7 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
   if(length(nodes)>1) {
     l=pbapply::pblapply(nodes, manc_mutations, ...)
     df=dplyr::bind_rows(l)
+    attr(df, 'dvid_node')=nodes
     return(df)
   }
   # GET <api URL>/node/<UUID>/<data name>/mutations[?queryopts]
@@ -104,6 +105,7 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
     ts2=sub(".+m=\\+", "", ts)
     rr$Reltimestamp=as.numeric(ts2)
   }
+  attr(rr, 'dvid_node')=nodes
   rr
 }
 

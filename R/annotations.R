@@ -148,6 +148,7 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
   cdf=sub("body ID", "bodyid", colnames(df), fixed = T)
   cdf=sub(" ", "_", cdf, fixed = T)
   names(df)=cdf
+  attr(df, 'dvid_node')=node
   df
 }
 
