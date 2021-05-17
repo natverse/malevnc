@@ -93,6 +93,11 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #'   \href{https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1619201195032400}{this
 #'    Slack post} from Stuart Berg for details.
 #'
+#'   Note that the original api call was \code{<rootuuid>:master}, but I have
+#'   now just changed this to \code{<neutu-uuid>} as returned by
+#'   \code{\link{manc_dvid_node}}. This was because the range query stopped
+#'   working 16 May 2021, probably because of a bad node.
+#'
 #' @param rval Whether to return a fully parsed data.frame (the default) or an R
 #'   list. The data.frame is easier to work with but typically includes NAs for
 #'   many values that would be missing in the list.
@@ -135,7 +140,7 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
                                   rval=c("data.frame", "list")) {
   rval=match.arg(rval)
-  u=manc_serverurl("api/node/%s:master/segmentation_annotations/keyrangevalues/0/Z?json=true", node)
+  u=manc_serverurl("api/node/%s/segmentation_annotations/keyrangevalues/0/Z?json=true", node)
   res=httr::GET(u)
   httr::stop_for_status(res)
   d=jsonlite::fromJSON(httr::content(res, as='text', encoding = 'UTF-8'), simplifyVector = F)

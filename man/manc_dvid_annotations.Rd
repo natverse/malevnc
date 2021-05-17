@@ -44,6 +44,11 @@ Return all DVID body annotations
 See
   \href{https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1619201195032400}{this
    Slack post} from Stuart Berg for details.
+
+  Note that the original api call was \code{<rootuuid>:master}, but I have
+  now just changed this to \code{<neutu-uuid>} as returned by
+  \code{\link{manc_dvid_node}}. This was because the range query stopped
+  working 16 May 2021, probably because of a bad node.
 }
 \examples{
 \donttest{
