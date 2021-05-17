@@ -50,7 +50,7 @@ mirror_manc <- function(x, level=c(5,4), ...) {
   mirror_reg_f=mirror_manc_reglist(level = level)
   mirror_reg_r=mirror_manc_reglist("reverse", level = level)
   xt=xform(x, reg=mirror_reg_f, ... )
-  xtm=mirror_brain(xt, brain = MANCsym, mirrorAxis = 'X', transform='flip')
+  xtm=mirror_brain(xt, brain = MANCsym, mirrorAxis = 'X', transform='flip', ...)
   xtmt=xform(xtm, reg=mirror_reg_r, ... )
   xtmt
 }
