@@ -58,7 +58,7 @@ manc_nodespec <- function(nodes, include_first=NA) {
     nodes=gsub("clio", manc_dvid_node('clio'), nodes)
     nodes=gsub("neuprint", manc_dvid_node('clio'), nodes)
 
-    if(grepl(":", nodes)) {
+    if(any(grepl(":", nodes))) {
       nn=unlist(strsplit(nodes, ":", fixed=T))
       stopifnot(length(nn)==2)
       # accept integer versions also
