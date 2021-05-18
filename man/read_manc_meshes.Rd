@@ -8,7 +8,7 @@
 read_draco_meshes(x)
 
 read_manc_meshes(
-  id,
+  ids,
   node = manc_dvid_node("clio"),
   type = c("merged", "supervoxels"),
   ...
@@ -17,7 +17,8 @@ read_manc_meshes(
 \arguments{
 \item{x}{A URL to a remote location or path to a file on disk}
 
-\item{id}{One or more MANC bodyids}
+\item{ids}{A set of body ids in any form understandable to
+\code{\link{manc_ids}}}
 
 \item{node}{the dvid node containing the dataset. See
 \code{\link{manc_dvid_node}}}

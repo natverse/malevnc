@@ -63,8 +63,7 @@ read_draco_meshes <- function(x) {
 #'
 #'   In general we recommend using the \code{merged} format, especially as this
 #'   means that you can fetch many meshes at once.
-#'
-#' @param id One or more MANC bodyids
+#' @inheritParams manc_connection_table
 #' @param type Whether to return a single lower resolution mesh for each body id
 #'   (\code{'merged'}) or a \code{\link{neuronlist}} containing one high
 #'   resolution mesh for every supervoxel in a single bodyid
@@ -89,18 +88,18 @@ read_draco_meshes <- function(x) {
 #' # supervoxels appear in different colours
 #' plot3d(n10373)
 #' }
-read_manc_meshes <- function(id, node=manc_dvid_node("clio"), type=c('merged', 'supervoxels'), ...) {
-
+read_manc_meshes <- function(ids, node=manc_dvid_node("clio"), type=c('merged', 'supervoxels'), ...) {
   type=match.arg(type)
+  ids=manc_ids(ids, as_character = F)
   if(type=='merged') {
-    checkmate::checkIntegerish(id, lower=1)
-    res=pbapply::pbsapply(id, read_manc_neuroglancer_mesh, node=node, ..., simplify = F)
+    checkmate::checkIntegerish(ids, lower=1)
+    res=pbapply::pbsapply(ids, read_manc_neuroglancer_mesh, node=node, ..., simplify = F)
     return(as.neuronlist(res, AddClassToNeurons=F))
   }
-  checkmate::checkIntegerish(id, lower=0, len = 1)
+  checkmate::checkIntegerish(ids, lower=0, len = 1)
 
   surl=manc_serverurl("api/node/%s/segmentation_sv_meshes/tarfile/%s",
-                      node, as.character(id))
+                      node, as.character(ids))
   read_draco_meshes(surl)
 }
 

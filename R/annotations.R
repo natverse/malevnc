@@ -158,7 +158,7 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
 #' @details Missing values in each output column are filled with NA. But if a
 #'   whole column is missing from the results of a particular query then it will
 #'   not appear at all.
-#' @param ids A vector of one or more ids
+#' @inheritParams manc_connection_table
 #' @param query A json query string (see examples or documentation) or an R list
 #'   with field names as elements.
 #' @param config An optional httr::config (expert use only, must include a
@@ -190,6 +190,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
     stop("you must provide exactly one of `ids` or `query` as input!")
   baseurl="https://clio-store-vwzoicitea-uk.a.run.app/v2/json-annotations/VNC/neurons"
   if(!is.null(ids)) {
+    ids=manc_ids(ids)
     chunksize=1000
     if(length(ids)>chunksize) {
       chunknums=floor((seq_along(ids)-1)/chunksize)+1
@@ -198,7 +199,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
       return(dplyr::bind_rows(res))
     }
     if(length(ids)>1)
-      ids=paste(as.character(bit64::as.integer64(ids)), collapse = ',')
+      ids=paste(ids, collapse = ',')
     u=sprintf("%s/id-number/%s", baseurl, ids)
     body=NULL
   } else {

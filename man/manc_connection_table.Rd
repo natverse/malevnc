@@ -5,7 +5,7 @@
 \title{Convenience wrapper for neuprint connection queries for VNC dataset}
 \usage{
 manc_connection_table(
-  x,
+  ids,
   partners = c("inputs", "outputs"),
   prepost = c("PRE", "POST"),
   conn = manc_neuprint(),
@@ -13,7 +13,8 @@ manc_connection_table(
 )
 }
 \arguments{
-\item{x}{Bodyids in any form understandable to \code{\link{manc_ids}}}
+\item{ids}{A set of body ids in any form understandable to
+\code{\link{manc_ids}}}
 
 \item{partners}{Either inputs or outputs. Redundant with \code{prepost}, but
 probably clearer.}

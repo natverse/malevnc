@@ -33,7 +33,8 @@
 #'
 #' }
 #'
-#' @param ids A set of body ids to add to the neuroglancer scene
+#' @param ids A set of body ids to add to the neuroglancer scene in any form
+#'   compatible with \code{\link{manc_ids}}
 #' @param node A DVID node e.g. as returned by \code{manc_dvid_node}. The
 #'   (recommended) default behaviour is to use the current Clio node.
 #' @param open When \code{TRUE} opens the URL in your browser.
@@ -80,7 +81,7 @@ manc_scene <- function(ids=NULL, node=manc_dvid_node('clio'),
       "2021-02-01" = "https://neuroglancer.janelia.org/#!%7B%22dimensions%22:%7B%22x%22:%5B8e-9%2C%22m%22%5D%2C%22y%22:%5B8e-9%2C%22m%22%5D%2C%22z%22:%5B8e-9%2C%22m%22%5D%7D%2C%22position%22:%5B23575%2C20589%2C33089%5D%2C%22crossSectionOrientation%22:%5B-0.2594539225101471%2C0.13549424707889557%2C-0.00940671470016241%2C0.9561571478843689%5D%2C%22crossSectionScale%22:0.5352614285189903%2C%22projectionOrientation%22:%5B-0.6798036694526672%2C-0.5268529057502747%2C0.320065438747406%2C0.39730486273765564%5D%2C%22projectionScale%22:37552.75673405884%2C%22layers%22:%5B%7B%22type%22:%22image%22%2C%22source%22:%7B%22url%22:%22precomputed://gs://flyem-vnc-2-26-213dba213ef26e094c16c860ae7f4be0/v3_emdata_clahe_xy/jpeg%22%7D%2C%22tab%22:%22source%22%2C%22blend%22:%22default%22%2C%22name%22:%22Grayscale%22%7D%2C%7B%22type%22:%22segmentation%22%2C%22source%22:%7B%22url%22:%22precomputed://gs://vnc-v3-seg-3d2f1c08fd4720848061f77362dc6c17/rc4_wsexp%22%7D%2C%22tab%22:%22annotations%22%2C%22skeletonRendering%22:%7B%22mode2d%22:%22lines_and_points%22%2C%22mode3d%22:%22lines%22%7D%2C%22name%22:%22Segmentation%22%7D%2C%7B%22type%22:%22annotation%22%2C%22source%22:%7B%22url%22:%22dvid://https://hemibrain-dvid2.janelia.org/36e0b/neuroglancer_todo?usertag=true&auth=https://hemibrain-dvid2.janelia.org/api/server/token%22%7D%2C%22tab%22:%22source%22%2C%22tool%22:%22annotatePoint%22%2C%22selectedAnnotation%22:%7B%22id%22:%2223575_20589_33089%22%2C%22subsource%22:%22default%22%7D%2C%22tableFilterByTime%22:%22all%22%2C%22tableFilterByUser%22:%22mine%22%2C%22name%22:%22Todo%22%7D%5D%2C%22showSlices%22:false%2C%22selectedLayer%22:%7B%22layer%22:%22Todo%22%2C%22visible%22:true%7D%2C%22layout%22:%224panel%22%7D",
       basescene
     )
-
+  if(!is.null(ids)) ids <- manc_ids(ids)
   url <- if(isTRUE(basescene=='2021-02-01')) {
     if(isTRUE(length(ids)>0))
       fafbseg::ngl_segments(url) <- ids

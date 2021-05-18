@@ -69,7 +69,8 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=
 
 #' Convenience wrapper for neuprint connection queries for VNC dataset
 #'
-#' @param x Bodyids in any form understandable to \code{\link{manc_ids}}
+#' @param ids A set of body ids in any form understandable to
+#'   \code{\link{manc_ids}}
 #' @param partners Either inputs or outputs. Redundant with \code{prepost}, but
 #'   probably clearer.
 #' @param conn Optional, a \code{\link{neuprint_connection}} object, which also
@@ -89,12 +90,13 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=
 #' manc_scene(down$partner[1:8], open=TRUE)
 #' }
 #' }
-manc_connection_table <- function(x, partners=c("inputs", "outputs"),
+manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
                                   prepost = c("PRE", "POST"), conn=manc_neuprint(), ...) {
   if(!missing(partners)) {
     partners=match.arg(partners)
     prepost=ifelse(partners=='inputs', "PRE", "POST")
   }
-  neuprintr::neuprint_connection_table(x, prepost = prepost, details=T, conn=conn, ...)
+  ids=manc_ids(ids, conn=conn)
+  neuprintr::neuprint_connection_table(ids, prepost = prepost, details=T, conn=conn, ...)
 }
 

@@ -7,7 +7,8 @@
 manc_size(ids, node = manc_dvid_node("neutu"))
 }
 \arguments{
-\item{ids}{A set of body ids}
+\item{ids}{A set of body ids in any form understandable to
+\code{\link{manc_ids}}}
 
 \item{node}{A DVID node (defaults to the current neutu node, see
 \code{\link{manc_dvid_node}})}

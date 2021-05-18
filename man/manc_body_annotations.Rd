@@ -13,7 +13,8 @@ manc_body_annotations(
 )
 }
 \arguments{
-\item{ids}{A vector of one or more ids}
+\item{ids}{A set of body ids in any form understandable to
+\code{\link{manc_ids}}}
 
 \item{query}{A json query string (see examples or documentation) or an R list
 with field names as elements.}

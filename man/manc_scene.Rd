@@ -14,7 +14,8 @@ manc_scene(
 )
 }
 \arguments{
-\item{ids}{A set of body ids to add to the neuroglancer scene}
+\item{ids}{A set of body ids to add to the neuroglancer scene in any form
+compatible with \code{\link{manc_ids}}}
 
 \item{node}{A DVID node e.g. as returned by \code{manc_dvid_node}. The
 (recommended) default behaviour is to use the current Clio node.}

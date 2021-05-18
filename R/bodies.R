@@ -1,9 +1,11 @@
 manc_last_modified <- function(ids, node=manc_dvid_node('neutu'), ...) {
+  ids <- manc_ids(ids, integer64 = T)
   u=manc_serverurl('api/node/%s/%s/lastmod/%s', node, "segmentation", ids)
   l=pbapply::pbsapply(u, .manc_last_modified, simplify = F, ...)
   df=list2df(l)
   colnames(df)=gsub(" ", "_", colnames(df), fixed = T)
-  df$bodyid=ids
+  # want them as numeric here
+  df$bodyid=manc_ids(ids, as_character = F)
   df
 }
 
@@ -115,8 +117,7 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
 #' @details Note that this is still quite slow (typically 5-30 bodies per second
 #'   from Cambridge). When more than one body id is provided this actually uses
 #'   \code{\link{manc_size}} to check if the body has >0 voxels.
-
-#' @param ids A set of body ids
+#' @inheritParams manc_connection_table
 #' @param node A DVID node (defaults to the current neutu node, see
 #'   \code{\link{manc_dvid_node}})
 #' @param method Which DVID endpoint to use. Expert use only.
@@ -137,6 +138,7 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
 manc_islatest <- function(ids, node=manc_dvid_node("neutu"),
                           method=c("auto", "size", 'sparsevol'), ...) {
   method=match.arg(method)
+  ids=manc_ids(ids, integer64 = T)
   if(method=='auto') method=ifelse(length(ids)>1, "size", "sparsevol")
   if(method=='sparsevol') {
     manc_islatest_sparsevol(ids, node = node, ...)
@@ -148,7 +150,8 @@ manc_islatest <- function(ids, node=manc_dvid_node("neutu"),
 }
 manc_islatest_sparsevol <- function(ids, node=manc_dvid_node("neutu"), ...) {
   if(length(ids)>1) {
-    res=pbapply::pbsapply(ids, manc_islatest, node=node, ...)
+    # as character to protect class from being munged by sapply
+    res=pbapply::pbsapply(as.character(ids), manc_islatest, node=node, ...)
     return(res)
   }
   u=manc_serverurl("api/node/%s/segmentation/sparsevol/%s", node, ids)
@@ -168,7 +171,7 @@ manc_islatest_sparsevol <- function(ids, node=manc_dvid_node("neutu"), ...) {
 #' manc_size(10000056)
 manc_size <- function(ids, node=manc_dvid_node("neutu")) {
   # we don't want them to look like character
-  bodyj=jsonlite::toJSON(bit64::as.integer64(ids))
+  bodyj=jsonlite::toJSON(manc_ids(ids, integer64 = T))
   sizes=manc_get("api/node/%s/segmentation/sizes", body=bodyj, node)
   if(length(sizes)!=length(ids))
     stop("DVID sizes endpoint did not return the right number of elements!")
