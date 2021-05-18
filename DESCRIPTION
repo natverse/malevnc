@@ -22,7 +22,7 @@ Imports:
     tibble,
     memoise,
     pbapply,
-    neuprintr,
+    neuprintr (>= 1.2),
     curl,
     cachem,
     httr,
