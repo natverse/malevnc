@@ -33,15 +33,16 @@
 #'
 #' }
 #'
+#' @param ids A set of body ids to add to the neuroglancer scene
 #' @param node A DVID node e.g. as returned by \code{manc_dvid_node}. The
 #'   (recommended) default behaviour is to use the current Clio node.
+#' @param open When \code{TRUE} opens the URL in your browser.
 #' @param server Whether to use the Google server (newest version of
 #'   neuroglancer) or Janelia server (required for annotation in early 2021, but
 #'   now deprecated in favour of Clio?). 99% of the time you should keep the
 #'   default.
 #' @param return.json Whether to return a JSON fragment defining the scene or
 #'   (by default) a Neuroglancer URL.
-#' @param ids A set of body ids to add to the neuroglancer scene
 #' @param basescene Which neuroglancer scene url to use as a base. You can also
 #'   supply your own URL.
 #'
@@ -60,6 +61,7 @@
 #'
 #' }
 manc_scene <- function(ids=NULL, node=manc_dvid_node('clio'),
+                       open=FALSE,
                        basescene=c("2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
                        server=c("appspot", "janelia"), return.json=FALSE) {
   server=match.arg(server)
@@ -97,7 +99,12 @@ manc_scene <- function(ids=NULL, node=manc_dvid_node('clio'),
 
   if(return.json) {
     fafbseg::ngl_decode_scene(url, return.json = TRUE)
-  } else url
+  } else {
+    if(isTRUE(open)) {
+      browseURL(url)
+      invisible(url)
+    } else url
+  }
 }
 
 manc_server <-

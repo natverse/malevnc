@@ -7,6 +7,7 @@
 manc_scene(
   ids = NULL,
   node = manc_dvid_node("clio"),
+  open = FALSE,
   basescene = c("2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
   server = c("appspot", "janelia"),
   return.json = FALSE
@@ -17,6 +18,8 @@ manc_scene(
 
 \item{node}{A DVID node e.g. as returned by \code{manc_dvid_node}. The
 (recommended) default behaviour is to use the current Clio node.}
+
+\item{open}{When \code{TRUE} opens the URL in your browser.}
 
 \item{basescene}{Which neuroglancer scene url to use as a base. You can also
 supply your own URL.}
