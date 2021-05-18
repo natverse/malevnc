@@ -26,6 +26,10 @@ is.url <- function(x) {
 
 #' Flexible specification of manc body ids
 #'
+#' @description \code{manc_ids} provides a convenient way to extract body ids
+#'   from a variety of objects as well as allowing text searches against
+#'   type/instance information defined in neuprint.
+#'
 #' @param x A vector of body ids, data.frame (containing a bodyid column) or a
 #'   neuroglancer URL.
 #' @param integer64 whether to return ids with class bit64::integer64.
@@ -33,9 +37,21 @@ is.url <- function(x) {
 #' @inheritParams fafbseg::ngl_segments
 #' @export
 #' @family manc-neuprint
+#' @seealso \code{\link{neuprint_ids}}
 #' @examples
 #' \donttest{
+#' # search by type
 #' manc_ids("Giant Fiber")
+#' # or against the instance (name)
+#' manc_ids("name:10085")
+#' # You can also do more complex queries using regular expressions
+#' lrpairs=manc_ids("/name:[0-9]{5,}_[LR]")
+#' \dontrun{
+#' # Finally you can use the same queries wherever you specify body ids
+#' # NB if you want to be sure that regular neuprintr functions target
+#' # the VNC dataset, use conn=manc_neuprint()
+#' lrpairs.meta=neuprintr::neuprint_get_meta("/name:[0-9]{5,}_[LR]", conn=manc_neuprint())
+#' }
 #' }
 manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=manc_neuprint(), ...) {
   ids <- if(fafbseg:::is.ngscene(x) || is.url(x))

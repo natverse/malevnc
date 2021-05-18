@@ -33,14 +33,29 @@ used. See \code{\link[neuprintr]{neuprint_login}} for details.}
 \item{...}{Additional arguments passed to \code{\link[neuprintr]{neuprint_search}}}
 }
 \description{
-Flexible specification of manc body ids
+\code{manc_ids} provides a convenient way to extract body ids
+  from a variety of objects as well as allowing text searches against
+  type/instance information defined in neuprint.
 }
 \examples{
 \donttest{
+# search by type
 manc_ids("Giant Fiber")
+# or against the instance (name)
+manc_ids("name:10085")
+# You can also do more complex queries using regular expressions
+lrpairs=manc_ids("/name:[0-9]{5,}_[LR]")
+\dontrun{
+# Finally you can use the same queries wherever you specify body ids
+# NB if you want to be sure that regular neuprintr functions target
+# the VNC dataset, use conn=manc_neuprint()
+lrpairs.meta=neuprintr::neuprint_get_meta("/name:[0-9]{5,}_[LR]", conn=manc_neuprint())
+}
 }
 }
 \seealso{
+\code{\link{neuprint_ids}}
+
 Other manc-neuprint: 
 \code{\link{manc_connection_table}()},
 \code{\link{manc_neuprint}()}
