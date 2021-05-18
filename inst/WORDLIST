@@ -18,6 +18,7 @@ ROIs
 Rivlin
 Shinomiya
 VNC
+api
 bodyid
 bodyids
 clio
@@ -31,10 +32,13 @@ github
 httr
 json
 manc
+neuPrint
 neuprint
+neuprintr
 neuroglancer
 neutu
 oauth
+presynaptic
 rd
 supervoxel
 th
