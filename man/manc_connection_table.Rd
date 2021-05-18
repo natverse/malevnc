@@ -2,7 +2,7 @@
 % Please edit documentation in R/neuprint.R
 \name{manc_connection_table}
 \alias{manc_connection_table}
-\title{Convenience wrapper for neuprint connection queries}
+\title{Convenience wrapper for neuprint connection queries for VNC dataset}
 \usage{
 manc_connection_table(
   x,
@@ -33,7 +33,7 @@ ensure that query is against the VNC dataset.}
 see \code{\link{neuprint_connection_table}}
 }
 \description{
-Convenience wrapper for neuprint connection queries
+Convenience wrapper for neuprint connection queries for VNC dataset
 }
 \examples{
 \donttest{

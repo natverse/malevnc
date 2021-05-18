@@ -64,7 +64,7 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=
   if(isTRUE(integer64)) bit64::as.integer64(ids) else ids
 }
 
-#' Convenience wrapper for neuprint connection queries
+#' Convenience wrapper for neuprint connection queries for VNC dataset
 #'
 #' @param x Bodyids in any form understandable to \code{\link{manc_ids}}
 #' @param partners Either inputs or outputs. Redundant with \code{prepost}, but
