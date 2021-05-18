@@ -55,7 +55,7 @@ is.url <- function(x) {
 #' }
 #' @importFrom bit64 is.integer64 as.integer64
 manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=manc_neuprint(), ...) {
-  ids <- if(fafbseg:::is.ngscene(x) || is.url(x))
+  ids <- if(fafbseg:::is.ngscene(x) || all(is.url(x)))
     fafbseg::ngl_segments(x, must_work = mustWork, as_character = as_character, ...)
   else if(!is.integer64(x)){
     # nb if we have integer64 input they must already be ids
