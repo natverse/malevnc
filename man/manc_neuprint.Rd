@@ -26,3 +26,9 @@ plot(cumsum(sort(anchormeta$pre, decreasing = TRUE)), ylab='Cumulative presynaps
 plot(cumsum(sort(anchormeta$post, decreasing = TRUE)), ylab='Cumulative postsynapses')
 }
 }
+\seealso{
+Other manc-neuprint: 
+\code{\link{manc_connection_table}()},
+\code{\link{manc_ids}()}
+}
+\concept{manc-neuprint}

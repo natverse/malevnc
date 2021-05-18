@@ -36,6 +36,7 @@ reference:
   - '`manc_scene`'
 - title: Body information and ids
   contents:
+  - '`manc_id`'
   - '`manc_xyz2bodyid`'
   - '`manc_islatest`'
   - '`manc_size`'
@@ -47,6 +48,9 @@ reference:
   - '`manc_point_annotations`'
   - '`manc_user_annotations`'
   - '`clio_auth`'
+- title: Connectivity
+  contents:
+  - '`manc_connection_table`'
 - title: Meshes and Geometry
   contents:
   - '`read_draco_meshes`'
