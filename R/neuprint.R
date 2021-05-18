@@ -53,15 +53,18 @@ is.url <- function(x) {
 #' lrpairs.meta=neuprintr::neuprint_get_meta("/name:[0-9]{5,}_[LR]", conn=manc_neuprint())
 #' }
 #' }
+#' @importFrom bit64 is.integer64 as.integer64
 manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=manc_neuprint(), ...) {
   ids <- if(fafbseg:::is.ngscene(x) || is.url(x))
     fafbseg::ngl_segments(x, must_work = mustWork, as_character = as_character, ...)
-  else
-    {
-      ids=neuprintr::neuprint_ids(x=x, conn=conn, mustWork = mustWork, ...)
-      if(as_character) as.character(ids) else as.numeric(ids)
-    }
-  if(isTRUE(integer64)) bit64::as.integer64(ids) else ids
+  else if(!is.integer64(x)){
+    # nb if we have integer64 input they must already be ids
+    # so no need to send to neuprint
+    neuprintr::neuprint_ids(x=x, conn=conn, mustWork = mustWork, ...)
+  }
+  if(isTRUE(integer64)) as.integer64(ids)
+  else if(as_character) as.character(ids)
+  else as.numeric(ids)
 }
 
 #' Convenience wrapper for neuprint connection queries for VNC dataset
