@@ -29,7 +29,8 @@ Imports:
     jsonlite,
     dplyr,
     bit64,
-    gargle
+    gargle,
+    utils
 Suggests: 
     testthat,
     dracor,

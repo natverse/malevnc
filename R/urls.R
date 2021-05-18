@@ -102,7 +102,7 @@ manc_scene <- function(ids=NULL, node=manc_dvid_node('clio'),
     fafbseg::ngl_decode_scene(url, return.json = TRUE)
   } else {
     if(isTRUE(open)) {
-      browseURL(url)
+      utils::browseURL(url)
       invisible(url)
     } else url
   }
