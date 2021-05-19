@@ -62,6 +62,8 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=
     # so no need to send to neuprint
     neuprintr::neuprint_ids(x=x, conn=conn, mustWork = mustWork, ...)
   } else x
+  if(is.data.frame(x) && length(x)!=nrow(x))
+    stop("Unable to extract a vector of ",nrow(x), " body ids from x!")
   if(isTRUE(integer64)) as.integer64(ids)
   else if(as_character) as.character(ids)
   else as.numeric(ids)
