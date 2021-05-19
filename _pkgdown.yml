@@ -37,7 +37,7 @@ reference:
   - '`dvid_tools`'
 - title: Body information and ids
   contents:
-  - '`manc_id`'
+  - '`manc_ids`'
   - '`manc_xyz2bodyid`'
   - '`manc_islatest`'
   - '`manc_size`'
