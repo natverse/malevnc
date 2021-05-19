@@ -202,6 +202,15 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
   if(nmissing==2) {
     # fetch all annotations
     res=clio_fetch(file.path(baseurl, 'all'), config = config, json = json)
+    if(is.list(res$bodyid)) {
+      lengths=sapply(res$bodyid, length)
+      nbadlengths=sum(lengths!=1)
+      if(nbadlengths>0) {
+        warning("Dropping ", nbadlengths, " rows with bad ids in manc_body_annotations!")
+        res=res[lengths==1,]
+      }
+      res$bodyid=unlist(res$bodyid, use.names = F)
+    }
     return(res)
   } else if(nmissing!=1)
     stop("you can only provide one of `ids` or `query` as input!")
