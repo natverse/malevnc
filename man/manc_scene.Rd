@@ -6,7 +6,7 @@
 \usage{
 manc_scene(
   ids = NULL,
-  node = manc_dvid_node("clio"),
+  node = "clio",
   open = FALSE,
   basescene = c("2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
   server = c("appspot", "janelia"),

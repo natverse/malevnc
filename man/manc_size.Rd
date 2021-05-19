@@ -4,7 +4,7 @@
 \alias{manc_size}
 \title{Return the size (in voxels) of specified bodies}
 \usage{
-manc_size(ids, node = manc_dvid_node("neutu"))
+manc_size(ids, node = "neutu")
 }
 \arguments{
 \item{ids}{A set of body ids in any form understandable to

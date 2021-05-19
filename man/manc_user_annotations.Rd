@@ -6,7 +6,7 @@
 \usage{
 manc_user_annotations(
   email = "jefferis@gmail.com",
-  node = manc_dvid_node(),
+  node = "clio",
   raw = FALSE,
   simplifyVector = TRUE,
   neuprint_connection = NULL,

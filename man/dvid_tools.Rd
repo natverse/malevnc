@@ -5,10 +5,7 @@
 \alias{install_dvid_tools}
 \title{Interface to the python dvid_tools module from Philipp Schlegel}
 \usage{
-dvid_tools(
-  user = getOption("malevnc.dvid_user"),
-  node = manc_dvid_node("neutu")
-)
+dvid_tools(user = getOption("malevnc.dvid_user"), node = "neutu")
 
 install_dvid_tools()
 }

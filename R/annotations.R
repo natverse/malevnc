@@ -25,7 +25,7 @@
 #' json=httr::content(manc_user_annotations(raw=TRUE))
 #' }
 manc_user_annotations <- function(email = "jefferis@gmail.com",
-                                  node = manc_dvid_node(),
+                                  node = 'clio',
                                   raw = FALSE,
                                   simplifyVector=TRUE,
                                   neuprint_connection = NULL,
@@ -43,6 +43,7 @@ manc_user_annotations <- function(email = "jefferis@gmail.com",
     email,
     email
   )
+  node=manc_nodespec(node, several.ok = F)
   resp = httr::GET(u, config = neuprint_connection$config)
   httr::stop_for_status(resp)
   if(raw)
@@ -133,13 +134,14 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #'
 #' \dontrun{
 #' # compare live body annotations with version in clio
-#' mdf.clio=manc_dvid_annotations(manc_dvid_node('clio'))
+#' mdf.clio=manc_dvid_annotations('clio')
 #' waldo::compare(mdf.clio, mdf)
 #' }
 #' }
-manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
+manc_dvid_annotations <- function(node='neutu',
                                   rval=c("data.frame", "list")) {
   rval=match.arg(rval)
+  node=manc_nodespec(node, several.ok = F)
   u=manc_serverurl("api/node/%s/segmentation_annotations/keyrangevalues/0/Z?json=true", node)
   res=httr::GET(u)
   httr::stop_for_status(res)
@@ -188,7 +190,7 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
 #' manc_body_annotations(ids=manc_xyz2bodyid(mancneckseeds))
 #' # use clio node to ensure for bodyid consistency
 #' manc_body_annotations(ids=
-#'   manc_xyz2bodyid(mancneckseeds, manc_dvid_node("clio")))
+#'   manc_xyz2bodyid(mancneckseeds, node="clio"))
 #'
 #' # fetch all bodyids
 #' mba=manc_body_annotations()

@@ -4,10 +4,7 @@
 \alias{manc_dvid_annotations}
 \title{Return all DVID body annotations}
 \usage{
-manc_dvid_annotations(
-  node = manc_dvid_node("neutu"),
-  rval = c("data.frame", "list")
-)
+manc_dvid_annotations(node = "neutu", rval = c("data.frame", "list"))
 }
 \arguments{
 \item{node}{A DVID node as returned by \code{\link{manc_dvid_node}}. The
@@ -58,7 +55,7 @@ table(mdf$status)
 
 \dontrun{
 # compare live body annotations with version in clio
-mdf.clio=manc_dvid_annotations(manc_dvid_node('clio'))
+mdf.clio=manc_dvid_annotations('clio')
 waldo::compare(mdf.clio, mdf)
 }
 }

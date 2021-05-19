@@ -6,7 +6,7 @@
 \usage{
 manc_islatest(
   ids,
-  node = manc_dvid_node("neutu"),
+  node = "neutu",
   method = c("auto", "size", "sparsevol"),
   ...
 )
@@ -40,6 +40,6 @@ manc_islatest(10056)
 \dontrun{
 manc_islatest(10056:10058)
 
-manc_islatest(10056:10058, manc_dvid_node("clio"))
+manc_islatest(10056:10058, "clio")
 }
 }

@@ -61,11 +61,12 @@
 #' clipr::write_clip(manc_scene(return.json = TRUE))
 #'
 #' }
-manc_scene <- function(ids=NULL, node=manc_dvid_node('clio'),
+manc_scene <- function(ids=NULL, node='clio',
                        open=FALSE,
                        basescene=c("2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
                        server=c("appspot", "janelia"), return.json=FALSE) {
   server=match.arg(server)
+  node=manc_nodespec(node, several.ok = F)
   if(!requireNamespace("fafbseg", quietly = TRUE))
     stop("Please install suggested fafbseg package!")
 

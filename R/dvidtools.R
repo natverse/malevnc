@@ -27,10 +27,11 @@
 #' reticulate::py_help(dt$get_adjacency)
 #' }
 dvid_tools <- function(user=getOption("malevnc.dvid_user"),
-                       node=manc_dvid_node('neutu')) {
+                       node='neutu') {
   # if(is.null(user))
   #   stop("Please specify a user or set options(malevnc.dvid_user)")
   server = manc_server()
+  node=manc_nodespec(node, several.ok = F)
   dt=dvid_tools_module()
   dt$setup(server, node, user)
   class(dt)=union("dvid_tools", class(dt))

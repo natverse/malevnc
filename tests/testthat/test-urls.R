@@ -12,10 +12,10 @@ test_that("manc_scene works", {
       expect_match(
         manc_scene(
           ids = 87654321,
-          node = "123456789",
+          node = "1ec355123bf94e588557a4568d26d258",
           basescene = bs
         ),
-        '123456789.*87654321'
+        '1ec355123bf94e588557a4568d26d258.*87654321'
       )
   }
 

@@ -80,7 +80,7 @@ read_draco_meshes <- function(x) {
 #' \donttest{
 #' library(nat)
 #' gfs=read_manc_meshes(c(10000,10002))
-#' gfs.latest=read_manc_meshes(c(10000,10002), node=manc_dvid_node("neutu"))
+#' gfs.latest=read_manc_meshes(c(10000,10002), node="neutu")
 #' plot3d(gfs)
 #'
 #' n10373=read_manc_meshes(10373, type='supervoxels')
@@ -88,9 +88,10 @@ read_draco_meshes <- function(x) {
 #' # supervoxels appear in different colours
 #' plot3d(n10373)
 #' }
-read_manc_meshes <- function(ids, node=manc_dvid_node("clio"), type=c('merged', 'supervoxels'), ...) {
+read_manc_meshes <- function(ids, node="clio", type=c('merged', 'supervoxels'), ...) {
   type=match.arg(type)
   ids=manc_ids(ids, as_character = F)
+  node=manc_nodespec(node, several.ok = F)
   if(type=='merged') {
     checkmate::checkIntegerish(ids, lower=1)
     res=pbapply::pbsapply(ids, read_manc_neuroglancer_mesh, node=node, ..., simplify = F)
@@ -104,7 +105,8 @@ read_manc_meshes <- function(ids, node=manc_dvid_node("clio"), type=c('merged', 
 }
 
 # read_neuroglancer_mesh(10373)
-read_manc_neuroglancer_mesh <- function(id, node=manc_dvid_node("clio")) {
+read_manc_neuroglancer_mesh <- function(id, node="clio") {
+  node=manc_nodespec(node, several.ok = F)
   u=manc_serverurl(
     "api/node/%s/segmentation_meshes/key/%s.ngmesh?app=natverse",
     node, id)

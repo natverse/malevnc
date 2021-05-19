@@ -7,12 +7,7 @@
 \usage{
 read_draco_meshes(x)
 
-read_manc_meshes(
-  ids,
-  node = manc_dvid_node("clio"),
-  type = c("merged", "supervoxels"),
-  ...
-)
+read_manc_meshes(ids, node = "clio", type = c("merged", "supervoxels"), ...)
 }
 \arguments{
 \item{x}{A URL to a remote location or path to a file on disk}
@@ -73,7 +68,7 @@ plot3d(m, type='wire')
 \donttest{
 library(nat)
 gfs=read_manc_meshes(c(10000,10002))
-gfs.latest=read_manc_meshes(c(10000,10002), node=manc_dvid_node("neutu"))
+gfs.latest=read_manc_meshes(c(10000,10002), node="neutu")
 plot3d(gfs)
 
 n10373=read_manc_meshes(10373, type='supervoxels')

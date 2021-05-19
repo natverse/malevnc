@@ -4,7 +4,7 @@
 \alias{manc_xyz2bodyid}
 \title{Find the bodyid for an XYZ location}
 \usage{
-manc_xyz2bodyid(xyz, node = manc_dvid_node("neutu"))
+manc_xyz2bodyid(xyz, node = "neutu")
 }
 \arguments{
 \item{xyz}{location in raw pixels}

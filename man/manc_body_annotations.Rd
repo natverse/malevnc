@@ -52,7 +52,7 @@ manc_body_annotations(query=list(soma_side="RHS"))
 manc_body_annotations(ids=manc_xyz2bodyid(mancneckseeds))
 # use clio node to ensure for bodyid consistency
 manc_body_annotations(ids=
-  manc_xyz2bodyid(mancneckseeds, manc_dvid_node("clio")))
+  manc_xyz2bodyid(mancneckseeds, node="clio"))
 
 # fetch all bodyids
 mba=manc_body_annotations()

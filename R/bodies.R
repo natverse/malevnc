@@ -1,5 +1,6 @@
-manc_last_modified <- function(ids, node=manc_dvid_node('neutu'), ...) {
+manc_last_modified <- function(ids, node='neutu', ...) {
   ids <- manc_ids(ids, integer64 = T)
+  node=manc_nodespec(node)
   u=manc_serverurl('api/node/%s/%s/lastmod/%s', node, "segmentation", ids)
   l=pbapply::pbsapply(u, .manc_last_modified, simplify = F, ...)
   df=list2df(l)
@@ -133,11 +134,12 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
 #' \dontrun{
 #' manc_islatest(10056:10058)
 #'
-#' manc_islatest(10056:10058, manc_dvid_node("clio"))
+#' manc_islatest(10056:10058, "clio")
 #' }
-manc_islatest <- function(ids, node=manc_dvid_node("neutu"),
+manc_islatest <- function(ids, node="neutu",
                           method=c("auto", "size", 'sparsevol'), ...) {
   method=match.arg(method)
+  node=manc_nodespec(node, several.ok = F)
   ids=manc_ids(ids, integer64 = T)
   if(method=='auto') method=ifelse(length(ids)>1, "size", "sparsevol")
   if(method=='sparsevol') {
@@ -148,7 +150,7 @@ manc_islatest <- function(ids, node=manc_dvid_node("neutu"),
     sizes>0 & !is.na(sizes)
   }
 }
-manc_islatest_sparsevol <- function(ids, node=manc_dvid_node("neutu"), ...) {
+manc_islatest_sparsevol <- function(ids, node, ...) {
   if(length(ids)>1) {
     # as character to protect class from being munged by sapply
     res=pbapply::pbsapply(as.character(ids), manc_islatest, node=node, ...)
@@ -169,7 +171,7 @@ manc_islatest_sparsevol <- function(ids, node=manc_dvid_node("neutu"), ...) {
 #' manc_size(10056)
 #' # zero as doesn't exist
 #' manc_size(10000056)
-manc_size <- function(ids, node=manc_dvid_node("neutu")) {
+manc_size <- function(ids, node="neutu") {
   # we don't want them to look like character
   bodyj=jsonlite::toJSON(manc_ids(ids, integer64 = T))
   sizes=manc_get("api/node/%s/segmentation/sizes", body=bodyj, node)
