@@ -129,12 +129,7 @@ read_manc_meshes reads the meshes for a single MANC body
 
     <pre class="usage"><span class='fu'>read_draco_meshes</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>read_manc_meshes</span><span class='op'>(</span>
-  <span class='va'>ids</span>,
-  node <span class='op'>=</span> <span class='fu'><a href='manc_dvid_node.html'>manc_dvid_node</a></span><span class='op'>(</span><span class='st'>"clio"</span><span class='op'>)</span>,
-  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"merged"</span>, <span class='st'>"supervoxels"</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='fu'>read_manc_meshes</span><span class='op'>(</span><span class='va'>ids</span>, node <span class='op'>=</span> <span class='st'>"clio"</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"merged"</span>, <span class='st'>"supervoxels"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,7 +194,7 @@ resolution mesh for every supervoxel in a single bodyid
 <span class='co'># \donttest{</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat'>nat</a></span><span class='op'>)</span>
 <span class='va'>gfs</span><span class='op'>=</span><span class='fu'>read_manc_meshes</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10000</span>,<span class='fl'>10002</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>gfs.latest</span><span class='op'>=</span><span class='fu'>read_manc_meshes</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10000</span>,<span class='fl'>10002</span><span class='op'>)</span>, node<span class='op'>=</span><span class='fu'><a href='manc_dvid_node.html'>manc_dvid_node</a></span><span class='op'>(</span><span class='st'>"neutu"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>gfs.latest</span><span class='op'>=</span><span class='fu'>read_manc_meshes</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10000</span>,<span class='fl'>10002</span><span class='op'>)</span>, node<span class='op'>=</span><span class='st'>"neutu"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/nat/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>gfs</span><span class='op'>)</span>
 
 <span class='va'>n10373</span><span class='op'>=</span><span class='fu'>read_manc_meshes</span><span class='op'>(</span><span class='fl'>10373</span>, type<span class='op'>=</span><span class='st'>'supervoxels'</span><span class='op'>)</span>

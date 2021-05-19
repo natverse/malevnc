@@ -123,10 +123,7 @@
     <p>Return all DVID body annotations</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span>
-  node <span class='op'>=</span> <span class='fu'><a href='manc_dvid_node.html'>manc_dvid_node</a></span><span class='op'>(</span><span class='st'>"neutu"</span><span class='op'>)</span>,
-  rval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"data.frame"</span>, <span class='st'>"list"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span>node <span class='op'>=</span> <span class='st'>"neutu"</span>, rval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"data.frame"</span>, <span class='st'>"list"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,12 +180,12 @@ many values that would be missing in the list.</p></td>
 #&gt; </span><span style='color: #BCBCBC;'>6</span><span> </span><span style='text-decoration: underline;'>100</span><span>009 </span><span style='color: #BB0000;'>NA</span><span>       0.5assign      </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>          </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>          </span><span style='color: #BB0000;'>NA</span><span>     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mdf</span><span class='op'>$</span><span class='va'>status</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;             0.5assign                Anchor                Orphan 
-#&gt;                  9139                  7348                   255 
+#&gt;                  9124                  7336                   256 
 #&gt; Prelim Roughly traced           Soma Anchor 
-#&gt;                  4973                 12423 </div><div class='input'>
+#&gt;                  4973                 12421 </div><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># compare live body annotations with version in clio</span>
-<span class='va'>mdf.clio</span><span class='op'>=</span><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='fu'><a href='manc_dvid_node.html'>manc_dvid_node</a></span><span class='op'>(</span><span class='st'>'clio'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>mdf.clio</span><span class='op'>=</span><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='st'>'clio'</span><span class='op'>)</span>
 <span class='fu'>waldo</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/waldo/man/compare.html'>compare</a></span><span class='op'>(</span><span class='va'>mdf.clio</span>, <span class='va'>mdf</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='co'># }</span>
