@@ -49,7 +49,7 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
   names(info$DAG$Nodes)[which.max(versions)]
 }
 
-# private for now, but when we have a spec we like we should make it public
+# Flexible specification of DVID nodes
 manc_nodespec <- function(nodes, include_first=NA, several.ok=TRUE) {
   if(isTRUE(nodes=='all')) {
     nodes=manc_node_chain()
@@ -69,11 +69,13 @@ manc_nodespec <- function(nodes, include_first=NA, several.ok=TRUE) {
       nodes=manc_node_chain(root=nn[1], head=nn[2])
       if(is.na(include_first) || !include_first)
         nodes=nodes[-1]
-      if(length(nodes)==0)
-        stop("No valid DVID nodes specified")
     }
     nodes=expand_dvid_nodes(nodes)
   }
+  if(length(nodes)==0)
+    stop("No valid DVID nodes specified")
+  else if(isFALSE(several.ok) && length(nodes)!=1)
+    stop("Expecting a single DVID node not ", length(nodes), "!")
   nodes
 }
 
