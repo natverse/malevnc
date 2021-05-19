@@ -130,7 +130,7 @@ read_manc_meshes reads the meshes for a single MANC body
     <pre class="usage"><span class='fu'>read_draco_meshes</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='fu'>read_manc_meshes</span><span class='op'>(</span>
-  <span class='va'>id</span>,
+  <span class='va'>ids</span>,
   node <span class='op'>=</span> <span class='fu'><a href='manc_dvid_node.html'>manc_dvid_node</a></span><span class='op'>(</span><span class='st'>"clio"</span><span class='op'>)</span>,
   type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"merged"</span>, <span class='st'>"supervoxels"</span><span class='op'>)</span>,
   <span class='va'>...</span>
@@ -144,8 +144,9 @@ read_manc_meshes reads the meshes for a single MANC body
       <td><p>A URL to a remote location or path to a file on disk</p></td>
     </tr>
     <tr>
-      <th>id</th>
-      <td><p>One or more MANC bodyids</p></td>
+      <th>ids</th>
+      <td><p>A set of body ids in any form understandable to
+<code><a href='manc_ids.html'>manc_ids</a></code></p></td>
     </tr>
     <tr>
       <th>node</th>

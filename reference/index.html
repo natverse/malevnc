@@ -154,6 +154,12 @@
           <p><code><a href="manc_scene.html">manc_scene()</a></code> </p>
         </td>
         <td><p>Return a Neuroglancer scene URL for MANC dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dvid_tools.html">dvid_tools()</a></code> <code><a href="dvid_tools.html">install_dvid_tools()</a></code> </p>
+        </td>
+        <td><p>Interface to the python dvid_tools module from Philipp Schlegel</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -170,9 +176,51 @@
       <tr>
         
         <td>
-          <p><code><a href="manc_xyz2bodyid.html">manc_xyz2bodyid()</a></code> </p>
+          <p><code><a href="MANC.surf.html">MANC.surf</a></code> </p>
         </td>
-        <td><p>Find the bodyid for an XYZ location</p></td>
+        <td><p>Surface model of neuropils in the MANC dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="clio_auth.html">clio_auth()</a></code> <code><a href="clio_auth.html">clio_token()</a></code> </p>
+        </td>
+        <td><p>Clio authorisation infrastructure using Google via the gargle package</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dvid_tools.html">dvid_tools()</a></code> <code><a href="dvid_tools.html">install_dvid_tools()</a></code> </p>
+        </td>
+        <td><p>Interface to the python dvid_tools module from Philipp Schlegel</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_body_annotations.html">manc_body_annotations()</a></code> </p>
+        </td>
+        <td><p>Return clio-store body annotations for set of ids or a flexible query</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_connection_table.html">manc_connection_table()</a></code> </p>
+        </td>
+        <td><p>Convenience wrapper for neuprint connection queries for VNC dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_dvid_annotations.html">manc_dvid_annotations()</a></code> </p>
+        </td>
+        <td><p>Return all DVID body annotations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_dvid_node.html">manc_dvid_node()</a></code> </p>
+        </td>
+        <td><p>Return the latest DVID node</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_ids.html">manc_ids()</a></code> </p>
+        </td>
+        <td><p>Flexible specification of manc body ids</p></td>
       </tr><tr>
         
         <td>
@@ -182,15 +230,75 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="manc_size.html">manc_size()</a></code> </p>
+          <p><code><a href="manc_lr_position.html">manc_lr_position()</a></code> </p>
         </td>
-        <td><p>Return the size (in voxels) of specified bodies</p></td>
+        <td><p>Calculate the left-right position wrt to the symmetrised MANC midline</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="manc_mutations.html">manc_mutations()</a></code> </p>
         </td>
         <td><p>Get all the modifications associated with one or more DVID nodes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_neuprint.html">manc_neuprint()</a></code> </p>
+        </td>
+        <td><p>Login to MANC neuprint server</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_point_annotations.html">manc_point_annotations()</a></code> </p>
+        </td>
+        <td><p>Return point annotations from Clio store</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_scene.html">manc_scene()</a></code> </p>
+        </td>
+        <td><p>Return a Neuroglancer scene URL for MANC dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_size.html">manc_size()</a></code> </p>
+        </td>
+        <td><p>Return the size (in voxels) of specified bodies</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_user_annotations.html">manc_user_annotations()</a></code> </p>
+        </td>
+        <td><p>Read point annotations from DVID using neuprint authentication</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_xyz2bodyid.html">manc_xyz2bodyid()</a></code> </p>
+        </td>
+        <td><p>Find the bodyid for an XYZ location</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mancneckseeds.html">mancneckseeds</a></code> </p>
+        </td>
+        <td><p>Seed plane for the Neck Connective</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mancsomapos.html">mancsomapos</a></code> </p>
+        </td>
+        <td><p>Soma locations for all intrinsic neurons of the ventral nerve cord</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mirror_manc.html">mirror_manc()</a></code> <code><a href="mirror_manc.html">symmetric_manc()</a></code> </p>
+        </td>
+        <td><p>Mirror points or other 3D objects along the MANC midline</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_manc_meshes.html">read_draco_meshes()</a></code> <code><a href="read_manc_meshes.html">read_manc_meshes()</a></code> </p>
+        </td>
+        <td><p>Read draco encoded 3D meshes from tarballs (as used by Janelia FlyEM)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -234,6 +342,25 @@
           <p><code><a href="clio_auth.html">clio_auth()</a></code> <code><a href="clio_auth.html">clio_token()</a></code> </p>
         </td>
         <td><p>Clio authorisation infrastructure using Google via the gargle package</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-connectivity" class="hasAnchor"><a href="#section-connectivity" class="anchor"></a>Connectivity</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="manc_connection_table.html">manc_connection_table()</a></code> </p>
+        </td>
+        <td><p>Convenience wrapper for neuprint connection queries for VNC dataset</p></td>
       </tr>
     </tbody><tbody>
       <tr>

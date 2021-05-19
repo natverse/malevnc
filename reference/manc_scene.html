@@ -134,6 +134,7 @@
     <pre class="usage"><span class='fu'>manc_scene</span><span class='op'>(</span>
   ids <span class='op'>=</span> <span class='cn'>NULL</span>,
   node <span class='op'>=</span> <span class='fu'><a href='manc_dvid_node.html'>manc_dvid_node</a></span><span class='op'>(</span><span class='st'>"clio"</span><span class='op'>)</span>,
+  open <span class='op'>=</span> <span class='cn'>FALSE</span>,
   basescene <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2021-05-05"</span>, <span class='st'>"2021-05-04"</span>, <span class='st'>"2021-04-01"</span>, <span class='st'>"2021-02-01"</span><span class='op'>)</span>,
   server <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"appspot"</span>, <span class='st'>"janelia"</span><span class='op'>)</span>,
   return.json <span class='op'>=</span> <span class='cn'>FALSE</span>
@@ -144,12 +145,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ids</th>
-      <td><p>A set of body ids to add to the neuroglancer scene</p></td>
+      <td><p>A set of body ids to add to the neuroglancer scene in any form
+compatible with <code><a href='manc_ids.html'>manc_ids</a></code></p></td>
     </tr>
     <tr>
       <th>node</th>
       <td><p>A DVID node e.g. as returned by <code>manc_dvid_node</code>. The
 (recommended) default behaviour is to use the current Clio node.</p></td>
+    </tr>
+    <tr>
+      <th>open</th>
+      <td><p>When <code>TRUE</code> opens the URL in your browser.</p></td>
     </tr>
     <tr>
       <th>basescene</th>

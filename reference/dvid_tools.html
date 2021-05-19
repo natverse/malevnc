@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return the latest DVID node — manc_dvid_node • malevnc</title>
+<title>Interface to the python dvid_tools module from Philipp Schlegel — dvid_tools • malevnc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Return the latest DVID node — manc_dvid_node" />
-<meta property="og:description" content="Return the latest DVID node" />
+<meta property="og:title" content="Interface to the python dvid_tools module from Philipp Schlegel — dvid_tools" />
+<meta property="og:description" content="dvid_tools provides a lower level and less specific
+  interface to DVID that corresponding manc_* functions but does
+  include some functionality that is not yet available.
+install_dvid_tools installs the python dvid_tools module" />
 
 
 
@@ -114,44 +117,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return the latest DVID node</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/dvid.R'><code>R/dvid.R</code></a></small>
-    <div class="hidden name"><code>manc_dvid_node.Rd</code></div>
+    <h1>Interface to the python dvid_tools module from Philipp Schlegel</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/dvidtools.R'><code>R/dvidtools.R</code></a></small>
+    <div class="hidden name"><code>dvid_tools.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Return the latest DVID node</p>
+    <p><code>dvid_tools</code> provides a lower level and less specific
+  interface to DVID that corresponding <code>manc_*</code> functions but does
+  include some functionality that is not yet available.</p>
+<p><code>install_dvid_tools</code> installs the python dvid_tools module</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_dvid_node</span><span class='op'>(</span>type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"clio"</span>, <span class='st'>"neutu"</span>, <span class='st'>"neuprint"</span>, <span class='st'>"master"</span><span class='op'>)</span>, cached <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>dvid_tools</span><span class='op'>(</span>
+  user <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"malevnc.dvid_user"</span><span class='op'>)</span>,
+  node <span class='op'>=</span> <span class='fu'><a href='manc_dvid_node.html'>manc_dvid_node</a></span><span class='op'>(</span><span class='st'>"neutu"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>install_dvid_tools</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>type</th>
-      <td><p>Whether to return the latest committed node (clio) or the active
-node being edited in neutu (the very latest) or the node in neuprint (a
-committed node that may lag behind clio). master is an alias for neutu.</p></td>
+      <th>user</th>
+      <td><p>Default DVID user names</p></td>
     </tr>
     <tr>
-      <th>cached</th>
-      <td><p>Whether to return a cached value (updated every hour) or to
-force a new query.</p></td>
+      <th>node</th>
+      <td><p>default DVID node to use for queries (see
+<code><a href='manc_dvid_node.html'>manc_dvid_node</a></code>)</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A UUID string</p>
+    <p>The dvid_tools_module will be cached using <code>memoise</code>. You can
+  modify the default user with the `$setup` method.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='https://github.com/flyconnectome/dvid_tools'>https://github.com/flyconnectome/dvid_tools</a>,
+  <a href='https://github.com/flyconnectome/dvid_tools'>https://github.com/flyconnectome/dvid_tools</a>,
+  <a href='https://emdata5.janelia.org/api/help/'>https://emdata5.janelia.org/api/help/</a> for further details.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "19fdf756b8c9477bbba4432482348c47"</div><div class='input'><span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='st'>'neutu'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "279e15f521974a47be47502096571c5a"</div><div class='input'><span class='co'># force</span>
-<span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='st'>'neuprint'</span>, cached<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "19fdf756b8c9477bbba4432482348c47"</div><div class='input'><span class='co'># }</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>dt</span><span class='op'>=</span><span class='fu'>dvid_tools</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>dt</span>
+<span class='co'># nb must explicity use integers for bodyids</span>
+<span class='va'>dt</span><span class='op'>$</span><span class='fu'>get_annotation</span><span class='op'>(</span>bodyid <span class='op'>=</span> <span class='fl'>10000L</span><span class='op'>)</span>
+
+<span class='co'># get detailed help</span>
+<span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reticulate/man/py_help.html'>py_help</a></span><span class='op'>(</span><span class='va'>dt</span><span class='op'>$</span><span class='va'>get_adjacency</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

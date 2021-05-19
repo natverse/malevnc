@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return the latest DVID node — manc_dvid_node • malevnc</title>
+<title>Convenience wrapper for neuprint connection queries for VNC dataset — manc_connection_table • malevnc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Return the latest DVID node — manc_dvid_node" />
-<meta property="og:description" content="Return the latest DVID node" />
+<meta property="og:title" content="Convenience wrapper for neuprint connection queries for VNC dataset — manc_connection_table" />
+<meta property="og:description" content="Convenience wrapper for neuprint connection queries for VNC dataset" />
 
 
 
@@ -114,44 +114,71 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return the latest DVID node</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/dvid.R'><code>R/dvid.R</code></a></small>
-    <div class="hidden name"><code>manc_dvid_node.Rd</code></div>
+    <h1>Convenience wrapper for neuprint connection queries for VNC dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/neuprint.R'><code>R/neuprint.R</code></a></small>
+    <div class="hidden name"><code>manc_connection_table.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Return the latest DVID node</p>
+    <p>Convenience wrapper for neuprint connection queries for VNC dataset</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_dvid_node</span><span class='op'>(</span>type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"clio"</span>, <span class='st'>"neutu"</span>, <span class='st'>"neuprint"</span>, <span class='st'>"master"</span><span class='op'>)</span>, cached <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>manc_connection_table</span><span class='op'>(</span>
+  <span class='va'>ids</span>,
+  partners <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"inputs"</span>, <span class='st'>"outputs"</span><span class='op'>)</span>,
+  prepost <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"PRE"</span>, <span class='st'>"POST"</span><span class='op'>)</span>,
+  conn <span class='op'>=</span> <span class='fu'><a href='manc_neuprint.html'>manc_neuprint</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>type</th>
-      <td><p>Whether to return the latest committed node (clio) or the active
-node being edited in neutu (the very latest) or the node in neuprint (a
-committed node that may lag behind clio). master is an alias for neutu.</p></td>
+      <th>ids</th>
+      <td><p>A set of body ids in any form understandable to
+<code><a href='manc_ids.html'>manc_ids</a></code></p></td>
     </tr>
     <tr>
-      <th>cached</th>
-      <td><p>Whether to return a cached value (updated every hour) or to
-force a new query.</p></td>
+      <th>partners</th>
+      <td><p>Either inputs or outputs. Redundant with <code>prepost</code>, but
+probably clearer.</p></td>
+    </tr>
+    <tr>
+      <th>prepost</th>
+      <td><p><code>PRE</code>: look for partners presynaptic (i.e upstream
+inputs) or <code>POST</code>: postsynaptic (downstream outputs) to the given
+<code>bodyids</code></p></td>
+    </tr>
+    <tr>
+      <th>conn</th>
+      <td><p>Optional, a <code>neuprint_connection</code> object, which also
+specifies the neuPrint server. Defaults to <code><a href='manc_neuprint.html'>manc_neuprint</a>()</code> to
+ensure that query is against the VNC dataset.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments passed to
+<code>neuprint_connection_table</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A UUID string</p>
+    <p>see <code>neuprint_connection_table</code></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other manc-neuprint: 
+<code><a href='manc_ids.html'>manc_ids</a>()</code>,
+<code><a href='manc_neuprint.html'>manc_neuprint</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "19fdf756b8c9477bbba4432482348c47"</div><div class='input'><span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='st'>'neutu'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "279e15f521974a47be47502096571c5a"</div><div class='input'><span class='co'># force</span>
-<span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='st'>'neuprint'</span>, cached<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "19fdf756b8c9477bbba4432482348c47"</div><div class='input'><span class='co'># }</span>
+<span class='va'>down</span><span class='op'>=</span><span class='fu'>manc_connection_table</span><span class='op'>(</span><span class='st'>"Giant Fiber"</span>, partners<span class='op'>=</span><span class='st'>'outputs'</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'><a href='manc_scene.html'>manc_scene</a></span><span class='op'>(</span><span class='va'>down</span><span class='op'>$</span><span class='va'>partner</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>]</span>, open<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
