@@ -37,13 +37,13 @@ manc_user_annotations <- function(email = "jefferis@gmail.com",
     neuprint_connection = manc_neuprint()
     neuprint_connection$config
   }
+  node=manc_nodespec(node, several.ok = F)
   u = manc_serverurl(
     "api/node/%s/neuroglancer_todo/tag/user:%s?app=natverse&u=%s",
     node,
     email,
     email
   )
-  node=manc_nodespec(node, several.ok = F)
   resp = httr::GET(u, config = neuprint_connection$config)
   httr::stop_for_status(resp)
   if(raw)
