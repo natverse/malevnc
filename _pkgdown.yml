@@ -34,6 +34,7 @@ reference:
   - '`manc_neuprint`'
   - '`manc_dvid_node`'
   - '`manc_scene`'
+  - '`dvid_tools`'
 - title: Body information and ids
   contents:
   - '`manc_id`'
