@@ -30,9 +30,15 @@ A logical vector indicating if the body exists (TRUE) or not (FALSE).
 Check if a bodyid still exists in the specified DVID node
 }
 \details{
-Note that this is still quite slow (typically 5-30 bodies per second
-  from Cambridge). When more than one body id is provided this actually uses
-  \code{\link{manc_size}} to check if the body has >0 voxels.
+Note that the raw speed of this call is still quite slow (typically
+  5-30 bodies per second from Cambridge). When more than one body id is
+  provided this actually uses \code{\link{manc_size}} to check if the body
+  has >0 voxels. This is a somewhat expensive operation on the server but can
+  be accept multiple ids. As a further speed-up, when many ids are requested
+  and \code{method="auto"} (the recommended default) then the DVID status of
+  bodies is checked. In theory only valid bodies should have such a status
+  (\href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1621448634011800?thread_ts=1621434072.008700&cid=C01MYQ1AQ5D}{see
+  Slack message}).
 }
 \examples{
 manc_islatest(10056)

@@ -115,9 +115,15 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
 
 #' Check if a bodyid still exists in the specified DVID node
 #'
-#' @details Note that this is still quite slow (typically 5-30 bodies per second
-#'   from Cambridge). When more than one body id is provided this actually uses
-#'   \code{\link{manc_size}} to check if the body has >0 voxels.
+#' @details Note that the raw speed of this call is still quite slow (typically
+#'   5-30 bodies per second from Cambridge). When more than one body id is
+#'   provided this actually uses \code{\link{manc_size}} to check if the body
+#'   has >0 voxels. This is a somewhat expensive operation on the server but can
+#'   be accept multiple ids. As a further speed-up, when many ids are requested
+#'   and \code{method="auto"} (the recommended default) then the DVID status of
+#'   bodies is checked. In theory only valid bodies should have such a status
+#'   (\href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1621448634011800?thread_ts=1621434072.008700&cid=C01MYQ1AQ5D}{see
+#'   Slack message}).
 #' @inheritParams manc_connection_table
 #' @param node A DVID node (defaults to the current neutu node, see
 #'   \code{\link{manc_dvid_node}})
@@ -141,10 +147,24 @@ manc_islatest <- function(ids, node="neutu",
   method=match.arg(method)
   node=manc_nodespec(node, several.ok = F)
   ids=manc_ids(ids, integer64 = T)
-  if(method=='auto') method=ifelse(length(ids)>1, "size", "sparsevol")
+  if(method=='auto' && isTRUE(length(ids)==1)) method="sparsevol"
   if(method=='sparsevol') {
     manc_islatest_sparsevol(ids, node = node, ...)
   } else {
+    if(method=='auto' && length(ids)>200) {
+      # short cut, see if they have a current DVID status
+      mda=manc_dvid_annotations(node=node)
+      res=logical(length(ids))
+      found=ids %in% manc_ids(mda, integer64 = T)
+      if(any(is.na(found)))
+        stop("Unexpected NAs when matching body ids in manc_islatest")
+      res[found]=T
+      if(any(!found)) {
+        # we still have some to check, we'll do them the old-fashioned way
+        res[!found]=manc_islatest(ids[!found], node=node, method='size')
+      }
+      return(res)
+    }
     sizes=manc_size(ids, node=node)
     # should be 0 when missing, but just in case
     sizes>0 & !is.na(sizes)
