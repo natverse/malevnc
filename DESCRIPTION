@@ -14,6 +14,7 @@ Description: Will provide regional surface meshes and template
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: xz
 RoxygenNote: 7.1.1
 Imports:
     nat,
