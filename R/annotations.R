@@ -158,6 +158,10 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
 #' @details Missing values in each output column are filled with NA. But if a
 #'   whole column is missing from the results of a particular query then it will
 #'   not appear at all.
+#'
+#'   When neither \code{query} and \code{ids} are missing then we return all
+#'   entries in the clio store database. This currently includes annotations for
+#'   all body ids - even the ones that are no longer current.
 #' @inheritParams manc_connection_table
 #' @param query A json query string (see examples or documentation) or an R list
 #'   with field names as elements.
@@ -181,14 +185,25 @@ manc_dvid_annotations <- function(node=manc_dvid_node('neutu'),
 #' manc_body_annotations(query='{"hemilineage": "0B"}')
 #' manc_body_annotations(query=list(user="janedoe@gmail.com"))
 #' manc_body_annotations(query=list(soma_side="RHS"))
-#' manc_body_annotations(ids=manc_xyz2id(mancneckseeds))
+#' manc_body_annotations(ids=manc_xyz2bodyid(mancneckseeds))
+#' # use clio node to ensure for bodyid consistency
+#' manc_body_annotations(ids=
+#'   manc_xyz2bodyid(mancneckseeds, manc_dvid_node("clio")))
+#'
+#' # fetch all bodyids
+#' mba=manc_body_annotations()
 #' }
 manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
                                   ...) {
-  nmissing=sum(is.null(ids), is.null(query))
-  if(nmissing!=1)
-    stop("you must provide exactly one of `ids` or `query` as input!")
   baseurl="https://clio-store-vwzoicitea-uk.a.run.app/v2/json-annotations/VNC/neurons"
+  nmissing=sum(is.null(ids), is.null(query))
+  if(nmissing==2) {
+    # fetch all annotations
+    res=clio_fetch(file.path(baseurl, 'all'), config = config, json = json)
+    return(res)
+  } else if(nmissing!=1)
+    stop("you can only provide one of `ids` or `query` as input!")
+
   if(!is.null(ids)) {
     ids=manc_ids(ids)
     chunksize=1000

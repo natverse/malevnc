@@ -38,6 +38,10 @@ Return clio-store body annotations for set of ids or a flexible query
 Missing values in each output column are filled with NA. But if a
   whole column is missing from the results of a particular query then it will
   not appear at all.
+
+  When neither \code{query} and \code{ids} are missing then we return all
+  entries in the clio store database. This currently includes annotations for
+  all body ids - even the ones that are no longer current.
 }
 \examples{
 \dontrun{
@@ -45,7 +49,13 @@ manc_body_annotations(ids=11442)
 manc_body_annotations(query='{"hemilineage": "0B"}')
 manc_body_annotations(query=list(user="janedoe@gmail.com"))
 manc_body_annotations(query=list(soma_side="RHS"))
-manc_body_annotations(ids=manc_xyz2id(mancneckseeds))
+manc_body_annotations(ids=manc_xyz2bodyid(mancneckseeds))
+# use clio node to ensure for bodyid consistency
+manc_body_annotations(ids=
+  manc_xyz2bodyid(mancneckseeds, manc_dvid_node("clio")))
+
+# fetch all bodyids
+mba=manc_body_annotations()
 }
 }
 \seealso{
