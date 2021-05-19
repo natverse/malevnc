@@ -50,7 +50,7 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
 }
 
 # private for now, but when we have a spec we like we should make it public
-manc_nodespec <- function(nodes, include_first=NA) {
+manc_nodespec <- function(nodes, include_first=NA, several.ok=TRUE) {
   if(isTRUE(nodes=='all')) {
     nodes=manc_node_chain()
   } else {
@@ -63,16 +63,26 @@ manc_nodespec <- function(nodes, include_first=NA) {
       stopifnot(length(nn)==2)
       # accept integer versions also
       rint=suppressWarnings(as.integer(nn[1]))
-      if(isTRUE(rint<1e6)) nn[1]=rint
+      nn[1] <- if(isTRUE(rint<1e6)) rint else expand_dvid_nodes(nn[1])
       hint=suppressWarnings(as.integer(nn[2]))
-      if(isTRUE(hint<1e6)) nn[2]=hint
-
+      nn[2] <- if(isTRUE(hint<1e6)) hint else expand_dvid_nodes(nn[2])
       nodes=manc_node_chain(root=nn[1], head=nn[2])
       if(is.na(include_first) || !include_first)
         nodes=nodes[-1]
+      if(length(nodes)==0)
+        stop("No valid DVID nodes specified")
     }
+    nodes=expand_dvid_nodes(nodes)
   }
   nodes
+}
+
+expand_dvid_nodes <- function(nodes) {
+  mnc=manc_node_chain()
+  matches=pmatch(nodes, mnc)
+  if(any(is.na(matches)))
+    stop("Unable to identify some DVID nodes:", paste(nodes[is.na(matches)], collapse = ' '))
+  mnc[matches]
 }
 
 # return the chain of nodes between the root and the current head
