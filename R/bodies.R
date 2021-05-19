@@ -173,6 +173,7 @@ manc_islatest_sparsevol <- function(ids, node, ...) {
 #' manc_size(10000056)
 manc_size <- function(ids, node="neutu") {
   # we don't want them to look like character
+  node=manc_nodespec(node, several.ok = F)
   bodyj=jsonlite::toJSON(manc_ids(ids, integer64 = T))
   sizes=manc_get("api/node/%s/segmentation/sizes", body=bodyj, node)
   if(length(sizes)!=length(ids))
