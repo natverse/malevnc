@@ -122,3 +122,5 @@ clio_fetch <- function(url, body=NULL, query=NULL, config=NULL, json=FALSE, ...)
   res=httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
   if(json) res else jsonlite::fromJSON(res)
 }
+
+clio_fetch_memo <- memoise::memoise(clio_fetch, ~memoise::timeout(5*60))
