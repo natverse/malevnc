@@ -105,6 +105,7 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #' @param node A DVID node as returned by \code{\link{manc_dvid_node}}. The
 #'   default is to return the current active (unlocked) node being used through
 #'   neutu.
+#' @param cache Whether to cache the result of this call for 5 minutes.
 #'
 #' @return A \code{tibble} containing with columns including \itemize{
 #'
@@ -139,21 +140,28 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #' }
 #' }
 manc_dvid_annotations <- function(node='neutu',
-                                  rval=c("data.frame", "list")) {
+                                  rval=c("data.frame", "list"),
+                                  cache=FALSE) {
   rval=match.arg(rval)
   node=manc_nodespec(node, several.ok = F)
-  u=manc_serverurl("api/node/%s/segmentation_annotations/keyrangevalues/0/Z?json=true", node)
-  res=httr::GET(u)
-  httr::stop_for_status(res)
-  d=jsonlite::fromJSON(httr::content(res, as='text', encoding = 'UTF-8'), simplifyVector = F)
+  if(cache) manc_dvid_annotations_memo(node=node, rval=rval)
+  else .manc_dvid_annotations(node=node, rval=rval)
+}
+
+.manc_dvid_annotations <- function(node, rval) {
+  path="api/node/%s/segmentation_annotations/keyrangevalues/0/Z?json=true"
+  d=manc_get(path, urlargs = list(node), as = 'parsed', simplifyVector = F)
   df=list2df(d)
   cdf=sub("body ID", "bodyid", colnames(df), fixed = T)
   cdf=sub(" ", "_", cdf, fixed = T)
   names(df)=cdf
   attr(df, 'dvid_node')=node
   df
+
 }
 
+manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
+                                               ~memoise::timeout(5*60))
 
 #' Return clio-store body annotations for set of ids or a flexible query
 #'

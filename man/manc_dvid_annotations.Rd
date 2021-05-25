@@ -4,7 +4,11 @@
 \alias{manc_dvid_annotations}
 \title{Return all DVID body annotations}
 \usage{
-manc_dvid_annotations(node = "neutu", rval = c("data.frame", "list"))
+manc_dvid_annotations(
+  node = "neutu",
+  rval = c("data.frame", "list"),
+  cache = FALSE
+)
 }
 \arguments{
 \item{node}{A DVID node as returned by \code{\link{manc_dvid_node}}. The
@@ -14,6 +18,8 @@ neutu.}
 \item{rval}{Whether to return a fully parsed data.frame (the default) or an R
 list. The data.frame is easier to work with but typically includes NAs for
 many values that would be missing in the list.}
+
+\item{cache}{Whether to cache the result of this call for 5 minutes.}
 }
 \value{
 A \code{tibble} containing with columns including \itemize{
