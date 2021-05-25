@@ -74,3 +74,12 @@ install_dvid_tools <- function() {
   fafbseg:::check_package_available('reticulate')
   fafbseg::simple_python(pkgs = 'git+git://github.com/flyconnectome/dvid_tools@master')
 }
+
+manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvid_user"), node='neutu') {
+  if(is.null(user))
+    stop("Please specify a user or set options(malevnc.dvid_user)")
+  ann_dict=reticulate::dict(list(instance=instance, "naming user"=user))
+  dt=dvid_tools(node = node)
+  bodyid=checkmate::asInt(bodyid, lower = 10000L)
+  dt$edit_annotation(bodyid = bodyid, annotation = ann_dict, verbose=F)
+}
