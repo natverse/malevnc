@@ -48,6 +48,7 @@ reference:
   - '`manc_dvid_annotations`'
   - '`manc_point_annotations`'
   - '`manc_user_annotations`'
+  - '`manc_annotate_soma`'
   - '`clio_auth`'
 - title: Connectivity
   contents:
