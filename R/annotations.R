@@ -298,6 +298,7 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics") {
 
 manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE) {
   mda=manc_dvid_annotations(cache=cache)
+  colnames(mda)[colnames(mda)=='class']='dvid_class'
   mba=manc_body_annotations(cache=cache, update.bodyids = TRUE)
   # prefer DVID annotations when dup columns exist
   mba=mba[union("bodyid", setdiff(colnames(mba), colnames(mda)))]
