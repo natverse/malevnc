@@ -78,6 +78,8 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=
 #' @param conn Optional, a \code{\link{neuprint_connection}} object, which also
 #'   specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
 #'   ensure that query is against the VNC dataset.
+#' @param moredetails Whether to include additional metadata information such as
+#'   hemilineage, side etc.
 #' @param ... additional arguments passed to
 #'   \code{\link{neuprint_connection_table}}
 #' @inheritParams neuprintr::neuprint_connection_table
@@ -93,13 +95,20 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=
 #' }
 #' }
 manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
-                                  prepost = c("PRE", "POST"), conn=manc_neuprint(), ...) {
+                                  prepost = c("PRE", "POST"),
+                                  moredetails=TRUE,
+                                  conn=manc_neuprint(), ...) {
   if(!missing(partners)) {
     partners=match.arg(partners)
     prepost=ifelse(partners=='inputs', "PRE", "POST")
   }
   ids=manc_ids(ids, conn=conn)
-  neuprintr::neuprint_connection_table(ids, prepost = prepost, details=T, conn=conn, ...)
+  res=neuprintr::neuprint_connection_table(ids, prepost = prepost, details=T, conn=conn, ...)
+  if(moredetails) {
+    details=manc_meta(res$partner)
+    # ct.fields=union("bodyid", setdiff(colnames(details), colnames(res))
+    cbind(res, details)
+  } else res
 }
 
 

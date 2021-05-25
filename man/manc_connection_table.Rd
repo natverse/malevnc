@@ -24,6 +24,9 @@ probably clearer.}
 inputs) or \code{POST}: postsynaptic (downstream outputs) to the given
 \code{bodyids}}
 
+\item{moredetails}{Whether to include additional metadata information such as
+hemilineage, side etc.}
+
 \item{conn}{Optional, a \code{\link{neuprint_connection}} object, which also
 specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
 ensure that query is against the VNC dataset.}
