@@ -95,7 +95,10 @@ manc_scene <- function(ids=NULL, node='clio',
     sc$layers$`dvid-segmentation`$source$url=dvidurl
     if(isTRUE(length(ids)>0))
       fafbseg::ngl_segments(sc) <- ids
-    burl=sub("(https://[^/]+).+", "\\1", url)
+    burl <- ifelse(server=='janelia',
+                   "https://neuroglancer.janelia.org",
+                   "https://neuroglancer-demo.appspot.com")
+    # burl=sub("(https://[^/]+).+", "\\1", url)
     fafbseg::ngl_encode_url(sc, baseurl = burl)
   }
 
