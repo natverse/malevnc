@@ -107,6 +107,7 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
   if(moredetails) {
     details=manc_meta(res$partner, unique = F)
     # ct.fields=union("bodyid", setdiff(colnames(details), colnames(res))
+    stopifnot(all(res$partner==details$bodyid))
     cbind(res, details)
   } else res
 }

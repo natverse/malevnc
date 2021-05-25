@@ -304,8 +304,11 @@ manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE) {
   mba=mba[union("bodyid", setdiff(colnames(mba), colnames(mda)))]
   m=merge(mda, mba, by='bodyid', sort = FALSE, all.x = T, all.y = T)
   if(!is.null(ids)) {
-    df=data.frame(bodyid=manc_ids(ids, unique=unique))
-    m=merge(df, m, by='bodyid', sort=F, all.x=T, no.dups=unique)
+    df=data.frame(bodyid=manc_ids(ids, unique=unique, as_character = F))
+
+    # m=merge(df, m, by='bodyid', sort=F, all.x=T, no.dups=unique)
+    m=dplyr::left_join(df,m, by='bodyid')
+    # m=merge(df, m, by='bodyid', sort=F, all.x=T, no.dups=unique)
   }
   m
 }
