@@ -89,7 +89,7 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
     return(df)
   }
   # GET <api URL>/node/<UUID>/<data name>/mutations[?queryopts]
-  res=manc_get("api/node/%s/%s/mutations", nodes, "segmentation")
+  res=manc_get("api/node/%s/%s/mutations", urlargs=list(nodes, "segmentation"))
   rr=list2df(res)
   if(!isTRUE(bigcols)) {
     bigcols="CleavedSupervoxels"
@@ -195,7 +195,7 @@ manc_size <- function(ids, node="neutu") {
   # we don't want them to look like character
   node=manc_nodespec(node, several.ok = F)
   bodyj=jsonlite::toJSON(manc_ids(ids, integer64 = T))
-  sizes=manc_get("api/node/%s/segmentation/sizes", body=bodyj, node)
+  sizes=manc_get("api/node/%s/segmentation/sizes", body=bodyj, urlargs=list(node))
   if(length(sizes)!=length(ids))
     stop("DVID sizes endpoint did not return the right number of elements!")
   sizes

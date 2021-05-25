@@ -132,7 +132,10 @@ manc_server <-
 
 # utility function to generate URLs on emdata5.
 # Will do sprintf string interpolation if required
-manc_serverurl <- function(path, ...) {
-  path = sprintf(path, ...)
+manc_serverurl <- function(path, ..., urlargs=NULL) {
+  path <- if(length(urlargs)>0)
+    do.call(sprintf, c(list(path), urlargs))
+  else
+    sprintf(path, ...)
   url = file.path(manc_server(), path, fsep = '/')
 }

@@ -27,7 +27,7 @@ manc_xyz2bodyid <- function(xyz, node = 'neutu') {
   xyzmat=round(xyzmat)
   mode(xyzmat)='integer'
 
-  res2=manc_get('api/node/%s/segmentation/labels', body=xyzmat, node)
+  res2=manc_get('api/node/%s/segmentation/labels', body=xyzmat, urlargs=list(node))
   res2
 }
 
