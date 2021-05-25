@@ -105,7 +105,7 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
   ids=manc_ids(ids, conn=conn)
   res=neuprintr::neuprint_connection_table(ids, prepost = prepost, details=T, conn=conn, ...)
   if(moredetails) {
-    details=manc_meta(res$partner)
+    details=manc_meta(res$partner, unique = F)
     # ct.fields=union("bodyid", setdiff(colnames(details), colnames(res))
     cbind(res, details)
   } else res
