@@ -9,6 +9,8 @@ manc_get <- function(path, urlargs=list(), as='parsed', ..., body=NULL) {
   res2
 }
 
+manc_get_memo <- memoise::memoise(manc_get, ~memoise::timeout(5*60))
+
 manc_get_body <- function(url, body, as='parsed', simplifyVector = T, ...) {
   bodyj <- if(is.character(body)) body else jsonlite::toJSON(body)
   viafile=nchar(bodyj)>10000
