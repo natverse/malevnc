@@ -175,12 +175,14 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' @inheritParams manc_connection_table
 #' @param query A json query string (see examples or documentation) or an R list
 #'   with field names as elements.
+#' @param update.bodyids Whether to update the bodyid associated with
+#'   annotations based on the position field.
 #' @param config An optional httr::config (expert use only, must include a
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
 #'   \code{FALSE}).
 #' @param ... Additional arguments passed to \code{pbapply::\link{pblapply}}
-#'
+#' @inheritParams manc_dvid_annotations
 #' @return An R data.frame or a character vector containing JSON (when
 #'   \code{json=TRUE}).
 #' @export
@@ -204,12 +206,13 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' mba=manc_body_annotations()
 #' }
 manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
-                                  ...) {
+                                  cache=FALSE, update.bodyids=TRUE, ...) {
   baseurl="https://clio-store-vwzoicitea-uk.a.run.app/v2/json-annotations/VNC/neurons"
   nmissing=sum(is.null(ids), is.null(query))
+  FUN=if(cache) clio_fetch_memo else clio_fetch
   if(nmissing==2) {
     # fetch all annotations
-    res=clio_fetch(file.path(baseurl, 'all'), config = config, json = json)
+    res=FUN(file.path(baseurl, 'all'), config = config, json = json)
     if(is.list(res$bodyid)) {
       lengths=sapply(res$bodyid, length)
       nbadlengths=sum(lengths!=1)
@@ -219,6 +222,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
       }
       res$bodyid=unlist(res$bodyid, use.names = F)
     }
+    updatebodyids(res, update.bodyids, cache = cache)
     return(res)
   } else if(nmissing!=1)
     stop("you can only provide one of `ids` or `query` as input!")
@@ -229,7 +233,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
     if(length(ids)>chunksize) {
       chunknums=floor((seq_along(ids)-1)/chunksize)+1
       chunkedids=split(ids, chunknums)
-      res=pbapply::pblapply(chunkedids, manc_body_annotations, json=json, config=config, ...)
+      res=pbapply::pblapply(chunkedids, manc_body_annotations, json=json, config=config, cache=cache, update.bodyids=update.bodyids, ...)
       return(dplyr::bind_rows(res))
     }
     if(length(ids)>1)
@@ -246,10 +250,25 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
       query
     }
   }
-  clio_fetch(u, body = body,
-           query=list(changes = "false", id_field = "bodyid"),
-           config = config, json = json)
 
+  res=FUN(
+    u,
+    body = body,
+    query = list(changes = "false", id_field = "bodyid"),
+    config = config,
+    json = json
+  )
+  updatebodyids(res, update.bodyids, cache = cache)
+}
+
+updatebodyids <- function(x, update=TRUE, cache=FALSE) {
+  if(isFALSE(update)) return(x)
+  stopifnot(is.data.frame(x) && all(c("bodyid", "position") %in% colnames(x)))
+  xyz=xyzmatrix(x$position)
+  goodpos=!is.na(xyz[,1])
+  x$original.bodyid=x$bodyid
+  x$bodyid[goodpos]=manc_xyz2bodyid(x$position[goodpos], cache = cache)
+  x
 }
 
 

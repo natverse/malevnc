@@ -4,12 +4,16 @@
 \alias{manc_xyz2bodyid}
 \title{Find the bodyid for an XYZ location}
 \usage{
-manc_xyz2bodyid(xyz, node = "neutu")
+manc_xyz2bodyid(xyz, node = "neutu", cache = FALSE)
 }
 \arguments{
-\item{xyz}{location in raw pixels}
+\item{xyz}{location in raw MANC pixels}
 
-\item{node}{a DVID node}
+\item{node}{A DVID node as returned by \code{\link{manc_dvid_node}}. The
+default is to return the current active (unlocked) node being used through
+neutu.}
+
+\item{cache}{Whether to cache the result of this call for 5 minutes.}
 }
 \value{
 A character vector of body ids

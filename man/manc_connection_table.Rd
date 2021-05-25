@@ -8,6 +8,7 @@ manc_connection_table(
   ids,
   partners = c("inputs", "outputs"),
   prepost = c("PRE", "POST"),
+  moredetails = TRUE,
   conn = manc_neuprint(),
   ...
 )

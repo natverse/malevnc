@@ -9,6 +9,8 @@ manc_body_annotations(
   query = NULL,
   json = FALSE,
   config = NULL,
+  cache = FALSE,
+  update.bodyids = TRUE,
   ...
 )
 }
@@ -24,6 +26,11 @@ with field names as elements.}
 
 \item{config}{An optional httr::config (expert use only, must include a
 bearer token)}
+
+\item{cache}{Whether to cache the result of this call for 5 minutes.}
+
+\item{update.bodyids}{Whether to update the bodyid associated with
+annotations based on the position field.}
 
 \item{...}{Additional arguments passed to \code{pbapply::\link{pblapply}}}
 }

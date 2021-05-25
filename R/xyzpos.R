@@ -1,8 +1,7 @@
 #' Find the bodyid for an XYZ location
 #'
-#' @param xyz location in raw pixels
-#' @param node a DVID node
-#'
+#' @param xyz location in raw MANC pixels
+#' @inheritParams manc_dvid_annotations
 #' @return A character vector of body ids
 #' @export
 #'
@@ -16,7 +15,7 @@
 #' \dontrun{
 #' manc_scene(ids=dups)
 #' }
-manc_xyz2bodyid <- function(xyz, node = 'neutu') {
+manc_xyz2bodyid <- function(xyz, node = 'neutu', cache=FALSE) {
   node=manc_nodespec(node, several.ok = F)
   if(isFALSE(nzchar(Sys.which('curl'))))
     stop("manc_xyz2bodyid currently requires the curl command line tool to be present in your path!")
@@ -27,7 +26,9 @@ manc_xyz2bodyid <- function(xyz, node = 'neutu') {
   xyzmat=round(xyzmat)
   mode(xyzmat)='integer'
 
-  res2=manc_get('api/node/%s/segmentation/labels', body=xyzmat, urlargs=list(node))
+  FUN=if(cache) manc_get_memo else manc_get
+  res2=FUN('api/node/%s/segmentation/labels', body=xyzmat,
+                urlargs=list(node), cache=cache)
   res2
 }
 
