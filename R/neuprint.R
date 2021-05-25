@@ -102,3 +102,26 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
   neuprintr::neuprint_connection_table(ids, prepost = prepost, details=T, conn=conn, ...)
 }
 
+
+#' Read MANC skeletons via neuprint
+#'
+#' @details \code{manc_read_neurons} fetches metadata from neurprint but does not fetch synapse locations by default as this is
+#'
+#' @inheritParams manc_connection_table
+#' @inheritParams neuprintr::neuprint_read_neurons
+#' @param ... Additional arguments passed to
+#'   \code{neuprintr::\link{neuprint_read_neurons}}.
+#'
+#' @return A \code{\link{neuronlist}} with attached metadata
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' gfs=manc_read_neurons("Giant Fiber")
+#' gfs[,]
+#' }
+manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=manc_neuprint(), ...) {
+  ids=manc_ids(ids, conn=conn)
+  neuprintr::neuprint_read_neurons(ids, meta = T, connectors = connectors,
+                                   heal.threshold=heal.threshold, ...)
+}

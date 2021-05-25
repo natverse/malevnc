@@ -53,9 +53,10 @@ reference:
 - title: Connectivity
   contents:
   - '`manc_connection_table`'
-- title: Meshes and Geometry
+- title: Meshes, Skeletons and Geometry
   contents:
   - '`read_draco_meshes`'
+  - '`manc_read_neurons`'
   - '`mirror_manc`'
   - '`manc_lr_position`'
 - title: Data objects
