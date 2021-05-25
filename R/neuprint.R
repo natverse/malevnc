@@ -96,7 +96,7 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=
 #' }
 manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
                                   prepost = c("PRE", "POST"),
-                                  moredetails=TRUE,
+                                  moredetails=FALSE,
                                   conn=manc_neuprint(), ...) {
   if(!missing(partners)) {
     partners=match.arg(partners)
