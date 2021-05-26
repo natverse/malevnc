@@ -16,7 +16,7 @@ from github and access the data.
 You can install the development version of malevnc from github:
 
 ``` r
-install.packages(natmanager)
+install.packages("natmanager")
 natmanager::install(pkgs="flyconnectome/malevnc")
 ```
 
