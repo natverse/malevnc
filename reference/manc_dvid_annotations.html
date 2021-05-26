@@ -123,7 +123,11 @@
     <p>Return all DVID body annotations</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span>node <span class='op'>=</span> <span class='st'>"neutu"</span>, rval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"data.frame"</span>, <span class='st'>"list"</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span>
+  node <span class='op'>=</span> <span class='st'>"neutu"</span>,
+  rval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"data.frame"</span>, <span class='st'>"list"</span><span class='op'>)</span>,
+  cache <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,6 +143,10 @@ neutu.</p></td>
       <td><p>Whether to return a fully parsed data.frame (the default) or an R
 list. The data.frame is easier to work with but typically includes NAs for
 many values that would be missing in the list.</p></td>
+    </tr>
+    <tr>
+      <th>cache</th>
+      <td><p>Whether to cache the result of this call for 5 minutes.</p></td>
     </tr>
     </table>
 
@@ -180,9 +188,9 @@ many values that would be missing in the list.</p></td>
 #&gt; <span style='color: #BCBCBC;'>6</span> <span style='text-decoration: underline;'>100</span>009 <span style='color: #BB0000;'>NA</span>       0.5assign      <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mdf</span><span class='op'>$</span><span class='va'>status</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;             0.5assign                Anchor                Leaves 
-#&gt;                  9065                  7219                     2 
+#&gt;                  9054                  7006                     2 
 #&gt;                Orphan Prelim Roughly traced           Soma Anchor 
-#&gt;                   255                  5284                 12103 </div><div class='input'>
+#&gt;                   255                  5571                 11814 </div><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># compare live body annotations with version in clio</span>
 <span class='va'>mdf.clio</span><span class='op'>=</span><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='st'>'clio'</span><span class='op'>)</span>

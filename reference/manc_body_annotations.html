@@ -128,6 +128,8 @@
   query <span class='op'>=</span> <span class='cn'>NULL</span>,
   json <span class='op'>=</span> <span class='cn'>FALSE</span>,
   config <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  update.bodyids <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -153,6 +155,15 @@ with field names as elements.</p></td>
       <th>config</th>
       <td><p>An optional httr::config (expert use only, must include a
 bearer token)</p></td>
+    </tr>
+    <tr>
+      <th>cache</th>
+      <td><p>Whether to cache the result of this call for 5 minutes.</p></td>
+    </tr>
+    <tr>
+      <th>update.bodyids</th>
+      <td><p>Whether to update the bodyid associated with
+annotations based on the position field.</p></td>
     </tr>
     <tr>
       <th>...</th>
