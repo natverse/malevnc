@@ -41,3 +41,15 @@
 #' head(mancneckseeds)
 #' @seealso \code{\link{mancsomapos}}
 "mancneckseeds"
+
+#' Simplified tissue surface of MALEVNC
+#'
+#' @name MANC.tissue.surf
+#' @docType data
+#' @examples
+#' \dontrun{
+#' # Depends on nat
+#' library(nat)
+#' wire3d(MANC.tissue.surf)
+#' }
+"MANC.tissue.surf"

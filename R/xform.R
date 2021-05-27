@@ -131,6 +131,8 @@ mirror_manc_reglist <- function(direction=c("forward", "reverse"), level=c(5,4))
   if(direction=='forward') mirror_reg_f else invert_reglist(mirror_reg_f)
 }
 
+#' MANC symmetric template
+#' @export
 MANCsym = structure(
   list(
     name = "mancsym-4-symmetric",
