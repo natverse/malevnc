@@ -133,5 +133,5 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
 manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=manc_neuprint(), ...) {
   ids=manc_ids(ids, conn=conn)
   neuprintr::neuprint_read_neurons(ids, meta = T, connectors = connectors,
-                                   heal.threshold=heal.threshold, ...)
+                                   heal.threshold=heal.threshold, conn=conn, ...)
 }
