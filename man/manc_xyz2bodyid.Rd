@@ -16,7 +16,7 @@ neutu.}
 \item{cache}{Whether to cache the result of this call for 5 minutes.}
 }
 \value{
-A character vector of body ids
+A character vector of body ids (0 is missing somas / missing locations)
 }
 \description{
 Find the bodyid for an XYZ location
