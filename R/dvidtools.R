@@ -80,6 +80,14 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
     stop("Please specify a user or set options(malevnc.dvid_user)")
   ann_dict=reticulate::dict(list(instance=instance, "naming user"=user))
   dt=dvid_tools(node = node)
-  bodyid=checkmate::asInt(bodyid, lower = 10000L)
-  dt$edit_annotation(bodyid = bodyid, annotation = ann_dict, verbose=F)
+  bodyidint=try(checkmate::asInt(bodyid, lower = 10000L), silent = TRUE)
+  # deal with ids that are only valid as 64 bit ints
+  if(inherits(bodyidint, 'try-error')) {
+    stopifnot(requireNamespace('fafbseg'))
+    bodyidlist=fafbseg:::rids2pyint(bodyid)
+    stopifnot(inherits(bodyidlist, "python.builtin.list"))
+    bodyidint=bodyidlist$pop()
+    stopifnot(inherits(bodyidint, "python.builtin.int"))
+  }
+  dt$edit_annotation(bodyid = bodyidint, annotation = ann_dict, verbose=F)
 }
