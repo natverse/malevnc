@@ -22,14 +22,22 @@ manc_xyz2bodyid <- function(xyz, node = 'neutu', cache=FALSE) {
   if(!is.matrix(xyz) && is.numeric(xyz) && length(xyz)==3) {
     xyz=matrix(xyz, ncol=3)
   }
+
   xyzmat=nat::xyzmatrix(xyz)
   xyzmat=round(xyzmat)
   mode(xyzmat)='integer'
 
+  # handling NAs
+  nrows <- dim(xyzmat)[[1]]
+  not.na.rows <- which(rowSums(!is.na(xyzmat))==ncol(xyzmat))
+  xyzmat <- xyzmat[not.na.rows, ]
   FUN=if(cache) manc_get_memo else manc_get
   res2=FUN('api/node/%s/segmentation/labels', body=xyzmat,
                 urlargs=list(node), cache=cache)
   res2
+  rr <- data.frame(res = rep(NA, nrows))
+  rr[not.na.rows,] <- res2
+  rr$res
 }
 
 
