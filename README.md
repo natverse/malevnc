@@ -20,7 +20,7 @@ install.packages("natmanager")
 natmanager::install(pkgs="flyconnectome/malevnc")
 ```
 
-Note that you must have a GitHub Personal Access Token (PAT) set up in order
+Note that you must have been given access to the [github repository](https://github.com/flyconnectome/malevnc/) and have a GitHub Personal Access Token (PAT) set up in order
 to install the library for as long as it remains private. Do :
 
 ```
@@ -38,6 +38,7 @@ See https://usethis.r-lib.org/articles/articles/git-credentials.html for the
 gory details.
 
 ### Authentication
+
 Access to neuprint / Clio then depends on authorisation. For neuprint, please
 see https://github.com/natverse/neuprintr#authentication; you only need to set
 the `neuprint_token` environment variable. For Clio, you will prompted to 
@@ -52,6 +53,13 @@ To use these you will need a CMTK installation.
 * For windows, I recommend Cygwin install. See https://natverse.org/nat/articles/Installation.html#cmtk-nat-on-windows for details.
 * For Linux I recommend compiling or using [neurodebian](http://neuro.debian.net/pkgs/cmtk.html).
 
+Check that the natverse has found CMTK like so:
+
+```
+nat::cmtk.bindir()
+nat::cmtk.dof2mat(version = T)
+```
+
 ## Example
 
 You can check everything is working like so:
@@ -60,5 +68,7 @@ You can check everything is working like so:
 library(nat)
 library(malevnc)
 plot3d(MANC.surf)
+
+table(manc_dvid_annotations()$naming_user)
 ```
 
