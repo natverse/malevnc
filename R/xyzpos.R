@@ -2,7 +2,7 @@
 #'
 #' @param xyz location in raw MANC pixels
 #' @inheritParams manc_dvid_annotations
-#' @return A character vector of body ids
+#' @return A character vector of body ids (0 is missing somas / missing locations)
 #' @export
 #'
 #' @examples
@@ -22,14 +22,22 @@ manc_xyz2bodyid <- function(xyz, node = 'neutu', cache=FALSE) {
   if(!is.matrix(xyz) && is.numeric(xyz) && length(xyz)==3) {
     xyz=matrix(xyz, ncol=3)
   }
+
   xyzmat=nat::xyzmatrix(xyz)
   xyzmat=round(xyzmat)
   mode(xyzmat)='integer'
 
-  FUN=if(cache) manc_get_memo else manc_get
-  res2=FUN('api/node/%s/segmentation/labels', body=xyzmat,
+  # handling NAs
+  nrows = nrow(xyzmat)
+  goodrows = rowSums(is.na(xyzmat)) == 0
+  ids = numeric(nrows)
+  if (sum(goodrows) == 0) return(ids)
+  xyzmat = xyzmat[goodrows, , drop=FALSE]
+  FUN = if(cache) manc_get_memo else manc_get
+  res2 = FUN('api/node/%s/segmentation/labels', body=xyzmat,
                 urlargs=list(node), cache=cache)
-  res2
+  ids[goodrows] = res2
+  ids
 }
 
 

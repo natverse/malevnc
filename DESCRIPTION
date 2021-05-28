@@ -2,12 +2,16 @@ Type: Package
 Package: malevnc
 Title: Support for Working with Janelia FlyEM Male VNC Dataset
 Version: 0.1.0
-Authors@R: 
-    person(given = "Gregory",
+Authors@R:
+    c(person(given = "Gregory",
            family = "Jefferis",
            role = c("aut", "cre"),
            email = "jefferis@gmail.com",
-           comment = c(ORCID = "0000-0002-0587-9355"))
+           comment = c(ORCID = "0000-0002-0587-9355")),
+    person("Dominik", "Krzeminski",
+           role = c("ctb"),
+           email = "dkk33@cam.ac.uk",
+           comment = c(ORCID = "0000-0003-4568-0583")))
 Description: Will provide regional surface meshes and template
     brain support for the Janelia FlyEM / Hess lab male VNC data set
     currently for which proofreading started Autumn 2020.
