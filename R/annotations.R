@@ -262,8 +262,10 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
 }
 
 updatebodyids <- function(x, update=TRUE, cache=FALSE) {
-  if(isFALSE(update)) return(x)
-  stopifnot(is.data.frame(x) && all(c("bodyid", "position") %in% colnames(x)))
+  # we can't do anything if we don't have position info
+  if(isFALSE(update) || !isTRUE("position" %in% names(x)))
+    return(x)
+  stopifnot(is.data.frame(x) && !"bodyid" %in% colnames(x))
   xyz=xyzmatrix(x$position)
   goodpos=!is.na(xyz[,1])
   x$original.bodyid=x$bodyid
