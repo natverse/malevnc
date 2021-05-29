@@ -146,7 +146,7 @@ manc_islatest <- function(ids, node="neutu",
                           method=c("auto", "size", 'sparsevol'), ...) {
   method=match.arg(method)
   node=manc_nodespec(node, several.ok = F)
-  ids=manc_ids(ids, integer64 = T)
+  ids=manc_ids(ids, integer64 = T, unique=FALSE)
   if(method=='auto' && isTRUE(length(ids)==1)) method="sparsevol"
   if(method=='sparsevol') {
     manc_islatest_sparsevol(ids, node = node, ...)
@@ -194,7 +194,7 @@ manc_islatest_sparsevol <- function(ids, node, ...) {
 manc_size <- function(ids, node="neutu") {
   # we don't want them to look like character
   node=manc_nodespec(node, several.ok = F)
-  bodyj=jsonlite::toJSON(manc_ids(ids, integer64 = T))
+  bodyj=jsonlite::toJSON(manc_ids(ids, integer64 = T, unique=FALSE))
   sizes=manc_get("api/node/%s/segmentation/sizes", body=bodyj, urlargs=list(node))
   if(length(sizes)!=length(ids))
     stop("DVID sizes endpoint did not return the right number of elements!")
