@@ -265,7 +265,8 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE) {
   # we can't do anything if we don't have position info
   if(isFALSE(update) || !isTRUE("position" %in% names(x)))
     return(x)
-  stopifnot(is.data.frame(x) && !"bodyid" %in% colnames(x))
+  if(!is.data.frame(x) || (!"bodyid" %in% colnames(x)))
+    stop("Must have a data.frame with a bodyid column!")
   xyz=xyzmatrix(x$position)
   goodpos=!is.na(xyz[,1])
   x$original.bodyid=x$bodyid
