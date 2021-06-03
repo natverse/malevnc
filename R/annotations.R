@@ -222,7 +222,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
       }
       res$bodyid=unlist(res$bodyid, use.names = F)
     }
-    updatebodyids(res, update.bodyids, cache = cache)
+    res=updatebodyids(res, update.bodyids, cache = cache)
     return(res)
   } else if(nmissing!=1)
     stop("you can only provide one of `ids` or `query` as input!")
