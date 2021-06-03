@@ -229,17 +229,27 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
 
   if(!is.null(ids)) {
     ids=manc_ids(ids)
-    chunksize=1000
-    if(length(ids)>chunksize) {
-      chunknums=floor((seq_along(ids)-1)/chunksize)+1
-      chunkedids=split(ids, chunknums)
-      res=pbapply::pblapply(chunkedids, manc_body_annotations, json=json, config=config, cache=cache, update.bodyids=update.bodyids, ...)
-      return(dplyr::bind_rows(res))
+    if(length(ids)>1000 && !json) {
+      # it's quicker to fetch all and then filter post hoc
+      # but we can't do that with json
+      mba=manc_body_annotations(cache=cache, config=config, update.bodyids=update.bodyids, ...)
+      res=mba[match(ids, mba$bodyid),,drop=F]
+      return(res)
+    } else {
+      chunksize=1000
+      if(length(ids)>chunksize && !json) {
+        chunknums=floor((seq_along(ids)-1)/chunksize)+1
+        chunkedids=split(ids, chunknums)
+        res=pbapply::pblapply(chunkedids, manc_body_annotations, json=json,
+                              config=config, cache=cache,
+                              update.bodyids=update.bodyids, ...)
+        return(dplyr::bind_rows(res))
+      }
+      if(length(ids)>1)
+        ids=paste(ids, collapse = ',')
+      u=sprintf("%s/id-number/%s", baseurl, ids)
+      body=NULL
     }
-    if(length(ids)>1)
-      ids=paste(ids, collapse = ',')
-    u=sprintf("%s/id-number/%s", baseurl, ids)
-    body=NULL
   } else {
     u=sprintf("%s/query", baseurl)
     body <- if(is.list(query))
