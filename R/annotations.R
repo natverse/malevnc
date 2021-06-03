@@ -258,19 +258,22 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
     config = config,
     json = json
   )
-  updatebodyids(res, update.bodyids, cache = cache)
+  updatebodyids(res, update=update.bodyids, cache = cache)
 }
 
+# update can be T/F or a bodyid
 updatebodyids <- function(x, update=TRUE, cache=FALSE) {
   # we can't do anything if we don't have position info
   if(isFALSE(update) || !isTRUE("position" %in% names(x)))
     return(x)
   if(!is.data.frame(x) || (!"bodyid" %in% colnames(x)))
     stop("Must have a data.frame with a bodyid column!")
+  node <- manc_dvid_node(ifelse(isTRUE(update), 'neutu', update))
+
   xyz=xyzmatrix(x$position)
   goodpos=!is.na(xyz[,1])
   x$original.bodyid=x$bodyid
-  x$bodyid[goodpos]=manc_xyz2bodyid(x$position[goodpos], cache = cache)
+  x$bodyid[goodpos]=manc_xyz2bodyid(x$position[goodpos], cache = cache, node = node)
   x
 }
 
@@ -308,10 +311,7 @@ manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE) {
   m=merge(mda, mba, by='bodyid', sort = FALSE, all.x = T, all.y = T)
   if(!is.null(ids)) {
     df=data.frame(bodyid=manc_ids(ids, unique=unique, as_character = F))
-
-    # m=merge(df, m, by='bodyid', sort=F, all.x=T, no.dups=unique)
     m=dplyr::left_join(df,m, by='bodyid')
-    # m=merge(df, m, by='bodyid', sort=F, all.x=T, no.dups=unique)
   }
   m
 }
