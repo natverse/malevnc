@@ -207,7 +207,7 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' }
 manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
                                   cache=FALSE, update.bodyids=TRUE, ...) {
-  baseurl="https://clio-store-vwzoicitea-uk.a.run.app/v2/json-annotations/VNC/neurons"
+  baseurl=clio_url("v2/json-annotations/VNC/neurons")
   nmissing=sum(is.null(ids), is.null(query))
   FUN=if(cache) clio_fetch_memo else clio_fetch
   if(nmissing==2) {
@@ -320,7 +320,7 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE) {
 manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FALSE,
                                    bodyid=TRUE, node='clio') {
 
-  u="https://clio-store-vwzoicitea-uk.a.run.app/v2/annotations/VNC"
+  u=clio_url("v2/annotations/VNC")
 
   if(!is.null(groups)) {
     groups=gsub(" ", "+", groups)

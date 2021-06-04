@@ -61,7 +61,7 @@ manc_annotate_soma <- function(pos, tag=c("soma", "tosoma", "root"), user=getOpt
 }
 
 manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("malevnc.clio_email"), description=NULL, ...) {
-  url="https://clio-test-7fdj77ed7q-uk.a.run.app/v2/annotations/VNC"
+  url=clio_url(path="v2/annotations/VNC")
   pos=checkmate::assert_numeric(c(pos), len = 3)
   body=list(kind="point",
             pos=c(pos),
