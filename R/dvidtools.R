@@ -43,8 +43,10 @@ dvid_tools_module <- memoise::memoise(function() {
   dt=try(reticulate::import('dvidtools'), silent = T)
   if(inherits(dt, "try-error")){
     dt=try(reticulate::import('dvid'), silent = T)
-    if(inherits(dt, "try-error"))
-      stop("Could not import dvid/dvidtools module!")
+    if(inherits(dt, "try-error")) {
+      stop("Could not import dvid/dvidtools module!",
+           " Please install using install_dvid_tools()!")
+    }
   }
   dt
 })
@@ -77,7 +79,10 @@ install_dvid_tools <- function() {
 
 manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvid_user"), node='neutu') {
   if(is.null(user))
-    stop("Please specify a user or set options(malevnc.dvid_user)")
+    stop("Please specify a user or set options(malevnc.dvid_user='<janelia_username>')")
+  else if(isTRUE(grepl("@", user))) {
+    stop("The DVID user should be a janelia username e.g. `jefferisg` rather than an email address!")
+  }
   ann_dict=reticulate::dict(list(instance=instance, "naming user"=user))
   dt=dvid_tools(node = node)
   bodyidint=try(checkmate::asInt(bodyid, lower = 10000L), silent = TRUE)
