@@ -290,7 +290,21 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE) {
 
 #' Return point annotations from Clio store
 #'
-#' @param groups Defines a group for which we would like to see all annotations. When NULL, only returns annotations for your own user.
+#' @details There is an optional 5 minute cache of these lookups (recreated for
+#'   each new R session). The location of each point annotation will by default
+#'   be found using the \code{\link{manc_xyz2bodyid}} function; this will also
+#'   be cached when \code{cache=TRUE}. The default node for these lookups is
+#'   Clio i.e. the you will get the bodyid reported in Clio. You can also choose
+#'   to lookup the id for any DVID node, by specifying e.g. \code{node='neutu'}
+#'   to get the absolute latest node. Of course in theory bodyids with Clio
+#'   annotaions should not be changing ...
+#'
+#' @param groups Defines a group for which we would like to see all annotations.
+#'   When NULL, only returns annotations for your own user.
+#' @param bodyid Whether or not to compute the current bodyid from the location
+#'   of the point annotation using \code{\link{manc_xyz2bodyid}} (defaults to
+#'   \code{TRUE}).
+#' @inheritParams manc_xyz2bodyid
 #'
 #' @family manc-annotation
 #' @return A data.frame of annotations
@@ -300,8 +314,11 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE) {
 #' \dontrun{
 #' mpa=manc_point_annotations()
 #' head(mpa)
+#' # get absolutely latest bodyids
+#' head(manc_point_annotations(node='neutu'))
 #' }
-manc_point_annotations <- function(groups="UK Drosophila Connectomics") {
+manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FALSE,
+                                   bodyid=TRUE, node='clio') {
 
   u="https://clio-store-vwzoicitea-uk.a.run.app/v2/annotations/VNC"
 
@@ -309,7 +326,14 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics") {
     groups=gsub(" ", "+", groups)
     u=paste0(u, "?groups=", groups)
   }
-  clio_fetch(u)
+  res <- if(cache) clio_fetch(u) else clio_fetch_memo(u)
+  if(!is.null(res$prop$timestamp)) {
+    res$timestamp=as.POSIXct(as.numeric(res$prop$timestamp)/1e3, origin="1970-01-01", tz="UTC")
+  }
+  res=res[setdiff(names(res), "prop")]
+  if(isTRUE(bodyid))
+    res$bodyid=manc_xyz2bodyid(res$pos, cache=cache, node=node)
+  res
 }
 
 manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE) {

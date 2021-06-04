@@ -4,10 +4,26 @@
 \alias{manc_point_annotations}
 \title{Return point annotations from Clio store}
 \usage{
-manc_point_annotations(groups = "UK Drosophila Connectomics")
+manc_point_annotations(
+  groups = "UK Drosophila Connectomics",
+  cache = FALSE,
+  bodyid = TRUE,
+  node = "clio"
+)
 }
 \arguments{
-\item{groups}{Defines a group for which we would like to see all annotations. When NULL, only returns annotations for your own user.}
+\item{groups}{Defines a group for which we would like to see all annotations.
+When NULL, only returns annotations for your own user.}
+
+\item{cache}{Whether to cache the result of this call for 5 minutes.}
+
+\item{bodyid}{Whether or not to compute the current bodyid from the location
+of the point annotation using \code{\link{manc_xyz2bodyid}} (defaults to
+\code{TRUE}).}
+
+\item{node}{A DVID node as returned by \code{\link{manc_dvid_node}}. The
+default is to return the current active (unlocked) node being used through
+neutu.}
 }
 \value{
 A data.frame of annotations
@@ -15,14 +31,27 @@ A data.frame of annotations
 \description{
 Return point annotations from Clio store
 }
+\details{
+There is an optional 5 minute cache of these lookups (recreated for
+  each new R session). The location of each point annotation will by default
+  be found using the \code{\link{manc_xyz2bodyid}} function; this will also
+  be cached when \code{cache=TRUE}. The default node for these lookups is
+  Clio i.e. the you will get the bodyid reported in Clio. You can also choose
+  to lookup the id for any DVID node, by specifying e.g. \code{node='neutu'}
+  to get the absolute latest node. Of course in theory bodyids with Clio
+  annotaions should not be changing ...
+}
 \examples{
 \dontrun{
 mpa=manc_point_annotations()
 head(mpa)
+# get absolutely latest bodyids
+head(manc_point_annotations(node='neutu'))
 }
 }
 \seealso{
 Other manc-annotation: 
-\code{\link{manc_body_annotations}()}
+\code{\link{manc_body_annotations}()},
+\code{\link{manc_meta}()}
 }
 \concept{manc-annotation}
