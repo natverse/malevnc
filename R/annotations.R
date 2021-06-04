@@ -326,7 +326,7 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
     groups=gsub(" ", "+", groups)
     u=paste0(u, "?groups=", groups)
   }
-  res <- if(cache) clio_fetch(u) else clio_fetch_memo(u)
+  res <- if(cache) clio_fetch_memo(u) else clio_fetch(u)
   if(!is.null(res$prop$timestamp)) {
     res$timestamp=as.POSIXct(as.numeric(res$prop$timestamp)/1e3, origin="1970-01-01", tz="UTC")
   }
