@@ -70,6 +70,7 @@ mba=manc_body_annotations()
 docs from Bill Katz}.
 
 Other manc-annotation: 
+\code{\link{manc_meta}()},
 \code{\link{manc_point_annotations}()}
 }
 \concept{manc-annotation}

@@ -336,10 +336,38 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
   res
 }
 
-manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE) {
-  mda=manc_dvid_annotations(cache=cache)
+#' Return full metadata from Clio/DVID for MANC bodyids (cached by default)
+#'
+#' @details This function will the latest per boydid metadata using
+#'   \code{\link{manc_dvid_annotations}} and
+#'   \code{\link{manc_body_annotations}}. Since obtaining this information can
+#'   take 5-10s even for a single id, it is by default cached with a 5 min
+#'   timeout. The second call for the same request should be more or less
+#'   instantaneous, while a different set of ids should still return much
+#'   faster. Annotations are returned for the 'neutu' i.e. latest DVID node by
+#'   default.
+#'
+#' @param ids bodyids specified in any form accepted by \code{\link{manc_ids}}
+#' @param unique Whether to remove any duplicate ids from the results.
+#' @param cache Whether to use a cache with a 5 min lifetime, default
+#'   \code{TRUE}.
+#' @inheritParams manc_body_annotations
+#' @inheritParams manc_xyz2bodyid
+#' @export
+#' @family manc-annotation
+#'
+#' @return A data.frame with columns determined by
+#'   \code{\link{manc_dvid_annotations}} and \code{\link{manc_body_annotations}}
+#'
+#' @examples
+#' \dontrun{
+#' manc_meta('Giant Fiber')
+#' manc_meta(10002)
+#' }
+manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu') {
+  mda=manc_dvid_annotations(cache=cache, node=node)
   colnames(mda)[colnames(mda)=='class']='dvid_class'
-  mba=manc_body_annotations(cache=cache, update.bodyids = TRUE)
+  mba=manc_body_annotations(ids, cache=cache, update.bodyids = node)
   # prefer DVID annotations when dup columns exist
   mba=mba[union("bodyid", setdiff(colnames(mba), colnames(mda)))]
   m=merge(mda, mba, by='bodyid', sort = FALSE, all.x = T, all.y = T)
