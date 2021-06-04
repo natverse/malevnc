@@ -20,7 +20,10 @@ neutu.}
 }
 \value{
 A data.frame with columns determined by
-  \code{\link{manc_dvid_annotations}} and \code{\link{manc_body_annotations}}
+  \code{\link{manc_dvid_annotations}} and
+  \code{\link{manc_body_annotations}}. All columns from
+  \code{manc_dvid_annotations} will have the prefix \code{dvid_} (except for
+  the single \code{bodyid} column).
 }
 \description{
 Return full metadata from Clio/DVID for MANC bodyids (cached by default)

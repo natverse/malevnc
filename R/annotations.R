@@ -357,7 +357,10 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
 #' @family manc-annotation
 #'
 #' @return A data.frame with columns determined by
-#'   \code{\link{manc_dvid_annotations}} and \code{\link{manc_body_annotations}}
+#'   \code{\link{manc_dvid_annotations}} and
+#'   \code{\link{manc_body_annotations}}. All columns from
+#'   \code{manc_dvid_annotations} will have the prefix \code{dvid_} (except for
+#'   the single \code{bodyid} column).
 #'
 #' @examples
 #' \dontrun{
@@ -366,10 +369,11 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
 #' }
 manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu') {
   mda=manc_dvid_annotations(cache=cache, node=node)
-  colnames(mda)[colnames(mda)=='class']='dvid_class'
+  cols2rename=colnames(mda)!='bodyid'
+  colnames(mda)[cols2rename]=paste0("dvid_", colnames(mda)[cols2rename])
   mba=manc_body_annotations(ids, cache=cache, update.bodyids = node)
   # prefer DVID annotations when dup columns exist
-  mba=mba[union("bodyid", setdiff(colnames(mba), colnames(mda)))]
+  # mba=mba[union("bodyid", setdiff(colnames(mba), colnames(mda)))]
   m=merge(mda, mba, by='bodyid', sort = FALSE, all.x = T, all.y = T)
   if(!is.null(ids)) {
     df=data.frame(bodyid=manc_ids(ids, unique=unique, as_character = F))
