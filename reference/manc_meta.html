@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return point annotations from Clio store — manc_point_annotations • malevnc</title>
+<title>Return full metadata from Clio/DVID for MANC bodyids (cached by default) — manc_meta • malevnc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Return point annotations from Clio store — manc_point_annotations" />
-<meta property="og:description" content="Return point annotations from Clio store" />
+<meta property="og:title" content="Return full metadata from Clio/DVID for MANC bodyids (cached by default) — manc_meta" />
+<meta property="og:description" content="Return full metadata from Clio/DVID for MANC bodyids (cached by default)" />
 
 
 
@@ -114,39 +114,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return point annotations from Clio store</h1>
+    <h1>Return full metadata from Clio/DVID for MANC bodyids (cached by default)</h1>
     <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/annotations.R'><code>R/annotations.R</code></a></small>
-    <div class="hidden name"><code>manc_point_annotations.Rd</code></div>
+    <div class="hidden name"><code>manc_meta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Return point annotations from Clio store</p>
+    <p>Return full metadata from Clio/DVID for MANC bodyids (cached by default)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_point_annotations</span><span class='op'>(</span>
-  groups <span class='op'>=</span> <span class='st'>"UK Drosophila Connectomics"</span>,
-  cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  bodyid <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  node <span class='op'>=</span> <span class='st'>"clio"</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>manc_meta</span><span class='op'>(</span>ids <span class='op'>=</span> <span class='cn'>NULL</span>, cache <span class='op'>=</span> <span class='cn'>TRUE</span>, unique <span class='op'>=</span> <span class='cn'>FALSE</span>, node <span class='op'>=</span> <span class='st'>"neutu"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>groups</th>
-      <td><p>Defines a group for which we would like to see all annotations.
-When NULL, only returns annotations for your own user.</p></td>
+      <th>ids</th>
+      <td><p>bodyids specified in any form accepted by <code><a href='manc_ids.html'>manc_ids</a></code></p></td>
     </tr>
     <tr>
       <th>cache</th>
-      <td><p>Whether to cache the result of this call for 5 minutes.</p></td>
+      <td><p>Whether to use a cache with a 5 min lifetime, default
+<code>TRUE</code>.</p></td>
     </tr>
     <tr>
-      <th>bodyid</th>
-      <td><p>Whether or not to compute the current bodyid from the location
-of the point annotation using <code><a href='manc_xyz2bodyid.html'>manc_xyz2bodyid</a></code> (defaults to
-<code>TRUE</code>).</p></td>
+      <th>unique</th>
+      <td><p>Whether to remove any duplicate ids from the results.</p></td>
     </tr>
     <tr>
       <th>node</th>
@@ -158,29 +151,31 @@ neutu.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame of annotations</p>
+    <p>A data.frame with columns determined by
+  <code><a href='manc_dvid_annotations.html'>manc_dvid_annotations</a></code> and
+  <code><a href='manc_body_annotations.html'>manc_body_annotations</a></code>. All columns from
+  <code>manc_dvid_annotations</code> will have the prefix <code>dvid_</code> (except for
+  the single <code>bodyid</code> column).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>There is an optional 5 minute cache of these lookups (recreated for
-  each new R session). The location of each point annotation will by default
-  be found using the <code><a href='manc_xyz2bodyid.html'>manc_xyz2bodyid</a></code> function; this will also
-  be cached when <code>cache=TRUE</code>. The default node for these lookups is
-  Clio i.e. the you will get the bodyid reported in Clio. You can also choose
-  to lookup the id for any DVID node, by specifying e.g. <code>node='neutu'</code>
-  to get the absolute latest node. Of course in theory bodyids with Clio
-  annotaions should not be changing ...</p>
+    <p>This function will the latest per boydid metadata using
+  <code><a href='manc_dvid_annotations.html'>manc_dvid_annotations</a></code> and
+  <code><a href='manc_body_annotations.html'>manc_body_annotations</a></code>. Since obtaining this information can
+  take 5-10s even for a single id, it is by default cached with a 5 min
+  timeout. The second call for the same request should be more or less
+  instantaneous, while a different set of ids should still return much
+  faster. Annotations are returned for the 'neutu' i.e. latest DVID node by
+  default.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other manc-annotation: 
 <code><a href='manc_body_annotations.html'>manc_body_annotations</a>()</code>,
-<code><a href='manc_meta.html'>manc_meta</a>()</code></p></div>
+<code><a href='manc_point_annotations.html'>manc_point_annotations</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>mpa</span><span class='op'>=</span><span class='fu'>manc_point_annotations</span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='va'>mpa</span><span class='op'>)</span>
-<span class='co'># get absolutely latest bodyids</span>
-<span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='fu'>manc_point_annotations</span><span class='op'>(</span>node<span class='op'>=</span><span class='st'>'neutu'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>manc_meta</span><span class='op'>(</span><span class='st'>'Giant Fiber'</span><span class='op'>)</span>
+<span class='fu'>manc_meta</span><span class='op'>(</span><span class='fl'>10002</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
