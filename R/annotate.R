@@ -38,8 +38,7 @@ manc_annotate_soma <- function(pos, tag=c("soma", "tosoma", "root"), user=getOpt
   if(is.null(user))
     stop("The soma annotation must be associated with a user email!\n",
          "It is worth setting the option:\n",
-         "options(malevnc.clio_email='<user@gmail.com>')\n",
-         "to ")
+         "options(malevnc.clio_email='<user@gmail.com>')")
   pos=xyzmatrix(pos)
   pointlist=lapply(seq_len(nrow(pos)), function(i) pos[i,])
   if(missing(tag))
