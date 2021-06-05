@@ -66,7 +66,8 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   body=list(kind="point",
             pos=c(pos),
             tags=I(tags), # NB this means it will be a list
-            user=user)
+            user=user,
+            description=description)
   bodyj=jsonlite::toJSON(body, auto_unbox = TRUE)
   clio_fetch(url, body=bodyj, ...)
 }
