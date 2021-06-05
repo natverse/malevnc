@@ -135,3 +135,23 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
   neuprintr::neuprint_read_neurons(ids, meta = T, connectors = connectors,
                                    heal.threshold=heal.threshold, conn=conn, ...)
 }
+
+manc_download_swcs <- function(ids, outdir, node='neutu', df=NULL, OmitFailures=T, Force=FALSE, ...) {
+  ids=manc_ids(ids, unique=T)
+  urls=manc_serverurl("/api/node/%s/segmentation_skeletons/key/%s_swc",
+                      manc_nodespec(node), ids)
+  if(!file.exists(outdir))
+    dir.create(outdir)
+  destfiles=file.path(outdir, paste0(ids, ".swc"))
+  # pbapply::pbmapply(curl::curl_download, urls, destfiles, MoreArgs = ...)
+  fakenl=nat::as.neuronlist(seq_along(urls))
+  downloadfun <- function(i, Force=Force, ...) {
+    destfile=destfiles[i]
+    if(!Force && file.exists(destfile))
+      return(NA_character_)
+    curl::curl_download(urls[i], destfile = destfile, ...)
+    destfile
+  }
+  nl <- nat::nlapply(fakenl, downloadfun, OmitFailures=OmitFailures, ...)
+  unlist(nl)
+}

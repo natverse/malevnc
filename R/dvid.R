@@ -117,3 +117,10 @@ manc_node_chain <- function(root=NULL, head=NULL) {
   }
   dagdf$UUID
 }
+
+
+# If we want to use drvid
+manc_dv_conn <- function(node='neutu', ...) {
+  fafbseg:::check_package_available('drvid')
+  drvid::dv_conn(server = manc_server(),node = manc_nodespec(node), ...)
+}

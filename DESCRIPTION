@@ -43,6 +43,8 @@ Suggests:
     fafbseg,
     reticulate,
     spelling
+Enhances:
+    drvid
 URL: https://github.com/flyconnectome/malevnc
 BugReports: https://github.com/flyconnectome/malevnc/issues
 Depends: 
