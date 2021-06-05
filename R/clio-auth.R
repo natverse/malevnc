@@ -132,3 +132,11 @@ clio_url <- function(path, test=FALSE) {
     "https://clio-store-vwzoicitea-uk.a.run.app"
   file.path(u, path, fsep = '/')
 }
+
+validate_email <- function(email) {
+  emailregex="(^[A-z0-9_.+-]+@[A-z0-9-]+\\.[A-z0-9.-]+$)"
+  res=checkmate::checkCharacter(email, pattern = emailregex, len = 1)
+  if(isTRUE(res)) return(email)
+  stop("Invalid email address: ", email)
+}
+

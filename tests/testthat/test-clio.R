@@ -19,3 +19,10 @@ test_that("clio url", {
   expect_equal(clio_url("v2/annotations/VNC", test = T),
                "https://clio-test-7fdj77ed7q-uk.a.run.app/v2/annotations/VNC")
 })
+
+test_that("validate_email", {
+  expect_equal(validate_email("bozo@gmail.com"), "bozo@gmail.com")
+  expect_error(validate_email("bozo@gmail"))
+  expect_error(validate_email("bozogmail"))
+  expect_error(validate_email("bozogmail$@gmail.com"))
+})
