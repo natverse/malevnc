@@ -69,7 +69,45 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
 #' @param token.only Whether to return just the Bearer token as a character
 #'   vector (default \code{FALSE} returns a \code{\link{Token2.0}} object).
 #' @export
-clio_token <- function(token.only=FALSE) {
+clio_token <- function() {
+  token=clio_fetch_token()
+  fafbseg:::check_package_available('jose')
+  decoded=jose:::jwt_split(token)
+  payload=decoded$payload
+  if(is.null(payload$email))
+    stop("JWT token invalid: no email!")
+  if(is.null(payload$exp))
+    stop("JWT token invalid: no expiration!")
+
+  exp=as.POSIXct(payload$exp, origin='1970-01-01', tz = 'UTC')
+  time_left = difftime(exp, Sys.time(), units = 'hours')
+  if(time_left < 4) {
+    token = clio_fetch_token(force=TRUE)
+  }
+  attr(token, 'email')=payload$email
+  token
+}
+
+# if we need to get a new long-lived token
+clio_fetch_token <- function(force=FALSE) {
+  tokenfile=file.path(rappdirs::user_data_dir(appname = 'rpkg-malevnc'), 'flyem_token.json')
+  if(!force && file.exists(tokenfile))
+    return(readLines(tokenfile))
+
+  config = httr::add_headers(
+    Authorization = paste("Bearer", google_token(token.only = T)))
+  u=clio_url('v2/server/token')
+  res=httr::POST(u, config = config)
+  httr::stop_for_status(res)
+  jwt=httr::content(res, as='parsed')
+  tokendir=dirname(tokenfile)
+  if(!file.exists(tokendir))
+    dir.create(tokendir)
+  writeLines(jwt, tokenfile)
+  jwt
+}
+
+google_token <- function(token.only=FALSE) {
   if (isFALSE(.auth$auth_active))
     return(NULL)
 
@@ -90,6 +128,7 @@ clio_token <- function(token.only=FALSE) {
   if(token.only) .auth$cred$credentials$id_token else .auth$cred
 }
 
+
 store_token_expiry <- function(token=NULL, start=Sys.time()) {
   if(is.null(token))
     .authinfo$expires=NULL
@@ -102,7 +141,7 @@ store_token_expiry <- function(token=NULL, start=Sys.time()) {
 clio_fetch <- function(url, body=NULL, query=NULL, config=NULL, json=FALSE, ...) {
   if (is.null(config))
     config = c(httr::config(),
-               httr::add_headers(Authorization = paste("Bearer", clio_token(token.only = T))))
+               httr::add_headers(Authorization = paste("Bearer", clio_token())))
   resp <- if(is.null(query)){
     httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
                     config=config,

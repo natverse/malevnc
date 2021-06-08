@@ -42,7 +42,9 @@ Suggests:
     rgl,
     fafbseg,
     reticulate,
-    spelling
+    spelling,
+    jose,
+    rappdirs
 Enhances:
     drvid
 URL: https://github.com/flyconnectome/malevnc
