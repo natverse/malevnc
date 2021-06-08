@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Clio authorisation infrastructure using Google via the gargle package — clio_auth • malevnc</title>
+<title>Clio authorisation infrastructure using Google via the gargle package + JWT — clio_auth • malevnc</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,16 @@
 
 
 
-<meta property="og:title" content="Clio authorisation infrastructure using Google via the gargle package — clio_auth" />
-<meta property="og:description" content="clio_auth authorises malevnc to view and edit data in the
-  clio-store for body annotations. This function is a wrapper around
+<meta property="og:title" content="Clio authorisation infrastructure using Google via the gargle package + JWT — clio_auth" />
+<meta property="og:description" content="clio_auth sets up the initial Google token that
+  ultimately authorises malevnc to view and edit data in the clio-store for
+  body annotations. This function is a wrapper around
   gargle::token_fetch. You should normally not need to use it
   directly, but it can be useful if you run into authorisation problems (see
   examples).
-clio_token returns a token to use for clio store queries.
-  Experts may wish to use this to construct their own API requests." />
+clio_token returns a long lived token to use for clio
+  store queries. Experts may wish to use this to construct their own API
+  requests." />
 
 
 
@@ -120,19 +122,21 @@ clio_token returns a token to use for clio store queries.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Clio authorisation infrastructure using Google via the gargle package</h1>
+    <h1>Clio authorisation infrastructure using Google via the gargle package + JWT</h1>
     <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/clio-auth.R'><code>R/clio-auth.R</code></a></small>
     <div class="hidden name"><code>clio_auth.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>clio_auth</code> authorises malevnc to view and edit data in the
-  clio-store for body annotations. This function is a wrapper around
+    <p><code>clio_auth</code> sets up the initial Google token that
+  ultimately authorises malevnc to view and edit data in the clio-store for
+  body annotations. This function is a wrapper around
   <code><a href='https://gargle.r-lib.org/reference/token_fetch.html'>gargle::token_fetch</a></code>. You should normally not need to use it
   directly, but it can be useful if you run into authorisation problems (see
   examples).</p>
-<p><code>clio_token</code> returns a token to use for clio store queries.
-  Experts may wish to use this to construct their own API requests.</p>
+<p><code>clio_token</code> returns a long lived token to use for clio
+  store queries. Experts may wish to use this to construct their own API
+  requests.</p>
     </div>
 
     <pre class="usage"><span class='fu'>clio_auth</span><span class='op'>(</span>
@@ -141,7 +145,7 @@ clio_token returns a token to use for clio store queries.
   <span class='va'>...</span>
 <span class='op'>)</span>
 
-<span class='fu'>clio_token</span><span class='op'>(</span>token.only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+<span class='fu'>clio_token</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,13 +165,15 @@ clio_token returns a token to use for clio store queries.
       <th>...</th>
       <td><p>Additional arguments passed to <code><a href='https://gargle.r-lib.org/reference/token_fetch.html'>gargle::token_fetch</a></code></p></td>
     </tr>
-    <tr>
-      <th>token.only</th>
-      <td><p>Whether to return just the Bearer token as a character
-vector (default <code>FALSE</code> returns a <code>Token2.0</code> object).</p></td>
-    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Clio store authorisation is a multi step process. You must first
+  authenticate to Google who will return a token confirming your identity;
+  this token only lasts ~30m. This Google token is then presented to a clio
+  store endpoint to generate a long lived clio token, which is cached on disk
+  (for up to 7 days at the time of writing).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
