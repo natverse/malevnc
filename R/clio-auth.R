@@ -7,10 +7,17 @@
 
 .authinfo <- new.env()
 
-#' Clio authorisation infrastructure using Google via the gargle package
+#' Clio authorisation infrastructure using Google via the gargle package + JWT
 #'
-#' @description \code{clio_auth} authorises malevnc to view and edit data in the
-#'   clio-store for body annotations. This function is a wrapper around
+#' @details Clio store authorisation is a multi step process. You must first
+#'   authenticate to Google who will return a token confirming your identity;
+#'   this token only lasts ~30m. This Google token is then presented to a clio
+#'   store endpoint to generate a long lived clio token, which is cached on disk
+#'   (for up to 7 days at the time of writing).
+#'
+#' @description \code{clio_auth} sets up the initial Google token that
+#'   ultimately authorises malevnc to view and edit data in the clio-store for
+#'   body annotations. This function is a wrapper around
 #'   \code{gargle::\link{token_fetch}}. You should normally not need to use it
 #'   directly, but it can be useful if you run into authorisation problems (see
 #'   examples).
@@ -64,10 +71,9 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
 }
 
 #' @rdname clio_auth
-#' @description \code{clio_token} returns a token to use for clio store queries.
-#'   Experts may wish to use this to construct their own API requests.
-#' @param token.only Whether to return just the Bearer token as a character
-#'   vector (default \code{FALSE} returns a \code{\link{Token2.0}} object).
+#' @description \code{clio_token} returns a long lived token to use for clio
+#'   store queries. Experts may wish to use this to construct their own API
+#'   requests.
 #' @export
 clio_token <- function() {
   token=clio_fetch_token()

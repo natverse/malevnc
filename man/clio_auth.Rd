@@ -3,7 +3,7 @@
 \name{clio_auth}
 \alias{clio_auth}
 \alias{clio_token}
-\title{Clio authorisation infrastructure using Google via the gargle package}
+\title{Clio authorisation infrastructure using Google via the gargle package + JWT}
 \usage{
 clio_auth(
   email = getOption("malevnc.clio_email", gargle::gargle_oauth_email()),
@@ -11,7 +11,7 @@ clio_auth(
   ...
 )
 
-clio_token(token.only = FALSE)
+clio_token()
 }
 \arguments{
 \item{email}{An optional email - must be the one linked to your Clio account
@@ -22,19 +22,25 @@ clio_token(token.only = FALSE)
 \code{gargle::\link{gargle_oauth_cache}} for details).}
 
 \item{...}{Additional arguments passed to \code{gargle::\link{token_fetch}}}
-
-\item{token.only}{Whether to return just the Bearer token as a character
-vector (default \code{FALSE} returns a \code{\link{Token2.0}} object).}
 }
 \description{
-\code{clio_auth} authorises malevnc to view and edit data in the
-  clio-store for body annotations. This function is a wrapper around
+\code{clio_auth} sets up the initial Google token that
+  ultimately authorises malevnc to view and edit data in the clio-store for
+  body annotations. This function is a wrapper around
   \code{gargle::\link{token_fetch}}. You should normally not need to use it
   directly, but it can be useful if you run into authorisation problems (see
   examples).
 
-\code{clio_token} returns a token to use for clio store queries.
-  Experts may wish to use this to construct their own API requests.
+\code{clio_token} returns a long lived token to use for clio
+  store queries. Experts may wish to use this to construct their own API
+  requests.
+}
+\details{
+Clio store authorisation is a multi step process. You must first
+  authenticate to Google who will return a token confirming your identity;
+  this token only lasts ~30m. This Google token is then presented to a clio
+  store endpoint to generate a long lived clio token, which is cached on disk
+  (for up to 7 days at the time of writing).
 }
 \examples{
 \dontrun{
