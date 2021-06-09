@@ -134,6 +134,29 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
   ids=manc_ids(ids, conn=conn)
   neuprintr::neuprint_read_neurons(ids, meta = T, connectors = connectors,
                                    heal.threshold=heal.threshold, conn=conn, ...)
+
+
+#' Fetch neuprint metadata for MANC neurons
+#'
+#' @inheritParams manc_connection_table
+#'
+#' @return A data.frame with one row for each (unique) id and NAs for all
+#'   columns except bodyid when neuprint holds no metadata.
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' manc_neuprint_meta("Giant Fiber")
+#' }
+manc_neuprint_meta <- function(ids, conn=manc_neuprint()) {
+  ids=manc_ids(ids, as_character = T)
+  metadf=neuprintr::neuprint_get_meta(ids, conn=manc_neuprint())
+  # convert to character to handle larger than maxint *and* 100,000
+  # which formats to 1e+5 when numeric
+  metadf$bodyid=as.character(metadf$bodyid)
+  dfids=data.frame(bodyid=ids)
+  fixeddf=dplyr::left_join(dfids, metadf, by='bodyid')
+  fixeddf
 }
 
 manc_download_swcs <- function(ids, outdir, node='neutu', df=NULL, OmitFailures=T, Force=FALSE, ...) {
