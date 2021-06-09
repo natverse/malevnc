@@ -131,9 +131,17 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
 #' gfs[,]
 #' }
 manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=manc_neuprint(), ...) {
-  ids=manc_ids(ids, conn=conn)
-  neuprintr::neuprint_read_neurons(ids, meta = T, connectors = connectors,
+  ids=manc_ids(ids, conn=conn, as_character = T)
+  nl=neuprintr::neuprint_read_neurons(ids, meta = F, connectors = connectors,
                                    heal.threshold=heal.threshold, conn=conn, ...)
+  # we're fetching the metadata ourselves because of some wrinkles with
+  # 1. missing metadata
+  # 2. numeric ids that do not correctly format with as.character
+  metadf=manc_neuprint_meta(names(nl), conn=conn)
+  rownames(metadf)=metadf$bodyid
+  data.frame(nl) <- metadf
+  nl
+}
 
 
 #' Fetch neuprint metadata for MANC neurons
