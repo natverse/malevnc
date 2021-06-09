@@ -7,10 +7,17 @@
 
 .authinfo <- new.env()
 
-#' Clio authorisation infrastructure using Google via the gargle package
+#' Clio authorisation infrastructure using Google via the gargle package + JWT
 #'
-#' @description \code{clio_auth} authorises malevnc to view and edit data in the
-#'   clio-store for body annotations. This function is a wrapper around
+#' @details Clio store authorisation is a multi step process. You must first
+#'   authenticate to Google who will return a token confirming your identity;
+#'   this token only lasts ~30m. This Google token is then presented to a clio
+#'   store endpoint to generate a long lived clio token, which is cached on disk
+#'   (for up to 7 days at the time of writing).
+#'
+#' @description \code{clio_auth} sets up the initial Google token that
+#'   ultimately authorises malevnc to view and edit data in the clio-store for
+#'   body annotations. This function is a wrapper around
 #'   \code{gargle::\link{token_fetch}}. You should normally not need to use it
 #'   directly, but it can be useful if you run into authorisation problems (see
 #'   examples).
@@ -64,12 +71,49 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
 }
 
 #' @rdname clio_auth
-#' @description \code{clio_token} returns a token to use for clio store queries.
-#'   Experts may wish to use this to construct their own API requests.
-#' @param token.only Whether to return just the Bearer token as a character
-#'   vector (default \code{FALSE} returns a \code{\link{Token2.0}} object).
+#' @description \code{clio_token} returns a long lived token to use for clio
+#'   store queries. Experts may wish to use this to construct their own API
+#'   requests.
 #' @export
-clio_token <- function(token.only=FALSE) {
+clio_token <- function() {
+  token=clio_fetch_token()
+  fafbseg:::check_package_available('jose')
+  decoded=jose:::jwt_split(token)
+  payload=decoded$payload
+  if(is.null(payload$email))
+    stop("JWT token invalid: no email!")
+  if(is.null(payload$exp))
+    stop("JWT token invalid: no expiration!")
+
+  exp=as.POSIXct(payload$exp, origin='1970-01-01', tz = 'UTC')
+  time_left = difftime(exp, Sys.time(), units = 'hours')
+  if(time_left < 4) {
+    token = clio_fetch_token(force=TRUE)
+  }
+  attr(token, 'email')=payload$email
+  token
+}
+
+# if we need to get a new long-lived token
+clio_fetch_token <- function(force=FALSE) {
+  tokenfile=file.path(rappdirs::user_data_dir(appname = 'rpkg-malevnc'), 'flyem_token.json')
+  if(!force && file.exists(tokenfile))
+    return(readLines(tokenfile))
+
+  config = httr::add_headers(
+    Authorization = paste("Bearer", google_token(token.only = T)))
+  u=clio_url('v2/server/token')
+  res=httr::POST(u, config = config)
+  httr::stop_for_status(res)
+  jwt=httr::content(res, as='parsed')
+  tokendir=dirname(tokenfile)
+  if(!file.exists(tokendir))
+    dir.create(tokendir)
+  writeLines(jwt, tokenfile)
+  jwt
+}
+
+google_token <- function(token.only=FALSE) {
   if (isFALSE(.auth$auth_active))
     return(NULL)
 
@@ -90,6 +134,7 @@ clio_token <- function(token.only=FALSE) {
   if(token.only) .auth$cred$credentials$id_token else .auth$cred
 }
 
+
 store_token_expiry <- function(token=NULL, start=Sys.time()) {
   if(is.null(token))
     .authinfo$expires=NULL
@@ -102,7 +147,7 @@ store_token_expiry <- function(token=NULL, start=Sys.time()) {
 clio_fetch <- function(url, body=NULL, query=NULL, config=NULL, json=FALSE, ...) {
   if (is.null(config))
     config = c(httr::config(),
-               httr::add_headers(Authorization = paste("Bearer", clio_token(token.only = T))))
+               httr::add_headers(Authorization = paste("Bearer", clio_token())))
   resp <- if(is.null(query)){
     httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
                     config=config,

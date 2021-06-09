@@ -18,6 +18,9 @@ test_that("clio url", {
 
   expect_equal(clio_url("v2/annotations/VNC", test = T),
                "https://clio-test-7fdj77ed7q-uk.a.run.app/v2/annotations/VNC")
+
+  expect_equal(clio_url("v2/server/token"),
+               'https://clio-store-vwzoicitea-uk.a.run.app/v2/server/token')
 })
 
 test_that("validate_email", {
