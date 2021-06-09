@@ -124,7 +124,7 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
 #'
 #' @return A \code{\link{neuronlist}} with attached metadata
 #' @export
-#'
+#' @importFrom nat `data.frame<-`
 #' @examples
 #' \dontrun{
 #' gfs=manc_read_neurons("Giant Fiber")
