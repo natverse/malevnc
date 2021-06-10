@@ -115,7 +115,8 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
 
 #' Read MANC skeletons via neuprint
 #'
-#' @details \code{manc_read_neurons} fetches metadata from neurprint but does not fetch synapse locations by default as this is
+#' @details \code{manc_read_neurons} fetches metadata from neuprint but does not
+#'   fetch synapse locations by default as this is very time consuming.
 #'
 #' @inheritParams manc_connection_table
 #' @inheritParams neuprintr::neuprint_read_neurons

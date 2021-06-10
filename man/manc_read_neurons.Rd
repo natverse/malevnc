@@ -40,7 +40,8 @@ A \code{\link{neuronlist}} with attached metadata
 Read MANC skeletons via neuprint
 }
 \details{
-\code{manc_read_neurons} fetches metadata from neurprint but does not fetch synapse locations by default as this is
+\code{manc_read_neurons} fetches metadata from neuprint but does not
+  fetch synapse locations by default as this is very time consuming.
 }
 \examples{
 \dontrun{
