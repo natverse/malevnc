@@ -179,7 +179,7 @@ that useful for many. Default <code>FALSE</code>.</p></td>
 <span class='co'># find all mutations in neutu but not yet in clio</span>
 <span class='va'>notin_neuprint</span><span class='op'>=</span><span class='fu'>manc_mutations</span><span class='op'>(</span><span class='st'>'neuprint:neutu'</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/nat/man/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>notin_neuprint</span>, <span class='va'>User</span><span class='op'>!=</span><span class='st'>'bergs'</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>qplot</span><span class='op'>(</span><span class='va'>time</span>, data<span class='op'>=</span><span class='va'>.</span>, bins<span class='op'>=</span><span class='fl'>100</span>, fill<span class='op'>=</span><span class='va'>Action</span><span class='op'>)</span>
+  <span class='fu'>qplot</span><span class='op'>(</span><span class='va'>Timestamp</span>, data<span class='op'>=</span><span class='va'>.</span>, bins<span class='op'>=</span><span class='fl'>100</span>, fill<span class='op'>=</span><span class='va'>Action</span><span class='op'>)</span>
 
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>ggplot2</span><span class='op'>)</span>
 
