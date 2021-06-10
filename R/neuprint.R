@@ -115,7 +115,8 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
 
 #' Read MANC skeletons via neuprint
 #'
-#' @details \code{manc_read_neurons} fetches metadata from neurprint but does not fetch synapse locations by default as this is
+#' @details \code{manc_read_neurons} fetches metadata from neuprint but does not
+#'   fetch synapse locations by default as this is very time consuming.
 #'
 #' @inheritParams manc_connection_table
 #' @inheritParams neuprintr::neuprint_read_neurons
@@ -124,16 +125,47 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
 #'
 #' @return A \code{\link{neuronlist}} with attached metadata
 #' @export
-#'
+#' @importFrom nat `data.frame<-`
 #' @examples
 #' \dontrun{
 #' gfs=manc_read_neurons("Giant Fiber")
 #' gfs[,]
 #' }
 manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=manc_neuprint(), ...) {
-  ids=manc_ids(ids, conn=conn)
-  neuprintr::neuprint_read_neurons(ids, meta = T, connectors = connectors,
+  ids=manc_ids(ids, conn=conn, as_character = T)
+  nl=neuprintr::neuprint_read_neurons(ids, meta = F, connectors = connectors,
                                    heal.threshold=heal.threshold, conn=conn, ...)
+  # we're fetching the metadata ourselves because of some wrinkles with
+  # 1. missing metadata
+  # 2. numeric ids that do not correctly format with as.character
+  metadf=manc_neuprint_meta(names(nl), conn=conn)
+  rownames(metadf)=metadf$bodyid
+  data.frame(nl) <- metadf
+  nl
+}
+
+
+#' Fetch neuprint metadata for MANC neurons
+#'
+#' @inheritParams manc_connection_table
+#'
+#' @return A data.frame with one row for each (unique) id and NAs for all
+#'   columns except bodyid when neuprint holds no metadata.
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' manc_neuprint_meta("Giant Fiber")
+#' }
+manc_neuprint_meta <- function(ids, conn=manc_neuprint()) {
+  ids=manc_ids(ids, as_character = T)
+  metadf=neuprintr::neuprint_get_meta(ids, conn=manc_neuprint())
+  # convert to character to handle larger than maxint *and* 100,000
+  # which formats to 1e+5 when numeric
+  metadf$bodyid=as.character(metadf$bodyid)
+  dfids=data.frame(bodyid=ids)
+  fixeddf=dplyr::left_join(dfids, metadf, by='bodyid')
+  fixeddf
 }
 
 manc_download_swcs <- function(ids, outdir, node='neutu', df=NULL, OmitFailures=T, Force=FALSE, ...) {

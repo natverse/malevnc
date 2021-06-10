@@ -38,6 +38,7 @@ reference:
 - title: Body information and ids
   contents:
   - '`manc_ids`'
+  - '`manc_neuprint_meta`'
   - '`manc_xyz2bodyid`'
   - '`manc_islatest`'
   - '`manc_size`'
