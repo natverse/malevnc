@@ -185,3 +185,12 @@ validate_email <- function(email) {
   stop("Invalid email address: ", email)
 }
 
+clio_email <- memoise::memoise(function(email=getOption("malevnc.clio_email")) {
+  if(is.null(email)) {
+    token=clio_token()
+    email=attr(token, 'email')
+    options(malevnc.clio_email=email)
+  }
+  validate_email(email)
+  email
+}, ~memoise::timeout(5*60))
