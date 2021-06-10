@@ -64,7 +64,7 @@ manc_last_modified <- function(ids, node='neutu', ...) {
 #' # find all mutations in neutu but not yet in clio
 #' notin_neuprint=manc_mutations('neuprint:neutu')
 #' subset(notin_neuprint, User!='bergs') %>%
-#'   qplot(time, data=., bins=100, fill=Action)
+#'   qplot(Timestamp, data=., bins=100, fill=Action)
 #'
 #' library(ggplot2)
 #'
