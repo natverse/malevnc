@@ -72,3 +72,16 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   bodyj=jsonlite::toJSON(body, auto_unbox = TRUE)
   clio_fetch(url, body=bodyj, ...)
 }
+
+manc_annotate_body <- function(body, test=TRUE, version='v0.3.22', json=is.character(body)) {
+  v=manc_dvid_node('clio')
+  u=clio_url(path=sprintf('v2/json-annotations/VNC/neurons?version=%s', version),
+             test = test)
+
+  res <- if(isTRUE(json)) {
+    clio_fetch(u, body = body, encode='raw', httr::content_type_json())
+  } else {
+    clio_fetch(u, body = body, encode='json')
+  }
+  invisible(res)
+}
