@@ -11,6 +11,7 @@ manc_body_annotations(
   config = NULL,
   cache = FALSE,
   update.bodyids = TRUE,
+  test = FALSE,
   ...
 )
 }
@@ -31,6 +32,8 @@ bearer token)}
 
 \item{update.bodyids}{Whether to update the bodyid associated with
 annotations based on the position field.}
+
+\item{test}{Whether to uset the clio-store test server (default \code{FALSE})}
 
 \item{...}{Additional arguments passed to \code{pbapply::\link{pblapply}}}
 }
