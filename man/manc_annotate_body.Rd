@@ -14,7 +14,8 @@ manc_annotate_body(
 )
 }
 \arguments{
-\item{x}{A data.frame, list or JSON string containing body annotations}
+\item{x}{A data.frame, list or JSON string containing body annotations.
+\bold{End users are strongly recommended to use data.frames.}}
 
 \item{test}{Whether to use the test clio store (recommended until you are
 sure you know what you are doing).}
@@ -24,14 +25,14 @@ default \code{NULL} uses the current version returned by the API.}
 
 \item{write_empty_fields}{When \code{x} is a data.frame, this controls
 whether empty fields in \code{x} overwrite fields in the clio-store
-database. The (conservative) default \code{FALSE} does not overwrite. If
-you do want to set to an empty value (usually the empty string) then you
-must set to \code{write_empty_fields=TRUE}.}
+database. The (conservative) default \code{write_empty_fields=FALSE} does
+not overwrite. If you do want to set fields to an empty value (usually the
+empty string) then you must set \code{write_empty_fields=TRUE}.}
 
 \item{chunksize}{When you have many bodies to annotate the request will by
-default be sent 50 at a time to avoid any issue with timeouts. You can
-increase for a small speed up if you find your setup is fast enough. Set to
-\code{Inf} to insist that all records are sent in a single request.
+default be sent 50 records at a time to avoid any issue with timeouts. You
+can increase for a small speed up if you find your setup is fast enough.
+Set to \code{Inf} to insist that all records are sent in a single request.
 \bold{NB only applies when \code{x} is a data.frame}.}
 
 \item{...}{Additional parameters passed to \code{pbapply::\link{pbsapply}}}
@@ -53,17 +54,51 @@ Clio body annotations are stored in a
    fields Google sheet} for details.
 
   It can take some time to apply annotations, so requests are chunked by
-  default
+  default in groups of 50.
 }
 \section{Validation}{
  Validation depends on how you provide your input data.
-  If \code{x} is a data.frame then each row is checked for some basics including the presence of a bodyid, and empty fields are removed. In future we will also check
+  If \code{x} is a data.frame then each row is checked for some basics
+  including the presence of a bodyid, and empty fields are removed. In future
+  we will also check fields which are only allowed to take certain values.
+
+  When \code{x} is a character vector, it is checked to see that it is valid
+  JSON and that there is a bodyid field for each record. This intended
+  principally for developer use or to confirm that a specific JSON payload
+  has been applied. You probably should not be using it regularly or for bulk
+  upload.
+
+  When \code{x} is a list, no further validation occurs.
+
+  For these reasons, \bold{it is strongly recommended that end users provide
+  \code{data.frame} input}.
+}
+
+\section{Users}{
+ You should record users with the email address that they use
+  to authenticate to Clio. At present you are responsible for choosing how to
+  set the two user fields: \itemize{
+
+  \item \code{user} This is intended to be the user that first created the
+  annotation record for a body. At some point they may have some control over
+  edits.
+
+  \item \code{last_modified_by} This is intended to be the user who provided
+  the last change to a record; in the case of bulk uploads, this should be
+  the user providing (or at least guaranteeing) the biological insight if at
+  all possible.
+
+  }
 }
 
 \examples{
+
 \dontrun{
-# if you give a list then you are responsible for validation
 # note use of test server
+manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',
+  description='Giant Fiber'), test=TRUE)
+
+# if you give a list then you are responsible for validation
 manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
   description='Giant Fiber'), test=TRUE)
 }
