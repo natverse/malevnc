@@ -44,7 +44,7 @@ You should use the tags in the following order of preference
   use this tag.}
 
   \item{root}{ If you are not sure where the soma is, but you want to specify
-  a postiion to act as the root e.g. skeletonising the neuron, use this tag.}
+  a position to act as the root e.g. skeletonising the neuron, use this tag.}
 
   }
 
