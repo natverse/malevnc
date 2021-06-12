@@ -40,10 +40,15 @@ Clio store authorisation is a multi step process. You must first
   authenticate to Google who will return a token confirming your identity;
   this token only lasts ~30m. This Google token is then presented to a clio
   store endpoint to generate a long lived clio token, which is cached on disk
-  (for up to 7 days at the time of writing).
+  (for up to 3 weeks at the time of writing). You can also specify a token
+  via the \code{CLIO_TOKEN} environment variable - this is mainly provided as
+  a convenience during continuous integration testing.
 }
 \examples{
 \dontrun{
+# Get or refresh clio JWT token (with the associated email as an attribute)
+clio_token()
+
 # regenerate token for specified email if you are getting 401 web errors
 clio_auth("user@gmail.com", cache=FALSE)
 
