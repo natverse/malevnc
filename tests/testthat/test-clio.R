@@ -27,5 +27,14 @@ test_that("validate_email", {
   expect_equal(validate_email("bozo@gmail.com"), "bozo@gmail.com")
   expect_error(validate_email("bozo@gmail"))
   expect_error(validate_email("bozogmail"))
+  expect_error(clio_email("bozogmail"))
   expect_error(validate_email("bozogmail$@gmail.com"))
+})
+
+test_that("clio version/email", {
+  skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
+          message = "no clio token available")
+  expect_silent(clio_email())
+  expect_match(clio_version(), regexp = '^v[0-9]\\.[0-9.]+')
+  expect_error(clio_version('0.3.2'))
 })

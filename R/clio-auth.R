@@ -201,3 +201,23 @@ clio_email <- memoise::memoise(function(email=getOption("malevnc.clio_email")) {
   validate_email(email)
   email
 }, ~memoise::timeout(5*60))
+
+
+clio_datasets <- function() {
+  clio_fetch_memo(clio_url('v2/datasets'))
+}
+
+clio_version <- function(version=NULL) {
+  if(!is.null(version)) {
+    vok=checkmate::assert_character(version, pattern = "^v[0-9.]")
+    # this will trigger an error if it can't be parsed as x.y.z
+    nv=numeric_version(sub("v","", version))
+    return(version)
+  }
+  cds=clio_datasets()
+  version=cds$VNC$tag
+  if(is.null(version))
+    stop("Unable to read clio version from API. Please specify manually and\n",
+         "file a bug report at https://github.com/flyconnectome/malevnc/issues")
+  version
+}
