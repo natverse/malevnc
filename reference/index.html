@@ -182,12 +182,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="manc_neuprint_meta.html">manc_neuprint_meta()</a></code> </p>
-        </td>
-        <td><p>Fetch neuprint metadata for MANC neurons</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="manc_xyz2bodyid.html">manc_xyz2bodyid()</a></code> </p>
         </td>
         <td><p>Find the bodyid for an XYZ location</p></td>
@@ -213,7 +207,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-annotations" class="hasAnchor"><a href="#section-annotations" class="anchor"></a>Annotations</h2>
+          <h2 id="section-read-annotations" class="hasAnchor"><a href="#section-read-annotations" class="anchor"></a>Read annotations</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -243,21 +237,52 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="manc_meta.html">manc_meta()</a></code> </p>
+        </td>
+        <td><p>Return full metadata from Clio/DVID for MANC bodyids (cached by default)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_neuprint_meta.html">manc_neuprint_meta()</a></code> </p>
+        </td>
+        <td><p>Fetch neuprint metadata for MANC neurons</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="manc_user_annotations.html">manc_user_annotations()</a></code> </p>
         </td>
         <td><p>Read point annotations from DVID using neuprint authentication</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="manc_annotate_soma.html">manc_annotate_soma()</a></code> </p>
-        </td>
-        <td><p>Annotate an XYZ location in Clio as a soma or root</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="clio_auth.html">clio_auth()</a></code> <code><a href="clio_auth.html">clio_token()</a></code> </p>
         </td>
         <td><p>Clio authorisation infrastructure using Google via the gargle package + JWT</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-make-annotations" class="hasAnchor"><a href="#section-make-annotations" class="anchor"></a>Make annotations</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="manc_annotate_body.html">manc_annotate_body()</a></code> </p>
+        </td>
+        <td><p>Set Clio body annotations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="manc_annotate_soma.html">manc_annotate_soma()</a></code> </p>
+        </td>
+        <td><p>Annotate an XYZ location in Clio as a soma or root</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -345,6 +370,18 @@
           <p><code><a href="MANC.surf.html">MANC.surf</a></code> </p>
         </td>
         <td><p>Surface model of neuropils in the MANC dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="MANC.tissue.surf.html">MANC.tissue.surf</a></code> </p>
+        </td>
+        <td><p>Simplified tissue surface of MALEVNC</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="MANCsym.html">MANCsym</a></code> </p>
+        </td>
+        <td><p>MANC symmetric template</p></td>
       </tr>
     </tbody>
     </table>
