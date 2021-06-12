@@ -173,10 +173,15 @@ clio_token returns a long lived token to use for clio
   authenticate to Google who will return a token confirming your identity;
   this token only lasts ~30m. This Google token is then presented to a clio
   store endpoint to generate a long lived clio token, which is cached on disk
-  (for up to 7 days at the time of writing).</p>
+  (for up to 3 weeks at the time of writing). You can also specify a token
+  via the <code>CLIO_TOKEN</code> environment variable - this is mainly provided as
+  a convenience during continuous integration testing.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># Get or refresh clio JWT token (with the associated email as an attribute)</span>
+<span class='fu'>clio_token</span><span class='op'>(</span><span class='op'>)</span>
+
 <span class='co'># regenerate token for specified email if you are getting 401 web errors</span>
 <span class='fu'>clio_auth</span><span class='op'>(</span><span class='st'>"user@gmail.com"</span>, cache<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 

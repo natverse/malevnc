@@ -130,6 +130,7 @@
   config <span class='op'>=</span> <span class='cn'>NULL</span>,
   cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
   update.bodyids <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  test <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -166,6 +167,10 @@ bearer token)</p></td>
 annotations based on the position field.</p></td>
     </tr>
     <tr>
+      <th>test</th>
+      <td><p>Whether to unset the clio-store test server (default <code>FALSE</code>)</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional arguments passed to <code><a href='https://rdrr.io/pkg/pbapply/man/pbapply.html'>pbapply::pblapply</a></code></p></td>
     </tr>
@@ -188,6 +193,7 @@ annotations based on the position field.</p></td>
     <div class='dont-index'><p><a href='https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit'>basic
 docs from Bill Katz</a>.</p>
 <p>Other manc-annotation: 
+<code><a href='manc_annotate_body.html'>manc_annotate_body</a>()</code>,
 <code><a href='manc_meta.html'>manc_meta</a>()</code>,
 <code><a href='manc_point_annotations.html'>manc_point_annotations</a>()</code></p></div>
 
