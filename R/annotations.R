@@ -242,7 +242,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
         chunknums=floor((seq_along(ids)-1)/chunksize)+1
         chunkedids=split(ids, chunknums)
         res=pbapply::pblapply(chunkedids, manc_body_annotations, json=json,
-                              config=config, cache=cache,
+                              config=config, cache=cache, test=test,
                               update.bodyids=update.bodyids, ...)
         return(dplyr::bind_rows(res))
       }
