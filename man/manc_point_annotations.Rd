@@ -39,7 +39,7 @@ There is an optional 5 minute cache of these lookups (recreated for
   Clio i.e. the you will get the bodyid reported in Clio. You can also choose
   to lookup the id for any DVID node, by specifying e.g. \code{node='neutu'}
   to get the absolute latest node. Of course in theory bodyids with Clio
-  annotaions should not be changing ...
+  annotations should not be changing ...
 }
 \examples{
 \dontrun{
@@ -51,6 +51,7 @@ head(manc_point_annotations(node='neutu'))
 }
 \seealso{
 Other manc-annotation: 
+\code{\link{manc_annotate_body}()},
 \code{\link{manc_body_annotations}()},
 \code{\link{manc_meta}()}
 }

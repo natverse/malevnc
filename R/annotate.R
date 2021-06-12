@@ -73,15 +73,90 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   clio_fetch(url, body=bodyj, ...)
 }
 
-manc_annotate_body <- function(body, test=TRUE, version='v0.3.22', json=is.character(body)) {
-  v=manc_dvid_node('clio')
+#' Set Clio body annotations
+#'
+#' @details Clio body annotations are stored in a
+#'   \href{https://cloud.google.com/firestore}{Google Firestore} database.
+#'   Further details are provided in
+#'   \href{https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit}{basic
+#'    docs from Bill Katz}. Each body has an associated JSON list containing a
+#'   set of standard user visible fields. Some of these are constrained. See
+#'   \href{https://docs.google.com/spreadsheets/d/1v8AltqyPCVNIC_m6gDNy6IDK10R6xcGkKWFxhmvCpCs/edit?usp=sharing}{Clio
+#'    fields Google sheet} for details.
+#'
+#'   It can take some time to apply annotations, so requests are chunked by
+#'   default in groups of 50.
+#'
+#' @section Validation: Validation depends on how you provide your input data.
+#'   If \code{x} is a data.frame then each row is checked for some basics including the presence of a bodyid, and empty fields are removed. In future we will also check fields which are only allowed to take certain values.
+#'
+#' @param x A data.frame, list or JSON string containing body annotations
+#' @param version Optional clio version to associate with this annotation. The
+#'   default \code{NULL} uses the current version returned by the API.
+#' @param test Whether to use the test clio store (recommended until you are
+#'   sure you know what you are doing).
+#' @param write_empty_fields When \code{x} is a data.frame, this controls
+#'   whether empty fields in \code{x} overwrite fields in the clio-store
+#'   database. The (conservative) default \code{FALSE} does not overwrite. If
+#'   you do want to set to an empty value (usually the empty string) then you
+#'   must set to \code{write_empty_fields=TRUE}.
+#' @param chunksize When you have many bodies to annotate the request will by
+#'   default be sent 50 at a time to avoid any issue with timeouts. You can
+#'   increase for a small speed up if you find your setup is fast enough. Set to
+#'   \code{Inf} to insist that all records are sent in a single request.
+#'   \bold{NB only applies when \code{x} is a data.frame}.
+#' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
+#'
+#' @param
+#' @return \code{NULL} invisibly on success. Errors out on failure.
+#' @family manc-annotation
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # if you give a list then you are responsible for validation
+#' # note use of test server
+#' manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
+#'   description='Giant Fiber'), test=TRUE)
+#' }
+manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE, chunksize=50, ...) {
+  version=clio_version(version)
   u=clio_url(path=sprintf('v2/json-annotations/VNC/neurons?version=%s', version),
              test = test)
+  fafbseg:::check_package_available('purrr')
+  if(!is.character(x)) {
+    if(is.data.frame(x)) {
+      if(isFALSE('bodyid' %in% colnames(x)))
+        stop("Your dataframe must contain a bodyid column")
+      if(!all(fafbseg:::valid_id(x$bodyid)))
+        stop("Your dataframe must contain valid bodyids for every row")
+      # turns it into a list of lists
+      x=purrr::transpose(x)
+      purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !is.na(x) && any(nzchar(x)))
+      if(!write_empty_fields)
+        x=purrr::map(x, purge_empty)
 
-  res <- if(isTRUE(json)) {
-    clio_fetch(u, body = body, encode='raw', httr::content_type_json())
+      if(length(x)>chunksize) {
+        chunknums=floor((seq_along(x)-1)/chunksize)+1
+        chunkedx=split(x, chunknums)
+        res=pbapply::pbsapply(chunkedx, manc_annotate_body, version=version,
+                          test=test, chunksize=Inf, ...)
+        return(invisible(res))
+      }
+    }
+    x=jsonlite::toJSON(x, auto_unbox = T, null = 'null')
   } else {
-    clio_fetch(u, body = body, encode='json')
+    if(!jsonlite::validate(x))
+      stop("Invalid JSON")
+    df=jsonlite::fromJSON(x)
+    if(is.null(df$bodyid) || !all(sapply(df$bodyid, is.finite)))
+      stop("Input JSON must contain a bodyid field for each record!")
   }
+  # final check
+  first=substr(x, 1, 1)
+  last=substr(x, nchar(x), nchar(x))
+  if(!isTRUE(first %in% c("{","[")) || !isTRUE(last %in% c("}","]") ))
+    stop("Annotations do not form a JSON list. Please verify!")
+  res=clio_fetch(u, body = x, encode='raw', httr::content_type_json())
   invisible(res)
 }

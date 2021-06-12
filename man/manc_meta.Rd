@@ -29,7 +29,7 @@ A data.frame with columns determined by
 Return full metadata from Clio/DVID for MANC bodyids (cached by default)
 }
 \details{
-This function will the latest per boydid metadata using
+This function will the latest per bodyid metadata using
   \code{\link{manc_dvid_annotations}} and
   \code{\link{manc_body_annotations}}. Since obtaining this information can
   take 5-10s even for a single id, it is by default cached with a 5 min
@@ -46,6 +46,7 @@ manc_meta(10002)
 }
 \seealso{
 Other manc-annotation: 
+\code{\link{manc_annotate_body}()},
 \code{\link{manc_body_annotations}()},
 \code{\link{manc_point_annotations}()}
 }

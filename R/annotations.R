@@ -181,7 +181,7 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
 #'   \code{FALSE}).
-#' @param test Whether to uset the clio-store test server (default \code{FALSE})
+#' @param test Whether to unset the clio-store test server (default \code{FALSE})
 #' @param ... Additional arguments passed to \code{pbapply::\link{pblapply}}
 #' @inheritParams manc_dvid_annotations
 #' @return An R data.frame or a character vector containing JSON (when
@@ -298,7 +298,7 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE) {
 #'   Clio i.e. the you will get the bodyid reported in Clio. You can also choose
 #'   to lookup the id for any DVID node, by specifying e.g. \code{node='neutu'}
 #'   to get the absolute latest node. Of course in theory bodyids with Clio
-#'   annotaions should not be changing ...
+#'   annotations should not be changing ...
 #'
 #' @param groups Defines a group for which we would like to see all annotations.
 #'   When NULL, only returns annotations for your own user.
@@ -339,7 +339,7 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
 
 #' Return full metadata from Clio/DVID for MANC bodyids (cached by default)
 #'
-#' @details This function will the latest per boydid metadata using
+#' @details This function will the latest per bodyid metadata using
 #'   \code{\link{manc_dvid_annotations}} and
 #'   \code{\link{manc_body_annotations}}. Since obtaining this information can
 #'   take 5-10s even for a single id, it is by default cached with a 5 min

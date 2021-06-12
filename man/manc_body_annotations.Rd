@@ -33,7 +33,7 @@ bearer token)}
 \item{update.bodyids}{Whether to update the bodyid associated with
 annotations based on the position field.}
 
-\item{test}{Whether to uset the clio-store test server (default \code{FALSE})}
+\item{test}{Whether to unset the clio-store test server (default \code{FALSE})}
 
 \item{...}{Additional arguments passed to \code{pbapply::\link{pblapply}}}
 }
@@ -73,6 +73,7 @@ mba=manc_body_annotations()
 docs from Bill Katz}.
 
 Other manc-annotation: 
+\code{\link{manc_annotate_body}()},
 \code{\link{manc_meta}()},
 \code{\link{manc_point_annotations}()}
 }

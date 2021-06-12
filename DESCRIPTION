@@ -44,7 +44,8 @@ Suggests:
     reticulate,
     spelling,
     jose,
-    rappdirs
+    rappdirs,
+    purrr,
 Enhances:
     drvid
 URL: https://github.com/flyconnectome/malevnc
