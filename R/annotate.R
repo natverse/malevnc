@@ -158,16 +158,7 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
-      if(isFALSE('bodyid' %in% colnames(x)))
-        stop("Your dataframe must contain a bodyid column")
-      if(!all(fafbseg:::valid_id(x$bodyid)))
-        stop("Your dataframe must contain valid bodyids for every row")
-      # turns it into a list of lists
-      x=purrr::transpose(x)
-      purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !is.na(x) && any(nzchar(x)))
-      if(!write_empty_fields)
-        x=purrr::map(x, purge_empty)
-
+      x <- annotationdf2list(x, write_empty_fields = write_empty_fields)
       if(length(x)>chunksize) {
         chunknums=floor((seq_along(x)-1)/chunksize)+1
         chunkedx=split(x, chunknums)
@@ -191,4 +182,43 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
     stop("Annotations do not form a JSON list. Please verify!")
   res=clio_fetch(u, body = x, encode='raw', httr::content_type_json())
   invisible(res)
+}
+
+annotationdf2list <- function(x, write_empty_fields=FALSE) {
+  if(isFALSE('bodyid' %in% colnames(x)))
+    stop("Your dataframe must contain a bodyid column")
+  if(!all(fafbseg:::valid_id(x$bodyid)))
+    stop("Your dataframe must contain valid bodyids for every row")
+
+  # Handle any special fields
+  if("position" %in% colnames(x)) {
+    px=x[['position']]
+    if(is.character(px)) {
+      pxm=xyzmatrix(px)
+      x[['position']]=lapply(seq_len(nrow(pxm)), function(i) {
+        pxmi=pxm[i,]
+        if(any(is.na(pxmi))) list() else pxmi
+        })
+    } else if(is.list(px)) {
+      # convert any matrices etc to vectors without names
+      px=purrr::map(px, c)
+      lens=sapply(px, length)
+      if(!all(lens %in% c(0,3))) {
+        stop("`position` column must contain 0 or 3 elements per entry")
+      }
+      # If we want to clear the position field we should send json []
+      # x[['position']][lens==0]=list()
+      for(i in which(lens==0)) px[[i]]=list()
+      x[['position']]=px
+    } else {
+      stop("`position` must be a character vector or list with 3-vectors")
+    }
+  }
+
+  # turns it into a list of lists
+  x=purrr::transpose(x)
+  purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !is.na(x) && any(nzchar(x)))
+  if(!write_empty_fields)
+    x=purrr::map(x, purge_empty)
+  x
 }

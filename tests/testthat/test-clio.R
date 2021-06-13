@@ -16,6 +16,18 @@ test_that("manc_annotate_body works", {
   manc_annotate_body(list(bodyid=10002, soma_side='L'), test = TRUE)
   expect_equal(manc_body_annotations(10002, test=T)$soma_side, "L")
 
+  seedpt=xyzmatrix(cbind(23217, 35252, 67070))
+  seedpt_char=paste(seedpt, collapse = ',')
+  df=data.frame(bodyid=c(10002, 10000))
+  df$position=c(seedpt_char, NA)
+  df2=df
+  df2$position=list(seedpt, list())
+  expect_silent(manc_annotate_body(df))
+  expect_silent(manc_annotate_body(df2))
+  # equivalent because of rownames (maybe xyzmatrix should drop them)
+  expect_equivalent(nat::xyzmatrix(manc_body_annotations(10002, test=T)$position),
+                    nat::xyzmatrix(seedpt))
+
   # neither NA nor "" should overwrite
   manc_annotate_body(data.frame(bodyid=10002, soma_side=""), test = TRUE, write_empty_fields = FALSE)
   expect_equal(manc_body_annotations(10002, test=T)$soma_side, "L")
