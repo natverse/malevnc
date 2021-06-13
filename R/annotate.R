@@ -217,7 +217,7 @@ annotationdf2list <- function(x, write_empty_fields=FALSE) {
 
   # turns it into a list of lists
   x=purrr::transpose(x)
-  purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !is.na(x) && any(nzchar(x)))
+  purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !any(is.na(x)) && any(nzchar(x)))
   if(!write_empty_fields)
     x=purrr::map(x, purge_empty)
   x
