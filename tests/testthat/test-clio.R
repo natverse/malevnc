@@ -16,7 +16,7 @@ test_that("manc_annotate_body works", {
   manc_annotate_body(list(bodyid=10002, soma_side='L'), test = TRUE)
   expect_equal(manc_body_annotations(10002, test=T)$soma_side, "L")
 
-  seedpt=xyzmatrix(cbind(23217, 35252, 67070))
+  seedpt=nat::xyzmatrix(cbind(23217, 35252, 67070))
   seedpt_char=paste(seedpt, collapse = ',')
   df=data.frame(bodyid=c(10002, 10000))
   df$position=c(seedpt_char, NA)
