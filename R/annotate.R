@@ -220,5 +220,7 @@ annotationdf2list <- function(x, write_empty_fields=FALSE) {
   purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !any(is.na(x)) && any(nzchar(x)))
   if(!write_empty_fields)
     x=purrr::map(x, purge_empty)
+  # drop any empty records or (more plausibly) ones with just bodyid
+  x=purrr::keep(x, function(y) length(y)>1)
   x
 }
