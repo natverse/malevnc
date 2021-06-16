@@ -151,11 +151,11 @@ store_token_expiry <- function(token=NULL, start=Sys.time()) {
 }
 
 # private function to talk to clio store
-clio_fetch <- function(url, body=NULL, query=NULL, config=NULL, json=FALSE, ...) {
+clio_fetch <- function(url, config=NULL, ..., body=NULL, query=NULL, json=FALSE) {
   if (is.null(config))
-    config = c(httr::config(),
-               httr::add_headers(Authorization = paste("Bearer", clio_token())))
-  resp <- if(is.null(query)){
+    config=c(httr::config(),
+             httr::add_headers(Authorization = paste("Bearer", clio_token())))
+  resp <- if(length(query)==0){
     httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
                     config=config,
                     url = url,
