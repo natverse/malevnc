@@ -44,6 +44,50 @@ test_that("manc_annotate_body works", {
   expect_equal(manc_body_annotations(10002, test=T)$soma_side,"")
 })
 
+test_that("manc_point_annotations/clioannotationdf2list works", {
+  ansforuploadsample <- structure(
+    list(
+      bodyid = c(11633, 10223, 10382, 10397),
+      class = c(
+        "Ascending Interneuron",
+        "Ascending Interneuron",
+        "Ascending Interneuron",
+        "Ascending Interneuron"
+      ),
+      entry_nerve = c("None", "None", "None", "None"),
+      exit_nerve = c("CvC",
+                     "CvC", "CvC", "CvC"),
+      group = c(NA, 10223, 10223, 10245),
+      user = c(
+        "jefferis@gmail.com",
+        "jefferis@gmail.com",
+        "jefferis@gmail.com",
+        "jefferis@gmail.com"
+      ),
+      last_modified_by = c(
+        "jefferis@gmail.com",
+        "jefferis@gmail.com",
+        "jefferis@gmail.com",
+        "jefferis@gmail.com"
+      ),
+      x = c(20652L, 21742L,
+            24812L, 20124L),
+      y = c(34920L, 37945L, 38155L, 36234L),
+      z = c(67070L,
+            67070L, 67070L, 67070L)
+    ),
+    row.names = c(NA,-4L),
+    class = c("tbl_df",
+              "tbl", "data.frame")
+  )
+
+ expect_known_hash(cliolist <- clioannotationdf2list(ansforuploadsample),
+                    "76f0ba44b7")
+  # a row with only bodyid should be dropped
+  ansforuploadsample[5,'bodyid']=1
+  expect_equal(clioannotationdf2list(ansforuploadsample), cliolist)
+})
+
 
 test_that("manc_point_annotations works", {
   skip_if(inherits(try(clio_token(), silent = T), 'try-error'),

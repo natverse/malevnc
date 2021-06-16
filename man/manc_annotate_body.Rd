@@ -55,6 +55,11 @@ Clio body annotations are stored in a
 
   It can take some time to apply annotations, so requests are chunked by
   default in groups of 50.
+
+  A single column called \code{position} or 3 columns names x, y, z or X, Y,
+  Z in any form accepted by \code{\link{xyzmatrix}} will be converted to a
+  position stored with each record. This is recommended when creating
+  records.
 }
 \section{Validation}{
  Validation depends on how you provide your input data.

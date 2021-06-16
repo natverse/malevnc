@@ -87,6 +87,11 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #'   It can take some time to apply annotations, so requests are chunked by
 #'   default in groups of 50.
 #'
+#'   A single column called \code{position} or 3 columns names x, y, z or X, Y,
+#'   Z in any form accepted by \code{\link{xyzmatrix}} will be converted to a
+#'   position stored with each record. This is recommended when creating
+#'   records.
+#'
 #' @section Validation: Validation depends on how you provide your input data.
 #'   If \code{x} is a data.frame then each row is checked for some basics
 #'   including the presence of a bodyid, and empty fields are removed. In future
@@ -158,7 +163,7 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
-      x <- annotationdf2list(x, write_empty_fields = write_empty_fields)
+      x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
       if(length(x)>chunksize) {
         chunknums=floor((seq_along(x)-1)/chunksize)+1
         chunkedx=split(x, chunknums)
@@ -184,21 +189,34 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
   invisible(res)
 }
 
-annotationdf2list <- function(x, write_empty_fields=FALSE) {
+clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
   if(isFALSE('bodyid' %in% colnames(x)))
     stop("Your dataframe must contain a bodyid column")
   if(!all(fafbseg:::valid_id(x$bodyid)))
     stop("Your dataframe must contain valid bodyids for every row")
 
   # Handle any special fields
+
+  # position as 3 cols rather than a single one
+  xyzcols = c("x", "y", "z", "X", "Y", "Z")
+  if(!"position" %in% colnames(x) &&
+     isTRUE(sum(xyzcols %in% colnames(x))==3)){
+    x[['position']]=xyzmatrix(x)
+    x=x[setdiff(colnames(x), xyzcols)]
+  }
+
   if("position" %in% colnames(x)) {
     px=x[['position']]
-    if(is.character(px)) {
-      pxm=xyzmatrix(px)
-      x[['position']]=lapply(seq_len(nrow(pxm)), function(i) {
-        pxmi=pxm[i,]
+    if(is.character(px) || is.matrix(px)) {
+      if(is.character(px))
+        px=xyzmatrix(px)
+      px=unname(px)
+      checkmate::assert_matrix(px, nrows = nrow(x), ncols = 3,
+                               mode = "numeric")
+      x[['position']]=lapply(seq_len(nrow(px)), function(i) {
+        pxmi=px[i,]
         if(any(is.na(pxmi))) list() else pxmi
-        })
+      })
     } else if(is.list(px)) {
       # convert any matrices etc to vectors without names
       px=purrr::map(px, c)
@@ -210,7 +228,7 @@ annotationdf2list <- function(x, write_empty_fields=FALSE) {
       # x[['position']][lens==0]=list()
       for(i in which(lens==0)) px[[i]]=list()
       x[['position']]=px
-    } else {
+    } else{
       stop("`position` must be a character vector or list with 3-vectors")
     }
   }
