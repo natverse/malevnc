@@ -128,6 +128,7 @@
   test <span class='op'>=</span> <span class='cn'>TRUE</span>,
   version <span class='op'>=</span> <span class='cn'>NULL</span>,
   write_empty_fields <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  protect <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"user"</span><span class='op'>)</span>,
   chunksize <span class='op'>=</span> <span class='fl'>50</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
@@ -154,9 +155,17 @@ default <code>NULL</code> uses the current version returned by the API.</p></td>
       <th>write_empty_fields</th>
       <td><p>When <code>x</code> is a data.frame, this controls
 whether empty fields in <code>x</code> overwrite fields in the clio-store
-database. The (conservative) default <code>write_empty_fields=FALSE</code> does
-not overwrite. If you do want to set fields to an empty value (usually the
-empty string) then you must set <code>write_empty_fields=TRUE</code>.</p></td>
+database (when they are not protected by the <code>protect</code> argument). The
+(conservative) default <code>write_empty_fields=FALSE</code> does not overwrite.
+If you do want to set fields to an empty value (usually the empty string)
+then you must set <code>write_empty_fields=TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>protect</th>
+      <td><p>Vector of fields that will not be overwritten if they already
+have a value in clio store. Set to <code>TRUE</code> to protect all fields and to
+<code>FALSE</code> to overwrite all fields for which you provide data. See
+details for the rational behind the default value of "user"</p></td>
     </tr>
     <tr>
       <th>chunksize</th>
@@ -187,6 +196,15 @@ Set to <code>Inf</code> to insist that all records are sent in a single request.
    fields Google sheet</a> for details.</p>
 <p>It can take some time to apply annotations, so requests are chunked by
   default in groups of 50.</p>
+<p>A single column called <code>position</code> or 3 columns names x, y, z or X, Y,
+  Z in any form accepted by <code><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></code> will be converted to a
+  position stored with each record. This is recommended when creating
+  records.</p>
+<p>When <code>protect=TRUE</code> no data in Clio will be overwritten - only new
+  data will be added. When <code>protect=FALSE</code> all fields will overwritten
+  by new data so long as there is a non-empty value in <code>x</code>. If
+  <code>write_empty_fields=TRUE</code> then even empty fields in <code>x</code> will
+  overwrite fields in the database.</p>
     <h2 class="hasAnchor" id="validation"><a class="anchor" href="#validation"></a>Validation</h2>
 
     <p>Validation depends on how you provide your input data.
@@ -232,6 +250,18 @@ Set to <code>Inf</code> to insist that all records are sent in a single request.
 <span class='co'># if you give a list then you are responsible for validation</span>
 <span class='fu'>manc_annotate_body</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>bodyid<span class='op'>=</span><span class='fl'>10002</span>, class<span class='op'>=</span><span class='st'>'Descending Neuron'</span>,
   description<span class='op'>=</span><span class='st'>'Giant Fiber'</span><span class='op'>)</span>, test<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'># don't overwrite any fields in database</span>
+<span class='fu'>manc_annotate_body</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>bodyid<span class='op'>=</span><span class='fl'>10002</span>, class<span class='op'>=</span><span class='st'>'Descending Neuron'</span>,
+  description<span class='op'>=</span><span class='st'>'Giant Fiber'</span><span class='op'>)</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, protect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'># overwrite all fields in database except with empty values</span>
+<span class='fu'>manc_annotate_body</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>bodyid<span class='op'>=</span><span class='fl'>10002</span>, class<span class='op'>=</span><span class='st'>'Descending Neuron'</span>,
+  description<span class='op'>=</span><span class='st'>'Giant Fiber'</span><span class='op'>)</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, protect<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='co'>#' # overwrite all fields in database even if supplied data has empty values</span>
+<span class='fu'>manc_annotate_body</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>bodyid<span class='op'>=</span><span class='fl'>10002</span>, class<span class='op'>=</span><span class='st'>''</span>,
+  description<span class='op'>=</span><span class='st'>'Giant Fiber'</span><span class='op'>)</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, protect<span class='op'>=</span><span class='cn'>FALSE</span>, write_empty_fields <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
