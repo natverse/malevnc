@@ -9,6 +9,7 @@ manc_annotate_body(
   test = TRUE,
   version = NULL,
   write_empty_fields = FALSE,
+  protect = c("user"),
   chunksize = 50,
   ...
 )
@@ -25,9 +26,15 @@ default \code{NULL} uses the current version returned by the API.}
 
 \item{write_empty_fields}{When \code{x} is a data.frame, this controls
 whether empty fields in \code{x} overwrite fields in the clio-store
-database. The (conservative) default \code{write_empty_fields=FALSE} does
-not overwrite. If you do want to set fields to an empty value (usually the
-empty string) then you must set \code{write_empty_fields=TRUE}.}
+database (when they are not protected by the \code{protect} argument). The
+(conservative) default \code{write_empty_fields=FALSE} does not overwrite.
+If you do want to set fields to an empty value (usually the empty string)
+then you must set \code{write_empty_fields=TRUE}.}
+
+\item{protect}{Vector of fields that will not be overwritten if they already
+have a value in clio store. Set to \code{TRUE} to protect all fields and to
+\code{FALSE} to overwrite all fields for which you provide data. See
+details for the rational behind the default value of "user"}
 
 \item{chunksize}{When you have many bodies to annotate the request will by
 default be sent 50 records at a time to avoid any issue with timeouts. You
@@ -60,6 +67,12 @@ Clio body annotations are stored in a
   Z in any form accepted by \code{\link{xyzmatrix}} will be converted to a
   position stored with each record. This is recommended when creating
   records.
+
+  When \code{protect=TRUE} no data in Clio will be overwritten - only new
+  data will be added. When \code{protect=FALSE} all fields will overwritten
+  by new data so long as there is a non-empty value in \code{x}. If
+  \code{write_empty_fields=TRUE} then even empty fields in \code{x} will
+  overwrite fields in the database.
 }
 \section{Validation}{
  Validation depends on how you provide your input data.
@@ -106,6 +119,18 @@ manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',
 # if you give a list then you are responsible for validation
 manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
   description='Giant Fiber'), test=TRUE)
+
+# don't overwrite any fields in database
+manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
+  description='Giant Fiber'), test=TRUE, protect=TRUE)
+
+# overwrite all fields in database except with empty values
+manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
+  description='Giant Fiber'), test=TRUE, protect=FALSE)
+
+#' # overwrite all fields in database even if supplied data has empty values
+manc_annotate_body(list(bodyid=10002, class='',
+  description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
 }
 }
 \seealso{

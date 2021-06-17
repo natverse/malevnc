@@ -42,6 +42,16 @@ test_that("manc_annotate_body works", {
   manc_annotate_body(list(bodyid=10002, soma_side='L'), test = TRUE)
   manc_annotate_body(list(bodyid=10002, soma_side=""), test = TRUE)
   expect_equal(manc_body_annotations(10002, test=T)$soma_side,"")
+
+  # check that protect works
+  manc_annotate_body(list(bodyid=10002, class='DN'), test = TRUE)
+  expect_equal(manc_body_annotations(10002, test=T)$class,"DN")
+  manc_annotate_body(list(bodyid=10002, soma_side='rhubarb'), test = TRUE, protect = 'class')
+  expect_equal(manc_body_annotations(10002, test=T)$class,"DN")
+  manc_annotate_body(list(bodyid=10002, class='rhubarb'), test = TRUE, protect = T)
+  expect_equal(manc_body_annotations(10002, test=T)$class,"DN")
+  manc_annotate_body(list(bodyid=10002, class='Descending'), test = TRUE, protect = F)
+  expect_equal(manc_body_annotations(10002, test=T)$class,"Descending")
 })
 
 test_that("manc_point_annotations/clioannotationdf2list works", {

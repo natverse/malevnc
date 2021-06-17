@@ -92,6 +92,12 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #'   position stored with each record. This is recommended when creating
 #'   records.
 #'
+#'   When \code{protect=TRUE} no data in Clio will be overwritten - only new
+#'   data will be added. When \code{protect=FALSE} all fields will overwritten
+#'   by new data so long as there is a non-empty value in \code{x}. If
+#'   \code{write_empty_fields=TRUE} then even empty fields in \code{x} will
+#'   overwrite fields in the database.
+#'
 #' @section Validation: Validation depends on how you provide your input data.
 #'   If \code{x} is a data.frame then each row is checked for some basics
 #'   including the presence of a bodyid, and empty fields are removed. In future
@@ -129,11 +135,16 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #'   default \code{NULL} uses the current version returned by the API.
 #' @param test Whether to use the test clio store (recommended until you are
 #'   sure you know what you are doing).
+#' @param protect Vector of fields that will not be overwritten if they already
+#'   have a value in clio store. Set to \code{TRUE} to protect all fields and to
+#'   \code{FALSE} to overwrite all fields for which you provide data. See
+#'   details for the rational behind the default value of "user"
 #' @param write_empty_fields When \code{x} is a data.frame, this controls
 #'   whether empty fields in \code{x} overwrite fields in the clio-store
-#'   database. The (conservative) default \code{write_empty_fields=FALSE} does
-#'   not overwrite. If you do want to set fields to an empty value (usually the
-#'   empty string) then you must set \code{write_empty_fields=TRUE}.
+#'   database (when they are not protected by the \code{protect} argument). The
+#'   (conservative) default \code{write_empty_fields=FALSE} does not overwrite.
+#'   If you do want to set fields to an empty value (usually the empty string)
+#'   then you must set \code{write_empty_fields=TRUE}.
 #' @param chunksize When you have many bodies to annotate the request will by
 #'   default be sent 50 records at a time to avoid any issue with timeouts. You
 #'   can increase for a small speed up if you find your setup is fast enough.
@@ -155,15 +166,27 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #' # if you give a list then you are responsible for validation
 #' manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
 #'   description='Giant Fiber'), test=TRUE)
+#'
+#' # don't overwrite any fields in database
+#' manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
+#'   description='Giant Fiber'), test=TRUE, protect=TRUE)
+#'
+#' # overwrite all fields in database except with empty values
+#' manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
+#'   description='Giant Fiber'), test=TRUE, protect=FALSE)
+#'
+#' #' # overwrite all fields in database even if supplied data has empty values
+#' manc_annotate_body(list(bodyid=10002, class='',
+#'   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
 #' }
-manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE, chunksize=50, ...) {
-  version=clio_version(version)
-  u=clio_url(path=sprintf('v2/json-annotations/VNC/neurons?version=%s', version),
-             test = test)
+manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE, protect=c("user"), chunksize=50, ...) {
+  query=list(version=clio_version(version))
+  u=clio_url(path='v2/json-annotations/VNC/neurons', test = test)
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
+
       if(length(x)>chunksize) {
         chunknums=floor((seq_along(x)-1)/chunksize)+1
         chunkedx=split(x, chunknums)
@@ -171,7 +194,11 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
                           test=test, chunksize=Inf, ...)
         return(invisible(res))
       }
-    }
+    } else if(!is.list(x))
+      stop("x should be a data.frame, list or JSON character vector!")
+
+    fields=unique(unlist(purrr:::map(x, names)))
+    if(is.null(fields)) fields = names(x)
     x=jsonlite::toJSON(x, auto_unbox = T, null = 'null')
   } else {
     if(!jsonlite::validate(x))
@@ -179,13 +206,20 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
     df=jsonlite::fromJSON(x)
     if(is.null(df$bodyid) || !all(sapply(df$bodyid, is.finite)))
       stop("Input JSON must contain a bodyid field for each record!")
+    fields=colnames(df)
+  }
+  # protect arg gives errors unless field is present in POST body
+  protect <- if(isTRUE(protect)) fields else intersect(protect, fields)
+  if(!isFALSE(protect) && length(protect)>0 ) {
+    query[['conditional']]=paste(protect, collapse=",")
   }
   # final check
   first=substr(x, 1, 1)
   last=substr(x, nchar(x), nchar(x))
   if(!isTRUE(first %in% c("{","[")) || !isTRUE(last %in% c("}","]") ))
     stop("Annotations do not form a JSON list. Please verify!")
-  res=clio_fetch(u, body = x, encode='raw', httr::content_type_json())
+  res=clio_fetch(u, config=NULL, body = x, query=query, encode='raw',
+                 httr::content_type_json())
   invisible(res)
 }
 
