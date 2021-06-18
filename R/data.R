@@ -53,3 +53,15 @@
 #' wire3d(MANC.tissue.surf)
 #' }
 "MANC.tissue.surf"
+
+#' Simplified and symmetrized tissue surface of MALEVNC
+#'
+#' @name MANC.tissue.surf.sym
+#' @docType data
+#' @examples
+#' \dontrun{
+#' # Depends on nat
+#' library(nat)
+#' wire3d(MANC.tissue.surf.sym)
+#' }
+"MANC.tissue.surf.sym"
