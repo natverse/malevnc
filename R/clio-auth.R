@@ -13,7 +13,9 @@
 #'   authenticate to Google who will return a token confirming your identity;
 #'   this token only lasts ~30m. This Google token is then presented to a clio
 #'   store endpoint to generate a long lived clio token, which is cached on disk
-#'   (for up to 7 days at the time of writing).
+#'   (for up to 3 weeks at the time of writing). You can also specify a token
+#'   via the \code{CLIO_TOKEN} environment variable - this is mainly provided as
+#'   a convenience during continuous integration testing.
 #'
 #' @description \code{clio_auth} sets up the initial Google token that
 #'   ultimately authorises malevnc to view and edit data in the clio-store for
@@ -33,6 +35,9 @@
 #'
 #' @examples
 #' \dontrun{
+#' # Get or refresh clio JWT token (with the associated email as an attribute)
+#' clio_token()
+#'
 #' # regenerate token for specified email if you are getting 401 web errors
 #' clio_auth("user@gmail.com", cache=FALSE)
 #'
@@ -97,6 +102,8 @@ clio_token <- function() {
 # if we need to get a new long-lived token
 clio_fetch_token <- function(force=FALSE) {
   tokenfile=file.path(rappdirs::user_data_dir(appname = 'rpkg-malevnc'), 'flyem_token.json')
+  if(!force && nzchar(CLIO_TOKEN <- Sys.getenv('CLIO_TOKEN')))
+    return(CLIO_TOKEN)
   if(!force && file.exists(tokenfile))
     return(readLines(tokenfile))
 
@@ -144,11 +151,11 @@ store_token_expiry <- function(token=NULL, start=Sys.time()) {
 }
 
 # private function to talk to clio store
-clio_fetch <- function(url, body=NULL, query=NULL, config=NULL, json=FALSE, ...) {
+clio_fetch <- function(url, config=NULL, ..., body=NULL, query=NULL, json=FALSE) {
   if (is.null(config))
-    config = c(httr::config(),
-               httr::add_headers(Authorization = paste("Bearer", clio_token())))
-  resp <- if(is.null(query)){
+    config=c(httr::config(),
+             httr::add_headers(Authorization = paste("Bearer", clio_token())))
+  resp <- if(length(query)==0){
     httr::VERB(verb = ifelse(is.null(body), "GET", "POST"),
                     config=config,
                     url = url,
@@ -185,3 +192,32 @@ validate_email <- function(email) {
   stop("Invalid email address: ", email)
 }
 
+clio_email <- memoise::memoise(function(email=getOption("malevnc.clio_email")) {
+  if(is.null(email)) {
+    token=clio_token()
+    email=attr(token, 'email')
+    options(malevnc.clio_email=email)
+  }
+  validate_email(email)
+  email
+}, ~memoise::timeout(5*60))
+
+
+clio_datasets <- function() {
+  clio_fetch_memo(clio_url('v2/datasets'))
+}
+
+clio_version <- function(version=NULL) {
+  if(!is.null(version)) {
+    vok=checkmate::assert_character(version, pattern = "^v[0-9.]")
+    # this will trigger an error if it can't be parsed as x.y.z
+    nv=numeric_version(sub("v","", version))
+    return(version)
+  }
+  cds=clio_datasets()
+  version=cds$VNC$tag
+  if(is.null(version))
+    stop("Unable to read clio version from API. Please specify manually and\n",
+         "file a bug report at https://github.com/flyconnectome/malevnc/issues")
+  version
+}

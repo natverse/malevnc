@@ -181,6 +181,7 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
 #'   \code{FALSE}).
+#' @param test Whether to unset the clio-store test server (default \code{FALSE})
 #' @param ... Additional arguments passed to \code{pbapply::\link{pblapply}}
 #' @inheritParams manc_dvid_annotations
 #' @return An R data.frame or a character vector containing JSON (when
@@ -206,8 +207,8 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' mba=manc_body_annotations()
 #' }
 manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
-                                  cache=FALSE, update.bodyids=TRUE, ...) {
-  baseurl=clio_url("v2/json-annotations/VNC/neurons")
+                                  cache=FALSE, update.bodyids=TRUE, test=FALSE, ...) {
+  baseurl=clio_url("v2/json-annotations/VNC/neurons", test=test)
   nmissing=sum(is.null(ids), is.null(query))
   FUN=if(cache) clio_fetch_memo else clio_fetch
   if(nmissing==2) {
@@ -232,7 +233,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
     if(length(ids)>1000 && !json) {
       # it's quicker to fetch all and then filter post hoc
       # but we can't do that with json
-      mba=manc_body_annotations(cache=cache, config=config, update.bodyids=update.bodyids, ...)
+      mba=manc_body_annotations(cache=cache, config=config, update.bodyids=update.bodyids, test=test, ...)
       res=mba[match(ids, mba$bodyid),,drop=F]
       return(res)
     } else {
@@ -241,7 +242,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
         chunknums=floor((seq_along(ids)-1)/chunksize)+1
         chunkedids=split(ids, chunknums)
         res=pbapply::pblapply(chunkedids, manc_body_annotations, json=json,
-                              config=config, cache=cache,
+                              config=config, cache=cache, test=test,
                               update.bodyids=update.bodyids, ...)
         return(dplyr::bind_rows(res))
       }
@@ -297,7 +298,7 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE) {
 #'   Clio i.e. the you will get the bodyid reported in Clio. You can also choose
 #'   to lookup the id for any DVID node, by specifying e.g. \code{node='neutu'}
 #'   to get the absolute latest node. Of course in theory bodyids with Clio
-#'   annotaions should not be changing ...
+#'   annotations should not be changing ...
 #'
 #' @param groups Defines a group for which we would like to see all annotations.
 #'   When NULL, only returns annotations for your own user.
@@ -338,7 +339,7 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
 
 #' Return full metadata from Clio/DVID for MANC bodyids (cached by default)
 #'
-#' @details This function will the latest per boydid metadata using
+#' @details This function will the latest per bodyid metadata using
 #'   \code{\link{manc_dvid_annotations}} and
 #'   \code{\link{manc_body_annotations}}. Since obtaining this information can
 #'   take 5-10s even for a single id, it is by default cached with a 5 min

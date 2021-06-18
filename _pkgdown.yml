@@ -38,19 +38,23 @@ reference:
 - title: Body information and ids
   contents:
   - '`manc_ids`'
-  - '`manc_neuprint_meta`'
   - '`manc_xyz2bodyid`'
   - '`manc_islatest`'
   - '`manc_size`'
   - '`manc_mutations`'
-- title: Annotations
+- title: Read annotations
   contents:
   - '`manc_body_annotations`'
   - '`manc_dvid_annotations`'
   - '`manc_point_annotations`'
+  - '`manc_meta`'
+  - '`manc_neuprint_meta`'
   - '`manc_user_annotations`'
-  - '`manc_annotate_soma`'
   - '`clio_auth`'
+- title: Make annotations
+  contents:
+  - '`manc_annotate_body`'
+  - '`manc_annotate_soma`'
 - title: Connectivity
   contents:
   - '`manc_connection_table`'
@@ -65,3 +69,5 @@ reference:
   - '`mancneckseeds`'
   - '`mancsomapos`'
   - '`MANC.surf`'
+  - '`MANC.tissue.surf`'
+  - '`MANCsym`'

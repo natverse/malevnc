@@ -9,7 +9,7 @@
 #'   use this tag.}
 #'
 #'   \item{root}{ If you are not sure where the soma is, but you want to specify
-#'   a postiion to act as the root e.g. skeletonising the neuron, use this tag.}
+#'   a position to act as the root e.g. skeletonising the neuron, use this tag.}
 #'
 #'   }
 #'
@@ -71,4 +71,209 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
     body$description=description
   bodyj=jsonlite::toJSON(body, auto_unbox = TRUE)
   clio_fetch(url, body=bodyj, ...)
+}
+
+#' Set Clio body annotations
+#'
+#' @details Clio body annotations are stored in a
+#'   \href{https://cloud.google.com/firestore}{Google Firestore} database.
+#'   Further details are provided in
+#'   \href{https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit}{basic
+#'    docs from Bill Katz}. Each body has an associated JSON list containing a
+#'   set of standard user visible fields. Some of these are constrained. See
+#'   \href{https://docs.google.com/spreadsheets/d/1v8AltqyPCVNIC_m6gDNy6IDK10R6xcGkKWFxhmvCpCs/edit?usp=sharing}{Clio
+#'    fields Google sheet} for details.
+#'
+#'   It can take some time to apply annotations, so requests are chunked by
+#'   default in groups of 50.
+#'
+#'   A single column called \code{position} or 3 columns names x, y, z or X, Y,
+#'   Z in any form accepted by \code{\link{xyzmatrix}} will be converted to a
+#'   position stored with each record. This is recommended when creating
+#'   records.
+#'
+#'   When \code{protect=TRUE} no data in Clio will be overwritten - only new
+#'   data will be added. When \code{protect=FALSE} all fields will overwritten
+#'   by new data for each non-empty value in \code{x}. If
+#'   \code{write_empty_fields=TRUE} then even empty fields in \code{x} will
+#'   overwrite fields in the database. Note that these conditions apply per
+#'   record i.e. per neuron not per column of data.
+#'
+#' @section Validation: Validation depends on how you provide your input data.
+#'   If \code{x} is a data.frame then each row is checked for some basics
+#'   including the presence of a bodyid, and empty fields are removed. In future
+#'   we will also check fields which are only allowed to take certain values.
+#'
+#'   When \code{x} is a character vector, it is checked to see that it is valid
+#'   JSON and that there is a bodyid field for each record. This intended
+#'   principally for developer use or to confirm that a specific JSON payload
+#'   has been applied. You probably should not be using it regularly or for bulk
+#'   upload.
+#'
+#'   When \code{x} is a list, no further validation occurs.
+#'
+#'   For these reasons, \bold{it is strongly recommended that end users provide
+#'   \code{data.frame} input}.
+#'
+#' @section Users: You should record users with the email address that they use
+#'   to authenticate to Clio. At present you are responsible for choosing how to
+#'   set the two user fields: \itemize{
+#'
+#'   \item \code{user} This is intended to be the user that first created the
+#'   annotation record for a body. At some point they may have some control over
+#'   edits.
+#'
+#'   \item \code{last_modified_by} This is intended to be the user who provided
+#'   the last change to a record; in the case of bulk uploads, this should be
+#'   the user providing (or at least guaranteeing) the biological insight if at
+#'   all possible.
+#'
+#'   }
+#'
+#' @param x A data.frame, list or JSON string containing body annotations.
+#'   \bold{End users are strongly recommended to use data.frames.}
+#' @param version Optional clio version to associate with this annotation. The
+#'   default \code{NULL} uses the current version returned by the API.
+#' @param test Whether to use the test clio store (recommended until you are
+#'   sure you know what you are doing).
+#' @param protect Vector of fields that will not be overwritten if they already
+#'   have a value in clio store. Set to \code{TRUE} to protect all fields and to
+#'   \code{FALSE} to overwrite all fields for which you provide data. See
+#'   details for the rational behind the default value of "user"
+#' @param write_empty_fields When \code{x} is a data.frame, this controls
+#'   whether empty fields in \code{x} overwrite fields in the clio-store
+#'   database (when they are not protected by the \code{protect} argument). The
+#'   (conservative) default \code{write_empty_fields=FALSE} does not overwrite.
+#'   If you do want to set fields to an empty value (usually the empty string)
+#'   then you must set \code{write_empty_fields=TRUE}.
+#' @param chunksize When you have many bodies to annotate the request will by
+#'   default be sent 50 records at a time to avoid any issue with timeouts. You
+#'   can increase for a small speed up if you find your setup is fast enough.
+#'   Set to \code{Inf} to insist that all records are sent in a single request.
+#'   \bold{NB only applies when \code{x} is a data.frame}.
+#' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
+#'
+#' @return \code{NULL} invisibly on success. Errors out on failure.
+#' @family manc-annotation
+#' @export
+#'
+#' @examples
+#'
+#' \dontrun{
+#' # note use of test server
+#' manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',
+#'   description='Giant Fiber'), test=TRUE)
+#'
+#' # if you give a list then you are responsible for validation
+#' manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
+#'   description='Giant Fiber'), test=TRUE)
+#'
+#' # don't overwrite any fields in database
+#' manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
+#'   description='Giant Fiber'), test=TRUE, protect=TRUE)
+#'
+#' # overwrite all fields in database except with empty values
+#' manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
+#'   description='Giant Fiber'), test=TRUE, protect=FALSE)
+#'
+#' #' # overwrite all fields in database even if supplied data has empty values
+#' manc_annotate_body(list(bodyid=10002, class='',
+#'   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
+#' }
+manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE, protect=c("user"), chunksize=50, ...) {
+  query=list(version=clio_version(version))
+  u=clio_url(path='v2/json-annotations/VNC/neurons', test = test)
+  fafbseg:::check_package_available('purrr')
+  if(!is.character(x)) {
+    if(is.data.frame(x)) {
+      x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
+
+      if(length(x)>chunksize) {
+        chunknums=floor((seq_along(x)-1)/chunksize)+1
+        chunkedx=split(x, chunknums)
+        res=pbapply::pbsapply(chunkedx, manc_annotate_body, version=version,
+                          test=test, chunksize=Inf, ...)
+        return(invisible(res))
+      }
+    } else if(!is.list(x))
+      stop("x should be a data.frame, list or JSON character vector!")
+
+    fields=unique(unlist(purrr:::map(x, names)))
+    if(is.null(fields)) fields = names(x)
+    x=jsonlite::toJSON(x, auto_unbox = T, null = 'null')
+  } else {
+    if(!jsonlite::validate(x))
+      stop("Invalid JSON")
+    df=jsonlite::fromJSON(x)
+    if(is.null(df$bodyid) || !all(sapply(df$bodyid, is.finite)))
+      stop("Input JSON must contain a bodyid field for each record!")
+    fields=colnames(df)
+  }
+  # protect arg gives errors unless field is present in POST body
+  protect <- if(isTRUE(protect)) fields else intersect(protect, fields)
+  if(!isFALSE(protect) && length(protect)>0 ) {
+    query[['conditional']]=paste(protect, collapse=",")
+  }
+  # final check
+  first=substr(x, 1, 1)
+  last=substr(x, nchar(x), nchar(x))
+  if(!isTRUE(first %in% c("{","[")) || !isTRUE(last %in% c("}","]") ))
+    stop("Annotations do not form a JSON list. Please verify!")
+  res=clio_fetch(u, config=NULL, body = x, query=query, encode='raw',
+                 httr::content_type_json())
+  invisible(res)
+}
+
+clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
+  if(isFALSE('bodyid' %in% colnames(x)))
+    stop("Your dataframe must contain a bodyid column")
+  if(!all(fafbseg:::valid_id(x$bodyid)))
+    stop("Your dataframe must contain valid bodyids for every row")
+
+  # Handle any special fields
+
+  # position as 3 cols rather than a single one
+  xyzcols = c("x", "y", "z", "X", "Y", "Z")
+  if(!"position" %in% colnames(x) &&
+     isTRUE(sum(xyzcols %in% colnames(x))==3)){
+    x[['position']]=xyzmatrix(x)
+    x=x[setdiff(colnames(x), xyzcols)]
+  }
+
+  if("position" %in% colnames(x)) {
+    px=x[['position']]
+    if(is.character(px) || is.matrix(px)) {
+      if(is.character(px))
+        px=xyzmatrix(px)
+      px=unname(px)
+      checkmate::assert_matrix(px, nrows = nrow(x), ncols = 3,
+                               mode = "numeric")
+      x[['position']]=lapply(seq_len(nrow(px)), function(i) {
+        pxmi=px[i,]
+        if(any(is.na(pxmi))) list() else pxmi
+      })
+    } else if(is.list(px)) {
+      # convert any matrices etc to vectors without names
+      px=purrr::map(px, c)
+      lens=sapply(px, length)
+      if(!all(lens %in% c(0,3))) {
+        stop("`position` column must contain 0 or 3 elements per entry")
+      }
+      # If we want to clear the position field we should send json []
+      # x[['position']][lens==0]=list()
+      for(i in which(lens==0)) px[[i]]=list()
+      x[['position']]=px
+    } else{
+      stop("`position` must be a character vector or list with 3-vectors")
+    }
+  }
+
+  # turns it into a list of lists
+  x=purrr::transpose(x)
+  purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !any(is.na(x)) && any(nzchar(x)))
+  if(!write_empty_fields)
+    x=purrr::map(x, purge_empty)
+  # drop any empty records or (more plausibly) ones with just bodyid
+  x=purrr::keep(x, function(y) length(y)>1)
+  x
 }
