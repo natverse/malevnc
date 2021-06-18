@@ -94,9 +94,10 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #'
 #'   When \code{protect=TRUE} no data in Clio will be overwritten - only new
 #'   data will be added. When \code{protect=FALSE} all fields will overwritten
-#'   by new data so long as there is a non-empty value in \code{x}. If
+#'   by new data for each non-empty value in \code{x}. If
 #'   \code{write_empty_fields=TRUE} then even empty fields in \code{x} will
-#'   overwrite fields in the database.
+#'   overwrite fields in the database. Note that these conditions apply per
+#'   record i.e. per neuron not per column of data.
 #'
 #' @section Validation: Validation depends on how you provide your input data.
 #'   If \code{x} is a data.frame then each row is checked for some basics
