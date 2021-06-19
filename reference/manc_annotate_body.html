@@ -202,9 +202,10 @@ Set to <code>Inf</code> to insist that all records are sent in a single request.
   records.</p>
 <p>When <code>protect=TRUE</code> no data in Clio will be overwritten - only new
   data will be added. When <code>protect=FALSE</code> all fields will overwritten
-  by new data so long as there is a non-empty value in <code>x</code>. If
+  by new data for each non-empty value in <code>x</code>. If
   <code>write_empty_fields=TRUE</code> then even empty fields in <code>x</code> will
-  overwrite fields in the database.</p>
+  overwrite fields in the database. Note that these conditions apply per
+  record i.e. per neuron not per column of data.</p>
     <h2 class="hasAnchor" id="validation"><a class="anchor" href="#validation"></a>Validation</h2>
 
     <p>Validation depends on how you provide your input data.
