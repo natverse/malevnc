@@ -6,52 +6,54 @@ test_that("manc_body_annotations works", {
 })
 
 test_that("manc_annotate_body works", {
-  json='[{"last_modified_by":"lisa.marin@gmail.com","class":"Descending","soma_side":"TBD","description":"Giant fiber","status":"Prelim Roughly traced","hemilineage":"NA","bodyid":10002,"user":"lisa.marin@gmail.com"}]'
+  # just enough randomness to make collisions unlikely
+  rid=12345678+sample(1:300, size=1)
+  json=sprintf('[{"last_modified_by":"lisa.marin@gmail.com","class":"Descending","soma_side":"TBD","description":"Giant fiber","status":"Prelim Roughly traced","hemilineage":"NA","bodyid":%s,"user":"lisa.marin@gmail.com"}]',rid)
 
   skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
           message = "no clio token available")
 
   manc_annotate_body(json, test = TRUE)
-  expect_match(manc_body_annotations(10002, test=T, json = T), "Giant fiber")
-  manc_annotate_body(list(bodyid=10002, soma_side='L'), test = TRUE)
-  expect_equal(manc_body_annotations(10002, test=T)$soma_side, "L")
+  expect_match(manc_body_annotations(rid, test=T, json = T), "Giant fiber")
+  manc_annotate_body(list(bodyid=rid, soma_side='L'), test = TRUE)
+  expect_equal(manc_body_annotations(rid, test=T)$soma_side, "L")
 
   seedpt=nat::xyzmatrix(cbind(23217, 35252, 67070))
   seedpt_char=paste(seedpt, collapse = ',')
-  df=data.frame(bodyid=c(10002, 10000))
+  df=data.frame(bodyid=c(rid, rid+2))
   df$position=c(seedpt_char, NA)
   df2=df
   df2$position=list(seedpt, list())
   expect_silent(manc_annotate_body(df))
   expect_silent(manc_annotate_body(df2))
   # equivalent because of rownames (maybe xyzmatrix should drop them)
-  expect_equivalent(nat::xyzmatrix(manc_body_annotations(10002, test=T)$position),
+  expect_equivalent(nat::xyzmatrix(manc_body_annotations(rid, test=T)$position),
                     nat::xyzmatrix(seedpt))
 
   # neither NA nor "" should overwrite
-  manc_annotate_body(data.frame(bodyid=10002, soma_side=""), test = TRUE, write_empty_fields = FALSE)
-  expect_equal(manc_body_annotations(10002, test=T)$soma_side, "L")
-  manc_annotate_body(data.frame(bodyid=10002, soma_side=NA), test = TRUE, write_empty_fields = FALSE)
-  expect_equal(manc_body_annotations(10002, test=T)$soma_side, "L")
+  manc_annotate_body(data.frame(bodyid=rid, soma_side=""), test = TRUE, write_empty_fields = FALSE)
+  expect_equal(manc_body_annotations(rid, test=T)$soma_side, "L")
+  manc_annotate_body(data.frame(bodyid=rid, soma_side=NA), test = TRUE, write_empty_fields = FALSE)
+  expect_equal(manc_body_annotations(rid, test=T)$soma_side, "L")
 
   # overwrite when write_empty_fields
-  manc_annotate_body(data.frame(bodyid=10002, soma_side=""), test = TRUE, write_empty_fields = TRUE)
-  expect_equal(manc_body_annotations(10002, test=T)$soma_side, "")
+  manc_annotate_body(data.frame(bodyid=rid, soma_side=""), test = TRUE, write_empty_fields = TRUE)
+  expect_equal(manc_body_annotations(rid, test=T)$soma_side, "")
 
   # check that list overwrites
-  manc_annotate_body(list(bodyid=10002, soma_side='L'), test = TRUE)
-  manc_annotate_body(list(bodyid=10002, soma_side=""), test = TRUE)
-  expect_equal(manc_body_annotations(10002, test=T)$soma_side,"")
+  manc_annotate_body(list(bodyid=rid, soma_side='L'), test = TRUE)
+  manc_annotate_body(list(bodyid=rid, soma_side=""), test = TRUE)
+  expect_equal(manc_body_annotations(rid, test=T)$soma_side,"")
 
   # check that protect works
-  manc_annotate_body(list(bodyid=10002, class='DN'), test = TRUE)
-  expect_equal(manc_body_annotations(10002, test=T)$class,"DN")
-  manc_annotate_body(list(bodyid=10002, soma_side='rhubarb'), test = TRUE, protect = 'class')
-  expect_equal(manc_body_annotations(10002, test=T)$class,"DN")
-  manc_annotate_body(list(bodyid=10002, class='rhubarb'), test = TRUE, protect = T)
-  expect_equal(manc_body_annotations(10002, test=T)$class,"DN")
-  manc_annotate_body(list(bodyid=10002, class='Descending'), test = TRUE, protect = F)
-  expect_equal(manc_body_annotations(10002, test=T)$class,"Descending")
+  manc_annotate_body(list(bodyid=rid, class='DN'), test = TRUE)
+  expect_equal(manc_body_annotations(rid, test=T)$class,"DN")
+  manc_annotate_body(list(bodyid=rid, soma_side='rhubarb'), test = TRUE, protect = 'class')
+  expect_equal(manc_body_annotations(rid, test=T)$class,"DN")
+  manc_annotate_body(list(bodyid=rid, class='rhubarb'), test = TRUE, protect = T)
+  expect_equal(manc_body_annotations(rid, test=T)$class,"DN")
+  manc_annotate_body(list(bodyid=rid, class='Descending'), test = TRUE, protect = F)
+  expect_equal(manc_body_annotations(rid, test=T)$class,"Descending")
 })
 
 test_that("manc_point_annotations/clioannotationdf2list works", {
