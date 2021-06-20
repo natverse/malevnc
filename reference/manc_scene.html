@@ -136,7 +136,7 @@
   node <span class='op'>=</span> <span class='st'>"clio"</span>,
   open <span class='op'>=</span> <span class='cn'>FALSE</span>,
   basescene <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2021-05-05"</span>, <span class='st'>"2021-05-04"</span>, <span class='st'>"2021-04-01"</span>, <span class='st'>"2021-02-01"</span><span class='op'>)</span>,
-  server <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"appspot"</span>, <span class='st'>"janelia"</span><span class='op'>)</span>,
+  server <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"clio"</span>, <span class='st'>"appspot"</span>, <span class='st'>"janelia"</span><span class='op'>)</span>,
   return.json <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -164,10 +164,10 @@ supply your own URL.</p></td>
     </tr>
     <tr>
       <th>server</th>
-      <td><p>Whether to use the Google server (newest version of
-neuroglancer) or Janelia server (required for annotation in early 2021, but
-now deprecated in favour of Clio?). 99<!-- % of the time you should keep the -->
-default.</p></td>
+      <td><p>Whether to use Janelia's Clio branch, the Google server (newest
+version of neuroglancer) or the Janelia server (required for annotation in
+early 2021, but now deprecated in favour of Clio). 99<!-- % of the time you -->
+should keep the default.</p></td>
     </tr>
     <tr>
       <th>return.json</th>
@@ -186,11 +186,16 @@ default.</p></td>
   variants. Use the <code>return.json</code> to get a JSON fragment that can be
   pasted into any neuroglancer instance using the closed curly bracket
   symbol.</p>
+<p>See
+  <a href='https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1624033684227400'>slack</a>
+  for why <a href='https://clio-ng.janelia.org/'>https://clio-ng.janelia.org/</a> is the recommended base Url
+  (chosen when <code>server='clio'</code>).</p>
     <h2 class="hasAnchor" id="scenes"><a class="anchor" href="#scenes"></a>scenes</h2>
 
     <p>The following scenes (named by the approximate date that we
   started using them) are available.</p><ul>
-<li><p><code>2021-05-05</code> Like <code>2021-05-04</code> but with a voxelwise ROI segmentation layer copied over from <code>2021-04-01</code>.</p></li>
+<li><p><code>2021-05-05</code> Like <code>2021-05-04</code> but with a voxelwise ROI
+  segmentation layer copied over from <code>2021-04-01</code>.</p></li>
 <li><p><code>2021-05-04</code> Added nerves and full VNC (cell body rind) surface
 mesh. See
 <a href='https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1620164087077600'>Slack
