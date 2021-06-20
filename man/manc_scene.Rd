@@ -9,7 +9,7 @@ manc_scene(
   node = "clio",
   open = FALSE,
   basescene = c("2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
-  server = c("appspot", "janelia"),
+  server = c("clio", "appspot", "janelia"),
   return.json = FALSE
 )
 }
@@ -25,10 +25,10 @@ compatible with \code{\link{manc_ids}}}
 \item{basescene}{Which neuroglancer scene url to use as a base. You can also
 supply your own URL.}
 
-\item{server}{Whether to use the Google server (newest version of
-neuroglancer) or Janelia server (required for annotation in early 2021, but
-now deprecated in favour of Clio?). 99% of the time you should keep the
-default.}
+\item{server}{Whether to use Janelia's Clio branch, the Google server (newest
+version of neuroglancer) or the Janelia server (required for annotation in
+early 2021, but now deprecated in favour of Clio). 99% of the time you
+should keep the default.}
 
 \item{return.json}{Whether to return a JSON fragment defining the scene or
 (by default) a Neuroglancer URL.}
@@ -49,12 +49,18 @@ Neuroglancer scenes can be pasted into a variety of different
   variants. Use the \code{return.json} to get a JSON fragment that can be
   pasted into any neuroglancer instance using the closed curly bracket
   symbol.
+
+  See
+  \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1624033684227400}{slack}
+  for why \url{https://clio-ng.janelia.org/} is the recommended base Url
+  (chosen when \code{server='clio'}).
 }
 \section{scenes}{
  The following scenes (named by the approximate date that we
   started using them) are available. \itemize{
 
-  \item \code{2021-05-05} Like \code{2021-05-04} but with a voxelwise ROI segmentation layer copied over from \code{2021-04-01}.
+  \item \code{2021-05-05} Like \code{2021-05-04} but with a voxelwise ROI
+  segmentation layer copied over from \code{2021-04-01}.
 \item \code{2021-05-04} Added nerves and full VNC (cell body rind) surface
 mesh. See
 \href{https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1620164087077600}{Slack
