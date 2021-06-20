@@ -43,7 +43,7 @@ Suggests:
     fafbseg,
     reticulate,
     spelling,
-    jose,
+    jose (>= 1.1.0),
     rappdirs,
     purrr,
 Enhances:

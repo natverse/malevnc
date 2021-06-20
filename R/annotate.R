@@ -198,7 +198,7 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
     } else if(!is.list(x))
       stop("x should be a data.frame, list or JSON character vector!")
 
-    fields=unique(unlist(purrr:::map(x, names)))
+    fields=unique(unlist(purrr::map(x, names)))
     if(is.null(fields)) fields = names(x)
     x=jsonlite::toJSON(x, auto_unbox = T, null = 'null')
   } else {

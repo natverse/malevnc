@@ -83,7 +83,7 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
 clio_token <- function() {
   token=clio_fetch_token()
   fafbseg:::check_package_available('jose')
-  decoded=jose:::jwt_split(token)
+  decoded=jose::jwt_split(token)
   payload=decoded$payload
   if(is.null(payload$email))
     stop("JWT token invalid: no email!")
