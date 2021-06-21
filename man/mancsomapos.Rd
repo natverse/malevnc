@@ -14,7 +14,10 @@ mancsomapos
 These were generated as neuroglancer annotations by Chris Ordish of the FlyEM
 team and
 \href{https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1614781577010700}{passed
-to Greg Jefferis on 3rd March 2021 by Pat Rivlin}.
+to Greg Jefferis on 3rd March 2021 by Pat Rivlin}. These have been superseded
+by more dynamic data available from DVID and Clio. Therefore until the
+situation stabilises, it is recommended to use the \code{\link{manc_somapos}}
+function.
 }
 \details{
 Note that these positions are raw (8nm voxel) locations.
@@ -35,5 +38,8 @@ summary(xyzmatrix(mancsomapos)/125)
 # find bodyid for all somata
 mancsomapos$bodyid=manc_xyz2bodyid(mancsomapos)
 }
+}
+\seealso{
+\code{\link{manc_somapos}}
 }
 \keyword{datasets}

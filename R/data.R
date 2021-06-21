@@ -3,11 +3,16 @@
 #' These were generated as neuroglancer annotations by Chris Ordish of the FlyEM
 #' team and
 #' \href{https://flyem-cns.slack.com/archives/C01BT2XFEEN/p1614781577010700}{passed
-#' to Greg Jefferis on 3rd March 2021 by Pat Rivlin}.
+#' to Greg Jefferis on 3rd March 2021 by Pat Rivlin}. These have been superseded
+#' by more dynamic data available from DVID and Clio. Therefore until the
+#' situation stabilises, it is recommended to use the \code{\link{manc_somapos}}
+#' function.
+#'
 #'
 #' Note that these positions are raw (8nm voxel) locations.
 #'
 #' @name mancsomapos
+#' @seealso \code{\link{manc_somapos}}
 #' @docType data
 #' @examples
 #' head(mancsomapos)
