@@ -187,3 +187,18 @@ manc_download_swcs <- function(ids, outdir, node='neutu', df=NULL, OmitFailures=
   nl <- nat::nlapply(fakenl, downloadfun, OmitFailures=OmitFailures, ...)
   unlist(nl)
 }
+
+
+swc2mutids <- function(ff) {
+  if(length(ff)==1 && isTRUE(file.info(ff)$isdir))
+    ff=dir(ff, patt='swc$', full.names = T)
+  readl3 <- function(x) {
+    tryCatch(readLines(x, n=3)[3], error=function(e) {
+      warning(e)
+      NA_character_
+    })
+  }
+  l3=sapply(ff, readl3)
+  mids=stringr::str_match(l3, "(mutation id).*?(\\d+)")[,3]
+  mids
+}
