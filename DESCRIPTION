@@ -35,7 +35,8 @@ Imports:
     dplyr,
     bit64,
     gargle,
-    utils
+    utils,
+    stringr
 Suggests: 
     testthat,
     dracor,

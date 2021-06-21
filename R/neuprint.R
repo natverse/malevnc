@@ -191,7 +191,7 @@ manc_download_swcs <- function(ids, outdir, node='neutu', df=NULL, OmitFailures=
 
 swc2mutids <- function(ff) {
   if(length(ff)==1 && isTRUE(file.info(ff)$isdir))
-    ff=dir(ff, patt='swc$', full.names = T)
+    ff=dir(ff, pattern = 'swc$', full.names = T)
   readl3 <- function(x) {
     tryCatch(readLines(x, n=3)[3], error=function(e) {
       warning(e)
