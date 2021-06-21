@@ -177,12 +177,12 @@ manc_download_swcs <- function(ids, outdir, node='neutu', df=NULL, OmitFailures=
   destfiles=file.path(outdir, paste0(ids, ".swc"))
   # pbapply::pbmapply(curl::curl_download, urls, destfiles, MoreArgs = ...)
   fakenl=nat::as.neuronlist(seq_along(urls))
-  downloadfun <- function(i, Force=Force, ...) {
-    destfile=destfiles[i]
-    if(!Force && file.exists(destfile))
+  downloadfun <- function(i, ourforce=Force, ...) {
+    df=destfiles[i]
+    if(!ourforce && file.exists(df))
       return(NA_character_)
-    curl::curl_download(urls[i], destfile = destfile, ...)
-    destfile
+    curl::curl_download(urls[i], destfile = df, ...)
+    df
   }
   nl <- nat::nlapply(fakenl, downloadfun, OmitFailures=OmitFailures, ...)
   unlist(nl)
