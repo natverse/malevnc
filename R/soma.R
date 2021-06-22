@@ -1,22 +1,27 @@
 #' Return the soma or root position of MANC bodyids
 #'
-#' @details Currently there are two sources of soma information, the
-#'   \code{\link{mancsomapos}} data.frame distributed with the malevnc package
-#'   and point annotations stored in Clio. The data.frame was the result of
-#'   initial annotation work principally by Chris Ordish at FlyEM who marked two
-#'   points to define a sphere. It contains some cases where the midpoint
-#'   between the two marked points does not land on the intended soma; there are
-#'   also cases where the segmentation inside the soma is not contiguous e.g.
-#'   because the nucleus is a separate body.
+#' @details Currently there are three sources of soma information, the
+#'   \code{\link{mancsomapos}} data.frame distributed with the malevnc package,
+#'   a key value annotation stored in DVID and and point annotations stored in
+#'   Clio. Currently DVID is considered the main repository of information with
+#'   updates to clio.
+#'
+#'   The \code{\link{mancsomapos}} data.frame was the result of initial
+#'   annotation work principally by Chris Ordish at FlyEM who marked two points
+#'   to define a sphere. It contains some cases where the midpoint between the
+#'   two marked points does not land on the intended soma; there are also cases
+#'   where the segmentation inside the soma is not contiguous e.g. because the
+#'   nucleus is a separate body. These annotations were reviewed by FlyEM in
+#'   June 2021 (see e.g.
+#'   \href{https://flyem-cns.slack.com/archives/G01FFQ00UAX/p1622732606077900?thread_ts=1622708364.074600&cid=G01FFQ00UAX}{Slack
+#'    June 3rd} and
+#'   \href{https://flyem-cns.slack.com/archives/G01FFQ00UAX/p1623306812116500}{Slack
+#'    June 10th}).
 #'
 #'   Clio point annotations were added after predicting a set of objects without
 #'   an annotated soma that might be intrinsic VNC neurons based on features
 #'   such as pre- and post-synapse numbers, size, skeleton path length etc.
-#'
-#'   with a tag, described below.
-#'
-#'   There have consistently been a few cases of bodies with multiple annotated
-#'   somata. These are sometimes due to annotation error.
+#'   These point annotation include "tosoma" positions not represented in DVID.
 #'
 #'   \itemize{
 #'
@@ -72,10 +77,11 @@ manc_somapos <- function(ids=NULL, details=FALSE, duplicates=!details,
     ids=manc_ids(ids, mustWork = TRUE, unique=F, as_character = F)
 
   # this is just to make sure we get the package data object
-  msp=get('mancsomapos', envir = as.environment('package:malevnc'))
-  msp=msp[c("n", "X", "Y", "Z")]
-  msp$bodyid=manc_xyz2bodyid(msp, node=node, cache = cache)
-  msp$source='mancsomapos'
+  # msp=get('mancsomapos', envir = as.environment('package:malevnc'))
+  msp=manc_dvid_soma(node=node, cache = cache)
+  msp$n=seq_len(nrow(msp))
+  msp=msp[c("n", "X", "Y", "Z", "bodyid")]
+  msp$source='dvid'
   msp$tag='soma'
   # we don't need to check Clio if we already found all ids
   if(!is.null(ids) && all(ids %in% msp$bodyid)) clio=FALSE

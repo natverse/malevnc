@@ -55,23 +55,28 @@ When \code{details=FALSE} an Nx3 matrix. When \code{TRUE}, a
   a convenience wrapper around \code{manc_somapos}.
 }
 \details{
-Currently there are two sources of soma information, the
-  \code{\link{mancsomapos}} data.frame distributed with the malevnc package
-  and point annotations stored in Clio. The data.frame was the result of
-  initial annotation work principally by Chris Ordish at FlyEM who marked two
-  points to define a sphere. It contains some cases where the midpoint
-  between the two marked points does not land on the intended soma; there are
-  also cases where the segmentation inside the soma is not contiguous e.g.
-  because the nucleus is a separate body.
+Currently there are three sources of soma information, the
+  \code{\link{mancsomapos}} data.frame distributed with the malevnc package,
+  a key value annotation stored in DVID and and point annotations stored in
+  Clio. Currently DVID is considered the main repository of information with
+  updates to clio.
+
+  The \code{\link{mancsomapos}} data.frame was the result of initial
+  annotation work principally by Chris Ordish at FlyEM who marked two points
+  to define a sphere. It contains some cases where the midpoint between the
+  two marked points does not land on the intended soma; there are also cases
+  where the segmentation inside the soma is not contiguous e.g. because the
+  nucleus is a separate body. These annotations were reviewed by FlyEM in
+  June 2021 (see e.g.
+  \href{https://flyem-cns.slack.com/archives/G01FFQ00UAX/p1622732606077900?thread_ts=1622708364.074600&cid=G01FFQ00UAX}{Slack
+   June 3rd} and
+  \href{https://flyem-cns.slack.com/archives/G01FFQ00UAX/p1623306812116500}{Slack
+   June 10th}).
 
   Clio point annotations were added after predicting a set of objects without
   an annotated soma that might be intrinsic VNC neurons based on features
   such as pre- and post-synapse numbers, size, skeleton path length etc.
-
-  with a tag, described below.
-
-  There have consistently been a few cases of bodies with multiple annotated
-  somata. These are sometimes due to annotation error.
+  These point annotation include "tosoma" positions not represented in DVID.
 
   \itemize{
 
