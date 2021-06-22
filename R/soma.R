@@ -121,6 +121,7 @@ manc_nearest_soma <- function(pos, details=FALSE, clio=TRUE) {
   pos=xyzmatrix(pos)
   msp=manc_somapos(clio=clio, details = details)
   xyz=xyzmatrix(msp)
+  fafbseg:::check_package_available('nabor')
   kk=nabor::knn(xyz, query = pos, k = 1)
   res=if(details) msp[kk$nn.idx,,drop=F] else xyzmatrix(msp)[kk$nn.idx,,drop=F]
   rownames(res)=NULL
