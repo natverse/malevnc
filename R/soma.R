@@ -110,3 +110,35 @@ manc_rootpos <- function(ids=NULL, details=FALSE, duplicates=!details,
   manc_somapos(ids=ids, details=details, duplicates=duplicates, node=node,
                cache=cache, clio=clio, somatags='all')
 }
+
+manc_nearest_soma <- function(pos, details=FALSE, clio=TRUE) {
+  pos=xyzmatrix(pos)
+  msp=manc_somapos(clio=clio, details = details)
+  xyz=xyzmatrix(msp)
+  kk=nabor::knn(xyz, query = pos, k = 1)
+  res=if(details) msp[kk$nn.idx,,drop=F] else xyzmatrix(msp)[kk$nn.idx,,drop=F]
+  rownames(res)=NULL
+  res
+}
+
+# private for now. Fetch soma annotations directly from DVID.
+manc_dvid_soma <- function(node='neutu', cache=TRUE) {
+  node=manc_nodespec(node)
+  path="api/node/%s/soma-bookmarks/keyrangevalues/0/z?json=true"
+  FUN=if(cache) manc_get_memo else manc_get
+  d=FUN(path, urlargs = list(node), as = 'parsed', simplifyVector = F)
+  df=data.frame(key=names(d))
+  df$kind=sapply(d, "[[", "Kind")
+  points=t(sapply(d, function(x) as.integer(unlist(x$Pos, use.names = F)), USE.NAMES = F))
+  df$key=names(d)
+  df$from="0,0,0"
+  df$to="0,0,0"
+  df[,c("X","Y","Z")]=NA
+  xyzmatrix(df)=(points[,1:3]+points[,4:6])/2
+  xyzmatrix(df$from)=points[,1:3]
+  xyzmatrix(df$to)=points[,4:6]
+  df=df[union(c("X","Y","Z"), colnames(df))]
+  df$bodyid=manc_xyz2bodyid(df, node = node, cache = cache)
+  attr(df, 'dvid_node')=node
+  df
+}
