@@ -47,6 +47,7 @@ Suggests:
     jose (>= 1.1.0),
     rappdirs,
     purrr,
+    nabor
 Enhances:
     drvid
 URL: https://github.com/flyconnectome/malevnc

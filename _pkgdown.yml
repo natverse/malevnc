@@ -42,6 +42,7 @@ reference:
   - '`manc_islatest`'
   - '`manc_size`'
   - '`manc_mutations`'
+  - '`manc_somapos`'
 - title: Read annotations
   contents:
   - '`manc_body_annotations`'
