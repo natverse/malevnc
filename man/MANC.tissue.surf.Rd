@@ -3,21 +3,28 @@
 \docType{data}
 \name{MANC.tissue.surf}
 \alias{MANC.tissue.surf}
-\title{Simplified tissue surface of MALEVNC}
+\alias{MANC.tissue.surf.sym}
+\title{Simplified (and symmetrized) tissue surface of MALEVNC}
 \format{
+An object of class \code{hxsurf} (inherits from \code{list}) of length 4.
+
 An object of class \code{hxsurf} (inherits from \code{list}) of length 4.
 }
 \usage{
 MANC.tissue.surf
+
+MANC.tissue.surf.sym
 }
 \description{
-Simplified tissue surface of MALEVNC
+\code{MANC.tissue.surf.sym} is a symmetrised version of
+  \code{MANC.tissue.surf} using \code{\link{symmetric_manc}}.
 }
 \examples{
 \dontrun{
 # Depends on nat
 library(nat)
 wire3d(MANC.tissue.surf)
+wire3d(MANC.tissue.surf.sym)
 }
 }
 \keyword{datasets}

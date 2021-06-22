@@ -42,26 +42,22 @@
 #' @seealso \code{\link{mancsomapos}}
 "mancneckseeds"
 
-#' Simplified tissue surface of MALEVNC
+#' Simplified (and symmetrized) tissue surface of MALEVNC
 #'
 #' @name MANC.tissue.surf
 #' @docType data
+#' @description \code{MANC.tissue.surf.sym} is a symmetrised version of
+#'   \code{MANC.tissue.surf} using \code{\link{symmetric_manc}}.
 #' @examples
 #' \dontrun{
 #' # Depends on nat
 #' library(nat)
 #' wire3d(MANC.tissue.surf)
+#' wire3d(MANC.tissue.surf.sym)
 #' }
 "MANC.tissue.surf"
 
-#' Simplified and symmetrized tissue surface of MALEVNC
-#'
 #' @name MANC.tissue.surf.sym
 #' @docType data
-#' @examples
-#' \dontrun{
-#' # Depends on nat
-#' library(nat)
-#' wire3d(MANC.tissue.surf.sym)
-#' }
+#' @rdname MANC.tissue.surf
 "MANC.tissue.surf.sym"
