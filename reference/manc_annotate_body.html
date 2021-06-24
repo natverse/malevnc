@@ -154,11 +154,12 @@ default <code>NULL</code> uses the current version returned by the API.</p></td>
     <tr>
       <th>write_empty_fields</th>
       <td><p>When <code>x</code> is a data.frame, this controls
-whether empty fields in <code>x</code> overwrite fields in the clio-store
-database (when they are not protected by the <code>protect</code> argument). The
-(conservative) default <code>write_empty_fields=FALSE</code> does not overwrite.
-If you do want to set fields to an empty value (usually the empty string)
-then you must set <code>write_empty_fields=TRUE</code>.</p></td>
+whether empty fields in <code>x</code> (i.e. <code>NA</code> or <code>""</code>) overwrite
+fields in the clio-store database (when they are not protected by the
+<code>protect</code> argument). The (conservative) default
+<code>write_empty_fields=FALSE</code> does not overwrite. If you do want to set
+fields to an empty value (usually the empty string) then you must set
+<code>write_empty_fields=TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>protect</th>
