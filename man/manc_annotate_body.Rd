@@ -25,11 +25,12 @@ sure you know what you are doing).}
 default \code{NULL} uses the current version returned by the API.}
 
 \item{write_empty_fields}{When \code{x} is a data.frame, this controls
-whether empty fields in \code{x} overwrite fields in the clio-store
-database (when they are not protected by the \code{protect} argument). The
-(conservative) default \code{write_empty_fields=FALSE} does not overwrite.
-If you do want to set fields to an empty value (usually the empty string)
-then you must set \code{write_empty_fields=TRUE}.}
+whether empty fields in \code{x} (i.e. \code{NA} or \code{""}) overwrite
+fields in the clio-store database (when they are not protected by the
+\code{protect} argument). The (conservative) default
+\code{write_empty_fields=FALSE} does not overwrite. If you do want to set
+fields to an empty value (usually the empty string) then you must set
+\code{write_empty_fields=TRUE}.}
 
 \item{protect}{Vector of fields that will not be overwritten if they already
 have a value in clio store. Set to \code{TRUE} to protect all fields and to

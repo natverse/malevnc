@@ -141,11 +141,12 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #'   \code{FALSE} to overwrite all fields for which you provide data. See
 #'   details for the rational behind the default value of "user"
 #' @param write_empty_fields When \code{x} is a data.frame, this controls
-#'   whether empty fields in \code{x} overwrite fields in the clio-store
-#'   database (when they are not protected by the \code{protect} argument). The
-#'   (conservative) default \code{write_empty_fields=FALSE} does not overwrite.
-#'   If you do want to set fields to an empty value (usually the empty string)
-#'   then you must set \code{write_empty_fields=TRUE}.
+#'   whether empty fields in \code{x} (i.e. \code{NA} or \code{""}) overwrite
+#'   fields in the clio-store database (when they are not protected by the
+#'   \code{protect} argument). The (conservative) default
+#'   \code{write_empty_fields=FALSE} does not overwrite. If you do want to set
+#'   fields to an empty value (usually the empty string) then you must set
+#'   \code{write_empty_fields=TRUE}.
 #' @param chunksize When you have many bodies to annotate the request will by
 #'   default be sent 50 records at a time to avoid any issue with timeouts. You
 #'   can increase for a small speed up if you find your setup is fast enough.
