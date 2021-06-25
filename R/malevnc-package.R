@@ -1,4 +1,5 @@
 #' @keywords internal
+#' @import nat
 #' @section Package Options: \itemize{
 #'
 #'   \item \code{malevnc.server} The https URL to the main Janelia server
