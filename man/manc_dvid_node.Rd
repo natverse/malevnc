@@ -2,9 +2,12 @@
 % Please edit documentation in R/dvid.R
 \name{manc_dvid_node}
 \alias{manc_dvid_node}
-\title{Return the latest DVID node}
+\alias{manc_dvid_nodeinfo}
+\title{Information about DVID nodes / return latest node}
 \usage{
 manc_dvid_node(type = c("clio", "neutu", "neuprint", "master"), cached = TRUE)
+
+manc_dvid_nodeinfo(cached = TRUE)
 }
 \arguments{
 \item{type}{Whether to return the latest committed node (clio) or the active
@@ -18,7 +21,11 @@ force a new query.}
 A UUID string
 }
 \description{
-Return the latest DVID node
+\code{manc_dvid_node} returns the latest DVID node in use with a
+  specific tool.
+
+\code{manc_dvid_nodeinfo} returns a data.frame with information
+  about the DVID nodes available for the male VNC dataset.
 }
 \examples{
 \donttest{

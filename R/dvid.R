@@ -10,8 +10,10 @@ manc_dvid_info <-
 })
 
 
-#' Return the latest DVID node
+#' Information about DVID nodes / return latest node
 #'
+#' @description \code{manc_dvid_node} returns the latest DVID node in use with a
+#'   specific tool.
 #' @param type Whether to return the latest committed node (clio) or the active
 #'   node being edited in neutu (the very latest) or the node in neuprint (a
 #'   committed node that may lag behind clio). master is an alias for neutu.
@@ -38,15 +40,23 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
       stop("Unable to find neuprint node")
     return(node)
   }
-  if(isFALSE(cached))
-    memoise::forget(manc_dvid_info)
-  info=manc_dvid_info()
-  versions=sapply(info$DAG$Nodes, '[[', "VersionID")
-  locked=sapply(info$DAG$Nodes, '[[', "Locked")
+  mdn=manc_dvid_nodeinfo(cached=cached)
   # For clio ignore any unlocked node by setting the version to 0
   if(type=="clio")
-    versions[!locked]=0
-  names(info$DAG$Nodes)[which.max(versions)]
+    mdn$VersionID[!mdn$Locked]=0
+  mdn$UUID[which.max(mdn$VersionID)]
+}
+
+#' @rdname manc_dvid_node
+#' @export
+#' @description \code{manc_dvid_nodeinfo} returns a data.frame with information
+#'   about the DVID nodes available for the male VNC dataset.
+manc_dvid_nodeinfo <- function(cached=TRUE) {
+  if(isFALSE(cached))
+    memoise::forget(manc_dvid_info)
+  dvi=manc_dvid_info()
+  mdn=list2df(dvi$DAG$Nodes)
+  dplyr::arrange(mdn, .data$VersionID)
 }
 
 # Flexible specification of DVID nodes
@@ -92,8 +102,7 @@ expand_dvid_nodes <- function(nodes) {
 # specifying the nodes
 # can optionally specify a different root or head node
 manc_node_chain <- function(root=NULL, head=NULL) {
-  info=manc_dvid_info()
-  dagdf=list2df(manc_dvid_info()$DAG$Nodes)
+  dagdf=manc_dvid_nodeinfo()
   dagdf=dagdf[order(dagdf$VersionID),,drop=F]
   dagdf=dagdf[nchar(dagdf$Children)>0 | !dagdf$Locked, ]
 
