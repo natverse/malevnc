@@ -73,16 +73,23 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   clio_fetch(url, body=bodyj, ...)
 }
 
+#' Returns body ids of rows that differ between \code{x}
+#' and existing Clio annotations.
 compute_clio_delta <- function(x, test=TRUE) {
   clio_annots <- manc_body_annotations(x$bodyid, test = test)
+  if (length(clio_annots) == 0) return(x$bodyid)
+  if ("original.bodyid" %in% colnames(clio_annots))
+    clio_annots$bodyid <- clio_annots$original.bodyid
+  diff_bodyids <- setdiff(x$bodyid, clio_annots$bodyid)
   common_cols <- intersect(colnames(clio_annots), colnames(x))
   # picks indices of rows that have at least 1 different value
-  compared_rows = apply(as.matrix(clio_annots[,common_cols] != x[, common_cols]), 1, any)
+  xs <- subset(x, bodyid %in% clio_annots$bodyid)
+  compared_rows = apply(as.matrix(clio_annots[,common_cols] != xs[, common_cols]), 1, any)
   indices = which(compared_rows)
-  if (length(indices))
-    x[indices,]
-  else
+  diff_bodyids <- c(diff_bodyids, x[indices, "bodyid"])
+  if (length(diff_bodyids) == 0)
     NULL
+  diff_bodyids
 }
 
 #' Set Clio body annotations
@@ -204,11 +211,12 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
   if(!is.character(x)) {
     if(is.data.frame(x)) {
       if (!forced) {
-        x = compute_clio_delta(x, test = test)
-        if (is.null(x)) {
+        bids = compute_clio_delta(x, test = test)
+        if (is.null(bids)) {
           warning("Nothing to update...")
-          return(x)
+          return(NULL)
         }
+        x <- subset(x, bodyid %in% bids)
       }
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
 
@@ -264,7 +272,7 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
     x=x[setdiff(colnames(x), xyzcols)]
   }
 
-  if("position" %in% colnames(x) ) { #&& !all(is.na(x[['position']]))
+  if("position" %in% colnames(x) && !all(is.na(x[['position']])) ) {
     px=x[['position']]
     if(is.character(px) || is.matrix(px)) {
       if(is.character(px))
