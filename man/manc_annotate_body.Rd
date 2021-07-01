@@ -11,6 +11,7 @@ manc_annotate_body(
   write_empty_fields = FALSE,
   protect = c("user"),
   chunksize = 50,
+  forced = FALSE,
   ...
 )
 }
@@ -42,6 +43,10 @@ default be sent 50 records at a time to avoid any issue with timeouts. You
 can increase for a small speed up if you find your setup is fast enough.
 Set to \code{Inf} to insist that all records are sent in a single request.
 \bold{NB only applies when \code{x} is a data.frame}.}
+
+\item{forced}{If \code{FALSE} (default), the difference between existing
+annotations and \code{x} is computed - only changed rows are getting
+updated. \code{TRUE} forces updates of all rows.}
 
 \item{...}{Additional parameters passed to \code{pbapply::\link{pbsapply}}}
 }

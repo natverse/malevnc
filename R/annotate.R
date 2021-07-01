@@ -73,6 +73,18 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   clio_fetch(url, body=bodyj, ...)
 }
 
+compute_clio_delta <- function(x, test=TRUE) {
+  clio_annots <- manc_body_annotations(x$bodyid, test = test)
+  common_cols <- intersect(colnames(clio_annots), colnames(x))
+  # picks indices of rows that have at least 1 different value
+  compared_rows = apply(as.matrix(clio_annots[,common_cols] != x[, common_cols]), 1, any)
+  indices = which(compared_rows)
+  if (length(indices))
+    x[indices,]
+  else
+    NULL
+}
+
 #' Set Clio body annotations
 #'
 #' @details Clio body annotations are stored in a
@@ -152,6 +164,9 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #'   can increase for a small speed up if you find your setup is fast enough.
 #'   Set to \code{Inf} to insist that all records are sent in a single request.
 #'   \bold{NB only applies when \code{x} is a data.frame}.
+#' @param forced If \code{FALSE} (default), the difference between existing
+#'   annotations and \code{x} is computed - only changed rows are getting
+#'   updated. \code{TRUE} forces updates of all rows.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
 #' @return \code{NULL} invisibly on success. Errors out on failure.
@@ -181,12 +196,20 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #' manc_annotate_body(list(bodyid=10002, class='',
 #'   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
 #' }
-manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE, protect=c("user"), chunksize=50, ...) {
+manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE,
+                               protect=c("user"), chunksize=50, forced=FALSE, ...) {
   query=list(version=clio_version(version))
   u=clio_url(path='v2/json-annotations/VNC/neurons', test = test)
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
+      if (!forced) {
+        x = compute_clio_delta(x, test = test)
+        if (is.null(x)) {
+          warning("Nothing to update...")
+          return(x)
+        }
+      }
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
 
       if(length(x)>chunksize) {
@@ -241,7 +264,7 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
     x=x[setdiff(colnames(x), xyzcols)]
   }
 
-  if("position" %in% colnames(x)) {
+  if("position" %in% colnames(x) ) { #&& !all(is.na(x[['position']]))
     px=x[['position']]
     if(is.character(px) || is.matrix(px)) {
       if(is.character(px))
