@@ -103,7 +103,7 @@ manc_scene <- function(ids=NULL, node='clio',
       fafbseg::ngl_segments(sc) <- ids
     burl <- switch(server,
                    janelia="https://neuroglancer.janelia.org",
-                   google="https://neuroglancer-demo.appspot.com",
+                   appspot="https://neuroglancer-demo.appspot.com",
                    "https://clio-ng.janelia.org/"
                    )
     # burl=sub("(https://[^/]+).+", "\\1", url)

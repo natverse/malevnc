@@ -19,4 +19,5 @@ test_that("manc_scene works", {
       )
   }
 
+  expect_match(manc_scene(server='appspot'), "^https://neuroglancer-demo.appspot.com")
 })
