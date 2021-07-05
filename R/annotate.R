@@ -73,23 +73,56 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   clio_fetch(url, body=bodyj, ...)
 }
 
-#' Returns body ids of rows that differ between \code{x}
-#' and existing Clio annotations.
-compute_clio_delta <- function(x, test=TRUE) {
-  clio_annots <- manc_body_annotations(x$bodyid, test = test)
-  if (length(clio_annots) == 0) return(x$bodyid)
-  if ("original.bodyid" %in% colnames(clio_annots))
+#' return index of a list element containing \code{bodyid}
+find_bodyid_in_list <- function(bodyid, querylist) {
+  index <- which(sapply(querylist, function(x) x$bodyid == bodyid))
+  if (length(index) == 0) stop(paste0("No body ID (",
+                                      bodyid,
+                                      ") found in list."))
+  index
+}
+
+#' Returns list with fields that are different from Clio
+#' annotations
+compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
+  body_ids <- sapply(x, function(x) x$bodyid)
+  clio_annots <- manc_body_annotations(body_ids, test = test)
+  clio_annots$status <- NULL # not needed here
+  # nothing to compare
+  if (length(clio_annots) == 0) return(x)
+  # we compare using body id provided by user
+  if ("original.bodyid" %in% colnames(clio_annots)) {
     clio_annots$bodyid <- clio_annots$original.bodyid
-  diff_bodyids <- setdiff(x$bodyid, clio_annots$bodyid)
-  common_cols <- intersect(colnames(clio_annots), colnames(x))
-  # picks indices of rows that have at least 1 different value
-  xs <- subset(x, bodyid %in% clio_annots$bodyid)
-  compared_rows = apply(as.matrix(clio_annots[,common_cols] != xs[, common_cols]), 1, any)
-  indices = which(compared_rows)
-  diff_bodyids <- c(diff_bodyids, x[indices, "bodyid"])
-  if (length(diff_bodyids) == 0)
-    NULL
-  diff_bodyids
+    clio_annots$original.bodyid <- NULL
+  }
+  out_list <- list()
+  diff_bodyids <- setdiff(body_ids, clio_annots$bodyid)
+  clio_annots <- clioannotationdf2list(clio_annots,
+                                       write_empty_fields = write_empty_fields)
+  # in case of missing body ids we add it to the list
+  for (bid in diff_bodyids) {
+    idx = find_bodyid_in_list(bid, x)
+    out_list[length(out_list)+1] <- x[idx]
+  }
+  # check differences between fields of clio_annots and x
+  delta_list <- lapply(clio_annots, function(from_cl) {
+    idx <- find_bodyid_in_list(from_cl$bodyid, x)
+    to_cl <- x[[idx]]
+    common_cols <- intersect(names(from_cl), names(to_cl))
+    from_cl <- unlist(from_cl)[common_cols]
+    to_cl <- unlist(to_cl)[common_cols]
+    subset_to_cl <- to_cl[to_cl != from_cl]
+    if (length(subset_to_cl) == 0)
+      NA
+    else {
+      subset_to_cl['bodyid'] <- from_cl['bodyid']
+      as.list(subset_to_cl)
+    }
+  })
+  # remove empty lists
+  delta_list <- delta_list[!is.na(delta_list)]
+  out_list <- do.call(c, list(out_list, delta_list))
+  out_list
 }
 
 #' Set Clio body annotations
@@ -171,9 +204,6 @@ compute_clio_delta <- function(x, test=TRUE) {
 #'   can increase for a small speed up if you find your setup is fast enough.
 #'   Set to \code{Inf} to insist that all records are sent in a single request.
 #'   \bold{NB only applies when \code{x} is a data.frame}.
-#' @param forced If \code{FALSE} (default), the difference between existing
-#'   annotations and \code{x} is computed - only changed rows are getting
-#'   updated. \code{TRUE} forces updates of all rows.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
 #' @return \code{NULL} invisibly on success. Errors out on failure.
@@ -204,21 +234,14 @@ compute_clio_delta <- function(x, test=TRUE) {
 #'   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
 #' }
 manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE,
-                               protect=c("user"), chunksize=50, forced=FALSE, ...) {
+                               protect=c("user"), chunksize=50, ...) {
   query=list(version=clio_version(version))
   u=clio_url(path='v2/json-annotations/VNC/neurons', test = test)
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
-      if (!forced) {
-        bids = compute_clio_delta(x, test = test)
-        if (is.null(bids)) {
-          warning("Nothing to update...")
-          return(NULL)
-        }
-        x <- subset(x, bodyid %in% bids)
-      }
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
+      x <- compute_clio_delta(x, test = test, write_empty_fields = write_empty_fields)
 
       if(length(x)>chunksize) {
         chunknums=floor((seq_along(x)-1)/chunksize)+1
