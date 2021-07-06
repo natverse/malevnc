@@ -6,14 +6,10 @@ test_that("manc_body_annotations works", {
 })
 
 test_that("compute_clio_delta works", {
-  fids = c(12345780, 12345770)
-  df=data.frame(bodyid=fids)
-  expect_equal(compute_clio_delta(df), fids[[2]])
-
-  seedpt_char=paste(cbind(23217, 35252, 67070), collapse = ",")
-  df=data.frame(bodyid=fids)
-  df$position=c(seedpt_char, NA)
-  expect_true(all(compute_clio_delta(df) %in% fids))
+  tstlist <- list()
+  tstlist[[1]] <- list(bodyid=12345780)
+  tstlist[[2]] <- list(bodyid=12345770)
+  expect_equal(length(compute_clio_delta(tstlist)), 2)
 })
 
 test_that("manc_annotate_body works", {
@@ -36,7 +32,7 @@ test_that("manc_annotate_body works", {
   df2=df
   df2$position=list(seedpt, list())
   expect_silent(manc_annotate_body(df))
-  expect_silent(manc_annotate_body(df2, forced = TRUE))
+  expect_silent(manc_annotate_body(df2))
   # equivalent because of rownames (maybe xyzmatrix should drop them)
   expect_equivalent(nat::xyzmatrix(manc_body_annotations(rid, test=T)$position),
                     nat::xyzmatrix(seedpt))

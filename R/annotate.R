@@ -108,10 +108,14 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   delta_list <- lapply(clio_annots, function(from_cl) {
     idx <- find_bodyid_in_list(from_cl$bodyid, x)
     to_cl <- x[[idx]]
-    common_cols <- intersect(names(from_cl), names(to_cl))
-    from_cl <- unlist(from_cl)[common_cols]
-    to_cl <- unlist(to_cl)[common_cols]
-    subset_to_cl <- to_cl[to_cl != from_cl]
+    subset_to_cl <- lapply(names(to_cl), function(nm){
+      if (!(nm %in% names(from_cl)) || (to_cl[[nm]] != from_cl[[nm]]))
+        to_cl[[nm]]
+      else
+        NA
+    })
+    names(subset_to_cl) <- names(to_cl)
+    subset_to_cl <- subset_to_cl[!is.na(subset_to_cl)]
     if (length(subset_to_cl) == 0)
       NA
     else {
@@ -241,7 +245,8 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FA
   if(!is.character(x)) {
     if(is.data.frame(x)) {
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
-      x <- compute_clio_delta(x, test = test, write_empty_fields = write_empty_fields)
+      if (length(x) > 0)
+        x <- compute_clio_delta(x, test = test, write_empty_fields = write_empty_fields)
 
       if(length(x)>chunksize) {
         chunknums=floor((seq_along(x)-1)/chunksize)+1
