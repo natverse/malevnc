@@ -5,6 +5,15 @@ test_that("manc_body_annotations works", {
   expect_equal(mba$bodyid, 11442)
 })
 
+test_that("compute_clio_delta works", {
+  skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
+          message = "no clio token available")
+  tstlist <- list()
+  tstlist[[1]] <- list(bodyid=12345780)
+  tstlist[[2]] <- list(bodyid=12345770)
+  expect_equal(length(compute_clio_delta(tstlist)), 2)
+})
+
 test_that("manc_annotate_body works", {
   # just enough randomness to make collisions unlikely
   rid=12345678+sample(1:300, size=1)

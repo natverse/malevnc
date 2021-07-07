@@ -73,6 +73,62 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   clio_fetch(url, body=bodyj, ...)
 }
 
+#' return index of a list element containing \code{bodyid}
+find_bodyid_in_list <- function(bodyid, querylist) {
+  index <- which(sapply(querylist, function(x) x$bodyid == bodyid))
+  if (length(index) == 0) stop(paste0("No body ID (",
+                                      bodyid,
+                                      ") found in list."))
+  index
+}
+
+#' Returns list with fields that are different from Clio
+#' annotations
+compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
+  body_ids <- sapply(x, function(x) x$bodyid)
+  clio_annots <- manc_body_annotations(body_ids, test = test)
+  clio_annots$status <- NULL # not needed here
+  # nothing to compare
+  if (length(clio_annots) == 0) return(x)
+  # we compare using body id provided by user
+  if ("original.bodyid" %in% colnames(clio_annots)) {
+    clio_annots$bodyid <- clio_annots$original.bodyid
+    clio_annots$original.bodyid <- NULL
+  }
+  out_list <- list()
+  diff_bodyids <- setdiff(body_ids, clio_annots$bodyid)
+  clio_annots <- clioannotationdf2list(clio_annots,
+                                       write_empty_fields = write_empty_fields)
+  # in case of missing body ids we add it to the list
+  for (bid in diff_bodyids) {
+    idx = find_bodyid_in_list(bid, x)
+    out_list[length(out_list)+1] <- x[idx]
+  }
+  # check differences between fields of clio_annots and x
+  delta_list <- lapply(clio_annots, function(from_cl) {
+    idx <- find_bodyid_in_list(from_cl$bodyid, x)
+    to_cl <- x[[idx]]
+    subset_to_cl <- lapply(names(to_cl), function(nm){
+      if (!(nm %in% names(from_cl)) || (to_cl[[nm]] != from_cl[[nm]]))
+        to_cl[[nm]]
+      else
+        NA
+    })
+    names(subset_to_cl) <- names(to_cl)
+    subset_to_cl <- subset_to_cl[!is.na(subset_to_cl)]
+    if (length(subset_to_cl) == 0)
+      NA
+    else {
+      subset_to_cl['bodyid'] <- from_cl['bodyid']
+      as.list(subset_to_cl)
+    }
+  })
+  # remove empty lists
+  delta_list <- delta_list[!is.na(delta_list)]
+  out_list <- do.call(c, list(out_list, delta_list))
+  out_list
+}
+
 #' Set Clio body annotations
 #'
 #' @details Clio body annotations are stored in a
@@ -181,13 +237,16 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 #' manc_annotate_body(list(bodyid=10002, class='',
 #'   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
 #' }
-manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE, protect=c("user"), chunksize=50, ...) {
+manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE,
+                               protect=c("user"), chunksize=50, ...) {
   query=list(version=clio_version(version))
   u=clio_url(path='v2/json-annotations/VNC/neurons', test = test)
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
+      if (length(x) > 0)
+        x <- compute_clio_delta(x, test = test, write_empty_fields = write_empty_fields)
 
       if(length(x)>chunksize) {
         chunknums=floor((seq_along(x)-1)/chunksize)+1
@@ -241,7 +300,7 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
     x=x[setdiff(colnames(x), xyzcols)]
   }
 
-  if("position" %in% colnames(x)) {
+  if("position" %in% colnames(x) && !all(is.na(x[['position']])) ) {
     px=x[['position']]
     if(is.character(px) || is.matrix(px)) {
       if(is.character(px))
