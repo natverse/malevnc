@@ -73,7 +73,7 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   clio_fetch(url, body=bodyj, ...)
 }
 
-#' return index of a list element containing \code{bodyid}
+# return index of a list element containing \code{bodyid}
 find_bodyid_in_list <- function(bodyid, querylist) {
   index <- which(sapply(querylist, function(x) x$bodyid == bodyid))
   if (length(index) == 0) stop(paste0("No body ID (",
@@ -82,8 +82,8 @@ find_bodyid_in_list <- function(bodyid, querylist) {
   index
 }
 
-#' Returns list with fields that are different from Clio
-#' annotations
+# Returns list with fields that are different from Clio
+# annotations
 compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   body_ids <- sapply(x, function(x) x$bodyid)
   clio_annots <- manc_body_annotations(body_ids, test = test)
