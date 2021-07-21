@@ -41,8 +41,12 @@ gory details.
 
 Access to neuprint / Clio then depends on authorisation. For neuprint, please
 see https://github.com/natverse/neuprintr#authentication; you only need to set
-the `neuprint_token` environment variable. For Clio, you will prompted to 
-authenticate via a Google OAuth "dance" in your web browser.
+the `neuprint_token` environment variable, which is available after logging in
+to the neuprint website. For Clio, you will prompted to 
+authenticate via a Google OAuth "dance" in your web browser. 
+Note that the Clio and neuprint tokens look similar, but are *not* the same.
+Note also that the neuprint token appears to be indefinite while the clio token
+currently lasts 3 weeks.
 
 ### Registrations
 
