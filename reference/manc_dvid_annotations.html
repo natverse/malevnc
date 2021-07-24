@@ -177,24 +177,25 @@ many values that would be missing in the list.</p></td>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='va'>mdf</span><span class='op'>=</span><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='va'>mdf</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 8</span>
-#&gt;   bodyid class    status         user   naming_user instance status_user comment
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  
-#&gt; <span style='color: #BCBCBC;'>1</span>  <span style='text-decoration: underline;'>10</span>000 Giant F… Prelim Roughl… takem… takemuras   10000_R  <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>     
-#&gt; <span style='color: #BCBCBC;'>2</span> <span style='text-decoration: underline;'>100</span>000 <span style='color: #BB0000;'>NA</span>       Prelim Roughl… lohffa takemuras   100000_R lohffa      <span style='color: #BB0000;'>NA</span>     
-#&gt; <span style='color: #BCBCBC;'>3</span> <span style='text-decoration: underline;'>100</span>001 <span style='color: #BB0000;'>NA</span>       Anchor         <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>     
-#&gt; <span style='color: #BCBCBC;'>4</span> <span style='text-decoration: underline;'>100</span>002 <span style='color: #BB0000;'>NA</span>       Prelim Roughl… lohffa <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       lohffa      <span style='color: #BB0000;'>NA</span>     
-#&gt; <span style='color: #BCBCBC;'>5</span> <span style='text-decoration: underline;'>100</span>003 <span style='color: #BB0000;'>NA</span>       <span style='color: #BB0000;'>NA</span>             okeom… <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       okeoman     <span style='color: #BB0000;'>NA</span>     
-#&gt; <span style='color: #BCBCBC;'>6</span> <span style='text-decoration: underline;'>100</span>009 <span style='color: #BB0000;'>NA</span>       0.5assign      <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>     </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mdf</span><span class='op'>$</span><span class='va'>status</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 10</span>
+#&gt;   bodyid class  status   user  naming_user instance status_user last_modified_by
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
+#&gt; <span style='color: #BCBCBC;'>1</span>  <span style='text-decoration: underline;'>10</span>000 Giant… Prelim … take… takemuras   10000_R  <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>              
+#&gt; <span style='color: #BCBCBC;'>2</span> <span style='text-decoration: underline;'>100</span>000 <span style='color: #BB0000;'>NA</span>     Prelim … lohf… takemuras   100000_R lohffa      <span style='color: #BB0000;'>NA</span>              
+#&gt; <span style='color: #BCBCBC;'>3</span> <span style='text-decoration: underline;'>100</span>001 <span style='color: #BB0000;'>NA</span>     Anchor   <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>              
+#&gt; <span style='color: #BCBCBC;'>4</span> <span style='text-decoration: underline;'>100</span>002 <span style='color: #BB0000;'>NA</span>     Prelim … lohf… <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       lohffa      <span style='color: #BB0000;'>NA</span>              
+#&gt; <span style='color: #BCBCBC;'>5</span> <span style='text-decoration: underline;'>100</span>003 <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span>       okeo… <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       okeoman     <span style='color: #BB0000;'>NA</span>              
+#&gt; <span style='color: #BCBCBC;'>6</span> <span style='text-decoration: underline;'>100</span>009 <span style='color: #BB0000;'>NA</span>     0.5assi… <span style='color: #BB0000;'>NA</span>    <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>       <span style='color: #BB0000;'>NA</span>          <span style='color: #BB0000;'>NA</span>              
+#&gt; <span style='color: #949494;'># … with 2 more variables: instance_user &lt;chr&gt;, comment &lt;chr&gt;</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mdf</span><span class='op'>$</span><span class='va'>status</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
-#&gt;             0.5assign                Anchor       Cervical Anchor 
-#&gt;                  3717                   613                     1 
-#&gt;                Leaves                Orphan Prelim Roughly traced 
-#&gt;                     1                   305                 11877 
-#&gt;        Primary Anchor            PRT Orphan        Sensory Anchor 
-#&gt;                    33                     4                  2157 
-#&gt;           Soma Anchor           Unimportant 
-#&gt;                  7333                   772 </div><div class='input'>
+#&gt;                                   0.5assign                Anchor 
+#&gt;                    33                  2849                   506 
+#&gt;       Cervical Anchor                Leaves                Orphan 
+#&gt;                     1                     1                    18 
+#&gt; Prelim Roughly traced        Primary Anchor            PRT Orphan 
+#&gt;                 14367                    30                     4 
+#&gt;        Sensory Anchor           Soma Anchor           Unimportant 
+#&gt;                  3237                  4839                   722 </div><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># compare live body annotations with version in clio</span>
 <span class='va'>mdf.clio</span><span class='op'>=</span><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='st'>'clio'</span><span class='op'>)</span>
