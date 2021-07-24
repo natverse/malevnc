@@ -108,8 +108,10 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   delta_list <- lapply(clio_annots, function(from_cl) {
     idx <- find_bodyid_in_list(from_cl$bodyid, x)
     to_cl <- x[[idx]]
-    subset_to_cl <- lapply(names(to_cl), function(nm){
-      if (!(nm %in% names(from_cl)) || (to_cl[[nm]] != from_cl[[nm]]))
+    subset_to_cl <- lapply(names(to_cl), function(nm) {
+      if (!(nm %in% names(from_cl)) ||
+          # all.equal looks after length > 1 fields e.g. position
+          !isTRUE(all.equal(to_cl[[nm]], from_cl[[nm]])))
         to_cl[[nm]]
       else
         NA
