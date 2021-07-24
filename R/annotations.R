@@ -155,6 +155,14 @@ manc_dvid_annotations <- function(node='neutu',
   cdf=sub("body ID", "bodyid", colnames(df), fixed = T)
   cdf=sub(" ", "_", cdf, fixed = T)
   names(df)=cdf
+  nab=is.na(df$bodyid)
+  if(any(nab)) {
+    # work around a blip in DVID annotation store
+    # see https://flyem-cns.slack.com/archives/C8EB93N6Q/p1627137024049900
+    missing_ids=names(d)[nab]
+    mode(missing_ids)=mode(df$bodyid)
+    df$bodyid[nab]=missing_ids
+  }
   attr(df, 'dvid_node')=node
   df
 
