@@ -33,13 +33,21 @@ bearer token)}
 \item{update.bodyids}{Whether to update the bodyid associated with
 annotations based on the position field.}
 
-\item{test}{Whether to unset the clio-store test server (default \code{FALSE})}
+\item{test}{Whether to unset the clio-store test server (default
+\code{FALSE})}
 
 \item{...}{Additional arguments passed to \code{pbapply::\link{pblapply}}}
 }
 \value{
 An R data.frame or a character vector containing JSON (when
-  \code{json=TRUE}).
+  \code{json=TRUE}). Two additional fields will be added \itemize{
+
+  \item original.bodyid When \code{update.bodyids=TRUE} this field contains
+  the original bodyid from Clio whereas \code{bodyid} contains the updated
+  value implied by the position.
+
+  \item \code{auto} \code{TRUE} signals that the record contains only data
+  automatically copied over from DVID without any manual annotation. }
 }
 \description{
 Return clio-store body annotations for set of ids or a flexible query

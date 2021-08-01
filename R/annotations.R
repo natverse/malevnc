@@ -189,11 +189,19 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
 #'   \code{FALSE}).
-#' @param test Whether to unset the clio-store test server (default \code{FALSE})
+#' @param test Whether to unset the clio-store test server (default
+#'   \code{FALSE})
 #' @param ... Additional arguments passed to \code{pbapply::\link{pblapply}}
 #' @inheritParams manc_dvid_annotations
 #' @return An R data.frame or a character vector containing JSON (when
-#'   \code{json=TRUE}).
+#'   \code{json=TRUE}). Two additional fields will be added \itemize{
+#'
+#'   \item original.bodyid When \code{update.bodyids=TRUE} this field contains
+#'   the original bodyid from Clio whereas \code{bodyid} contains the updated
+#'   value implied by the position.
+#'
+#'   \item \code{auto} \code{TRUE} signals that the record contains only data
+#'   automatically copied over from DVID without any manual annotation. }
 #' @export
 #'
 #' @family manc-annotation
@@ -282,6 +290,18 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
 
 # update can be T/F or a bodyid
 updatebodyids <- function(x, update=TRUE, cache=FALSE) {
+  # first figure out if this is an "auto" entry without any manually entered
+  # information
+  manualfields=setdiff(colnames(x), c("bodyid", "status", "old_bodyids"))
+  empty_field <- function(x) {
+    res=apply(x, 2, simplify = FALSE, function(y) {
+      if(is.list(y)) is.na(y) | lengths(y)==0 else is.na(y)
+      })
+    as.data.frame(res)
+  }
+  rs=rowSums(empty_field(x[, manualfields, drop=F]))
+  x$auto=rs==length(manualfields)
+
   # we can't do anything if we don't have position info
   if(isFALSE(update) || !isTRUE("position" %in% names(x)))
     return(x)
