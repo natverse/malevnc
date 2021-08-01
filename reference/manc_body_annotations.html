@@ -168,7 +168,8 @@ annotations based on the position field.</p></td>
     </tr>
     <tr>
       <th>test</th>
-      <td><p>Whether to unset the clio-store test server (default <code>FALSE</code>)</p></td>
+      <td><p>Whether to unset the clio-store test server (default
+<code>FALSE</code>)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -179,7 +180,14 @@ annotations based on the position field.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An R data.frame or a character vector containing JSON (when
-  <code>json=TRUE</code>).</p>
+  <code>json=TRUE</code>). Two additional fields will be added</p><ul>
+<li><p>original.bodyid When <code>update.bodyids=TRUE</code> this field contains
+  the original bodyid from Clio whereas <code>bodyid</code> contains the updated
+  value implied by the position.</p></li>
+<li><p><code>auto</code> <code>TRUE</code> signals that the record contains only data
+  automatically copied over from DVID without any manual annotation.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Missing values in each output column are filled with NA. But if a
