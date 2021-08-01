@@ -289,18 +289,20 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
 }
 
 # update can be T/F or a bodyid
-updatebodyids <- function(x, update=TRUE, cache=FALSE) {
+updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
   # first figure out if this is an "auto" entry without any manually entered
   # information
-  manualfields=setdiff(colnames(x), c("bodyid", "status", "old_bodyids"))
-  empty_field <- function(x) {
-    res=apply(x, 2, simplify = FALSE, function(y) {
-      if(is.list(y)) is.na(y) | lengths(y)==0 else is.na(y)
-      })
-    as.data.frame(res)
+  if(add_auto && isTRUE(nrow(x)>0)) {
+    manualfields=setdiff(colnames(x), c("bodyid", "status", "old_bodyids"))
+    empty_field <- function(x) {
+      res=apply(x, 2, simplify = FALSE, function(y) {
+        if(is.list(y)) is.na(y) | lengths(y)==0 else is.na(y)
+        })
+      as.data.frame(res)
+    }
+    rs=rowSums(empty_field(x[, manualfields, drop=F]))
+    x$auto=rs==length(manualfields)
   }
-  rs=rowSums(empty_field(x[, manualfields, drop=F]))
-  x$auto=rs==length(manualfields)
 
   # we can't do anything if we don't have position info
   if(isFALSE(update) || !isTRUE("position" %in% names(x)))
