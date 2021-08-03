@@ -294,14 +294,19 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
   # information
   if(add_auto && isTRUE(nrow(x)>0)) {
     manualfields=setdiff(colnames(x), c("bodyid", "status", "old_bodyids"))
-    empty_field <- function(x) {
-      res=apply(x, 2, simplify = FALSE, function(y) {
-        if(is.list(y)) is.na(y) | lengths(y)==0 else is.na(y)
-        })
-      as.data.frame(res)
+    if(length(manualfields)==0) {
+      # there are no manual columns, so all records are automatic
+      x$auto=TRUE
+    } else {
+      empty_field <- function(x) {
+        res=apply(x, 2, simplify = FALSE, function(y) {
+          if(is.list(y)) is.na(y) | lengths(y)==0 else is.na(y)
+          })
+        as.data.frame(res)
+      }
+      rs=rowSums(empty_field(x[, manualfields, drop=F]))
+      x$auto=rs==length(manualfields)
     }
-    rs=rowSums(empty_field(x[, manualfields, drop=F]))
-    x$auto=rs==length(manualfields)
   }
 
   # we can't do anything if we don't have position info
