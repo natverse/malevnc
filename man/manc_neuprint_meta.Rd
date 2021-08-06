@@ -4,7 +4,7 @@
 \alias{manc_neuprint_meta}
 \title{Fetch neuprint metadata for MANC neurons}
 \usage{
-manc_neuprint_meta(ids, conn = manc_neuprint())
+manc_neuprint_meta(ids = NULL, conn = manc_neuprint(), roiInfo = FALSE)
 }
 \arguments{
 \item{ids}{A set of body ids in any form understandable to
@@ -13,6 +13,10 @@ manc_neuprint_meta(ids, conn = manc_neuprint())
 \item{conn}{Optional, a \code{\link{neuprint_connection}} object, which also
 specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
 ensure that query is against the VNC dataset.}
+
+\item{roiInfo}{whether to include the \code{roiInfo} field detailing synapse
+numbers in different locations. This is omitted by default as it is
+returned as a character vector of unprocessed JSON.}
 }
 \value{
 A data.frame with one row for each (unique) id and NAs for all

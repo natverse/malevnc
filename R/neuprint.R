@@ -148,7 +148,9 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #' Fetch neuprint metadata for MANC neurons
 #'
 #' @inheritParams manc_connection_table
-#'
+#' @param roiInfo whether to include the \code{roiInfo} field detailing synapse
+#'   numbers in different locations. This is omitted by default as it is
+#'   returned as a character vector of unprocessed JSON.
 #' @return A data.frame with one row for each (unique) id and NAs for all
 #'   columns except bodyid when neuprint holds no metadata.
 #' @export
@@ -157,9 +159,14 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #' \donttest{
 #' manc_neuprint_meta("Giant Fiber")
 #' }
-manc_neuprint_meta <- function(ids, conn=manc_neuprint()) {
+manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE) {
+  if(is.null(ids))
+    ids=manc_dvid_annotations(cache=T)
   ids=manc_ids(ids, as_character = T)
-  metadf=neuprintr::neuprint_get_meta(ids, conn=manc_neuprint())
+  fields=mnp_fields(conn=conn)
+  if(!isTRUE(roiInfo))
+    fields=setdiff(fields, "roiInfo")
+  metadf=neuprintr::neuprint_get_meta(ids, conn=conn, possibleFields=fields)
   # convert to character to handle larger than maxint *and* 100,000
   # which formats to 1e+5 when numeric
   metadf$bodyid=as.character(metadf$bodyid)
@@ -167,6 +174,11 @@ manc_neuprint_meta <- function(ids, conn=manc_neuprint()) {
   fixeddf=dplyr::left_join(dfids, metadf, by='bodyid')
   fixeddf
 }
+
+mnp_fields <- memoise::memoise(function(conn=manc_neuprint()) {
+  allfields=neuprintr::neuprint_get_fields("", negateFields = T, conn=conn)
+  grep("^[a-z]{2}", allfields, value = T)
+})
 
 manc_download_swcs <- function(ids, outdir, node='neutu', df=NULL, OmitFailures=T, Force=FALSE, ...) {
   ids=manc_ids(ids, unique=T)
