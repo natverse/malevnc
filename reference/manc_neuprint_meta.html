@@ -123,7 +123,7 @@
     <p>Fetch neuprint metadata for MANC neurons</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_neuprint_meta</span><span class='op'>(</span><span class='va'>ids</span>, conn <span class='op'>=</span> <span class='fu'><a href='manc_neuprint.html'>manc_neuprint</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>manc_neuprint_meta</span><span class='op'>(</span>ids <span class='op'>=</span> <span class='cn'>NULL</span>, conn <span class='op'>=</span> <span class='fu'><a href='manc_neuprint.html'>manc_neuprint</a></span><span class='op'>(</span><span class='op'>)</span>, roiInfo <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,6 +139,12 @@
 specifies the neuPrint server. Defaults to <code><a href='manc_neuprint.html'>manc_neuprint</a>()</code> to
 ensure that query is against the VNC dataset.</p></td>
     </tr>
+    <tr>
+      <th>roiInfo</th>
+      <td><p>whether to include the <code>roiInfo</code> field detailing synapse
+numbers in different locations. This is omitted by default as it is
+returned as a character vector of unprocessed JSON.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -152,9 +158,15 @@ ensure that query is against the VNC dataset.</p></td>
 </div><div class='output co'>#&gt;   bodyid  pre post upstream downstream status           statusLabel      voxels
 #&gt; 1  10000 1033 2016     2016       5150 Traced Prelim Roughly traced 38743961712
 #&gt; 2  10002  891 1779     1779       4414 Traced Prelim Roughly traced 28160290734
-#&gt;   cropped    name        type  soma
-#&gt; 1   FALSE 10000_R Giant Fiber FALSE
-#&gt; 2   FALSE 10000_L Giant Fiber FALSE</div><div class='input'><span class='co'># }</span>
+#&gt;   hemilineage somaSide somaNeuromere somaLocation somaRadius rootLocation
+#&gt; 1        None       NA          &lt;NA&gt;           NA         NA           NA
+#&gt; 2        None       NA          None           NA         NA           NA
+#&gt;   cropped      class exitNerve    name group rootSide position description
+#&gt; 1   FALSE Descending      None 10000_R 10000      RHS       NA        &lt;NA&gt;
+#&gt; 2   FALSE Descending      None 10000_L 10000      LHS       NA Giant fiber
+#&gt;   timeStamp        type birthtime  soma
+#&gt; 1        NA Giant Fiber        NA FALSE
+#&gt; 2        NA Giant Fiber        NA FALSE</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
