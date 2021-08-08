@@ -104,12 +104,20 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
   }
   ids=manc_ids(ids, conn=conn)
   res=neuprintr::neuprint_connection_table(ids, prepost = prepost, details=T, conn=conn, ...)
-  if(moredetails) {
+  if(is.logical(moredetails))
+    moredetails=ifelse(moredetails, 'neuprint', 'minimal')
+  moredetails=match.arg(moredetails, c("all", 'neuprint', 'minimal'))
+  if(moredetails=='minimal')
+    res
+  else if(moredetails=='all') {
     details=manc_meta(res$partner, unique = F)
-    # ct.fields=union("bodyid", setdiff(colnames(details), colnames(res))
     stopifnot(all(res$partner==details$bodyid))
     cbind(res, details[setdiff(colnames(details), "bodyid")])
-  } else res
+  } else {
+    details=manc_neuprint_meta(unique(res$partner), conn=conn)
+    merge(res, details[c("bodyid", setdiff(colnames(details), colnames(res)))],
+          by.x='partner', by.y='bodyid', all.x = T, sort = F)
+  }
 }
 
 
