@@ -104,6 +104,7 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
   }
   ids=manc_ids(ids, conn=conn)
   res=neuprintr::neuprint_connection_table(ids, prepost = prepost, details=T, conn=conn, ...)
+  res$partner=manc_ids(res$partner, unique=FALSE)
   if(is.logical(moredetails))
     moredetails=ifelse(moredetails, 'neuprint', 'minimal')
   moredetails=match.arg(moredetails, c("all", 'neuprint', 'minimal'))
@@ -170,16 +171,17 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE) {
   if(is.null(ids))
     ids=manc_dvid_annotations(cache=T)
-  ids=manc_ids(ids, as_character = T)
+  ids=manc_ids(ids, integer64=T)
   fields=mnp_fields(conn=conn)
   if(!isTRUE(roiInfo))
     fields=setdiff(fields, "roiInfo")
   metadf=neuprintr::neuprint_get_meta(ids, conn=conn, possibleFields=fields)
-  # convert to character to handle larger than maxint *and* 100,000
-  # which formats to 1e+5 when numeric
-  metadf$bodyid=as.character(metadf$bodyid)
+  metadf$bodyid=bit64::as.integer64(metadf$bodyid)
   dfids=data.frame(bodyid=ids)
   fixeddf=dplyr::left_join(dfids, metadf, by='bodyid')
+  # convert to character to handle larger than maxint *and* 100,000
+  # which formats to 1e+5 when numeric
+  fixeddf$bodyid=as.character(fixeddf$bodyid)
   fixeddf
 }
 
