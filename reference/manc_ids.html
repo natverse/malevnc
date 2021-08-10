@@ -132,6 +132,7 @@
   mustWork <span class='op'>=</span> <span class='cn'>TRUE</span>,
   as_character <span class='op'>=</span> <span class='cn'>TRUE</span>,
   integer64 <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  unique <span class='op'>=</span> <span class='cn'>TRUE</span>,
   conn <span class='op'>=</span> <span class='fu'><a href='manc_neuprint.html'>manc_neuprint</a></span><span class='op'>(</span><span class='op'>)</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
@@ -157,6 +158,11 @@ numeric vector (the default is character for safety).</p></td>
     <tr>
       <th>integer64</th>
       <td><p>whether to return ids with class bit64::integer64.</p></td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td><p>Whether to ensure that only unique ids are returned (default
+<code>TRUE</code>)</p></td>
     </tr>
     <tr>
       <th>conn</th>

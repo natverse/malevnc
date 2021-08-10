@@ -124,6 +124,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span>
+  ids <span class='op'>=</span> <span class='cn'>NULL</span>,
   node <span class='op'>=</span> <span class='st'>"neutu"</span>,
   rval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"data.frame"</span>, <span class='st'>"list"</span><span class='op'>)</span>,
   cache <span class='op'>=</span> <span class='cn'>FALSE</span>
@@ -132,6 +133,11 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ids</th>
+      <td><p>A set of body ids in any form understandable to
+<code><a href='manc_ids.html'>manc_ids</a></code></p></td>
+    </tr>
     <tr>
       <th>node</th>
       <td><p>A DVID node as returned by <code><a href='manc_dvid_node.html'>manc_dvid_node</a></code>. The
@@ -153,7 +159,7 @@ many values that would be missing in the list.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>tibble</code> containing with columns including</p><ul>
-<li><p>bodyid</p></li>
+<li><p>bodyid as a <code>numeric</code> value</p></li>
 <li><p>status</p></li>
 <li><p>user</p></li>
 <li><p>naming_user</p></li>
@@ -162,7 +168,10 @@ many values that would be missing in the list.</p></td>
 <li><p>comment</p></li>
 </ul>
 
-<p>NB these are slightly modified from</p>
+<p>NB only one <code>bodyid</code> is used regardless of whether the key-value
+  returned has 0, 1 or 2 bodyid fields. When the <code>ids</code> are specified,
+  missing ids will have a row containing the <code>bodyid</code> in question and
+  then all other columns will be <code>NA</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>See
@@ -196,6 +205,13 @@ many values that would be missing in the list.</p></td>
 #&gt;                    78                    13                   350 
 #&gt;        Sensory Anchor           Soma Anchor           Unimportant 
 #&gt;                  3234                  3200                   737 </div><div class='input'>
+<span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='st'>'Giant Fiber'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 11</span>
+#&gt;   bodyid class instance status                type  user  instance_user last_modified_by
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
+#&gt; <span style='color: #BCBCBC;'>1</span>  <span style='text-decoration: underline;'>10</span>000 <span style='color: #949494;'>""</span>    10000_R  Prelim Roughly traced Gian… take… takemuras     takemuras       
+#&gt; <span style='color: #BCBCBC;'>2</span>  <span style='text-decoration: underline;'>10</span>002 <span style='color: #949494;'>""</span>    10000_L  Prelim Roughly traced Gian… take… takemuras     takemuras       
+#&gt; <span style='color: #949494;'># … with 3 more variables: naming user &lt;chr&gt;, status user &lt;chr&gt;, comment &lt;chr&gt;</span></div><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># compare live body annotations with version in clio</span>
 <span class='va'>mdf.clio</span><span class='op'>=</span><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='st'>'clio'</span><span class='op'>)</span>
