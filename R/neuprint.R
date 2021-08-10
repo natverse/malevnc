@@ -54,14 +54,15 @@ is.url <- function(x) {
 #' }
 #' }
 #' @importFrom bit64 is.integer64 as.integer64
-manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE, conn=manc_neuprint(), ...) {
+manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE,
+                     unique=TRUE, conn=manc_neuprint(), ...) {
   ids <- if(fafbseg:::is.ngscene(x) || (length(x)==1 && is.url(x)))
     fafbseg::ngl_segments(x, must_work = mustWork, as_character = as_character, ...)
   else if(!is.integer64(x)){
     # nb if we have integer64 input they must already be ids
     # so no need to send to neuprint
-    neuprintr::neuprint_ids(x=x, conn=conn, mustWork = mustWork, ...)
-  } else x
+    neuprintr::neuprint_ids(x=x, conn=conn, mustWork = mustWork, unique=unique, ...)
+  } else if(unique) unique(x) else x
   if(is.data.frame(x) && length(ids)!=nrow(x))
     stop("Unable to extract a vector of ",nrow(x), " body ids from x!")
   if(isTRUE(integer64)) as.integer64(ids)

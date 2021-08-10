@@ -9,6 +9,7 @@ manc_ids(
   mustWork = TRUE,
   as_character = TRUE,
   integer64 = FALSE,
+  unique = TRUE,
   conn = manc_neuprint(),
   ...
 )
@@ -24,6 +25,9 @@ neuroglancer URL.}
 numeric vector (the default is character for safety).}
 
 \item{integer64}{whether to return ids with class bit64::integer64.}
+
+\item{unique}{Whether to ensure that only unique ids are returned (default
+\code{TRUE})}
 
 \item{conn}{optional, a neuprintr connection object, which also specifies the
 neuPrint server. If NULL, the defaults set in your
