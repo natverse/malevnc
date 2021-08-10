@@ -47,7 +47,11 @@ An R data.frame or a character vector containing JSON (when
   value implied by the position.
 
   \item \code{auto} \code{TRUE} signals that the record contains only data
-  automatically copied over from DVID without any manual annotation. }
+  automatically copied over from DVID without any manual annotation.
+
+  See
+  \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1628214375055400}{slack}
+  for details of the position / position type fields. }
 }
 \description{
 Return clio-store body annotations for set of ids or a flexible query

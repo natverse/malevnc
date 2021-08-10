@@ -209,7 +209,11 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #'   value implied by the position.
 #'
 #'   \item \code{auto} \code{TRUE} signals that the record contains only data
-#'   automatically copied over from DVID without any manual annotation. }
+#'   automatically copied over from DVID without any manual annotation.
+#'
+#'   See
+#'   \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1628214375055400}{slack}
+#'   for details of the position / position type fields. }
 #' @export
 #'
 #' @family manc-annotation
@@ -301,7 +305,8 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
   # first figure out if this is an "auto" entry without any manually entered
   # information
   if(add_auto && isTRUE(nrow(x)>0)) {
-    manualfields=setdiff(colnames(x), c("bodyid", "status", "old_bodyids"))
+    manualfields=setdiff(colnames(x), c("bodyid", "status", "old_bodyids",
+                                        "position", "position_type"))
     if(length(manualfields)==0) {
       # there are no manual columns, so all records are automatic
       x$auto=TRUE
