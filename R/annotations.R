@@ -109,7 +109,7 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #'
 #' @return A \code{tibble} containing with columns including \itemize{
 #'
-#'   \item bodyid
+#'   \item bodyid as a \code{numeric} value
 #'
 #'   \item status
 #'
@@ -123,7 +123,10 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #'
 #'   \item comment }
 #'
-#'   NB these are slightly modified from
+#'   NB only one \code{bodyid} is used regardless of whether the key-value
+#'   returned has 0, 1 or 2 bodyid fields. When the \code{ids} are specified,
+#'   missing ids will have a row containing the \code{bodyid} in question and
+#'   then all other columns will be \code{NA}.
 #'
 #' @export
 #'
@@ -155,7 +158,10 @@ manc_dvid_annotations <- function(ids=NULL, node='neutu',
   else .manc_dvid_annotations(node=node, rval=rval)
   if(is.null(ids)) mda
   else {
-    mda[match(ids,mda$bodyid),,drop=F]
+    mda=mda[match(ids,mda$bodyid),,drop=F]
+    # for the cases where there are no matching ids
+    mda$bodyid=ids
+    mda
   }
 }
 

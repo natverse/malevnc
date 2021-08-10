@@ -28,7 +28,7 @@ many values that would be missing in the list.}
 \value{
 A \code{tibble} containing with columns including \itemize{
 
-  \item bodyid
+  \item bodyid as a \code{numeric} value
 
   \item status
 
@@ -42,7 +42,10 @@ A \code{tibble} containing with columns including \itemize{
 
   \item comment }
 
-  NB these are slightly modified from
+  NB only one \code{bodyid} is used regardless of whether the key-value
+  returned has 0, 1 or 2 bodyid fields. When the \code{ids} are specified,
+  missing ids will have a row containing the \code{bodyid} in question and
+  then all other columns will be \code{NA}.
 }
 \description{
 Return all DVID body annotations
