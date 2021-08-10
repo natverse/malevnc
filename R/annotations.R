@@ -98,7 +98,7 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #'   now just changed this to \code{<neutu-uuid>} as returned by
 #'   \code{\link{manc_dvid_node}}. This was because the range query stopped
 #'   working 16 May 2021, probably because of a bad node.
-#'
+#' @inheritParams manc_body_annotations
 #' @param rval Whether to return a fully parsed data.frame (the default) or an R
 #'   list. The data.frame is easier to work with but typically includes NAs for
 #'   many values that would be missing in the list.
@@ -133,19 +133,30 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #' head(mdf)
 #' table(mdf$status)
 #'
+#' manc_dvid_annotations('Giant Fiber')
+#'
 #' \dontrun{
 #' # compare live body annotations with version in clio
 #' mdf.clio=manc_dvid_annotations('clio')
 #' waldo::compare(mdf.clio, mdf)
 #' }
 #' }
-manc_dvid_annotations <- function(node='neutu',
+manc_dvid_annotations <- function(ids=NULL, node='neutu',
                                   rval=c("data.frame", "list"),
                                   cache=FALSE) {
   rval=match.arg(rval)
+  if(!is.null(ids)) {
+    if(rval!='data.frame')
+      stop("You can only request a data.frame when specifying ids!")
+    ids=manc_ids(ids, mustWork = T, unique=FALSE, as_character = F)
+  }
   node=manc_nodespec(node, several.ok = F)
-  if(cache) manc_dvid_annotations_memo(node=node, rval=rval)
+  mda <- if(cache) manc_dvid_annotations_memo(node=node, rval=rval)
   else .manc_dvid_annotations(node=node, rval=rval)
+  if(is.null(ids)) mda
+  else {
+    mda[match(ids,mda$bodyid),,drop=F]
+  }
 }
 
 .manc_dvid_annotations <- function(node, rval) {

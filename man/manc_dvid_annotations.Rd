@@ -5,12 +5,16 @@
 \title{Return all DVID body annotations}
 \usage{
 manc_dvid_annotations(
+  ids = NULL,
   node = "neutu",
   rval = c("data.frame", "list"),
   cache = FALSE
 )
 }
 \arguments{
+\item{ids}{A set of body ids in any form understandable to
+\code{\link{manc_ids}}}
+
 \item{node}{A DVID node as returned by \code{\link{manc_dvid_node}}. The
 default is to return the current active (unlocked) node being used through
 neutu.}
@@ -58,6 +62,8 @@ See
 mdf=manc_dvid_annotations()
 head(mdf)
 table(mdf$status)
+
+manc_dvid_annotations('Giant Fiber')
 
 \dontrun{
 # compare live body annotations with version in clio
