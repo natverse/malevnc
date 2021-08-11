@@ -16,3 +16,11 @@ test_that("manc_dvid_annotations", {
   expect_equal(df$bodyid, 1e9)
   expect_true(all(is.na(df[,-1])))
 })
+
+test_that("manc_set_lrgroup", {
+  expect_error(manc_set_lrgroup(c(501, 502), Force = T, dryrun = T, clio=FALSE))
+  # this is not a real pair, just a neuron on L and R
+  expect_output(manc_set_lrgroup(c(10501, 10507), Force = T, dryrun = T, clio=FALSE),
+                "10501_R")
+})
+
