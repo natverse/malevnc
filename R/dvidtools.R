@@ -136,7 +136,7 @@ manc_set_lrgroup <- function(ids, dryrun=T, Force=FALSE, clio=TRUE) {
     mapply(manc_set_dvid_instance, m$bodyid, instances)
     if(isTRUE(clio)) {
       message("Applying clio group updates!")
-      manc_annotate_body(data.frame(bodyid=ids, group=g, stringsAsFactors = F))
+      manc_annotate_body(data.frame(bodyid=ids, group=g, stringsAsFactors = F), test=F)
     }
   }
 }
