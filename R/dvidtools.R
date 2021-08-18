@@ -105,6 +105,8 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #'   happen rather than applying the annotations.
 #' @param Force Whether to update DVID instances (and clio group) even when
 #'   there is existing DVID instance information.
+#' @param Partial Assigns only partial annotations to DVID instances
+#'   that do not yet have annotation.
 #' @param clio Whether
 #'
 #' @export
@@ -115,10 +117,11 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #' # apply
 #' manc_set_lrgroup(c(12516, 12706), dryrun=F)
 #' }
-manc_set_lrgroup <- function(ids, dryrun=T, Force=FALSE, clio=TRUE) {
+manc_set_lrgroup <- function(ids, dryrun=T, Force=FALSE,
+                             Partial=FALSE, clio=TRUE) {
   m=manc_neuprint_meta(ids)
   # nb group is presently encoded in instance/name ...
-  if(!all(is.na(m$name)) && !isTRUE(Force))
+  if (!all(is.na(m$name)) && !isTRUE(Partial) && !isTRUE(Force))
     stop("some ids already have a group")
   g=min(as.numeric(m$bodyid))
   checkmate::assert_integerish(g, lower = 10000, len=1)
@@ -128,6 +131,8 @@ manc_set_lrgroup <- function(ids, dryrun=T, Force=FALSE, clio=TRUE) {
   checkmate::assert_character(sides, len=length(ids), any.missing = F, min.chars = 1)
   sides=substr(sides,1,1)
   instances=paste0(g, "_", sides)
+  if (Partial)
+    instances[!is.na(m$name)] = m$name[!is.na(m$name)]
   checkmate::assert_character(instances, len=length(ids), any.missing = F)
   if(!isFALSE(dryrun))
     print(data.frame(bodyid=m$bodyid, instance=instances))

@@ -4,7 +4,7 @@
 \alias{manc_set_lrgroup}
 \title{Set LR matching groups for neurons in DVID and optionally Clio}
 \usage{
-manc_set_lrgroup(ids, dryrun = T, Force = FALSE, clio = TRUE)
+manc_set_lrgroup(ids, dryrun = T, Force = FALSE, Partial = FALSE, clio = TRUE)
 }
 \arguments{
 \item{ids}{A set of ids belonging to the same group}
@@ -14,6 +14,9 @@ happen rather than applying the annotations.}
 
 \item{Force}{Whether to update DVID instances (and clio group) even when
 there is existing DVID instance information.}
+
+\item{Partial}{Assigns only partial annotations to DVID instances
+that do not yet have annotation.}
 
 \item{clio}{Whether}
 }
