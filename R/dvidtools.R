@@ -117,7 +117,7 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #' # apply
 #' manc_set_lrgroup(c(12516, 12706), dryrun=F)
 #' }
-manc_set_lrgroup <- function(ids, dryrun=T, Force=FALSE,
+manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
                              Partial=FALSE, clio=TRUE) {
   m=manc_neuprint_meta(ids)
   # nb group is presently encoded in instance/name ...
@@ -125,16 +125,19 @@ manc_set_lrgroup <- function(ids, dryrun=T, Force=FALSE,
     stop("some ids already have a group")
   g=min(as.numeric(m$bodyid))
   checkmate::assert_integerish(g, lower = 10000, len=1)
+  if (Partial) {
+    m <- m[is.na(m$name),]
+    ids <- m$bodyid
+    if (ncol(m) == 0) return()
+  }
   sides=m$somaSide
   if(any(is.na(sides)))
     sides=m$rootSide
   checkmate::assert_character(sides, len=length(ids), any.missing = F, min.chars = 1)
   sides=substr(sides,1,1)
   instances=paste0(g, "_", sides)
-  if (Partial)
-    instances[!is.na(m$name)] = m$name[!is.na(m$name)]
   checkmate::assert_character(instances, len=length(ids), any.missing = F)
-  if(!isFALSE(dryrun))
+  if(isTRUE(dryrun))
     print(data.frame(bodyid=m$bodyid, instance=instances))
   else {
     message("Applying DVID instance updates!")
