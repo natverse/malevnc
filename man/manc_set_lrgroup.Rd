@@ -4,7 +4,13 @@
 \alias{manc_set_lrgroup}
 \title{Set LR matching groups for neurons in DVID and optionally Clio}
 \usage{
-manc_set_lrgroup(ids, dryrun = T, Force = FALSE, Partial = FALSE, clio = TRUE)
+manc_set_lrgroup(
+  ids,
+  dryrun = TRUE,
+  Force = FALSE,
+  Partial = FALSE,
+  clio = TRUE
+)
 }
 \arguments{
 \item{ids}{A set of ids belonging to the same group}
