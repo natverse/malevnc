@@ -107,7 +107,8 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #'   there is existing DVID instance information.
 #' @param Partial Assigns only partial annotations to DVID instances
 #'   that do not yet have annotation.
-#' @param clio Whether
+#' @param group Set a specific group id.
+#' @param clio Whether push to CLio or not.
 #'
 #' @export
 #' @examples
@@ -118,7 +119,7 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #' manc_set_lrgroup(c(12516, 12706), dryrun=F)
 #' }
 manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
-                             Partial=FALSE, clio=TRUE, group=NA) {
+                             Partial=FALSE, group=NA, clio=TRUE) {
   m=manc_neuprint_meta(ids)
   # nb group is presently encoded in instance/name ...
   if (!all(is.na(m$name)) && !isTRUE(Partial) && !isTRUE(Force))
@@ -137,6 +138,8 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
     ids <- m$bodyid
     if (ncol(m) == 0) return()
   }
+  if (!is.na(group))
+    g <- group
   sides=m$somaSide
   if(any(is.na(sides)))
     sides=m$rootSide

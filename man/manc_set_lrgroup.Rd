@@ -9,6 +9,7 @@ manc_set_lrgroup(
   dryrun = TRUE,
   Force = FALSE,
   Partial = FALSE,
+  group = NA,
   clio = TRUE
 )
 }
@@ -24,7 +25,9 @@ there is existing DVID instance information.}
 \item{Partial}{Assigns only partial annotations to DVID instances
 that do not yet have annotation.}
 
-\item{clio}{Whether}
+\item{group}{Set a specific group id.}
+
+\item{clio}{Whether push to CLio or not.}
 }
 \description{
 Set LR matching groups for neurons in DVID and optionally Clio
