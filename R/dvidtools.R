@@ -125,7 +125,6 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
   if (!all(is.na(m$name)) && !isTRUE(Partial) && !isTRUE(Force))
     stop("some ids already have a group")
   g=min(as.numeric(m$bodyid))
-  checkmate::assert_integerish(g, lower = 10000, len=1)
   if (Partial) {
     if (length(m$group[!is.na(m$group)]) > 0) {
       ng <- unique(m$group[!is.na(m$group)])
@@ -140,6 +139,7 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
   }
   if (!is.na(group))
     g <- group
+  checkmate::assert_integerish(g, lower = 10000, len=1)
   sides=m$somaSide
   if(any(is.na(sides)))
     sides=m$rootSide
