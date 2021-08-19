@@ -108,7 +108,7 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #' @param Partial Assigns only partial annotations to DVID instances
 #'   that do not yet have annotation.
 #' @param group Set a specific group id.
-#' @param clio Whether push to CLio or not.
+#' @param clio Whether push to Clio or not.
 #'
 #' @export
 #' @examples

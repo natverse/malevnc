@@ -27,7 +27,7 @@ that do not yet have annotation.}
 
 \item{group}{Set a specific group id.}
 
-\item{clio}{Whether push to CLio or not.}
+\item{clio}{Whether push to Clio or not.}
 }
 \description{
 Set LR matching groups for neurons in DVID and optionally Clio
