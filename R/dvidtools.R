@@ -118,7 +118,7 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #' manc_set_lrgroup(c(12516, 12706), dryrun=F)
 #' }
 manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
-                             Partial=FALSE, clio=TRUE) {
+                             Partial=FALSE, clio=TRUE, group=NA) {
   m=manc_neuprint_meta(ids)
   # nb group is presently encoded in instance/name ...
   if (!all(is.na(m$name)) && !isTRUE(Partial) && !isTRUE(Force))
@@ -126,6 +126,13 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
   g=min(as.numeric(m$bodyid))
   checkmate::assert_integerish(g, lower = 10000, len=1)
   if (Partial) {
+    if (length(m$group[!is.na(m$group)]) > 0) {
+      ng <- unique(m$group[!is.na(m$group)])
+      if (length(ng) == 1)
+        g <- ng
+      if (length(ng) > 1 && isFALSE(Force))
+        stop("Existing groups are not consistent, please review.")
+    }
     m <- m[is.na(m$name),]
     ids <- m$bodyid
     if (ncol(m) == 0) return()
