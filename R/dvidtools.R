@@ -126,8 +126,8 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
     stop("some ids already have a group")
   g=min(as.numeric(m$bodyid))
   if (Partial) {
-    if (length(m$group[!is.na(m$group)]) > 0) {
-      ng <- unique(m$group[!is.na(m$group)])
+    if (sum(!is.na(m$group)) > 0) {
+      ng <- unique(na.omit(m$group))
       if (length(ng) == 1)
         g <- ng
       if (length(ng) > 1 && isFALSE(Force))
