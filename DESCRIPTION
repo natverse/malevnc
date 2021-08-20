@@ -36,7 +36,8 @@ Imports:
     bit64,
     gargle,
     utils,
-    stringr
+    stringr,
+    glue
 Suggests: 
     testthat,
     dracor,

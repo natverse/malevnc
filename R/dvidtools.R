@@ -97,6 +97,29 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
   dt$edit_annotation(bodyid = bodyidint, annotation = ann_dict, verbose=F)
 }
 
+#' Check if group is complete
+#'
+#' In other words in all neurons from group are represented in \code{body_ids}
+#' vector.
+#'
+#' @param group_id numeric/character with group id
+#' @param body_ids vector with body ids to compare
+#' @param conn Optional, a \code{\link{neuprint_connection}} object, which also
+#'   specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
+#'   ensure that query is against the VNC dataset.
+#'
+#' @return logical with \code{TRUE} if group is complete
+#'
+#' @importFrom glue glue
+manc_check_group_complete <- function(group_id, body_ids,
+                                      conn=manc_neuprint()) {
+  np_bids <- neuprintr::neuprint_search(glue("name:{group_id}_[LR]"),
+                                        conn=conn, meta = F)
+  # normalize type for comparison
+  np_bids <- as.character(np_bids)
+  body_ids <- as.character(body_ids)
+  all(np_bids %in% body_ids)
+}
 
 #' Set LR matching groups for neurons in DVID and optionally Clio
 #'
@@ -126,10 +149,13 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
     stop("some ids already have a group")
   g=min(as.numeric(m$bodyid))
   if (Partial) {
-    if (sum(!is.na(m$group)) > 0) {
+    if (sum(!is.na(m$group)) > 0) { # check if there are non-NA groups
       ng <- unique(na.omit(m$group))
-      if (length(ng) == 1)
+      if (length(ng) == 1) { # check is there's singleton group
+        if (!manc_check_group_complete(ng, ids)) # check if all ids are in group
+          stop("Not all ids found in existing group, please review.")
         g <- ng
+      }
       if (length(ng) > 1 && isFALSE(Force))
         stop("Existing groups are not consistent, please review.")
     }
