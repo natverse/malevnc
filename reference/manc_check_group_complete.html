@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Information about DVID nodes / return latest node — manc_dvid_node • malevnc</title>
+<title>Check if group is complete — manc_check_group_complete • malevnc</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,9 @@
 
 
 
-<meta property="og:title" content="Information about DVID nodes / return latest node — manc_dvid_node" />
-<meta property="og:description" content="manc_dvid_node returns the latest DVID node in use with a
-  specific tool.
-manc_dvid_nodeinfo returns a data.frame with information
-  about the DVID nodes available for the male VNC dataset." />
+<meta property="og:title" content="Check if group is complete — manc_check_group_complete" />
+<meta property="og:description" content="In other words in all neurons from group are represented in body_ids
+vector." />
 
 
 
@@ -117,50 +115,41 @@ manc_dvid_nodeinfo returns a data.frame with information
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Information about DVID nodes / return latest node</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/dvid.R'><code>R/dvid.R</code></a></small>
-    <div class="hidden name"><code>manc_dvid_node.Rd</code></div>
+    <h1>Check if group is complete</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/dvidtools.R'><code>R/dvidtools.R</code></a></small>
+    <div class="hidden name"><code>manc_check_group_complete.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>manc_dvid_node</code> returns the latest DVID node in use with a
-  specific tool.</p>
-<p><code>manc_dvid_nodeinfo</code> returns a data.frame with information
-  about the DVID nodes available for the male VNC dataset.</p>
+    <p>In other words in all neurons from group are represented in <code>body_ids</code>
+vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_dvid_node</span><span class='op'>(</span>type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"clio"</span>, <span class='st'>"neutu"</span>, <span class='st'>"neuprint"</span>, <span class='st'>"master"</span><span class='op'>)</span>, cached <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='fu'>manc_dvid_nodeinfo</span><span class='op'>(</span>cached <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>manc_check_group_complete</span><span class='op'>(</span><span class='va'>group_id</span>, <span class='va'>body_ids</span>, conn <span class='op'>=</span> <span class='fu'><a href='manc_neuprint.html'>manc_neuprint</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>type</th>
-      <td><p>Whether to return the latest committed node (clio) or the active
-node being edited in neutu (the very latest) or the node in neuprint (a
-committed node that may lag behind clio). master is an alias for neutu.</p></td>
+      <th>group_id</th>
+      <td><p>numeric/character with group id</p></td>
     </tr>
     <tr>
-      <th>cached</th>
-      <td><p>Whether to return a cached value (updated every hour) or to
-force a new query.</p></td>
+      <th>body_ids</th>
+      <td><p>vector with body ids to compare</p></td>
+    </tr>
+    <tr>
+      <th>conn</th>
+      <td><p>Optional, a <code>neuprint_connection</code> object, which also
+specifies the neuPrint server. Defaults to <code><a href='manc_neuprint.html'>manc_neuprint</a>()</code> to
+ensure that query is against the VNC dataset.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A UUID string</p>
+    <p>logical with <code>TRUE</code> if group is complete</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "f6df3990cf8e4168b7571fba655e9e20"</div><div class='input'><span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='st'>'neutu'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "248f198ee6ea4d548844817234b3dc7e"</div><div class='input'><span class='co'># force</span>
-<span class='fu'>manc_dvid_node</span><span class='op'>(</span><span class='st'>'neuprint'</span>, cached<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1297da7d67d342e3a7e6583529bc9b4c"</div><div class='input'><span class='co'># }</span>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
