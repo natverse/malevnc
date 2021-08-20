@@ -161,7 +161,7 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
     }
     m <- m[is.na(m$name),]
     ids <- m$bodyid
-    if (ncol(m) == 0) return()
+    if (nrow(m) == 0) return()
   }
   if (!is.na(group))
     g <- group
