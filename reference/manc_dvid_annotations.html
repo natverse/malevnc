@@ -198,15 +198,15 @@ many values that would be missing in the list.</p></td>
 #&gt; <span style='color: #949494;'># … with 3 more variables: status user &lt;chr&gt;, naming user &lt;chr&gt;, comment &lt;chr&gt;</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mdf</span><span class='op'>$</span><span class='va'>status</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 
 #&gt;                                   0.5assign                Anchor 
-#&gt;                    27                  1944                   393 
+#&gt;                    27                  1940                   390 
 #&gt;       Cervical Anchor                Leaves                Orphan 
 #&gt;                    18                     1                    11 
 #&gt; Prelim Roughly traced        Primary Anchor            PRT Orphan 
-#&gt;                 15563                   114                    13 
+#&gt;                 15585                   112                    13 
 #&gt;        Roughly traced        Sensory Anchor           Soma Anchor 
-#&gt;                  1108                  3868                  2521 
+#&gt;                  1293                  3868                  2314 
 #&gt;           Unimportant 
-#&gt;                   858 </div><div class='input'>
+#&gt;                   857 </div><div class='input'>
 <span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='st'>'Giant Fiber'</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 × 11</span>
 #&gt;   bodyid class instance status         user      type        instance_user last_modified_by
@@ -217,7 +217,7 @@ many values that would be missing in the list.</p></td>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># compare live body annotations with version in clio</span>
 <span class='va'>mdf.clio</span><span class='op'>=</span><span class='fu'>manc_dvid_annotations</span><span class='op'>(</span><span class='st'>'clio'</span><span class='op'>)</span>
-<span class='fu'>waldo</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/waldo/man/compare.html'>compare</a></span><span class='op'>(</span><span class='va'>mdf.clio</span>, <span class='va'>mdf</span><span class='op'>)</span>
+<span class='fu'>waldo</span><span class='fu'>::</span><span class='fu'><a href='https://waldo.r-lib.org/reference/compare.html'>compare</a></span><span class='op'>(</span><span class='va'>mdf.clio</span>, <span class='va'>mdf</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='co'># }</span>
 </div></pre>

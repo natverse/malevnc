@@ -137,12 +137,12 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ids</th>
-      <td><p>A set of ids belonging to the same group</p></td>
+      <td><p>A set of body ids belonging to the same group</p></td>
     </tr>
     <tr>
       <th>dryrun</th>
-      <td><p>When <code>TRUE</code>, the default, show what will
-happen rather than applying the annotations.</p></td>
+      <td><p>When <code>TRUE</code>, the default, show what will happen rather
+than applying the annotations.</p></td>
     </tr>
     <tr>
       <th>Force</th>
@@ -151,18 +151,59 @@ there is existing DVID instance information.</p></td>
     </tr>
     <tr>
       <th>Partial</th>
-      <td><p>Assigns only partial annotations to DVID instances
+      <td><p>Assigns group annotations (via DVID instances) only to neurons
 that do not yet have annotation.</p></td>
     </tr>
     <tr>
       <th>group</th>
-      <td><p>Set a specific group id.</p></td>
+      <td><p>Set a specific group id rather than accepting the default.</p></td>
     </tr>
     <tr>
       <th>clio</th>
-      <td><p>Whether push to Clio or not.</p></td>
+      <td><p>Whether to set the Clio group field in addition to DVID.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>One important process in reviewing and annotating neurons is to
+  compare neurons on the left and right side of the malevnc dataset. This can
+  identify neurons that need further proof-reading fixes as well as grouping
+  neurons that may eventually form agreed cell types. At the time of writing
+  (21 Aug 2021) group information is stored in two locations: the DVID
+  instance field and the Clio group field. DVID instance information is being
+  periodically copied to Clio, but for the time being this is not automated.
+  Furthermore it is not trivial to reconcile the two locations if they get
+  out of sync. Therefore we have agreed that DVID will remain the master
+  source of information for the time being.</p>
+<p>DVID left-right groupings are stored in the instance field (for the
+  hemibrain this was more specific than the type field and typically included
+  side of brain information). The convention has been to store the lowest
+  body id in a group followed by an underscore and then the side (L or R) or
+  a letter U to indicate that the neuron is unpaired (sometimes this is UNP).
+  In contrast the Clio group column just contains the lowest bodyid. At this
+  point we assume that the selected bodyid will <em>not</em> change if neurons
+  are added to the group. <code>manc_set_lrgroup</code> will choose the lowest
+  bodyid as the default when setting the group for a set of ids unless a
+  specific <code>group</code> argument is passed.</p>
+<p>Grouping neurons remains a subjective process: while many cases are
+  obvious, there are always edge cases where experts disagree. Therefore it
+  is not necessarily productive to spend extensive amounts of discussion once
+  a designation has been made. Therefore <code>manc_set_lrgroup</code> tries to
+  avoid overriding previous designations unless the user insists. This
+  behaviour can be changed using the <code>Force</code> or <code>Partial</code>. As you
+  might expect <code>Force=TRUE</code> just does what you ask regardless of any
+  existing annotations. Use this sparingly and with caution.</p>
+<p><code>Partial=TRUE</code> is more nuanced and tries to do the right thing when
+  extending a group for which some members already have annotations. The main
+  limitation is that you must pass <em>all</em> the members of the group in
+  your call so that <code>manc_set_lrgroup</code> knows that you are trying to make
+  a compatible annotation.</p>
+<p>Here are some examples of group annotations:</p><ul>
+<li><p><code>10000_R</code>, <code>10000_L</code> for bodyids <code>10000, 10002</code> (the
+  giant fibers)</p></li>
+<li><p><code>13083_U</code> an unpaired neuron.</p></li>
+</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
