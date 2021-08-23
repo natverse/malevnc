@@ -16,9 +16,9 @@ specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
 ensure that query is against the VNC dataset.}
 }
 \value{
-logical with \code{TRUE} if group is complete
+logical \code{TRUE} if group is complete, \code{FALSE} otherwise.
 }
 \description{
-In other words in all neurons from group are represented in \code{body_ids}
-vector.
+In other words if the \code{body_ids} argument contains all neurons in the
+group.
 }
