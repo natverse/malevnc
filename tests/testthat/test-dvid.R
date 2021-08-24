@@ -17,7 +17,7 @@ test_that("manc_dvid_annotations", {
   expect_true(all(is.na(df[,-1])))
 })
 
-test_check("manc_check_group_complete", {
+test_that("manc_check_group_complete", {
   expect_true(manc_check_group_complete(10501, c(10501, 10507, 10627)))
   expect_false(manc_check_group_complete(10501, c(10501, 10507)))
 })
