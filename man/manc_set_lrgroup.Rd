@@ -10,7 +10,8 @@ manc_set_lrgroup(
   Force = FALSE,
   Partial = FALSE,
   group = NA,
-  clio = TRUE
+  clio = TRUE,
+  user = NULL
 )
 }
 \arguments{

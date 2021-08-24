@@ -111,14 +111,17 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #' @return logical \code{TRUE} if group is complete, \code{FALSE} otherwise.
 #'
 #' @importFrom glue glue
+#' @importFrom dplyr filter
 manc_check_group_complete <- function(group_id, body_ids,
                                       conn=manc_neuprint()) {
-  np_bids <- neuprintr::neuprint_search(glue("name:{group_id}_[LR]"),
-                                        conn=conn, meta = F)
+  #np_bids <- neuprintr::neuprint_search(glue("name:{group_id}_[LR]"), conn=conn, meta = F)
+  dvid_annot <- manc_dvid_annotations()
+  dvid_bids <- (dvid_annot %>%
+                filter(grepl(glue("{group_id}_[LR]"), instance)))$bodyid
   # normalize type for comparison
-  np_bids <- as.character(np_bids)
+  dvid_bids <- as.character(dvid_bids)
   body_ids <- as.character(body_ids)
-  all(np_bids %in% body_ids)
+  all(dvid_bids %in% body_ids)
 }
 
 #' Set LR matching groups for neurons in DVID and optionally Clio
@@ -187,7 +190,7 @@ manc_check_group_complete <- function(group_id, body_ids,
 #' manc_set_lrgroup(c(12516, 12706), dryrun=F)
 #' }
 manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
-                             Partial=FALSE, group=NA, clio=TRUE) {
+                             Partial=FALSE, group=NA, clio=TRUE, user=NULL) {
   m=manc_neuprint_meta(ids)
   # nb group is presently encoded in instance/name ...
   if (!all(is.na(m$name)) && !isTRUE(Partial) && !isTRUE(Force))
@@ -222,7 +225,10 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
     print(data.frame(bodyid=m$bodyid, instance=instances))
   else {
     message("Applying DVID instance updates!")
-    mapply(manc_set_dvid_instance, m$bodyid, instances)
+    mapply(
+      function(x) manc_set_dvid_instance(x, user=getOption("malevnc.dvid_user", user)),
+      m$bodyid, instances
+    )
     if(isTRUE(clio)) {
       message("Applying clio group updates!")
       manc_annotate_body(data.frame(bodyid=ids, group=g, stringsAsFactors = F), test=F)
