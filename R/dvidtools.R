@@ -111,7 +111,7 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #' @return logical \code{TRUE} if group is complete, \code{FALSE} otherwise.
 #'
 #' @importFrom glue glue
-#' @importFrom dplyr filter
+#' @importFrom dplyr filter %>%
 manc_check_group_complete <- function(group_id, body_ids,
                                       conn=manc_neuprint()) {
   #np_bids <- neuprintr::neuprint_search(glue("name:{group_id}_[LR]"), conn=conn, meta = F)
