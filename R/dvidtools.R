@@ -180,7 +180,11 @@ manc_check_group_complete <- function(group_id, body_ids,
 #'   that do not yet have annotation.
 #' @param group Set a specific group id rather than accepting the default.
 #' @param clio Whether to set the Clio group field in addition to DVID.
-#' @param user Default DVID user names
+#' @param user Janelia user name to associate with the DVID instance annotation
+#'   (defaults to the value of options("malevnc.dvid_user"), but can be
+#'   overridden by this argument. NB a user must be provided by one of these
+#'   means. If the user has no Janelia id, just use an id of the form
+#'   \code{<surname><firstinitial>} e.g. \code{jefferisg}.
 #'
 #' @export
 #' @examples
@@ -191,7 +195,8 @@ manc_check_group_complete <- function(group_id, body_ids,
 #' manc_set_lrgroup(c(12516, 12706), dryrun=F)
 #' }
 manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
-                             Partial=FALSE, group=NA, clio=TRUE, user=NULL) {
+                             Partial=FALSE, group=NA, clio=TRUE,
+                             user=getOption("malevnc.dvid_user")) {
   m=manc_neuprint_meta(ids)
   # nb group is presently encoded in instance/name ...
   if (!all(is.na(m$name)) && !isTRUE(Partial) && !isTRUE(Force))
@@ -226,10 +231,7 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
     print(data.frame(bodyid=m$bodyid, instance=instances))
   else {
     message("Applying DVID instance updates!")
-    mapply(
-      function(x) manc_set_dvid_instance(x, user=getOption("malevnc.dvid_user", user)),
-      m$bodyid, instances
-    )
+    mapply(manc_set_dvid_instance, m$bodyid, instances, user=user)
     if(isTRUE(clio)) {
       message("Applying clio group updates!")
       manc_annotate_body(data.frame(bodyid=ids, group=g, stringsAsFactors = F), test=F)
