@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set LR matching groups for neurons in DVID and optionally Clio — manc_set_lrgroup • malevnc</title>
+<title>Set Left-Right matching groups for neurons in DVID and optionally Clio — manc_set_lrgroup • malevnc</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Set LR matching groups for neurons in DVID and optionally Clio — manc_set_lrgroup" />
-<meta property="og:description" content="Set LR matching groups for neurons in DVID and optionally Clio" />
+<meta property="og:title" content="Set Left-Right matching groups for neurons in DVID and optionally Clio — manc_set_lrgroup" />
+<meta property="og:description" content="Set Left-Right matching groups for neurons in DVID and optionally Clio" />
 
 
 
@@ -114,13 +114,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set LR matching groups for neurons in DVID and optionally Clio</h1>
+    <h1>Set Left-Right matching groups for neurons in DVID and optionally Clio</h1>
     <small class="dont-index">Source: <a href='https://github.com/flyconnectome/malevnc/blob/master/R/dvidtools.R'><code>R/dvidtools.R</code></a></small>
     <div class="hidden name"><code>manc_set_lrgroup.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Set LR matching groups for neurons in DVID and optionally Clio</p>
+    <p>Set Left-Right matching groups for neurons in DVID and optionally Clio</p>
     </div>
 
     <pre class="usage"><span class='fu'>manc_set_lrgroup</span><span class='op'>(</span>
@@ -130,7 +130,7 @@
   Partial <span class='op'>=</span> <span class='cn'>FALSE</span>,
   group <span class='op'>=</span> <span class='cn'>NA</span>,
   clio <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  user <span class='op'>=</span> <span class='cn'>NULL</span>
+  user <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"malevnc.dvid_user"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -165,7 +165,11 @@ that do not yet have annotation.</p></td>
     </tr>
     <tr>
       <th>user</th>
-      <td><p>Default DVID user names</p></td>
+      <td><p>Janelia user name to associate with the DVID instance annotation
+(defaults to the value of options("malevnc.dvid_user"), but can be
+overridden by this argument. NB a user must be provided by one of these
+means. If the user has no Janelia id, just use an id of the form
+<code>&lt;surname&gt;&lt;firstinitial&gt;</code> e.g. <code>jefferisg</code>.</p></td>
     </tr>
     </table>
 
@@ -184,13 +188,14 @@ that do not yet have annotation.</p></td>
 <p>DVID left-right groupings are stored in the instance field (for the
   hemibrain this was more specific than the type field and typically included
   side of brain information). The convention has been to store the lowest
-  body id in a group followed by an underscore and then the side (L or R) or
-  a letter U to indicate that the neuron is unpaired (sometimes this is UNP).
-  In contrast the Clio group column just contains the lowest bodyid. At this
-  point we assume that the selected bodyid will <em>not</em> change if neurons
-  are added to the group. <code>manc_set_lrgroup</code> will choose the lowest
-  bodyid as the default when setting the group for a set of ids unless a
-  specific <code>group</code> argument is passed.</p>
+  body id in a group followed by an underscore and then the side (<code>L</code> or
+  <code>R</code>) or a letter <code>U</code> to indicate that the neuron is unpaired
+  (sometimes this is <code>UNP</code>). In contrast the Clio group column just
+  contains the lowest bodyid. At this point we assume that the selected
+  bodyid will <em>not</em> change if neurons are added to the group.
+  <code>manc_set_lrgroup</code> will choose the lowest bodyid as the default when
+  setting the group for a set of ids unless a specific <code>group</code> argument
+  is passed.</p>
 <p>Grouping neurons remains a subjective process: while many cases are
   obvious, there are always edge cases where experts disagree. Therefore it
   is not necessarily productive to spend extensive amounts of discussion once
@@ -206,7 +211,7 @@ that do not yet have annotation.</p></td>
   a compatible annotation.</p>
 <p>Here are some examples of group annotations:</p><ul>
 <li><p><code>10000_R</code>, <code>10000_L</code> for bodyids <code>10000, 10002</code> (the
-  giant fibers)</p></li>
+  giant fibre neurons)</p></li>
 <li><p><code>13083_U</code> an unpaired neuron.</p></li>
 </ul>
 
