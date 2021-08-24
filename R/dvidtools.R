@@ -83,7 +83,7 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
   else if(isTRUE(grepl("@", user))) {
     stop("The DVID user should be a janelia username e.g. `jefferisg` rather than an email address!")
   }
-  ann_dict=reticulate::dict(list(instance=instance, "naming user"=user))
+  ann_dict=reticulate::dict(list(instance=instance, "instance_user"=user))
   dt=dvid_tools(node = node)
   bodyidint=try(checkmate::asInt(bodyid, lower = 10000L), silent = TRUE)
   # deal with ids that are only valid as 64 bit ints
@@ -232,6 +232,8 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
     print(data.frame(bodyid=m$bodyid, instance=instances))
   else {
     message("Applying DVID instance updates!")
+    if(is.null(user))
+      stop("Please specify a user or set options(malevnc.dvid_user='<janelia_username>')")
     mapply(manc_set_dvid_instance, m$bodyid, instances, user=user)
     if(isTRUE(clio)) {
       message("Applying clio group updates!")
