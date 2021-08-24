@@ -124,7 +124,7 @@ manc_check_group_complete <- function(group_id, body_ids,
   all(dvid_bids %in% body_ids)
 }
 
-#' Set LR matching groups for neurons in DVID and optionally Clio
+#' Set Left-Right matching groups for neurons in DVID and optionally Clio
 #'
 #' @details One important process in reviewing and annotating neurons is to
 #'   compare neurons on the left and right side of the malevnc dataset. This can
@@ -140,13 +140,14 @@ manc_check_group_complete <- function(group_id, body_ids,
 #'   DVID left-right groupings are stored in the instance field (for the
 #'   hemibrain this was more specific than the type field and typically included
 #'   side of brain information). The convention has been to store the lowest
-#'   body id in a group followed by an underscore and then the side (L or R) or
-#'   a letter U to indicate that the neuron is unpaired (sometimes this is UNP).
-#'   In contrast the Clio group column just contains the lowest bodyid. At this
-#'   point we assume that the selected bodyid will \emph{not} change if neurons
-#'   are added to the group. \code{manc_set_lrgroup} will choose the lowest
-#'   bodyid as the default when setting the group for a set of ids unless a
-#'   specific \code{group} argument is passed.
+#'   body id in a group followed by an underscore and then the side (\code{L} or
+#'   \code{R}) or a letter \code{U} to indicate that the neuron is unpaired
+#'   (sometimes this is \code{UNP}). In contrast the Clio group column just
+#'   contains the lowest bodyid. At this point we assume that the selected
+#'   bodyid will \emph{not} change if neurons are added to the group.
+#'   \code{manc_set_lrgroup} will choose the lowest bodyid as the default when
+#'   setting the group for a set of ids unless a specific \code{group} argument
+#'   is passed.
 #'
 #'   Grouping neurons remains a subjective process: while many cases are
 #'   obvious, there are always edge cases where experts disagree. Therefore it
@@ -166,7 +167,7 @@ manc_check_group_complete <- function(group_id, body_ids,
 #'   Here are some examples of group annotations: \itemize{
 #'
 #'   \item \code{10000_R}, \code{10000_L} for bodyids \code{10000, 10002} (the
-#'   giant fibers)
+#'   giant fibre neurons)
 #'
 #'   \item \code{13083_U} an unpaired neuron.
 #'

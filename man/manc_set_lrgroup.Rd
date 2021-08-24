@@ -2,7 +2,7 @@
 % Please edit documentation in R/dvidtools.R
 \name{manc_set_lrgroup}
 \alias{manc_set_lrgroup}
-\title{Set LR matching groups for neurons in DVID and optionally Clio}
+\title{Set Left-Right matching groups for neurons in DVID and optionally Clio}
 \usage{
 manc_set_lrgroup(
   ids,
@@ -11,7 +11,7 @@ manc_set_lrgroup(
   Partial = FALSE,
   group = NA,
   clio = TRUE,
-  user = NULL
+  user = getOption("malevnc.dvid_user")
 )
 }
 \arguments{
@@ -30,10 +30,14 @@ that do not yet have annotation.}
 
 \item{clio}{Whether to set the Clio group field in addition to DVID.}
 
-\item{user}{Default DVID user names}
+\item{user}{Janelia user name to associate with the DVID instance annotation
+(defaults to the value of options("malevnc.dvid_user"), but can be
+overridden by this argument. NB a user must be provided by one of these
+means. If the user has no Janelia id, just use an id of the form
+\code{<surname><firstinitial>} e.g. \code{jefferisg}.}
 }
 \description{
-Set LR matching groups for neurons in DVID and optionally Clio
+Set Left-Right matching groups for neurons in DVID and optionally Clio
 }
 \details{
 One important process in reviewing and annotating neurons is to
@@ -50,13 +54,14 @@ One important process in reviewing and annotating neurons is to
   DVID left-right groupings are stored in the instance field (for the
   hemibrain this was more specific than the type field and typically included
   side of brain information). The convention has been to store the lowest
-  body id in a group followed by an underscore and then the side (L or R) or
-  a letter U to indicate that the neuron is unpaired (sometimes this is UNP).
-  In contrast the Clio group column just contains the lowest bodyid. At this
-  point we assume that the selected bodyid will \emph{not} change if neurons
-  are added to the group. \code{manc_set_lrgroup} will choose the lowest
-  bodyid as the default when setting the group for a set of ids unless a
-  specific \code{group} argument is passed.
+  body id in a group followed by an underscore and then the side (\code{L} or
+  \code{R}) or a letter \code{U} to indicate that the neuron is unpaired
+  (sometimes this is \code{UNP}). In contrast the Clio group column just
+  contains the lowest bodyid. At this point we assume that the selected
+  bodyid will \emph{not} change if neurons are added to the group.
+  \code{manc_set_lrgroup} will choose the lowest bodyid as the default when
+  setting the group for a set of ids unless a specific \code{group} argument
+  is passed.
 
   Grouping neurons remains a subjective process: while many cases are
   obvious, there are always edge cases where experts disagree. Therefore it
@@ -76,7 +81,7 @@ One important process in reviewing and annotating neurons is to
   Here are some examples of group annotations: \itemize{
 
   \item \code{10000_R}, \code{10000_L} for bodyids \code{10000, 10002} (the
-  giant fibers)
+  giant fibre neurons)
 
   \item \code{13083_U} an unpaired neuron.
 
