@@ -180,6 +180,7 @@ manc_check_group_complete <- function(group_id, body_ids,
 #'   that do not yet have annotation.
 #' @param group Set a specific group id rather than accepting the default.
 #' @param clio Whether to set the Clio group field in addition to DVID.
+#' @param user Default DVID user names
 #'
 #' @export
 #' @examples

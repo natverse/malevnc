@@ -29,6 +29,8 @@ that do not yet have annotation.}
 \item{group}{Set a specific group id rather than accepting the default.}
 
 \item{clio}{Whether to set the Clio group field in addition to DVID.}
+
+\item{user}{Default DVID user names}
 }
 \description{
 Set LR matching groups for neurons in DVID and optionally Clio
