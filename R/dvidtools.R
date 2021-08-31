@@ -232,9 +232,7 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
     print(data.frame(bodyid=m$bodyid, instance=instances))
   else {
     message("Applying DVID instance updates!")
-    if(is.null(user))
-      stop("Please specify a user or set options(malevnc.dvid_user='<janelia_username>')")
-    mapply(manc_set_dvid_instance, m$bodyid, instances, user=user)
+    mapply(manc_set_dvid_instance, m$bodyid, instances, MoreArgs=list(user=user))
     if(isTRUE(clio)) {
       message("Applying clio group updates!")
       manc_annotate_body(data.frame(bodyid=ids, group=g, stringsAsFactors = F), test=F)
