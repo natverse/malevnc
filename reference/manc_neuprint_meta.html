@@ -155,18 +155,18 @@ returned as a character vector of unprocessed JSON.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'>manc_neuprint_meta</span><span class='op'>(</span><span class='st'>"Giant Fiber"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   bodyid  pre post upstream downstream status    statusLabel      class
-#&gt; 1  10000 1033 2016     2016       5150 Traced Roughly traced Descending
-#&gt; 2  10002  934 1948     1948       4606 Traced Roughly traced Descending
-#&gt;            position      voxels cropped hemilineage somaSide somaNeuromere
-#&gt; 1 24481,36044,67070 38743961712   FALSE        None       NA          &lt;NA&gt;
-#&gt; 2 23217,35252,67070 39414880927   FALSE        None       NA          None
-#&gt;   somaLocation somaRadius rootLocation exitNerve    name group rootSide
-#&gt; 1           NA         NA           NA      None 10000_R 10000      RHS
-#&gt; 2           NA         NA           NA      None 10000_L 10000      LHS
-#&gt;   description        type timeStamp birthtime  soma
-#&gt; 1        &lt;NA&gt; Giant Fiber        NA        NA FALSE
-#&gt; 2 Giant fiber Giant Fiber        NA        NA FALSE</div><div class='input'><span class='co'># }</span>
+</div><div class='output co'>#&gt;   bodyid  pre post upstream downstream status    statusLabel      voxels
+#&gt; 1  10000 1033 2016     2016       5150 Traced Roughly traced 38743961712
+#&gt; 2  10002  934 1948     1948       4606 Traced Roughly traced 39414880927
+#&gt;   cropped    name hemilineage somaSide description      class group exitNerve
+#&gt; 1   FALSE 10000_R        None       NA        &lt;NA&gt; Descending 10000      None
+#&gt; 2   FALSE 10000_L        None       NA Giant fiber Descending 10000      None
+#&gt;            position somaNeuromere somaLocation somaRadius rootLocation rootSide
+#&gt; 1 24481,36044,67070          &lt;NA&gt;           NA         NA           NA      RHS
+#&gt; 2 23217,35252,67070          None           NA         NA           NA      LHS
+#&gt;          type timeStamp birthtime  soma
+#&gt; 1 Giant Fiber        NA        NA FALSE
+#&gt; 2 Giant Fiber        NA        NA FALSE</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
