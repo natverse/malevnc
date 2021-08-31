@@ -17,10 +17,22 @@ test_that("manc_dvid_annotations", {
   expect_true(all(is.na(df[,-1])))
 })
 
+test_that("manc_check_group_complete", {
+  expect_true(manc_check_group_complete(10501, c(10501, 10507, 10627)))
+  expect_false(manc_check_group_complete(10501, c(10501, 10507)))
+})
+
 test_that("manc_set_lrgroup", {
   expect_error(manc_set_lrgroup(c(501, 502), Force = T, dryrun = T, clio=FALSE))
   # this is not a real pair, just a neuron on L and R
   expect_output(manc_set_lrgroup(c(10501, 10507), Force = T, dryrun = T, clio=FALSE),
                 "10501_R")
+  # errors without user argument set, don't test if it is set
+  skip_if_not_installed('withr')
+  withr::with_options(list(malevnc.dvid_user=NULL),
+    expect_error(
+      manc_set_lrgroup(c(10501, 10507), Force = T, dryrun = F, clio=FALSE),
+      "Please specify a user"
+  ))
 })
 
