@@ -430,6 +430,6 @@ manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu') {
     df=data.frame(bodyid=manc_ids(ids, unique=unique, as_character = F))
     m=dplyr::left_join(df,m, by='bodyid')
   }
-  m$dvid_group=stringr::str_match(dnds$name, "^([0-9]{5,})_[LRU]")[,2]
+  m$dvid_group=stringr::str_match(m$dvid_instance, "^([0-9]{5,})_[LRU]")[,2]
   m
 }
