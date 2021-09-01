@@ -41,9 +41,7 @@
 
 <meta property="og:title" content="Simplified (and symmetrized) tissue surface of MALEVNC — MANC.tissue.surf" />
 <meta property="og:description" content="MANC.tissue.surf.sym is a symmetrised version of
-  MANC.tissue.surf using symmetric_manc.
-MANC.nerves contains mesh of 31 MANC nerves:
-15 symmetric (&quot;L&quot;/&quot;R&quot;) and &quot;AbNT&quot;." />
+  MANC.tissue.surf using symmetric_manc." />
 
 
 
@@ -125,21 +123,16 @@ MANC.nerves contains mesh of 31 MANC nerves:
     <div class="ref-description">
     <p><code>MANC.tissue.surf.sym</code> is a symmetrised version of
   <code>MANC.tissue.surf</code> using <code><a href='mirror_manc.html'>symmetric_manc</a></code>.</p>
-<p><code>MANC.nerves</code> contains mesh of 31 MANC nerves:
-15 symmetric ("L"/"R") and "AbNT".</p>
     </div>
 
     <pre class="usage"><span class='va'>MANC.tissue.surf</span>
 
-<span class='va'>MANC.tissue.surf.sym</span>
-
-<span class='va'>MANC.nerves</span></pre>
+<span class='va'>MANC.tissue.surf.sym</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>An object of class <code>hxsurf</code> (inherits from <code>list</code>) of length 4.</p>
-<p>An object of class <code>hxsurf</code> (inherits from <code>list</code>) of length 4.</p>
 <p>An object of class <code>hxsurf</code> (inherits from <code>list</code>) of length 4.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -148,11 +141,6 @@ MANC.nerves contains mesh of 31 MANC nerves:
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat'>nat</a></span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/nat/man/wire3d.html'>wire3d</a></span><span class='op'>(</span><span class='va'>MANC.tissue.surf</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/nat/man/wire3d.html'>wire3d</a></span><span class='op'>(</span><span class='va'>MANC.tissue.surf.sym</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Depends on nat</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat'>nat</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/nat/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>MANC.nerves</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
