@@ -33,6 +33,7 @@ Imports:
     httr,
     jsonlite,
     dplyr,
+    rlang,
     bit64,
     gargle,
     utils,
