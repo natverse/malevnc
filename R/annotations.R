@@ -312,9 +312,11 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
       x$auto=TRUE
     } else {
       empty_field <- function(x) {
-        res=apply(x, 2, simplify = FALSE, function(y) {
-          if(is.list(y)) is.na(y) | lengths(y)==0 else is.na(y)
-          })
+        res = lapply(1:ncol(x), function(ny) {
+           y = x[,ny]
+           if(is.list(y)) is.na(y) | lengths(y)==0 else is.na(y)
+         })
+        names(res) <- colnames(x)
         as.data.frame(res)
       }
       rs=rowSums(empty_field(x[, manualfields, drop=F]))
