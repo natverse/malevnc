@@ -1,7 +1,7 @@
 Type: Package
 Package: malevnc
 Title: Support for Working with Janelia FlyEM Male VNC Dataset
-Version: 0.1.1
+Version: 0.1.2
 Authors@R:
     c(person(given = "Gregory",
            family = "Jefferis",
@@ -55,7 +55,7 @@ Enhances:
 URL: https://github.com/flyconnectome/malevnc
 BugReports: https://github.com/flyconnectome/malevnc/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 3.6.0)
 Remotes: 
     natverse/nat,
     natverse/neuprintr,
