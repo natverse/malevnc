@@ -112,7 +112,7 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #'
 #' @importFrom glue glue
 #' @importFrom dplyr filter %>%
-#' @importFrom rlang .data
+#' @importFrom dplyr .data
 manc_check_group_complete <- function(group_id, body_ids,
                                       conn=manc_neuprint()) {
   #np_bids <- neuprintr::neuprint_search(glue("name:{group_id}_[LR]"), conn=conn, meta = F)
