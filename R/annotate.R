@@ -86,15 +86,13 @@ find_bodyid_in_list <- function(bodyid, querylist) {
 # annotations
 compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   body_ids <- sapply(x, function(x) x$bodyid)
-  clio_annots <- manc_body_annotations(body_ids, test = test)
+  clio_annots <- manc_body_annotations(body_ids,
+                                       update.bodyids = FALSE,
+                                       test = test)
+  clio_annots <- clio_annots %>% filter(!is.na(bodyid))
   clio_annots$status <- NULL # not needed here
   # nothing to compare
   if (length(clio_annots) == 0) return(x)
-  # we compare using body id provided by user
-  if ("original.bodyid" %in% colnames(clio_annots)) {
-    clio_annots$bodyid <- clio_annots$original.bodyid
-    clio_annots$original.bodyid <- NULL
-  }
   out_list <- list()
   diff_bodyids <- setdiff(body_ids, clio_annots$bodyid)
   clio_annots <- clioannotationdf2list(clio_annots,
