@@ -14,13 +14,13 @@
 #' @examples
 #' dnals=manc_leg_summary(c(10126, 10118))
 #' dnals
-#' manc_leg_summary(c(10126, 10118), long=T)
-#' heatmap(data.matrix(dnals[grep("_down", colnames(dnals))]),
+#' manc_leg_summary(c(10126, 10118), long=TRUE)
+#' heatmap(data.matrix(dnals[grep("_out", colnames(dnals))]),
 #'   Colv = NA, scale = 'none')
 #'
 #' \donttest{
 #' dnls=manc_leg_summary('class:Descending')
-#' heatmap(data.matrix(dnls[grep("_down", colnames(dnls))]),
+#' heatmap(data.matrix(dnls[grep("_out", colnames(dnls))]),
 #'   Colv = NA, scale = 'none')
 #' }
 manc_leg_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
