@@ -195,6 +195,7 @@ manc_check_group_complete <- function(group_id, body_ids,
 #' # apply
 #' manc_set_lrgroup(c(12516, 12706), dryrun=F)
 #' }
+#' @importFrom stats na.omit
 manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
                              Partial=FALSE, group=NA, clio=TRUE,
                              user=getOption("malevnc.dvid_user")) {

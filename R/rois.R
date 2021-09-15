@@ -42,6 +42,8 @@ manc_leg_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
   for(i in seq_along(res2)[-1]) res2[[i]]=as.integer(res2[[i]])
   res2$bodyid=as.numeric(res2$bodyid)
   if (isTRUE(long)) {
+    if(!requireNamespace('tidyr'))
+      stop("Please install suggested package tidyr!\n")
     res2 %>%
       tidyr::pivot_longer(cols = -1, values_to = 'weight') %>%
       mutate(
@@ -62,6 +64,7 @@ manc_leg_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
 #' @rdname manc_leg_summary
 #' @examples
 #' manc_side_summary('Giant Fiber')
+#' @importFrom dplyr mutate select
 manc_side_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
   ids=manc_ids(ids, as_character = F)
   res=neuprintr::neuprint_get_roiInfo(ids, conn = conn)
