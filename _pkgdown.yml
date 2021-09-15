@@ -60,6 +60,7 @@ reference:
 - title: Connectivity
   contents:
   - '`manc_connection_table`'
+  - '`manc_leg_summary`'
 - title: Meshes, Skeletons and Geometry
   contents:
   - '`read_draco_meshes`'
