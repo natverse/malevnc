@@ -21,7 +21,9 @@ ensure that query is against the VNC dataset.}
 }
 \value{
 a data.frame with one row per neuron (when \code{long=FALSE}) or one
-  row per roi/IO combination (when \code{long=TRUE}).
+  row per ROI/IO combination (when \code{long=TRUE}). Note that \code{out}
+  columns refer to output synapses from the given bodyid onto downstream
+  partners.
 }
 \description{
 \code{manc_leg_summary} summarises I/O in the main leg

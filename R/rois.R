@@ -6,7 +6,9 @@
 #' @inheritParams manc_connection_table
 #'
 #' @return a data.frame with one row per neuron (when \code{long=FALSE}) or one
-#'   row per roi/IO combination (when \code{long=TRUE}).
+#'   row per ROI/IO combination (when \code{long=TRUE}). Note that \code{out}
+#'   columns refer to output synapses from the given bodyid onto downstream
+#'   partners.
 #' @export
 #'
 #' @examples
@@ -28,10 +30,11 @@ manc_leg_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
   colstokeep=c("bodyid", legcols)
   res2=res[colstokeep]
   newlegcols=sub(".*(T[1-3]).+([LR]).+(down|up)stream", "\\1\\2_\\3", legcols)
+  newlegcols=sub("down", "out", newlegcols)
+  newlegcols=sub("up", "in", newlegcols)
   colnames(res2)[-1]=newlegcols
-  goodlegcols=c("T1L_down", "T1L_up", "T1R_down", "T1R_up", "T2L_down", "T2L_up",
-                "T2R_down", "T2R_up", "T3L_down", "T3L_up", "T3R_down", "T3R_up"
-  )
+  goodlegcols=c("T1L_in", "T1L_out", "T1R_in", "T1R_out", "T2L_in", "T2L_out",
+                "T2R_in", "T2R_out", "T3L_in", "T3L_out", "T3R_in", "T3R_out")
   missing=setdiff(goodlegcols, colnames(res2))
   res2[,missing]=0
   res2=res2[c("bodyid", goodlegcols)]
@@ -68,10 +71,10 @@ manc_side_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
   lucols=grepl("\\(L\\).upstream", colnames(res))
 
   res2=data.frame(bodyid=as.numeric(res$bodyid),
-                  L_down=as.integer(rowSums(res[ldcols])),
-                  L_up=as.integer(rowSums(res[lucols])),
-                  R_down=as.integer(rowSums(res[rdcols])),
-                  R_up=as.integer(rowSums(res[rucols]))
+                  L_in=as.integer(rowSums(res[lucols])),
+                  L_out=as.integer(rowSums(res[ldcols])),
+                  R_in=as.integer(rowSums(res[rucols])),
+                  R_out=as.integer(rowSums(res[rdcols]))
                   )
   res2[-1][is.na(res2[-1])]=0
   if (isTRUE(long)) {
