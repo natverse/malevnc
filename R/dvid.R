@@ -64,7 +64,9 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
     cds=clio_datasets(cached=cached)
     clio_node=mbv[pmatch(cds$VNC$uuid, mbv)]
     if(is.na(clio_node) && cached) {
-      mbv=manc_branch_versions(cached=F)
+      # can't find the node: most likely a DVID commit has just happened
+      memoise::forget(manc_branch_versions)
+      mbv=manc_branch_versions()
       clio_node=mbv[pmatch(cds$VNC$uuid, mbv)]
     }
     if(is.na(clio_node))
