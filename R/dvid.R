@@ -124,13 +124,15 @@ expand_dvid_nodes <- function(nodes) {
 }
 
 # return the chain of nodes between the root and the current head
-# not too clever: someday we might want to use a proper graph traversal
-# specifying the nodes
+# using manc_branch_versions
 # can optionally specify a different root or head node
 manc_node_chain <- function(root=NULL, head=NULL) {
   dagdf=manc_dvid_nodeinfo()
   dagdf=dagdf[order(dagdf$VersionID),,drop=F]
   dagdf=dagdf[nchar(dagdf$Children)>0 | !dagdf$Locked, ]
+  # restrict to descendants of the current HEAD
+  mbv=manc_branch_versions()
+  dagdf=dagdf[dagdf$UUID %in% mbv, ]
 
   if(!is.null(head)) {
     stopversion <- if(is.integer(head)) head
