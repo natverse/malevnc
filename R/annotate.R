@@ -89,6 +89,7 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   clio_annots <- manc_body_annotations(body_ids,
                                        update.bodyids = FALSE,
                                        test = test)
+  if (length(clio_annots) == 0) return(x)
   clio_annots <- clio_annots %>% filter(!is.na(bodyid))
   clio_annots$status <- NULL # not needed here
   # nothing to compare
