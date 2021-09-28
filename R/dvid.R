@@ -10,6 +10,17 @@ manc_dvid_info <-
 })
 
 
+manc_branch_versions <-
+  memoise::memoise(cache = cachem::cache_mem(max_age = 3600),
+                   function() {
+                     rootnode = "1ec355123bf94e588557a4568d26d258"
+                     u = manc_serverurl("api/repo/%s/branch-versions/master", rootnode)
+                     info = try(jsonlite::fromJSON(readLines(u, warn = F)))
+                     if (inherits(info, 'try-error'))
+                       stop("Failed to read DVID branch versions information!")
+                     info
+                   })
+
 #' Information about DVID nodes / return latest node
 #'
 #' @description \code{manc_dvid_node} returns the latest DVID node in use with a
@@ -40,11 +51,26 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
       stop("Unable to find neuprint node")
     return(node)
   }
-  mdn=manc_dvid_nodeinfo(cached=cached)
+
+  if(!isTRUE(cached))
+    memoise::forget(manc_branch_versions)
+  mbv=manc_branch_versions()
+  if(type=='neutu') {
+    return(mbv[1])
+  }
+
   # For clio ignore any unlocked node by setting the version to 0
-  if(type=="clio")
-    mdn$VersionID[!mdn$Locked]=0
-  mdn$UUID[which.max(mdn$VersionID)]
+  if(type=="clio") {
+    cds=clio_datasets(cached=cached)
+    clio_node=mbv[pmatch(cds$VNC$uuid, mbv)]
+    if(is.na(clio_node) && cached) {
+      mbv=manc_branch_versions(cached=F)
+      clio_node=mbv[pmatch(cds$VNC$uuid, mbv)]
+    }
+    if(is.na(clio_node))
+      stop("Unable to establish full length clio node: ", cds$VNC$uuid)
+    clio_node
+  }
 }
 
 #' @rdname manc_dvid_node
