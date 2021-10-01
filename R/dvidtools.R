@@ -112,12 +112,13 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
 #'
 #' @importFrom glue glue
 #' @importFrom dplyr filter %>%
+#' @importFrom dplyr .data
 manc_check_group_complete <- function(group_id, body_ids,
                                       conn=manc_neuprint()) {
   #np_bids <- neuprintr::neuprint_search(glue("name:{group_id}_[LR]"), conn=conn, meta = F)
   dvid_annot <- manc_dvid_annotations()
   dvid_bids <- (dvid_annot %>%
-                filter(grepl(glue("{group_id}_[LR]"), instance)))$bodyid
+                filter(grepl(glue("{group_id}_[LR]"), .data$instance)))$bodyid
   # normalize type for comparison
   dvid_bids <- as.character(dvid_bids)
   body_ids <- as.character(body_ids)
@@ -186,7 +187,7 @@ manc_check_group_complete <- function(group_id, body_ids,
 #'   overridden by this argument. NB a user must be provided by one of these
 #'   means. If the user has no Janelia id, just use an id of the form
 #'   \code{<surname><firstinitial>} e.g. \code{jefferisg}.
-#'
+#' @importFrom stats na.omit
 #' @export
 #' @examples
 #' \dontrun{
