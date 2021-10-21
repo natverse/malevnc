@@ -428,7 +428,7 @@ manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu') {
   # prefer DVID annotations when dup columns exist
   # mba=mba[union("bodyid", setdiff(colnames(mba), colnames(mda)))]
   m=merge(mda, mba, by='bodyid', sort = FALSE, all.x = T, all.y = T)
-  m$bodyid=neuprintr:::id2char(m$bodyid) # to be sure
+  m$bodyid=manc_ids(m$bodyid, as_character = T) # to be sure
   if(!is.null(ids)) {
     df=data.frame(bodyid=manc_ids(ids, unique=unique, as_character = T))
     m=dplyr::left_join(df,m, by='bodyid')
