@@ -62,7 +62,14 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
   # For clio ignore any unlocked node by setting the version to 0
   if(type=="clio") {
     cds=clio_datasets(cached=cached)
-    clio_node=mbv[pmatch(cds$VNC$uuid, mbv)]
+    if(is.null(cds$VNC))
+      stop("Unable to access VNC data set via clio. Please check your clio authorisation!")
+    clio_uuid=cds$VNC$uuid
+    if(is.null(clio_uuid))
+      stop("Unable to identify VNC clio UUID from datasets reported by clio server!\n",
+           "I recommend asking @katzw/@jefferis what's up on #clio-ui\n",
+           "https://flyem-cns.slack.com/archives/C01MYQ1AQ5D")
+    clio_node=mbv[pmatch(clio_uuid, mbv)]
     if(is.na(clio_node) && cached) {
       # can't find the node: most likely a DVID commit has just happened
       memoise::forget(manc_branch_versions)
