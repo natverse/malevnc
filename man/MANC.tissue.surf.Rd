@@ -4,8 +4,11 @@
 \name{MANC.tissue.surf}
 \alias{MANC.tissue.surf}
 \alias{MANC.tissue.surf.sym}
+\alias{MANC.nerves}
 \title{Simplified (and symmetrized) tissue surface of MALEVNC}
 \format{
+An object of class \code{hxsurf} (inherits from \code{list}) of length 4.
+
 An object of class \code{hxsurf} (inherits from \code{list}) of length 4.
 
 An object of class \code{hxsurf} (inherits from \code{list}) of length 4.
@@ -14,10 +17,15 @@ An object of class \code{hxsurf} (inherits from \code{list}) of length 4.
 MANC.tissue.surf
 
 MANC.tissue.surf.sym
+
+MANC.nerves
 }
 \description{
 \code{MANC.tissue.surf.sym} is a symmetrised version of
   \code{MANC.tissue.surf} using \code{\link{symmetric_manc}}.
+
+\code{MANC.nerves} contains mesh of 31 MANC nerves:
+15 symmetric ("L"/"R") and "AbNT".
 }
 \examples{
 \dontrun{
@@ -25,6 +33,11 @@ MANC.tissue.surf.sym
 library(nat)
 wire3d(MANC.tissue.surf)
 wire3d(MANC.tissue.surf.sym)
+}
+\dontrun{
+# Depends on nat
+library(nat)
+plot3d(MANC.nerves)
 }
 }
 \keyword{datasets}
