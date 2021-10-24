@@ -99,8 +99,10 @@ manc_nodespec <- function(nodes, include_first=NA, several.ok=TRUE) {
     nodes=manc_node_chain()
   } else {
     nodes=gsub("(master|neutu)", manc_dvid_node("neutu"), nodes)
-    nodes=gsub("clio", manc_dvid_node('clio'), nodes)
-    nodes=gsub("neuprint", manc_dvid_node('clio'), nodes)
+    if(grepl("clio", nodes))
+      nodes=gsub("clio", manc_dvid_node('clio'), nodes)
+    if(grepl("neuprint", nodes))
+      nodes=gsub("neuprint", manc_dvid_node('clio'), nodes)
 
     if(any(grepl(":", nodes))) {
       nn=unlist(strsplit(nodes, ":", fixed=T))
