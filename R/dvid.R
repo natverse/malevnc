@@ -1,7 +1,6 @@
 manc_dvid_info <-
   memoise::memoise(cache = cachem::cache_mem(max_age = 3600),
-                   function() {
-  rootnode = "1ec355123bf94e588557a4568d26d258"
+                   function(rootnode = getOption("malevnc.rootnode")) {
   u = manc_serverurl("api/repo/%s/info", rootnode)
   info = try(jsonlite::fromJSON(readLines(u, warn = F)))
   if (inherits(info, 'try-error'))
@@ -13,7 +12,7 @@ manc_dvid_info <-
 manc_branch_versions <-
   memoise::memoise(cache = cachem::cache_mem(max_age = 3600),
                    function() {
-                     rootnode = "1ec355123bf94e588557a4568d26d258"
+                     rootnode = getOption("malevnc.rootnode")
                      u = manc_serverurl("api/repo/%s/branch-versions/master", rootnode)
                      info = try(jsonlite::fromJSON(readLines(u, warn = F)))
                      if (inherits(info, 'try-error'))
