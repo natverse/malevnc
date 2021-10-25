@@ -290,6 +290,7 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
     stop("Your dataframe must contain a bodyid column")
   if(!all(fafbseg:::valid_id(x$bodyid)))
     stop("Your dataframe must contain valid bodyids for every row")
+  x$bodyid=manc_ids(x$bodyid, integer64 = TRUE)
 
   # Handle any special fields
 
@@ -330,7 +331,10 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
   }
 
   # turns it into a list of lists
+  i64class=class(x$bodyid)
   x=purrr::transpose(x)
+  fix_bodyid <- function(x) {class(x[['bodyid']]) <-i64class; x}
+  x=purrr::map(x, fix_bodyid)
   purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !any(is.na(x)) && any(nzchar(x)))
   if(!write_empty_fields)
     x=purrr::map(x, purge_empty)
