@@ -78,7 +78,7 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
 extract_int64_bodyid <- function(x, field="bodyid") {
   stopifnot(is.list(x) && !is.data.frame(x))
   # pre-allocate
-  bodyids=rep(bit64::as.integer64(NA), length(x))
+  bodyids=rep(as.integer64(NA), length(x))
   # because sapply messes int64 class ...
   for(i in seq_along(x)) {
     bodyids[i]=x[[i]]$bodyid
