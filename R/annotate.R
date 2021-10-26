@@ -73,14 +73,6 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   clio_fetch(url, body=bodyj, ...)
 }
 
-# return index of a list element containing \code{bodyid}
-find_bodyid_in_list <- function(bodyid, querylist) {
-  index <- which(sapply(querylist, function(x) x$bodyid == bodyid))
-  if (length(index) == 0) stop(paste0("No body ID (",
-                                      bodyid,
-                                      ") found in list."))
-  index
-}
 
 # extracts an int64 bodyid from a list
 extract_int64_bodyid <- function(x, field="bodyid") {
@@ -106,18 +98,20 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   clio_annots$status <- NULL # not needed here
   # nothing to compare
   if (length(clio_annots) == 0) return(x)
-  out_list <- list()
-  diff_bodyids <- setdiff(body_ids, clio_annots$bodyid)
+
+  diff_bodyids <- body_ids[!body_ids %in% clio_annots$bodyid]
   clio_annots <- clioannotationdf2list(clio_annots,
                                        write_empty_fields = write_empty_fields)
   # in case of missing body ids we add it to the list
-  for (bid in diff_bodyids) {
-    idx = find_bodyid_in_list(bid, x)
-    out_list[length(out_list)+1] <- x[idx]
-  }
+  idxs=match(diff_bodyids, body_ids)
+  if(any(is.na(idxs)))
+    stop("Unable to find matches for some ids in annotation list")
+  out_list=x[idxs]
   # check differences between fields of clio_annots and x
   delta_list <- lapply(clio_annots, function(from_cl) {
-    idx <- find_bodyid_in_list(from_cl$bodyid, x)
+    idx <- match(from_cl$bodyid, body_ids)
+    if(is.na(idx))
+      stop("Unable to find a match for ", from_cl$bodyid, "in annotation list")
     to_cl <- x[[idx]]
     subset_to_cl <- lapply(names(to_cl), function(nm) {
       if (!(nm %in% names(from_cl)) ||
