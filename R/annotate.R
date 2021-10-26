@@ -82,10 +82,22 @@ find_bodyid_in_list <- function(bodyid, querylist) {
   index
 }
 
+# extracts an int64 bodyid from a list
+extract_int64_bodyid <- function(x, field="bodyid") {
+  stopifnot(is.list(x) && !is.data.frame(x))
+  # pre-allocate
+  bodyids=rep(bit64::as.integer64(NA), length(x))
+  # because sapply messes int64 class ...
+  for(i in seq_along(x)) {
+    bodyids[i]=x[[i]]$bodyid
+  }
+  bodyids
+}
+
 # Returns list with fields that are different from Clio
 # annotations
 compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
-  body_ids <- sapply(x, function(x) x$bodyid)
+  body_ids <- extract_int64_bodyid(x)
   clio_annots <- manc_body_annotations(body_ids,
                                        update.bodyids = FALSE,
                                        test = test)
