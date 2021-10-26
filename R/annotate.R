@@ -88,6 +88,7 @@ extract_int64_bodyid <- function(x, field="bodyid") {
 
 # Returns list with fields that are different from Clio
 # annotations
+#' @importFrom bit64 %in%
 compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   body_ids <- extract_int64_bodyid(x)
   clio_annots <- manc_body_annotations(body_ids,
