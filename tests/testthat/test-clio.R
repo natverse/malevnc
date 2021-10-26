@@ -3,6 +3,19 @@ test_that("manc_body_annotations works", {
           message = "no clio token available")
   expect_s3_class(mba <- manc_body_annotations(ids=11442), 'data.frame')
   expect_equal(mba$bodyid, 11442)
+
+  expect_error(manc_annotate_body(data.frame(bodyid="9223372036854775809", entry_nerve='None'), test = T))
+  expect_error(manc_annotate_body(data.frame(bodyid=9223372036854775803, entry_nerve='None'), test = T))
+
+  expect_silent(manc_annotate_body(data.frame(
+    bodyid = 2 ^ 52,
+    entry_nerve = 'None'
+  ), test = T))
+
+  expect_silent(manc_annotate_body(
+    data.frame(bodyid = "9223372036854775803", entry_nerve = 'None'),
+    test = T
+  ))
 })
 
 test_that("compute_clio_delta works", {
@@ -103,7 +116,7 @@ test_that("manc_point_annotations/clioannotationdf2list works", {
   )
 
  expect_known_hash(cliolist <- clioannotationdf2list(ansforuploadsample),
-                    "76f0ba44b7")
+                    "b57d0a3fdf")
   # a row with only bodyid should be dropped
   ansforuploadsample[5,'bodyid']=1
   expect_equal(clioannotationdf2list(ansforuploadsample), cliolist)
