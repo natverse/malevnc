@@ -172,7 +172,7 @@ clio_fetch <- function(url, config=NULL, ..., body=NULL, query=NULL, json=FALSE)
   }
   httr::stop_for_status(resp)
   res=httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
-  if(json) res else jsonlite::fromJSON(res)
+  if(json) res else jsonlite::fromJSON(res, bigint_as_char=TRUE)
 }
 
 clio_fetch_memo <- memoise::memoise(clio_fetch, ~memoise::timeout(5*60))
