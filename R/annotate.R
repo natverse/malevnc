@@ -100,7 +100,8 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   # nothing to compare
   if (length(clio_annots) == 0) return(x)
 
-  diff_bodyids <- body_ids[!body_ids %in% clio_annots$bodyid]
+  # nb making sure that we have 64 bit ids on each side
+  diff_bodyids <- body_ids[!body_ids %in% manc_ids(clio_annots$bodyid, integer64 = T)]
   clio_annots <- clioannotationdf2list(clio_annots,
                                        write_empty_fields = write_empty_fields)
   # in case of missing body ids we add it to the list
