@@ -73,19 +73,24 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   clio_fetch(url, body=bodyj, ...)
 }
 
-# return index of a list element containing \code{bodyid}
-find_bodyid_in_list <- function(bodyid, querylist) {
-  index <- which(sapply(querylist, function(x) x$bodyid == bodyid))
-  if (length(index) == 0) stop(paste0("No body ID (",
-                                      bodyid,
-                                      ") found in list."))
-  index
+
+# extracts an int64 bodyid from a list
+extract_int64_bodyid <- function(x, field="bodyid") {
+  stopifnot(is.list(x) && !is.data.frame(x))
+  # pre-allocate
+  bodyids=rep(as.integer64(NA), length(x))
+  # because sapply messes int64 class ...
+  for(i in seq_along(x)) {
+    bodyids[i]=x[[i]]$bodyid
+  }
+  bodyids
 }
 
 # Returns list with fields that are different from Clio
 # annotations
+#' @importFrom bit64 %in%
 compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
-  body_ids <- sapply(x, function(x) x$bodyid)
+  body_ids <- extract_int64_bodyid(x)
   clio_annots <- manc_body_annotations(body_ids,
                                        update.bodyids = FALSE,
                                        test = test)
@@ -94,18 +99,21 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   clio_annots$status <- NULL # not needed here
   # nothing to compare
   if (length(clio_annots) == 0) return(x)
-  out_list <- list()
-  diff_bodyids <- setdiff(body_ids, clio_annots$bodyid)
+
+  # nb making sure that we have 64 bit ids on each side
+  diff_bodyids <- body_ids[!body_ids %in% manc_ids(clio_annots$bodyid, integer64 = T)]
   clio_annots <- clioannotationdf2list(clio_annots,
                                        write_empty_fields = write_empty_fields)
   # in case of missing body ids we add it to the list
-  for (bid in diff_bodyids) {
-    idx = find_bodyid_in_list(bid, x)
-    out_list[length(out_list)+1] <- x[idx]
-  }
+  idxs=match(diff_bodyids, body_ids)
+  if(any(is.na(idxs)))
+    stop("Unable to find matches for some ids in annotation list")
+  out_list=x[idxs]
   # check differences between fields of clio_annots and x
   delta_list <- lapply(clio_annots, function(from_cl) {
-    idx <- find_bodyid_in_list(from_cl$bodyid, x)
+    idx <- match(from_cl$bodyid, body_ids)
+    if(is.na(idx))
+      stop("Unable to find a match for ", from_cl$bodyid, "in annotation list")
     to_cl <- x[[idx]]
     subset_to_cl <- lapply(names(to_cl), function(nm) {
       if (!(nm %in% names(from_cl)) ||
@@ -290,6 +298,7 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
     stop("Your dataframe must contain a bodyid column")
   if(!all(fafbseg:::valid_id(x$bodyid)))
     stop("Your dataframe must contain valid bodyids for every row")
+  x$bodyid=manc_ids(x$bodyid, integer64 = TRUE)
 
   # Handle any special fields
 
@@ -330,7 +339,10 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
   }
 
   # turns it into a list of lists
+  i64class=class(x$bodyid)
   x=purrr::transpose(x)
+  fix_bodyid <- function(x) {class(x[['bodyid']]) <-i64class; x}
+  x=purrr::map(x, fix_bodyid)
   purge_empty <- function(x) purrr::keep(x, .p=function(x) length(x)>0 && !any(is.na(x)) && any(nzchar(x)))
   if(!write_empty_fields)
     x=purrr::map(x, purge_empty)

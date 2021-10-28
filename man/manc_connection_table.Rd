@@ -22,7 +22,8 @@ probably clearer.}
 
 \item{prepost}{\code{PRE}: look for partners presynaptic (i.e upstream
 inputs) or \code{POST}: postsynaptic (downstream outputs) to the given
-\code{bodyids}}
+\code{bodyids}. NB this is redundant to the \code{partners} argument and
+you should only use one.}
 
 \item{moredetails}{Whether to include additional metadata information such as
 hemilineage, side etc.}
