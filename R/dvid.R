@@ -42,6 +42,10 @@ manc_branch_versions <-
 #' }
 manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached=TRUE) {
   type=match.arg(type)
+  dsname=getOption('malevnc.dataset')
+  if(is.null(dsname))
+    stop("The package option malevnc.dataset is unset. Please set or manually reload package!")
+
   if(type=='neuprint') {
     vncc=manc_neuprint()
     ds=neuprintr::neuprint_datasets(cache = cached, conn=vncc)
@@ -61,11 +65,14 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
   # For clio ignore any unlocked node by setting the version to 0
   if(type=="clio") {
     cds=clio_datasets(cached=cached)
-    if(is.null(cds$VNC))
-      stop("Unable to access VNC data set via clio. Please check your clio authorisation!")
-    clio_uuid=cds$VNC$uuid
+    ds=cds[[dsname]]
+    if(is.null(ds))
+      stop("Unable to access ",dsname,
+           " data set via clio. Please check your clio authorisation!")
+    clio_uuid=ds$uuid
     if(is.null(clio_uuid))
-      stop("Unable to identify VNC clio UUID from datasets reported by clio server!\n",
+      stop("Unable to identify ",dsname,
+           " clio UUID from datasets reported by clio server!\n",
            "I recommend asking @katzw/@jefferis what's up on #clio-ui\n",
            "https://flyem-cns.slack.com/archives/C01MYQ1AQ5D")
     clio_node=mbv[pmatch(clio_uuid, mbv)]
@@ -73,10 +80,10 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
       # can't find the node: most likely a DVID commit has just happened
       memoise::forget(manc_branch_versions)
       mbv=manc_branch_versions()
-      clio_node=mbv[pmatch(cds$VNC$uuid, mbv)]
+      clio_node=mbv[pmatch(ds$uuid, mbv)]
     }
     if(is.na(clio_node))
-      stop("Unable to establish full length clio node: ", cds$VNC$uuid)
+      stop("Unable to establish full length clio node: ", ds$uuid)
     clio_node
   }
 }
