@@ -47,9 +47,9 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
     stop("The package option malevnc.dataset is unset. Please set or manually reload package!")
 
   if(type=='neuprint') {
-    vncc=manc_neuprint()
+    vncc=manc_neuprint(dataset=tolower(dsname))
     ds=neuprintr::neuprint_datasets(cache = cached, conn=vncc)
-    node=ds$vnc$uuid
+    node=ds[[tolower(dsname)]]$uuid
     if(is.null(node))
       stop("Unable to find neuprint node")
     return(node)
