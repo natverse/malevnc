@@ -166,7 +166,7 @@ soma annotations. Default is to include duplicates when
       <th>somatags</th>
       <td><p>Which annotations to include. The default is to include both
 <code>"soma"</code> and  <code>"tosoma"</code> tags (see details). <code>"all"</code> is an
-alias for <code><a href='https://rdrr.io/r/base/c.html'>c("soma", "tosoma", "root")</a></code>.</p></td>
+alias for <code>c("soma", "tosoma", "root")</code>.</p></td>
     </tr>
     <tr>
       <th>node</th>
@@ -226,15 +226,17 @@ contents of <code><a href='mancsomapos.html'>mancsomapos</a></code>.</p></td>
     <div class='dont-index'><p>supersedes <code><a href='mancsomapos.html'>mancsomapos</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='co'># just the XYZ position</span>
-<span class='fu'>manc_somapos</span><span class='op'>(</span><span class='fl'>10000</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       X  Y  Z
-#&gt; [1,] NA NA NA</div><div class='input'><span class='co'># with details including data source</span>
-<span class='fu'>manc_somapos</span><span class='op'>(</span><span class='fl'>10000</span>, details<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   bodyid  n  X  Y  Z source  tag
-#&gt; 1  10000 NA NA NA NA   &lt;NA&gt; &lt;NA&gt;</div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='co'># just the XYZ position</span></span>
+<span class='r-in'><span class='fu'>manc_somapos</span><span class='op'>(</span><span class='fl'>10000</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       X  Y  Z</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] NA NA NA</span>
+<span class='r-in'><span class='co'># with details including data source</span></span>
+<span class='r-in'><span class='fu'>manc_somapos</span><span class='op'>(</span><span class='fl'>10000</span>, details<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   bodyid  n  X  Y  Z source  tag</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  10000 NA NA NA NA   &lt;NA&gt; &lt;NA&gt;</span>
+<span class='r-in'><span class='co'># }</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -149,47 +149,50 @@ function.</p>
     <div class='dont-index'><p><code><a href='manc_somapos.html'>manc_somapos</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   n       X       Y       Z   kind                from                  to
-#&gt; 1 0 10001.0 36763.5 46320.5 sphere 10003, 37134, 46349  9999, 36393, 46292
-#&gt; 2 1 10009.5 29856.5 47550.0 sphere 10005, 30224, 47596 10014, 29489, 47504
-#&gt; 3 2 10024.5 34098.5 46376.5 sphere 10023, 33709, 46408 10026, 34488, 46345
-#&gt; 4 3 10033.0 30955.5 46816.5 sphere 10030, 31279, 46820 10036, 30632, 46813
-#&gt; 5 4 10035.0 31212.5 45065.5 sphere 10044, 31800, 45134 10026, 30625, 44997
-#&gt; 6 5 10038.5 33255.0 46336.0 sphere 10044, 33633, 46370 10033, 32877, 46302
-#&gt;   comment
-#&gt; 1        
-#&gt; 2        
-#&gt; 3        
-#&gt; 4        
-#&gt; 5        
-#&gt; 6        </div><div class='input'>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat'>nat</a></span><span class='op'>)</span>
-<span class='fu'>points3d</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/nat/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/boundingbox.html'>boundingbox</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># nm</span>
-<span class='fu'><a href='https://rdrr.io/pkg/nat/man/summary.neuron.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>8</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        X                Y                Z         
-#&gt;  Min.   : 62972   Min.   : 38648   Min.   :  9200  
-#&gt;  1st Qu.:146692   1st Qu.:146800   1st Qu.:112064  
-#&gt;  Median :180020   Median :227600   Median :250064  
-#&gt;  Mean   :184656   Mean   :221344   Mean   :246494  
-#&gt;  3rd Qu.:227312   3rd Qu.:301964   3rd Qu.:354780  
-#&gt;  Max.   :303640   Max.   :372024   Max.   :530840  </div><div class='input'><span class='co'># microns</span>
-<span class='fu'><a href='https://rdrr.io/pkg/nat/man/summary.neuron.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>125</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        X                Y                Z        
-#&gt;  Min.   : 62.97   Min.   : 38.65   Min.   :  9.2  
-#&gt;  1st Qu.:146.69   1st Qu.:146.80   1st Qu.:112.1  
-#&gt;  Median :180.02   Median :227.60   Median :250.1  
-#&gt;  Mean   :184.66   Mean   :221.34   Mean   :246.5  
-#&gt;  3rd Qu.:227.31   3rd Qu.:301.96   3rd Qu.:354.8  
-#&gt;  Max.   :303.64   Max.   :372.02   Max.   :530.8  </div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># find bodyid for all somata</span>
-<span class='va'>mancsomapos</span><span class='op'>$</span><span class='va'>bodyid</span><span class='op'>=</span><span class='fu'><a href='manc_xyz2bodyid.html'>manc_xyz2bodyid</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   n       X       Y       Z   kind                from                  to</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0 10001.0 36763.5 46320.5 sphere 10003, 37134, 46349  9999, 36393, 46292</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 1 10009.5 29856.5 47550.0 sphere 10005, 30224, 47596 10014, 29489, 47504</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 2 10024.5 34098.5 46376.5 sphere 10023, 33709, 46408 10026, 34488, 46345</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 3 10033.0 30955.5 46816.5 sphere 10030, 31279, 46820 10036, 30632, 46813</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 4 10035.0 31212.5 45065.5 sphere 10044, 31800, 45134 10026, 30625, 44997</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 5 10038.5 33255.0 46336.0 sphere 10044, 33633, 46370 10033, 32877, 46302</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   comment</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6        </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat'>nat</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html'>points3d</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/nat/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/boundingbox.html'>boundingbox</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># nm</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/nat/man/summary.neuron.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>8</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        X                Y                Z         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Min.   : 62972   Min.   : 38648   Min.   :  9200  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1st Qu.:146692   1st Qu.:146800   1st Qu.:112064  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Median :180020   Median :227600   Median :250064  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Mean   :184656   Mean   :221344   Mean   :246494  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  3rd Qu.:227312   3rd Qu.:301964   3rd Qu.:354780  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Max.   :303640   Max.   :372024   Max.   :530840  </span>
+<span class='r-in'><span class='co'># microns</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/nat/man/summary.neuron.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/xyzmatrix.html'>xyzmatrix</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>125</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        X                Y                Z        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Min.   : 62.97   Min.   : 38.65   Min.   :  9.2  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1st Qu.:146.69   1st Qu.:146.80   1st Qu.:112.1  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Median :180.02   Median :227.60   Median :250.1  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Mean   :184.66   Mean   :221.34   Mean   :246.5  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  3rd Qu.:227.31   3rd Qu.:301.96   3rd Qu.:354.8  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Max.   :303.64   Max.   :372.02   Max.   :530.8  </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># find bodyid for all somata</span></span>
+<span class='r-in'><span class='va'>mancsomapos</span><span class='op'>$</span><span class='va'>bodyid</span><span class='op'>=</span><span class='fu'><a href='manc_xyz2bodyid.html'>manc_xyz2bodyid</a></span><span class='op'>(</span><span class='va'>mancsomapos</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -212,16 +212,16 @@ errors from Neuroglancer when attempting to use the annotation layer.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/browseURL.html'>browseURL</a></span><span class='op'>(</span><span class='fu'>manc_scene</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># copy scene information with a sample neuron to the clipboard</span>
-<span class='fu'>clipr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/clipr/man/write_clip.html'>write_clip</a></span><span class='op'>(</span><span class='fu'>manc_scene</span><span class='op'>(</span>ids<span class='op'>=</span><span class='fl'>13749</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># JSON fragment that could be copied into Clio</span>
-<span class='fu'>clipr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/clipr/man/write_clip.html'>write_clip</a></span><span class='op'>(</span><span class='fu'>manc_scene</span><span class='op'>(</span>return.json <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/browseURL.html'>browseURL</a></span><span class='op'>(</span><span class='fu'>manc_scene</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># copy scene information with a sample neuron to the clipboard</span></span>
+<span class='r-in'><span class='fu'>clipr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/clipr/man/write_clip.html'>write_clip</a></span><span class='op'>(</span><span class='fu'>manc_scene</span><span class='op'>(</span>ids<span class='op'>=</span><span class='fl'>13749</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># JSON fragment that could be copied into Clio</span></span>
+<span class='r-in'><span class='fu'>clipr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/clipr/man/write_clip.html'>write_clip</a></span><span class='op'>(</span><span class='fu'>manc_scene</span><span class='op'>(</span>return.json <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

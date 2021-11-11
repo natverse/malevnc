@@ -158,16 +158,16 @@ install_dvid_tools installs the python dvid_tools module" />
   <a href='https://emdata5.janelia.org/api/help/'>https://emdata5.janelia.org/api/help/</a> for further details.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>dt</span><span class='op'>=</span><span class='fu'>dvid_tools</span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>dt</span>
-<span class='co'># nb must explicity use integers for bodyids</span>
-<span class='va'>dt</span><span class='op'>$</span><span class='fu'>get_annotation</span><span class='op'>(</span>bodyid <span class='op'>=</span> <span class='fl'>10000L</span><span class='op'>)</span>
-
-<span class='co'># get detailed help</span>
-<span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reticulate/man/py_help.html'>py_help</a></span><span class='op'>(</span><span class='va'>dt</span><span class='op'>$</span><span class='va'>get_adjacency</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>dt</span><span class='op'>=</span><span class='fu'>dvid_tools</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>dt</span></span>
+<span class='r-in'><span class='co'># nb must explicity use integers for bodyids</span></span>
+<span class='r-in'><span class='va'>dt</span><span class='op'>$</span><span class='fu'>get_annotation</span><span class='op'>(</span>bodyid <span class='op'>=</span> <span class='fl'>10000L</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># get detailed help</span></span>
+<span class='r-in'><span class='fu'>reticulate</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reticulate/man/py_help.html'>py_help</a></span><span class='op'>(</span><span class='va'>dt</span><span class='op'>$</span><span class='va'>get_adjacency</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
