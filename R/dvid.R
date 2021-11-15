@@ -132,11 +132,11 @@ manc_nodespec <- function(nodes, include_first=NA, several.ok=TRUE) {
 }
 
 expand_dvid_nodes <- function(nodes) {
-  mnc=manc_node_chain()
-  matches=pmatch(nodes, mnc)
+  allnodes=manc_dvid_nodeinfo()$UUID
+  matches=pmatch(nodes, allnodes)
   if(any(is.na(matches)))
     stop("Unable to identify some DVID nodes:", paste(nodes[is.na(matches)], collapse = ' '))
-  mnc[matches]
+  allnodes[matches]
 }
 
 # return the chain of nodes between the root and the current head
