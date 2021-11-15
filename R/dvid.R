@@ -143,7 +143,7 @@ expand_dvid_nodes <- function(nodes) {
 # return the chain of nodes between the root and the current head
 # using manc_branch_versions
 # can optionally specify a different root or head node
-manc_node_chain <- function(root=NULL, head=NULL) {
+manc_node_chain <- function(root=getOption('malevnc.rootnode'), head=NULL) {
   dagdf=manc_dvid_nodeinfo()
   dagdf=dagdf[order(dagdf$VersionID),,drop=F]
   dagdf=dagdf[nchar(dagdf$Children)>0 | !dagdf$Locked, ]
