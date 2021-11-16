@@ -15,8 +15,14 @@
 #' plot(cumsum(sort(anchormeta$pre, decreasing = TRUE)), ylab='Cumulative presynapses')
 #' plot(cumsum(sort(anchormeta$post, decreasing = TRUE)), ylab='Cumulative postsynapses')
 #' }
+#' @importFrom neuprintr neuprint_login
 manc_neuprint <- function(...) {
-  neuprintr::neuprint_login(server='https://neuprint-pre.janelia.org', dataset = "vnc", token=Sys.getenv("neuprint_token"), ...)
+  neuprint_login(
+    server = getOption('malevnc.neuprint'),
+    dataset = tolower(getOption('malevnc.dataset')),
+    token = Sys.getenv("neuprint_token"),
+    ...
+  )
 }
 
 

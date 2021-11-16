@@ -8,6 +8,9 @@ test_that("manc_nodespec", {
   expect_error(manc_nodespec("all", several.ok = F))
   expect_silent(manc_nodespec("all", several.ok = T))
   expect_silent(manc_nodespec("clio", several.ok = F))
+
+  expect_equal(manc_nodespec("neuprint"),
+               manc_dvid_node("clio"))
 })
 
 test_that("manc_dvid_annotations", {

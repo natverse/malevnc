@@ -207,11 +207,11 @@ clio_email <- memoise::memoise(function(email=getOption("malevnc.clio_email")) {
 }, ~memoise::timeout(5*60))
 
 
-clio_datasets <- function(cached=TRUE) {
+clio_datasets <- function(cached=TRUE, json=FALSE) {
   if(cached)
-    clio_fetch_memo(clio_url('v2/datasets'))
+    clio_fetch_memo(clio_url('v2/datasets'), json=json)
   else
-    clio_fetch(clio_url('v2/datasets'))
+    clio_fetch(clio_url('v2/datasets'), json=json)
 }
 
 clio_version <- function(version=NULL) {

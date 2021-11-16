@@ -6,9 +6,7 @@
 \alias{malevnc-package}
 \title{malevnc: Support for Working with Janelia FlyEM Male VNC Dataset}
 \description{
-Will provide regional surface meshes and template
-    brain support for the Janelia FlyEM / Hess lab male VNC data set
-    currently for which proofreading started Autumn 2020.
+Will provide regional surface meshes and template brain support for the Janelia FlyEM / Hess lab male VNC data set currently for which proofreading started Autumn 2020.
 }
 \section{Package Options}{
  \itemize{
