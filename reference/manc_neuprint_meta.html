@@ -155,18 +155,18 @@ returned as a character vector of unprocessed JSON.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
 <span class='r-in'><span class='fu'>manc_neuprint_meta</span><span class='op'>(</span><span class='st'>"Giant Fiber"</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   bodyid  pre post upstream downstream status    statusLabel cropped    name</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  10000 1033 2016     2016       5150 Traced Roughly traced   FALSE 10000_R</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  10002  934 1948     1948       4606 Traced Roughly traced   FALSE 10000_L</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   hemilineage somaSide      class group          position somaNeuromere</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        None       NA Descending 10000 24481,36044,67070          &lt;NA&gt;</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2        None       NA Descending 10000 23217,35252,67070          None</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   birthtime somaLocation somaRadius rootLocation      voxels        type</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        NA           NA         NA           NA 38743961712 Giant Fiber</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2        NA           NA         NA           NA 39414880927 Giant Fiber</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   description exitNerve timeStamp rootSide longTract  soma</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 Giant fiber      None        NA      RHS        NA FALSE</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 Giant fiber      None        NA      LHS        NA FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   bodyid  pre post upstream downstream status    statusLabel      voxels</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  10000 1033 2016     2016       5150 Traced Roughly traced 38743961712</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  10002  934 1948     1948       4606 Traced Roughly traced 39414880927</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   cropped    name hemilineage somaSide description      class group</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   FALSE 10000_R        None       NA Giant fiber Descending 10000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   FALSE 10000_L        None       NA Giant fiber Descending 10000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            position somaNeuromere birthtime somaLocation somaRadius</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 24481,36044,67070          &lt;NA&gt;        NA           NA         NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 23217,35252,67070          None        NA           NA         NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   rootLocation exitNerve rootSide timeStamp        type longTract  soma</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1           NA      None      RHS        NA Giant Fiber        NA FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2           NA      None      LHS        NA Giant Fiber        NA FALSE</span>
 <span class='r-in'><span class='co'># }</span></span>
 </pre>
   </div>
