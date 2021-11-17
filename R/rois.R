@@ -74,10 +74,10 @@ manc_side_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
   lucols=grepl("\\(L\\).upstream", colnames(res))
 
   res2=data.frame(bodyid=as.numeric(res$bodyid),
-                  L_in=as.integer(rowSums(res[lucols])),
-                  L_out=as.integer(rowSums(res[ldcols])),
-                  R_in=as.integer(rowSums(res[rucols])),
-                  R_out=as.integer(rowSums(res[rdcols]))
+                  L_in=as.integer(rowSums(res[lucols], na.rm=T)),
+                  L_out=as.integer(rowSums(res[ldcols], na.rm=T)),
+                  R_in=as.integer(rowSums(res[rucols], na.rm=T)),
+                  R_out=as.integer(rowSums(res[rdcols], na.rm=T))
                   )
   res2[-1][is.na(res2[-1])]=0
   if (isTRUE(long)) {
