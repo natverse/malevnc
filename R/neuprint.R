@@ -115,17 +115,27 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
   if(is.logical(moredetails))
     moredetails=ifelse(moredetails, 'neuprint', 'minimal')
   moredetails=match.arg(moredetails, c("all", 'neuprint', 'minimal'))
-  if(moredetails=='minimal')
-    res
-  else if(moredetails=='all') {
+  if(moredetails=='all') {
     details=manc_meta(res$partner, unique = F)
     stopifnot(all(res$partner==details$bodyid))
-    cbind(res, details[setdiff(colnames(details), "bodyid")])
-  } else {
+    res=cbind(res, details[setdiff(colnames(details), "bodyid")])
+  } else if (moredetails!='minimal'){
     details=manc_neuprint_meta(unique(res$partner), conn=conn)
-    merge(res, details[c("bodyid", setdiff(colnames(details), colnames(res)))],
+    res=merge(res, details[c("bodyid", setdiff(colnames(details), colnames(res)))],
           by.x='partner', by.y='bodyid', all.x = T, sort = F)
   }
+  add_top_nt(res)
+}
+
+add_top_nt <- function(x, nts=c("acetylcholine","gaba","glutamate","neither")) {
+  if(!all(nts %in% colnames(x)))
+    return(x)
+
+  top.col=max.col(x[nts], ties.method = "first")
+  clean_nts=sub(".+\\.","", nts)
+  x[,'top.nt']=factor(clean_nts[top.col])
+  x[,'top.p']=do.call(pmax, as.list(x[nts]))
+  x
 }
 
 
