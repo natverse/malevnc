@@ -129,7 +129,7 @@ manc_side_summary summarises connections within all of
   the ROIs that have an L or R designation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>manc_leg_summary</span><span class='op'>(</span><span class='va'>ids</span>, long <span class='op'>=</span> <span class='cn'>FALSE</span>, conn <span class='op'>=</span> <span class='fu'><a href='manc_neuprint.html'>manc_neuprint</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>manc_leg_summary</span><span class='op'>(</span><span class='va'>ids</span>, long <span class='op'>=</span> <span class='cn'>FALSE</span>, other <span class='op'>=</span> <span class='cn'>FALSE</span>, conn <span class='op'>=</span> <span class='fu'><a href='manc_neuprint.html'>manc_neuprint</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'>manc_side_summary</span><span class='op'>(</span><span class='va'>ids</span>, long <span class='op'>=</span> <span class='cn'>FALSE</span>, conn <span class='op'>=</span> <span class='fu'><a href='manc_neuprint.html'>manc_neuprint</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
@@ -144,6 +144,11 @@ manc_side_summary summarises connections within all of
     <tr>
       <th>long</th>
       <td><p>Whether to return results in wide (default) or long format.</p></td>
+    </tr>
+    <tr>
+      <th>other</th>
+      <td><p>Whether to return the sum of all other neuropils as an extra
+column <code>other</code>.</p></td>
     </tr>
     <tr>
       <th>conn</th>
