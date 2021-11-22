@@ -5,7 +5,7 @@
 \alias{manc_side_summary}
 \title{Simple summaries of which regions different neurons innervate}
 \usage{
-manc_leg_summary(ids, long = FALSE, conn = manc_neuprint())
+manc_leg_summary(ids, long = FALSE, other = FALSE, conn = manc_neuprint())
 
 manc_side_summary(ids, long = FALSE, conn = manc_neuprint())
 }
@@ -14,6 +14,9 @@ manc_side_summary(ids, long = FALSE, conn = manc_neuprint())
 \code{\link{manc_ids}}}
 
 \item{long}{Whether to return results in wide (default) or long format.}
+
+\item{other}{Whether to return the sum of all other neuropils as an extra
+column \code{other}.}
 
 \item{conn}{Optional, a \code{\link{neuprint_connection}} object, which also
 specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
