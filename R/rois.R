@@ -3,6 +3,8 @@
 #' @description \code{manc_leg_summary} summarises I/O in the main leg
 #'   neuropils.
 #' @param long Whether to return results in wide (default) or long format.
+#' @param other Whether to return the sum of all other neuropils as an extra
+#'   column \code{other}.
 #' @inheritParams manc_connection_table
 #'
 #' @return a data.frame with one row per neuron (when \code{long=FALSE}) or one
@@ -23,7 +25,7 @@
 #' heatmap(data.matrix(dnls[grep("_out", colnames(dnls))]),
 #'   Colv = NA, scale = 'none')
 #' }
-manc_leg_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
+manc_leg_summary <- function(ids, long=FALSE, other=FALSE, conn=manc_neuprint()) {
   ids=manc_ids(ids)
   res=neuprintr::neuprint_get_roiInfo(ids, conn = conn)
   legcols=grep("IntNp.*T[1-3].+stream", colnames(res), value = T)
@@ -41,6 +43,10 @@ manc_leg_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
   res2[-1][is.na(res2[-1])]=0
   for(i in seq_along(res2)[-1]) res2[[i]]=as.integer(res2[[i]])
   res2$bodyid=as.numeric(res2$bodyid)
+  if(isTRUE(other)) {
+    res2$other=as.integer(rowSums(res[setdiff(colnames(res), colstokeep)], na.rm = T))
+  }
+
   if (isTRUE(long)) {
     if(!requireNamespace('tidyr'))
       stop("Please install suggested package tidyr!\n")
