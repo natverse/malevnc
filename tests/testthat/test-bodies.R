@@ -3,4 +3,8 @@ test_that("manc_mutations", {
                   'data.frame')
   expect_equal(manc_size(10000, node = '19fdf756b8c9477bbba4432482348c47'),
                38743961712)
+
+  expect_equal(manc_size(c(10000,10002)),
+               manc_size(c(10000,10002),chunksize = 1))
+
 })

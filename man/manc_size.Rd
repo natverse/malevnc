@@ -4,7 +4,7 @@
 \alias{manc_size}
 \title{Return the size (in voxels) of specified bodies}
 \usage{
-manc_size(ids, node = "neutu")
+manc_size(ids, node = "neutu", chunksize = 5000L, ...)
 }
 \arguments{
 \item{ids}{A set of body ids in any form understandable to
@@ -12,6 +12,10 @@ manc_size(ids, node = "neutu")
 
 \item{node}{A DVID node (defaults to the current neutu node, see
 \code{\link{manc_dvid_node}})}
+
+\item{chunksize}{Split requests into chunks of maximum this size}
+
+\item{...}{Additional arguments passed to \code{\link{pbsapply}}}
 }
 \value{
 Numeric vector of voxel sizes
@@ -23,4 +27,8 @@ Return the size (in voxels) of specified bodies
 manc_size(10056)
 # zero as doesn't exist
 manc_size(10000056)
+\dontrun{
+# try splitting up
+ids=manc_size("class:Ascending Interneuron", chunksize=500L, cl=4)
+}
 }

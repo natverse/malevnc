@@ -184,6 +184,8 @@ manc_islatest_sparsevol <- function(ids, node, ...) {
 #' Return the size (in voxels) of specified bodies
 #'
 #' @inheritParams manc_islatest
+#' @param chunksize Split requests into chunks of maximum this size
+#' @param ... Additional arguments passed to \code{\link{pbsapply}}
 #' @return Numeric vector of voxel sizes
 #' @export
 #'
@@ -191,10 +193,23 @@ manc_islatest_sparsevol <- function(ids, node, ...) {
 #' manc_size(10056)
 #' # zero as doesn't exist
 #' manc_size(10000056)
-manc_size <- function(ids, node="neutu") {
+#' \dontrun{
+#' # try splitting up
+#' ids=manc_size("class:Ascending Interneuron", chunksize=500L, cl=4)
+#' }
+manc_size <- function(ids, node="neutu", chunksize=5000L, ...) {
   # we don't want them to look like character
   node=manc_nodespec(node, several.ok = F)
   ids <- manc_ids(ids, integer64 = T, unique=FALSE)
+  checkmate::assert_integerish(length(ids), lower = 1L, len = 1L)
+  if(length(ids)>chunksize) {
+    ids <- manc_ids(ids, as_character = T)
+    chunknums=floor((seq_along(ids)-1)/chunksize)+1
+    chunkedx=split(ids, chunknums)
+    res=pbapply::pbsapply(chunkedx, manc_size, chunksize=Inf, node=node, ...)
+    return(unname(res))
+  }
+
   bodyj=jsonlite::toJSON(ids)
   sizes=manc_get("api/node/%s/segmentation/sizes", body=bodyj, urlargs=list(node))
   if(length(sizes)!=length(ids))
