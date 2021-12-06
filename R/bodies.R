@@ -188,6 +188,8 @@ manc_islatest_sparsevol <- function(ids, node, ...) {
 #' @param ... Additional arguments passed to \code{\link{pbsapply}}
 #' @return Numeric vector of voxel sizes
 #' @export
+#' @seealso \code{\link{manc_neuprint_meta}} which returns the size of objects
+#'   recorded in neuprint. This is much faster when up to date.
 #'
 #' @examples
 #' manc_size(10056)

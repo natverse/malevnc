@@ -32,3 +32,7 @@ manc_size(10000056)
 ids=manc_size("class:Ascending Interneuron", chunksize=500L, cl=4)
 }
 }
+\seealso{
+\code{\link{manc_neuprint_meta}} which returns the size of objects
+  recorded in neuprint. This is much faster when up to date.
+}
