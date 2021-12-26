@@ -57,6 +57,7 @@ reference:
   - '`manc_annotate_body`'
   - '`manc_annotate_soma`'
   - '`manc_set_lrgroup`'
+  - '`manc_check_group_complete`'
 - title: Connectivity
   contents:
   - '`manc_connection_table`'
