@@ -8,7 +8,7 @@ manc_scene(
   ids = NULL,
   node = "clio",
   open = FALSE,
-  basescene = c("2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
+  basescene = c("2022-01-13", "2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
   server = c("clio", "appspot", "janelia"),
   return.json = FALSE
 )
