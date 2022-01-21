@@ -4,7 +4,13 @@
 \alias{manc_meta}
 \title{Return full metadata from Clio/DVID for MANC bodyids (cached by default)}
 \usage{
-manc_meta(ids = NULL, cache = TRUE, unique = FALSE, node = "neutu")
+manc_meta(
+  ids = NULL,
+  cache = TRUE,
+  unique = FALSE,
+  node = "neutu",
+  update.bodyids = FALSE
+)
 }
 \arguments{
 \item{ids}{bodyids specified in any form accepted by \code{\link{manc_ids}}}
@@ -17,6 +23,9 @@ manc_meta(ids = NULL, cache = TRUE, unique = FALSE, node = "neutu")
 \item{node}{A DVID node as returned by \code{\link{manc_dvid_node}}. The
 default is to return the current active (unlocked) node being used through
 neutu.}
+
+\item{update.bodyids}{Whether to update the bodyid associated with
+annotations based on the position field.}
 }
 \value{
 A data.frame with columns determined by

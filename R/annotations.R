@@ -420,11 +420,12 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
 #' manc_meta('Giant Fiber')
 #' manc_meta(10002)
 #' }
-manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu') {
+manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu', update.bodyids=FALSE) {
   mda=manc_dvid_annotations(ids = ids, cache=cache, node=node)
   cols2rename=colnames(mda)!='bodyid'
   colnames(mda)[cols2rename]=paste0("dvid_", colnames(mda)[cols2rename])
-  mba=manc_body_annotations(ids, cache=cache, update.bodyids = node)
+  if(isTRUE(update.bodyids)) update.bodyids=node
+  mba=manc_body_annotations(ids, cache=cache, update.bodyids = update.bodyids)
   # prefer DVID annotations when dup columns exist
   # mba=mba[union("bodyid", setdiff(colnames(mba), colnames(mda)))]
   m <- if(isTRUE(nrow(mba)>0))
