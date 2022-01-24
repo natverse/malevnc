@@ -21,6 +21,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -33,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2.9000</span>
       </span>
     </div>
 
@@ -54,10 +56,10 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://natverse.github.io">natverse</a>
+  <a href="https://natverse.github.io" class="external-link">natverse</a>
 </li>
 <li>
-  <a href="https://github.com/flyconnectome/malevnc/">
+  <a href="https://github.com/flyconnectome/malevnc/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -74,100 +76,111 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="malevnc" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#malevnc" class="anchor"></a>malevnc</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="malevnc">malevnc<a class="anchor" aria-label="anchor" href="#malevnc"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>The goal of malevnc is to provide a package to support analysis on the Janelia male VNC dataset aka (MANC). Note that this package points to private resources made available by the male VNC project led by the FlyEM team at Janelia. You will therefore need appropriate authorisation both to install the package from github and access the data.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can install the development version of malevnc from github:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"natmanager"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"natmanager"</span><span class="op">)</span>
 <span class="fu">natmanager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span>pkgs<span class="op">=</span><span class="st">"flyconnectome/malevnc"</span><span class="op">)</span></code></pre></div>
-<p>Note that you must have been given access to the <a href="https://github.com/flyconnectome/malevnc/">github repository</a> and have a GitHub Personal Access Token (PAT) set up in order to install the library for as long as it remains private. Do :</p>
-<pre><code>natmanager::check_pat()</code></pre>
+<p>Note that you must have been given access to the <a href="https://github.com/flyconnectome/malevnc/" class="external-link">github repository</a> and have a GitHub Personal Access Token (PAT) set up in order to install the library for as long as it remains private. Do :</p>
+<pre><code><span class="fu">natmanager</span><span class="fu">::</span><span class="fu">check_pat</span><span class="op">(</span><span class="op">)</span></code></pre>
 <p>to check and follow the instructions if necessary to create. Should you run into any errors with that (there have been some significant changes at github recently), you can also try:</p>
-<pre><code><a href="https://usethis.r-lib.org/reference/github-token.html">usethis::create_github_token()</a></code></pre>
-<p>See <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html" class="uri">https://usethis.r-lib.org/articles/articles/git-credentials.html</a> for the gory details.</p>
-<div id="authentication" class="section level3">
-<h3 class="hasAnchor">
-<a href="#authentication" class="anchor"></a>Authentication</h3>
-<p>Access to neuprint / Clio then depends on authorisation. For neuprint, please see <a href="https://github.com/natverse/neuprintr#authentication" class="uri">https://github.com/natverse/neuprintr#authentication</a>; you only need to set the <code>neuprint_token</code> environment variable, which is available after logging in to the neuprint website. For Clio, you will prompted to authenticate via a Google OAuth “dance” in your web browser. Note that the Clio and neuprint tokens look similar, but are <em>not</em> the same. Note also that the neuprint token appears to be indefinite while the clio token currently lasts 3 weeks.</p>
+<pre><code><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">create_github_token</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<p>See <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html" class="external-link uri">https://usethis.r-lib.org/articles/articles/git-credentials.html</a> for the gory details.</p>
+<div class="section level3">
+<h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
+</h3>
+<p>Access to neuprint / Clio then depends on authorisation. For neuprint, please see <a href="https://github.com/natverse/neuprintr#authentication" class="external-link uri">https://github.com/natverse/neuprintr#authentication</a>; you only need to set the <code>neuprint_token</code> environment variable, which is available after logging in to the neuprint website. For Clio, you will prompted to authenticate via a Google OAuth “dance” in your web browser. Note that the Clio and neuprint tokens look similar, but are <em>not</em> the same. Note also that the neuprint token appears to be indefinite while the clio token currently lasts 3 weeks.</p>
 </div>
-<div id="registrations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#registrations" class="anchor"></a>Registrations</h3>
+<div class="section level3">
+<h3 id="registrations">Registrations<a class="anchor" aria-label="anchor" href="#registrations"></a>
+</h3>
 <p>Running the symmetrising/bridging registrations currently depends on CMTK. To use these you will need a CMTK installation.</p>
 <ul>
-<li>For MacOS X use the dmg from <a href="https://www.nitrc.org/projects/cmtk/" class="uri">https://www.nitrc.org/projects/cmtk/</a>
+<li>For MacOS X use the dmg from <a href="https://www.nitrc.org/projects/cmtk/" class="external-link uri">https://www.nitrc.org/projects/cmtk/</a>
 </li>
-<li>For windows, I recommend Cygwin install. See <a href="https://natverse.org/nat/articles/Installation.html#cmtk-nat-on-windows" class="uri">https://natverse.org/nat/articles/Installation.html#cmtk-nat-on-windows</a> for details.</li>
-<li>For Linux I recommend compiling or using <a href="http://neuro.debian.net/pkgs/cmtk.html">neurodebian</a>.</li>
+<li>For windows, I recommend Cygwin install. See <a href="https://natverse.org/nat/articles/Installation.html#cmtk-nat-on-windows" class="external-link uri">https://natverse.org/nat/articles/Installation.html#cmtk-nat-on-windows</a> for details.</li>
+<li>For Linux I recommend compiling or using <a href="http://neuro.debian.net/pkgs/cmtk.html" class="external-link">neurodebian</a>.</li>
 </ul>
 <p>Check that the natverse has found CMTK like so:</p>
-<pre><code><a href="https://rdrr.io/pkg/nat/man/cmtk.bindir.html">nat::cmtk.bindir()
-nat::cmtk.dof2mat(version = T)</a></code></pre>
+<pre><code><span class="fu">nat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/cmtk.bindir.html" class="external-link">cmtk.bindir</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">nat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/cmtk.dof2mat.html" class="external-link">cmtk.dof2mat</a></span><span class="op">(</span>version <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre>
 </div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>You can check everything is working like so:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat">nat</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/flyconnectome/malevnc">malevnc</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html">plot3d</a></span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat" class="external-link">nat</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/flyconnectome/malevnc" class="external-link">malevnc</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="fu"><a href="reference/manc_dvid_annotations.html">manc_dvid_annotations</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">naming_user</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="reference/manc_dvid_annotations.html">manc_dvid_annotations</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">naming_user</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/flyconnectome/malevnc/">https://​github.com/​flyconnectome/​malevnc/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/flyconnectome/malevnc/issues">https://​github.com/​flyconnectome/​malevnc/​issues</a>
-</li>
+<li><a href="https://github.com/flyconnectome/malevnc/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/flyconnectome/malevnc/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Gregory Jefferis <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0587-9355" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing malevnc</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/flyconnectome/malevnc/actions"><img src="https://github.com/flyconnectome/malevnc/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://flyconnectome.github.io/malevnc/reference/"><img src="https://img.shields.io/badge/docs-100%25-brightgreen.svg" alt="Docs"></a></li>
+<li>Gregory Jefferis <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0587-9355" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/flyconnectome/malevnc/actions" class="external-link"><img src="https://github.com/flyconnectome/malevnc/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://flyconnectome.github.io/malevnc/reference/" class="external-link"><img src="https://img.shields.io/badge/docs-100%25-brightgreen.svg" alt="Docs"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Gregory Jefferis.</p>
+  <p></p>
+<p>Developed by Gregory Jefferis.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -175,6 +188,8 @@ nat::cmtk.dof2mat(version = T)</a></code></pre>
 
   
 
+
+  
 
   </body>
 </html>
