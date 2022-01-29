@@ -6,6 +6,7 @@
 \usage{
 manc_set_lrgroup(
   ids,
+  sides = NULL,
   dryrun = TRUE,
   Force = FALSE,
   Partial = FALSE,
@@ -16,6 +17,9 @@ manc_set_lrgroup(
 }
 \arguments{
 \item{ids}{A set of body ids belonging to the same group}
+
+\item{sides}{Optional character vector specifying the sides (L,R,U) for the
+given \code{ids}. Will be taken from neuprint by default.}
 
 \item{dryrun}{When \code{TRUE}, the default, show what will happen rather
 than applying the annotations.}

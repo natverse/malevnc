@@ -174,6 +174,8 @@ manc_check_group_complete <- function(group_id, body_ids,
 #'
 #'   }
 #' @param ids A set of body ids belonging to the same group
+#' @param sides Optional character vector specifying the sides (L,R,U) for the
+#'   given \code{ids}. Will be taken from neuprint by default.
 #' @param dryrun When \code{TRUE}, the default, show what will happen rather
 #'   than applying the annotations.
 #' @param Force Whether to update DVID instances (and clio group) even when
@@ -197,7 +199,7 @@ manc_check_group_complete <- function(group_id, body_ids,
 #' manc_set_lrgroup(c(12516, 12706), dryrun=F)
 #' }
 #' @importFrom stats na.omit
-manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
+manc_set_lrgroup <- function(ids, sides=NULL, dryrun=TRUE, Force=FALSE,
                              Partial=FALSE, group=NA, clio=TRUE,
                              user=getOption("malevnc.dvid_user")) {
   m=manc_neuprint_meta(ids)
@@ -223,9 +225,11 @@ manc_set_lrgroup <- function(ids, dryrun=TRUE, Force=FALSE,
   if (!is.na(group))
     g <- group
   checkmate::assert_integerish(g, lower = 10000, len=1)
-  sides=m$somaSide
-  if(any(is.na(sides)))
-    sides=m$rootSide
+  if(is.null(sides)) {
+    sides=m$somaSide
+    if(any(is.na(sides)))
+      sides=m$rootSide
+  }
   checkmate::assert_character(sides, len=length(ids), any.missing = F, min.chars = 1)
   sides=substr(sides,1,1)
   instances=paste0(g, "_", sides)
