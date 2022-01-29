@@ -124,7 +124,7 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
     res=merge(res, details[c("bodyid", setdiff(colnames(details), colnames(res)))],
           by.x='partner', by.y='bodyid', all.x = T, sort = F)
   }
-  add_top_nt(res)
+  res
 }
 
 add_top_nt <- function(x, nts=c("acetylcholine","gaba","glutamate","neither")) {
@@ -199,6 +199,7 @@ manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE) {
   # convert to character to handle larger than maxint *and* 100,000
   # which formats to 1e+5 when numeric
   fixeddf$bodyid=as.character(fixeddf$bodyid)
+  fixeddf <- add_top_nt(fixeddf)
   fixeddf
 }
 
