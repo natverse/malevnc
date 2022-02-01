@@ -8,6 +8,6 @@ test_that("manc_meta", {
   expect_true("dvid_group" %in% colnames(res))
   expect_true("hemilineage" %in% colnames(res))
 
-  expect_true(is.data.frame(res2 <- manc_meta(220014)))
+  expect_true(is.data.frame(res2 <- manc_meta(2200014)))
   expect_true(is.na(res2$dvid_status))
 })
