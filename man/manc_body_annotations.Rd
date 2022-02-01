@@ -10,7 +10,7 @@ manc_body_annotations(
   json = FALSE,
   config = NULL,
   cache = FALSE,
-  update.bodyids = TRUE,
+  update.bodyids = FALSE,
   test = FALSE,
   ...
 )
@@ -31,7 +31,8 @@ bearer token)}
 \item{cache}{Whether to cache the result of this call for 5 minutes.}
 
 \item{update.bodyids}{Whether to update the bodyid associated with
-annotations based on the position field.}
+annotations based on the position field. The default value of this has been
+switched to \code{FALSE} as of Feb 2022.}
 
 \item{test}{Whether to unset the clio-store test server (default
 \code{FALSE})}
@@ -51,7 +52,7 @@ An R data.frame or a character vector containing JSON (when
 
   See
   \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1628214375055400}{slack}
-  for details of the position / position type fields. }
+   for details of the position / position type fields. }
 }
 \description{
 Return clio-store body annotations for set of ids or a flexible query

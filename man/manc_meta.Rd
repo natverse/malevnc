@@ -25,7 +25,8 @@ default is to return the current active (unlocked) node being used through
 neutu.}
 
 \item{update.bodyids}{Whether to update the bodyid associated with
-annotations based on the position field.}
+annotations based on the position field. The default value of this has been
+switched to \code{FALSE} as of Feb 2022.}
 }
 \value{
 A data.frame with columns determined by

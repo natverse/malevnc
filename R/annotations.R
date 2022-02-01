@@ -192,7 +192,8 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' @param query A json query string (see examples or documentation) or an R list
 #'   with field names as elements.
 #' @param update.bodyids Whether to update the bodyid associated with
-#'   annotations based on the position field.
+#'   annotations based on the position field. The default value of this has been
+#'   switched to \code{FALSE} as of Feb 2022.
 #' @param config An optional httr::config (expert use only, must include a
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
@@ -213,7 +214,7 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #'
 #'   See
 #'   \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1628214375055400}{slack}
-#'   for details of the position / position type fields. }
+#'    for details of the position / position type fields. }
 #' @export
 #'
 #' @family manc-annotation
@@ -235,7 +236,7 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' mba=manc_body_annotations()
 #' }
 manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
-                                  cache=FALSE, update.bodyids=TRUE, test=FALSE, ...) {
+                                  cache=FALSE, update.bodyids=FALSE, test=FALSE, ...) {
   baseurl=clio_url("v2/json-annotations/VNC/neurons", test=test)
   nmissing=sum(is.null(ids), is.null(query))
   FUN=if(cache) clio_fetch_memo else clio_fetch
