@@ -53,11 +53,16 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
   # seems like we must force authentication on session startup
   if(is.null(.authinfo$expires))
     cache=FALSE
+  app = httr::oauth_app(
+    appname = 'malevnc',
+    key = '838644154009-0e4sr9qgt3jp6k31u0m6jcsifapi62ap.apps.googleusercontent.com',
+    secret = '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')
   token <-
     gargle::token_fetch(
       package = 'malevnc',
       email = getOption("malevnc.clio_email", gargle::gargle_oauth_email()),
       cache = cache,
+      app=app,
       ...
     )
   # scopes = "https://www.googleapis.com/auth/datastore",
