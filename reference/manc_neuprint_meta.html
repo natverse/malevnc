@@ -89,21 +89,21 @@ returned as a character vector of unprocessed JSON.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
 <span class="r-in"><span class="fu">manc_neuprint_meta</span><span class="op">(</span><span class="st">"Giant Fiber"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  pre post upstream downstream status    statusLabel      voxels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 1033 2016     2016       5150 Traced Roughly traced 38743961712</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002  934 1948     1948       4606 Traced Roughly traced 39414880927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        gaba acetylcholine glutamate    neither           timeStamp cropped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1707151     0.5142119 0.2175471 0.09752578 2022-01-20T20:36:22   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.1434814     0.4596285 0.2562304 0.14065966 2022-01-20T20:36:22   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      name hemilineage somaSide      class          position somaNeuromere</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 10000_R        None     &lt;NA&gt; Descending 24481,36044,67070          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 10000_L                      Descending 23217,35252,67070          None</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   birthtime somaLocation group somaRadius rootLocation subclass rootSide</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      &lt;NA&gt;         &lt;NA&gt; 10000         NA         &lt;NA&gt;     &lt;NA&gt;      RHS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt;         &lt;NA&gt; 10000         NA         &lt;NA&gt;     &lt;NA&gt;      LHS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   exitNerve description longTract        type  soma</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      None Giant fiber      &lt;NA&gt; Giant Fiber FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      None Giant fiber      &lt;NA&gt; Giant Fiber FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  pre post upstream downstream status    statusLabel cropped    name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 1033 2016     2016       5150 Traced Roughly traced   FALSE 10000_R</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002  934 1948     1948       4606 Traced Roughly traced   FALSE 10000_L</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   somaSide      class subclass group rootSide          position      voxels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     &lt;NA&gt; Descending     &lt;NA&gt; 10000      RHS 24481,36044,67070 38743961712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     &lt;NA&gt; Descending     &lt;NA&gt; 10000      LHS 23217,35252,67070 39414880927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        gaba acetylcholine glutamate    neither hemilineage exitNerve</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1707151     0.5142119 0.2175471 0.09752578        None      None</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.1434814     0.4596285 0.2562304 0.14065966        &lt;NA&gt;      None</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   somaNeuromere somaLocation somaRadius rootLocation description birthtime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          &lt;NA&gt;         &lt;NA&gt;         NA         &lt;NA&gt; Giant fiber      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          None         &lt;NA&gt;         NA         &lt;NA&gt; Giant fiber      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   timeStamp        type  soma        top.nt     top.p</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      &lt;NA&gt; Giant Fiber FALSE acetylcholine 0.5142119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt; Giant Fiber FALSE acetylcholine 0.4596285</span>
 <span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
