@@ -192,7 +192,8 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' @param query A json query string (see examples or documentation) or an R list
 #'   with field names as elements.
 #' @param update.bodyids Whether to update the bodyid associated with
-#'   annotations based on the position field.
+#'   annotations based on the position field. The default value of this has been
+#'   switched to \code{FALSE} as of Feb 2022.
 #' @param config An optional httr::config (expert use only, must include a
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
@@ -213,7 +214,7 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #'
 #'   See
 #'   \href{https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1628214375055400}{slack}
-#'   for details of the position / position type fields. }
+#'    for details of the position / position type fields. }
 #' @export
 #'
 #' @family manc-annotation
@@ -235,7 +236,7 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' mba=manc_body_annotations()
 #' }
 manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
-                                  cache=FALSE, update.bodyids=TRUE, test=FALSE, ...) {
+                                  cache=FALSE, update.bodyids=FALSE, test=FALSE, ...) {
   baseurl=clio_url("v2/json-annotations/VNC/neurons", test=test)
   nmissing=sum(is.null(ids), is.null(query))
   FUN=if(cache) clio_fetch_memo else clio_fetch
@@ -420,14 +421,17 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
 #' manc_meta('Giant Fiber')
 #' manc_meta(10002)
 #' }
-manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu') {
-  mda=manc_dvid_annotations(cache=cache, node=node)
+manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu', update.bodyids=FALSE) {
+  mda=manc_dvid_annotations(ids = ids, cache=cache, node=node)
   cols2rename=colnames(mda)!='bodyid'
   colnames(mda)[cols2rename]=paste0("dvid_", colnames(mda)[cols2rename])
-  mba=manc_body_annotations(ids, cache=cache, update.bodyids = node)
+  if(isTRUE(update.bodyids)) update.bodyids=node
+  mba=manc_body_annotations(ids, cache=cache, update.bodyids = update.bodyids)
   # prefer DVID annotations when dup columns exist
   # mba=mba[union("bodyid", setdiff(colnames(mba), colnames(mda)))]
-  m=merge(mda, mba, by='bodyid', sort = FALSE, all.x = T, all.y = T)
+  m <- if(isTRUE(nrow(mba)>0))
+    merge(mda, mba, by='bodyid', sort = FALSE, all.x = T, all.y = T)
+  else mda
   m$bodyid=manc_ids(m$bodyid, as_character = T) # to be sure
   if(!is.null(ids)) {
     df=data.frame(bodyid=manc_ids(ids, unique=unique, as_character = T))
