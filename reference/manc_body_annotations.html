@@ -68,7 +68,7 @@
   json <span class="op">=</span> <span class="cn">FALSE</span>,
   config <span class="op">=</span> <span class="cn">NULL</span>,
   cache <span class="op">=</span> <span class="cn">FALSE</span>,
-  update.bodyids <span class="op">=</span> <span class="cn">TRUE</span>,
+  update.bodyids <span class="op">=</span> <span class="cn">FALSE</span>,
   test <span class="op">=</span> <span class="cn">FALSE</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
@@ -92,7 +92,8 @@ bearer token)</p></dd>
 <dd><p>Whether to cache the result of this call for 5 minutes.</p></dd>
 <dt>update.bodyids</dt>
 <dd><p>Whether to update the bodyid associated with
-annotations based on the position field.</p></dd>
+annotations based on the position field. The default value of this has been
+switched to <code>FALSE</code> as of Feb 2022.</p></dd>
 <dt>test</dt>
 <dd><p>Whether to unset the clio-store test server (default
 <code>FALSE</code>)</p></dd>
@@ -109,7 +110,7 @@ annotations based on the position field.</p></dd>
   automatically copied over from DVID without any manual annotation.</p>
 <p>See
   <a href="https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1628214375055400" class="external-link">slack</a>
-  for details of the position / position type fields.</p></li>
+   for details of the position / position type fields.</p></li>
 </ul></div>
     <div id="details">
     <h2>Details</h2>
