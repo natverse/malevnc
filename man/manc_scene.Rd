@@ -8,7 +8,8 @@ manc_scene(
   ids = NULL,
   node = "clio",
   open = FALSE,
-  basescene = c("2022-01-13", "2021-05-05", "2021-05-04", "2021-04-01", "2021-02-01"),
+  basescene = c("2022-04-13", "2022-01-13", "2021-05-05", "2021-05-04", "2021-04-01",
+    "2021-02-01"),
   server = c("clio", "appspot", "janelia"),
   return.json = FALSE
 )
@@ -59,7 +60,8 @@ Neuroglancer scenes can be pasted into a variety of different
  The following scenes (named by the approximate date that we
   started using them) are available. \itemize{
 
-  \item \code{2021-05-05} Like \code{2021-05-04} but with a voxelwise ROI
+\item \code{2022-04-13} Fixed synapses display and segmentation layer v.0.68.
+\item \code{2021-05-05} Like \code{2021-05-04} but with a voxelwise ROI
   segmentation layer copied over from \code{2021-04-01}.
 \item \code{2021-05-04} Added nerves and full VNC (cell body rind) surface
 mesh. See
