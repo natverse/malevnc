@@ -36,10 +36,15 @@ There is an optional 5 minute cache of these lookups (recreated for
   each new R session). The location of each point annotation will by default
   be found using the \code{\link{manc_xyz2bodyid}} function; this will also
   be cached when \code{cache=TRUE}. The default node for these lookups is
-  Clio i.e. the you will get the bodyid reported in Clio. You can also choose
-  to lookup the id for any DVID node, by specifying e.g. \code{node='neutu'}
-  to get the absolute latest node. Of course in theory bodyids with Clio
+  Clio i.e. you will get the bodyid reported in Clio. You can also choose to
+  lookup the id for any DVID node, by specifying e.g. \code{node='neutu'} to
+  get the absolute latest node. Of course in theory bodyids with Clio
   annotations should not be changing ...
+
+  Note that under the hood this uses the \code{malevnc.dataset} option to
+  define the set of annotations to query. You should not normally be setting
+  this option yourself, but it does allow the same functions to repurposed
+  for other datasets eg CNS.
 }
 \examples{
 \dontrun{

@@ -237,7 +237,9 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' }
 manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
                                   cache=FALSE, update.bodyids=FALSE, test=FALSE, ...) {
-  baseurl=clio_url("v2/json-annotations/VNC/neurons", test=test)
+  dataset=getOption('malevnc.dataset', default = 'VNC')
+  baseurl=clio_url(glue("v2/json-annotations/{dataset}/neurons"),
+                   test=test)
   nmissing=sum(is.null(ids), is.null(query))
   FUN=if(cache) clio_fetch_memo else clio_fetch
   if(nmissing==2) {
@@ -346,10 +348,15 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
 #'   each new R session). The location of each point annotation will by default
 #'   be found using the \code{\link{manc_xyz2bodyid}} function; this will also
 #'   be cached when \code{cache=TRUE}. The default node for these lookups is
-#'   Clio i.e. the you will get the bodyid reported in Clio. You can also choose
-#'   to lookup the id for any DVID node, by specifying e.g. \code{node='neutu'}
-#'   to get the absolute latest node. Of course in theory bodyids with Clio
+#'   Clio i.e. you will get the bodyid reported in Clio. You can also choose to
+#'   lookup the id for any DVID node, by specifying e.g. \code{node='neutu'} to
+#'   get the absolute latest node. Of course in theory bodyids with Clio
 #'   annotations should not be changing ...
+#'
+#'   Note that under the hood this uses the \code{malevnc.dataset} option to
+#'   define the set of annotations to query. You should not normally be setting
+#'   this option yourself, but it does allow the same functions to repurposed
+#'   for other datasets eg CNS.
 #'
 #' @param groups Defines a group for which we would like to see all annotations.
 #'   When NULL, only returns annotations for your own user.
@@ -372,7 +379,8 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
 manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FALSE,
                                    bodyid=TRUE, node='clio') {
 
-  u=clio_url("v2/annotations/VNC")
+  dataset=getOption('malevnc.dataset', default = 'VNC')
+  u=clio_url(glue("v2/annotations/{dataset}"))
 
   if(!is.null(groups)) {
     groups=gsub(" ", "+", groups)

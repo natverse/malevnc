@@ -60,7 +60,8 @@ manc_annotate_soma <- function(pos, tag=c("soma", "tosoma", "root"), user=getOpt
 }
 
 manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("malevnc.clio_email"), description=NULL, ...) {
-  url=clio_url(path="v2/annotations/VNC")
+  dataset=getOption('malevnc.dataset', default = 'VNC')
+  url=clio_url(path=glue("v2/annotations/{dataset}"))
   pos=checkmate::assert_numeric(c(pos), len = 3)
   user=validate_email(user)
   body=list(kind="point",
@@ -249,7 +250,9 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
 manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE,
                                protect=c("user"), chunksize=50, ...) {
   query=list(version=clio_version(version))
-  u=clio_url(path='v2/json-annotations/VNC/neurons', test = test)
+  dataset=getOption('malevnc.dataset', default = 'VNC')
+  u=clio_url(path=glue('v2/json-annotations/{dataset}/neurons'),
+             test = test)
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
