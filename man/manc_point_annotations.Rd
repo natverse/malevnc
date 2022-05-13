@@ -8,7 +8,8 @@ manc_point_annotations(
   groups = "UK Drosophila Connectomics",
   cache = FALSE,
   bodyid = TRUE,
-  node = "clio"
+  node = "clio",
+  test = FALSE
 )
 }
 \arguments{
@@ -24,6 +25,9 @@ of the point annotation using \code{\link{manc_xyz2bodyid}} (defaults to
 \item{node}{A DVID node as returned by \code{\link{manc_dvid_node}}. The
 default is to return the current active (unlocked) node being used through
 neutu.}
+
+\item{test}{Whether to use the testing clio store database (useful when
+trying out new code).}
 }
 \value{
 A data.frame of annotations

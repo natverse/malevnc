@@ -363,6 +363,8 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
 #' @param bodyid Whether or not to compute the current bodyid from the location
 #'   of the point annotation using \code{\link{manc_xyz2bodyid}} (defaults to
 #'   \code{TRUE}).
+#' @param test Whether to use the testing clio store database (useful when
+#'   trying out new code).
 #' @inheritParams manc_xyz2bodyid
 #'
 #' @family manc-annotation
@@ -377,10 +379,10 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
 #' head(manc_point_annotations(node='neutu'))
 #' }
 manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FALSE,
-                                   bodyid=TRUE, node='clio') {
+                                   bodyid=TRUE, node='clio', test=FALSE) {
 
   dataset=getOption('malevnc.dataset', default = 'VNC')
-  u=clio_url(glue("v2/annotations/{dataset}"))
+  u=clio_url(glue("v2/annotations/{dataset}"), test = test)
 
   if(!is.null(groups)) {
     groups=gsub(" ", "+", groups)
