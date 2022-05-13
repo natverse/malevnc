@@ -125,6 +125,7 @@ manc_scene <- function(ids=NULL, node='clio',
   }
 }
 
+#' @importFrom cachem cache_mem
 manc_server <-
   memoise::memoise(function(server = getOption("malevnc.server")) {
     if (is.null(server))
@@ -141,7 +142,7 @@ manc_server <-
     }
 
     server
-    }, cache = cachem::cache_mem(max_age = 60 * 15))
+    }, cache = cache_mem(max_age = 60 * 15))
 
 # utility function to generate URLs on emdata5.
 # Will do sprintf string interpolation if required
