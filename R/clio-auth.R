@@ -85,10 +85,10 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
 #'   store queries. Experts may wish to use this to construct their own API
 #'   requests.
 #' @export
+#' @importFrom jose jwt_split
 clio_token <- function() {
   token=clio_fetch_token()
-  fafbseg:::check_package_available('jose')
-  decoded=jose::jwt_split(token)
+  decoded=jwt_split(token)
   payload=decoded$payload
   if(is.null(payload$email))
     stop("JWT token invalid: no email!")

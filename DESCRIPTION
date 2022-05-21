@@ -37,7 +37,8 @@ Imports:
     gargle,
     utils,
     stringr,
-    glue
+    glue,
+    jose (>= 1.1.0)
 Suggests: 
     testthat,
     dracor,
@@ -45,7 +46,6 @@ Suggests:
     fafbseg,
     reticulate,
     spelling,
-    jose (>= 1.1.0),
     rappdirs,
     purrr,
     nabor,
