@@ -55,18 +55,22 @@ manc_annotate_soma <- function(pos, tag=c("soma", "tosoma", "root"), user=getOpt
   if(is.null(description)) description=list(NULL)
   res=pbapply::pbmapply(manc_annotate_point, pointlist,
                    tags=tag, user=user,
-                   description = description, ...)
+                   description = description, test=FALSE, ...)
   invisible(res)
 }
 
-manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("malevnc.clio_email"), description=NULL, ...) {
-  url=clio_url(path="v2/annotations/VNC")
+manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("malevnc.clio_email"), description=NULL, protect=c('user'), update=TRUE, test=TRUE, ...) {
+  dataset=getOption('malevnc.dataset', default = 'VNC')
+  url=clio_url(path=glue("v2/annotations/{dataset}?replace={replace}{cond}",
+                         replace=tolower(!update),
+                         cond=ifelse(length(protect)>0,
+                                     paste0("&conditional=",paste(protect, collapse = ',')))), test = test)
   pos=checkmate::assert_numeric(c(pos), len = 3)
   user=validate_email(user)
   body=list(kind="point",
             pos=c(pos),
-            tags=I(tags), # NB this means it will be a list
             user=user)
+  if(!is.null(tags)) body$tags=I(tags) # NB this means it will be a list)
   if(!is.null(description))
     body$description=description
   bodyj=jsonlite::toJSON(body, auto_unbox = TRUE)
@@ -249,7 +253,9 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
 manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE,
                                protect=c("user"), chunksize=50, ...) {
   query=list(version=clio_version(version))
-  u=clio_url(path='v2/json-annotations/VNC/neurons', test = test)
+  dataset=getOption('malevnc.dataset', default = 'VNC')
+  u=clio_url(path=glue('v2/json-annotations/{dataset}/neurons'),
+             test = test)
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {

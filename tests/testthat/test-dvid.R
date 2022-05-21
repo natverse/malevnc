@@ -10,7 +10,7 @@ test_that("manc_nodespec", {
   expect_silent(manc_nodespec("clio", several.ok = F))
 
   expect_equal(manc_nodespec("neuprint"),
-               manc_dvid_node("clio"))
+               manc_dvid_node("neuprint"))
 })
 
 test_that("manc_dvid_annotations", {
