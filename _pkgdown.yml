@@ -58,6 +58,7 @@ reference:
   - '`manc_annotate_soma`'
   - '`manc_set_lrgroup`'
   - '`manc_check_group_complete`'
+  - '`manc_set_dvid_instance`'
 - title: Connectivity
   contents:
   - '`manc_connection_table`'
