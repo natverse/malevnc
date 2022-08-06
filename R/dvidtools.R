@@ -71,19 +71,61 @@ dvid_tools_version <- function() {
 
 #' @export
 #' @rdname dvid_tools
+#' @param pyinstall whether to install python as well as the dvidtools package. Default none will not install.
 #' @description \code{install_dvid_tools} installs the python dvid_tools module
-install_dvid_tools <- function() {
+install_dvid_tools <- function(pyinstall='none') {
   fafbseg:::check_package_available('reticulate')
-  fafbseg::simple_python(pkgs = 'git+git://github.com/flyconnectome/dvid_tools@master')
+  fafbseg::simple_python(pyinstall=pyinstall,
+    pkgs = 'git+git://github.com/flyconnectome/dvid_tools@master')
 }
 
-manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvid_user"), node='neutu') {
+manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL, user=getOption("malevnc.dvid_user"), node='neutu', ...) {
+
   if(is.null(user))
     stop("Please specify a user or set options(malevnc.dvid_user='<janelia_username>')")
   else if(isTRUE(grepl("@", user))) {
     stop("The DVID user should be a janelia username e.g. `jefferisg` rather than an email address!")
+  } else if (length(user)>1)
+    stopifnot(isTRUE(length(user)==length(bodyid)))
+
+  if(length(bodyid)>1) {
+    return(pbapply::pbmapply(manc_set_dvid_instance,
+                      bodyid=bodyid,
+                      instance=instance,
+                      type=type,
+                      user=user,
+                      MoreArgs = list(node=node), ...))
   }
-  ann_dict=reticulate::dict(list(instance=instance, "instance_user"=user))
+
+  if(is.null(type) && is.null(type))
+    stop("You must specify at least one of instance or type!")
+
+  annlist <- list()
+  if(!is.null(instance))
+    annlist <- list(instance=instance, "instance_user"=user)
+  if(!is.null(type))
+    annlist[c("type", "type_user")]=list(type, user)
+  # annlist
+  manc_set_dvid_annotations(bodyid, annlist, node=node)
+}
+
+
+#' Low level function to set DVID annotations (expert use only!)
+#'
+#' @param bodyid A single bodyid
+#' @param annlist An R list containing key value pairs. Key names are not checked.
+#' @param node The dvid node to use
+#'
+#' @return logical indicating success
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' manc_set_dvid_annotations(1234567, list(instance='LHAD1g1', instance_user=''))
+#'
+#' }
+manc_set_dvid_annotations <- function(bodyid, annlist, node='neutu') {
+  ann_dict=reticulate::dict(annlist)
   dt=dvid_tools(node = node)
   bodyidint=try(checkmate::asInt(bodyid, lower = 10000L), silent = TRUE)
   # deal with ids that are only valid as 64 bit ints
@@ -95,6 +137,7 @@ manc_set_dvid_instance <- function(bodyid, instance, user=getOption("malevnc.dvi
     stopifnot(inherits(bodyidint, "python.builtin.int"))
   }
   dt$edit_annotation(bodyid = bodyidint, annotation = ann_dict, verbose=F)
+
 }
 
 #' Check if group is complete

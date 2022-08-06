@@ -7,13 +7,15 @@
 \usage{
 dvid_tools(user = getOption("malevnc.dvid_user"), node = "neutu")
 
-install_dvid_tools()
+install_dvid_tools(pyinstall = "none")
 }
 \arguments{
 \item{user}{Default DVID user names}
 
 \item{node}{default DVID node to use for queries (see
 \code{\link{manc_dvid_node}})}
+
+\item{pyinstall}{whether to install python as well as the dvidtools package. Default none will not install.}
 }
 \description{
 \code{dvid_tools} provides a lower level and less specific
