@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -65,15 +65,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_annotate_body</span><span class="op">(</span>
-  <span class="va">x</span>,
-  test <span class="op">=</span> <span class="cn">TRUE</span>,
-  version <span class="op">=</span> <span class="cn">NULL</span>,
-  write_empty_fields <span class="op">=</span> <span class="cn">FALSE</span>,
-  protect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"user"</span><span class="op">)</span>,
-  chunksize <span class="op">=</span> <span class="fl">50</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_annotate_body</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  test <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  version <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  write_empty_fields <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  protect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"user"</span><span class="op">)</span>,</span>
+<span>  chunksize <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -81,12 +81,18 @@
     <dl><dt>x</dt>
 <dd><p>A data.frame, list or JSON string containing body annotations.
 <b>End users are strongly recommended to use data.frames.</b></p></dd>
+
+
 <dt>test</dt>
 <dd><p>Whether to use the test clio store (recommended until you are
 sure you know what you are doing).</p></dd>
+
+
 <dt>version</dt>
 <dd><p>Optional clio version to associate with this annotation. The
 default <code>NULL</code> uses the current version returned by the API.</p></dd>
+
+
 <dt>write_empty_fields</dt>
 <dd><p>When <code>x</code> is a data.frame, this controls
 whether empty fields in <code>x</code> (i.e. <code>NA</code> or <code>""</code>) overwrite
@@ -95,23 +101,32 @@ fields in the clio-store database (when they are not protected by the
 <code>write_empty_fields=FALSE</code> does not overwrite. If you do want to set
 fields to an empty value (usually the empty string) then you must set
 <code>write_empty_fields=TRUE</code>.</p></dd>
+
+
 <dt>protect</dt>
 <dd><p>Vector of fields that will not be overwritten if they already
 have a value in clio store. Set to <code>TRUE</code> to protect all fields and to
 <code>FALSE</code> to overwrite all fields for which you provide data. See
 details for the rational behind the default value of "user"</p></dd>
+
+
 <dt>chunksize</dt>
 <dd><p>When you have many bodies to annotate the request will by
 default be sent 50 records at a time to avoid any issue with timeouts. You
 can increase for a small speed up if you find your setup is fast enough.
 Set to <code>Inf</code> to insist that all records are sent in a single request.
 <b>NB only applies when <code>x</code> is a data.frame</b>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional parameters passed to <code><a href="https://rdrr.io/pkg/pbapply/man/pbapply.html" class="external-link">pbapply::pbsapply</a></code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>NULL</code> invisibly on success. Errors out on failure.</p>
+    
+
+<p><code>NULL</code> invisibly on success. Errors out on failure.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -173,28 +188,28 @@ Set to <code>Inf</code> to insist that all records are sent in a single request.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># note use of test server</span></span>
-<span class="r-in"><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span>
-<span class="r-in">  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># if you give a list then you are responsible for validation</span></span>
-<span class="r-in"><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span>
-<span class="r-in">  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># don't overwrite any fields in database</span></span>
-<span class="r-in"><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span>
-<span class="r-in">  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span>, protect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># overwrite all fields in database except with empty values</span></span>
-<span class="r-in"><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span>
-<span class="r-in">  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span>, protect<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#' # overwrite all fields in database even if supplied data has empty values</span></span>
-<span class="r-in"><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">''</span>,</span>
-<span class="r-in">  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span>, protect<span class="op">=</span><span class="cn">FALSE</span>, write_empty_fields <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># note use of test server</span></span></span>
+<span class="r-in"><span><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span></span>
+<span class="r-in"><span>  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># if you give a list then you are responsible for validation</span></span></span>
+<span class="r-in"><span><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span></span>
+<span class="r-in"><span>  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># don't overwrite any fields in database</span></span></span>
+<span class="r-in"><span><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span></span>
+<span class="r-in"><span>  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span>, protect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># overwrite all fields in database except with empty values</span></span></span>
+<span class="r-in"><span><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span></span>
+<span class="r-in"><span>  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span>, protect<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#' # overwrite all fields in database even if supplied data has empty values</span></span></span>
+<span class="r-in"><span><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">''</span>,</span></span>
+<span class="r-in"><span>  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span>, protect<span class="op">=</span><span class="cn">FALSE</span>, write_empty_fields <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -209,7 +224,7 @@ Set to <code>Inf</code> to insist that all records are sent in a single request.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

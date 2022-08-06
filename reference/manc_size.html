@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -65,7 +65,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_size</span><span class="op">(</span><span class="va">ids</span>, node <span class="op">=</span> <span class="st">"neutu"</span>, chunksize <span class="op">=</span> <span class="fl">5000L</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_size</span><span class="op">(</span><span class="va">ids</span>, node <span class="op">=</span> <span class="st">"neutu"</span>, chunksize <span class="op">=</span> <span class="fl">5000L</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -73,17 +73,26 @@
     <dl><dt>ids</dt>
 <dd><p>A set of body ids in any form understandable to
 <code><a href="manc_ids.html">manc_ids</a></code></p></dd>
+
+
 <dt>node</dt>
 <dd><p>A DVID node (defaults to the current neutu node, see
 <code><a href="manc_dvid_node.html">manc_dvid_node</a></code>)</p></dd>
+
+
 <dt>chunksize</dt>
 <dd><p>Split requests into chunks of maximum this size</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code>pbsapply</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Numeric vector of voxel sizes</p>
+    
+
+<p>Numeric vector of voxel sizes</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -93,15 +102,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">manc_size</span><span class="op">(</span><span class="fl">10056</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">manc_size</span><span class="op">(</span><span class="fl">10056</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9371355727</span>
-<span class="r-in"><span class="co"># zero as doesn't exist</span></span>
-<span class="r-in"><span class="fu">manc_size</span><span class="op">(</span><span class="fl">10000056</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># zero as doesn't exist</span></span></span>
+<span class="r-in"><span><span class="fu">manc_size</span><span class="op">(</span><span class="fl">10000056</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># try splitting up</span></span>
-<span class="r-in"><span class="va">ids</span><span class="op">=</span><span class="fu">manc_size</span><span class="op">(</span><span class="st">"class:Ascending Interneuron"</span>, chunksize<span class="op">=</span><span class="fl">500L</span>, cl<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># try splitting up</span></span></span>
+<span class="r-in"><span><span class="va">ids</span><span class="op">=</span><span class="fu">manc_size</span><span class="op">(</span><span class="st">"class:Ascending Interneuron"</span>, chunksize<span class="op">=</span><span class="fl">500L</span>, cl<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -116,7 +125,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

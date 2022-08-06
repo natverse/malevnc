@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -65,54 +65,67 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_user_annotations</span><span class="op">(</span>
-  email <span class="op">=</span> <span class="st">"jefferis@gmail.com"</span>,
-  node <span class="op">=</span> <span class="st">"clio"</span>,
-  raw <span class="op">=</span> <span class="cn">FALSE</span>,
-  simplifyVector <span class="op">=</span> <span class="cn">TRUE</span>,
-  neuprint_connection <span class="op">=</span> <span class="cn">NULL</span>,
-  tz <span class="op">=</span> <span class="st">"UTC"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_user_annotations</span><span class="op">(</span></span>
+<span>  email <span class="op">=</span> <span class="st">"jefferis@gmail.com"</span>,</span>
+<span>  node <span class="op">=</span> <span class="st">"clio"</span>,</span>
+<span>  raw <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  simplifyVector <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  neuprint_connection <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tz <span class="op">=</span> <span class="st">"UTC"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>email</dt>
 <dd><p>The google email address used to authenticate with neuprint</p></dd>
+
+
 <dt>node</dt>
 <dd><p>The DVID node identifier</p></dd>
+
+
 <dt>raw</dt>
 <dd><p>Whether to return the raw <code>httr::<a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></code> response
 (default <code>FALSE</code>) so that you can process it yourself rather than a
 pre-processed R list.</p></dd>
+
+
 <dt>simplifyVector</dt>
 <dd><p>Whether to simplify lists to vectors (and data frames
 where appropriate). Default <code>TRUE</code>, see
 <code>jsonlite::<a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></code> for details.</p></dd>
+
+
 <dt>neuprint_connection</dt>
 <dd><p>A <code><a href="https://natverse.org/neuprintr/reference/neuprintr-package.html" class="external-link">neuprintr</a></code> connection
 object returned by <code><a href="https://natverse.org/neuprintr/reference/neuprint_login.html" class="external-link">neuprint_login</a></code>. This includes
 the required authorisation information to connect to DVID.</p></dd>
+
+
 <dt>tz</dt>
 <dd><p>Time zone for edit timestamps. Defaults to "UTC" i.e. Universal
 Time, Coordinated. Set to "" for your current timezone. See
 <code><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></code> for more details.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data.frame</p>
+    
+
+<p>A data.frame</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="va">df</span><span class="op">=</span><span class="fu">manc_user_annotations</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="va">df</span><span class="op">=</span><span class="fu">manc_user_annotations</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $timestamp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> POSIXct of length 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="va">json</span><span class="op">=</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html" class="external-link">content</a></span><span class="op">(</span><span class="fu">manc_user_annotations</span><span class="op">(</span>raw<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="va">json</span><span class="op">=</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html" class="external-link">content</a></span><span class="op">(</span><span class="fu">manc_user_annotations</span><span class="op">(</span>raw<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -127,7 +140,7 @@ Time, Coordinated. Set to "" for your current timezone. See
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

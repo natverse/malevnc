@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -89,12 +89,12 @@
 </h2>
 <p>You can install the development version of malevnc from github:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"natmanager"</span><span class="op">)</span>
-<span class="fu">natmanager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span>pkgs<span class="op">=</span><span class="st">"flyconnectome/malevnc"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"natmanager"</span><span class="op">)</span></span>
+<span><span class="fu">natmanager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span>pkgs<span class="op">=</span><span class="st">"flyconnectome/malevnc"</span><span class="op">)</span></span></code></pre></div>
 <p>Note that you must have been given access to the <a href="https://github.com/flyconnectome/malevnc/" class="external-link">github repository</a> and have a GitHub Personal Access Token (PAT) set up in order to install the library for as long as it remains private. Do :</p>
-<pre><code><span class="fu">natmanager</span><span class="fu">::</span><span class="fu">check_pat</span><span class="op">(</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu">natmanager</span><span class="fu">::</span><span class="fu">check_pat</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>to check and follow the instructions if necessary to create. Should you run into any errors with that (there have been some significant changes at github recently), you can also try:</p>
-<pre><code><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">create_github_token</a></span><span class="op">(</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">create_github_token</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>See <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html" class="external-link uri">https://usethis.r-lib.org/articles/articles/git-credentials.html</a> for the gory details.</p>
 <div class="section level3">
 <h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
@@ -112,8 +112,8 @@
 <li>For Linux I recommend compiling or using <a href="http://neuro.debian.net/pkgs/cmtk.html" class="external-link">neurodebian</a>.</li>
 </ul>
 <p>Check that the natverse has found CMTK like so:</p>
-<pre><code><span class="fu">nat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/cmtk.bindir.html" class="external-link">cmtk.bindir</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu">nat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/cmtk.dof2mat.html" class="external-link">cmtk.dof2mat</a></span><span class="op">(</span>version <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu">nat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/cmtk.bindir.html" class="external-link">cmtk.bindir</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">nat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/cmtk.dof2mat.html" class="external-link">cmtk.dof2mat</a></span><span class="op">(</span>version <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -121,11 +121,11 @@
 </h2>
 <p>You can check everything is working like so:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat" class="external-link">nat</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/flyconnectome/malevnc" class="external-link">malevnc</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="reference/manc_dvid_annotations.html">manc_dvid_annotations</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">naming_user</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat" class="external-link">nat</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/flyconnectome/malevnc" class="external-link">malevnc</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="reference/manc_dvid_annotations.html">manc_dvid_annotations</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">naming_user</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -147,6 +147,12 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="SUPPORT.html">Getting help</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -182,7 +188,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

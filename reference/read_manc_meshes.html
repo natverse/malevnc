@@ -19,7 +19,7 @@ read_manc_meshes reads the meshes for a single MANC body
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -69,34 +69,48 @@ read_manc_meshes reads the meshes for a single MANC body
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_draco_meshes</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">read_manc_meshes</span><span class="op">(</span><span class="va">ids</span>, node <span class="op">=</span> <span class="st">"clio"</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"merged"</span>, <span class="st">"supervoxels"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_draco_meshes</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="va">ids</span>, node <span class="op">=</span> <span class="st">"clio"</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"merged"</span>, <span class="st">"supervoxels"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A URL to a remote location or path to a file on disk</p></dd>
+
+
 <dt>ids</dt>
 <dd><p>A set of body ids in any form understandable to
 <code><a href="manc_ids.html">manc_ids</a></code></p></dd>
+
+
 <dt>node</dt>
 <dd><p>the dvid node containing the dataset. See
 <code><a href="manc_dvid_node.html">manc_dvid_node</a></code></p></dd>
+
+
 <dt>type</dt>
 <dd><p>Whether to return a single lower resolution mesh for each body id
 (<code>'merged'</code>) or a <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-link">neuronlist</a></code> containing one high
 resolution mesh for every supervoxel in a single bodyid
 (<code>'supervoxels'</code>).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code>pbsapply</code>. to</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-link">neuronlist</a></code> object containing
-<code>rgl::<a href="https://dmurdoch.github.io/rgl/dev/reference/mesh3d.html" class="external-link">mesh3d</a></code> objects
-a <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-link">neuronlist</a></code> containing one or more meshes</p>
+    
+
+<p>A <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-link">neuronlist</a></code> object containing</p>
+<p></p>
+<p><code>rgl::<a href="https://dmurdoch.github.io/rgl/dev/reference/mesh3d.html" class="external-link">mesh3d</a></code> objects</p>
+
+
+<p>a <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-link">neuronlist</a></code> containing one or more meshes</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -114,25 +128,25 @@ a <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-li
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># NB you need VPN access for this</span></span>
-<span class="r-in"><span class="va">m</span><span class="op">=</span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="fl">23547362285</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/scene.html" class="external-link">clear3d</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">m</span>, type<span class="op">=</span><span class="st">'wire'</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="co"># Giant Fibre neurons</span></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat" class="external-link">nat</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">gfs</span><span class="op">=</span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10000</span>,<span class="fl">10002</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">gfs.latest</span><span class="op">=</span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10000</span>,<span class="fl">10002</span><span class="op">)</span>, node<span class="op">=</span><span class="st">"neutu"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">gfs</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">n10373</span><span class="op">=</span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="fl">10373</span>, type<span class="op">=</span><span class="st">'supervoxels'</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/nclear3d.html" class="external-link">nclear3d</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># supervoxels appear in different colours</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">n10373</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># NB you need VPN access for this</span></span></span>
+<span class="r-in"><span><span class="va">m</span><span class="op">=</span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="fl">23547362285</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/scene.html" class="external-link">clear3d</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">m</span>, type<span class="op">=</span><span class="st">'wire'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co"># Giant Fibre neurons</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat" class="external-link">nat</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gfs</span><span class="op">=</span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10000</span>,<span class="fl">10002</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gfs.latest</span><span class="op">=</span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10000</span>,<span class="fl">10002</span><span class="op">)</span>, node<span class="op">=</span><span class="st">"neutu"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">gfs</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">n10373</span><span class="op">=</span><span class="fu">read_manc_meshes</span><span class="op">(</span><span class="fl">10373</span>, type<span class="op">=</span><span class="st">'supervoxels'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/nclear3d.html" class="external-link">nclear3d</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># supervoxels appear in different colours</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">n10373</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -147,7 +161,7 @@ a <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-li
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

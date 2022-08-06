@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -67,24 +67,24 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_somapos</span><span class="op">(</span>
-  ids <span class="op">=</span> <span class="cn">NULL</span>,
-  details <span class="op">=</span> <span class="cn">FALSE</span>,
-  duplicates <span class="op">=</span> <span class="op">!</span><span class="va">details</span>,
-  somatags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"soma"</span>, <span class="st">"tosoma"</span>, <span class="st">"root"</span>, <span class="st">"all"</span><span class="op">)</span>,
-  node <span class="op">=</span> <span class="st">"neutu"</span>,
-  cache <span class="op">=</span> <span class="cn">TRUE</span>,
-  clio <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">manc_rootpos</span><span class="op">(</span>
-  ids <span class="op">=</span> <span class="cn">NULL</span>,
-  details <span class="op">=</span> <span class="cn">FALSE</span>,
-  duplicates <span class="op">=</span> <span class="op">!</span><span class="va">details</span>,
-  node <span class="op">=</span> <span class="st">"neutu"</span>,
-  cache <span class="op">=</span> <span class="cn">TRUE</span>,
-  clio <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_somapos</span><span class="op">(</span></span>
+<span>  ids <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  details <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  duplicates <span class="op">=</span> <span class="op">!</span><span class="va">details</span>,</span>
+<span>  somatags <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"soma"</span>, <span class="st">"tosoma"</span>, <span class="st">"root"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  node <span class="op">=</span> <span class="st">"neutu"</span>,</span>
+<span>  cache <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  clio <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">manc_rootpos</span><span class="op">(</span></span>
+<span>  ids <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  details <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  duplicates <span class="op">=</span> <span class="op">!</span><span class="va">details</span>,</span>
+<span>  node <span class="op">=</span> <span class="st">"neutu"</span>,</span>
+<span>  cache <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  clio <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,28 +92,43 @@
     <dl><dt>ids</dt>
 <dd><p>MANC bodyids in any form compatible with <code><a href="manc_ids.html">manc_ids</a></code>.
 The default <code>ids=NULL</code> returns the position of all known soma points.</p></dd>
+
+
 <dt>details</dt>
 <dd><p>Whether to include details such as bodyids in the return.</p></dd>
+
+
 <dt>duplicates</dt>
 <dd><p>Whether to include cases where the same bodyid has multiple
 soma annotations. Default is to include duplicates when
 <code>details=TRUE</code>.</p></dd>
+
+
 <dt>somatags</dt>
 <dd><p>Which annotations to include. The default is to include both
 <code>"soma"</code> and  <code>"tosoma"</code> tags (see details). <code>"all"</code> is an
 alias for <code>c("soma", "tosoma", "root")</code>.</p></dd>
+
+
 <dt>node</dt>
 <dd><p>The DVID node to use for XYZ to bodyid lookups. See
 <code><a href="manc_xyz2bodyid.html">manc_xyz2bodyid</a></code>.</p></dd>
+
+
 <dt>cache</dt>
 <dd><p>whether to add a 5 min cache for the position lookups.</p></dd>
+
+
 <dt>clio</dt>
 <dd><p>Whether to include point annotations from clio as well as the
 contents of <code><a href="mancsomapos.html">mancsomapos</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>When <code>details=FALSE</code> an Nx3 matrix. When <code>TRUE</code>, a
+    
+
+<p>When <code>details=FALSE</code> an Nx3 matrix. When <code>TRUE</code>, a
   data.frame containing XYZ position, bodyid, source and tag</p>
     </div>
     <div id="details">
@@ -154,16 +169,16 @@ contents of <code><a href="mancsomapos.html">mancsomapos</a></code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># just the XYZ position</span></span>
-<span class="r-in"><span class="fu">manc_somapos</span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># just the XYZ position</span></span></span>
+<span class="r-in"><span><span class="fu">manc_somapos</span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       X  Y  Z</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] NA NA NA</span>
-<span class="r-in"><span class="co"># with details including data source</span></span>
-<span class="r-in"><span class="fu">manc_somapos</span><span class="op">(</span><span class="fl">10000</span>, details<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># with details including data source</span></span></span>
+<span class="r-in"><span><span class="fu">manc_somapos</span><span class="op">(</span><span class="fl">10000</span>, details<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  n  X  Y  Z source  tag</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 NA NA NA NA   &lt;NA&gt; &lt;NA&gt;</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -178,7 +193,7 @@ contents of <code><a href="mancsomapos.html">mancsomapos</a></code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

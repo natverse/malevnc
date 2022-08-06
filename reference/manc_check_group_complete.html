@@ -18,7 +18,7 @@ group."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -67,23 +67,30 @@ group.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_check_group_complete</span><span class="op">(</span><span class="va">group_id</span>, <span class="va">body_ids</span>, conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_check_group_complete</span><span class="op">(</span><span class="va">group_id</span>, <span class="va">body_ids</span>, conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group_id</dt>
 <dd><p>numeric/character with group id</p></dd>
+
+
 <dt>body_ids</dt>
 <dd><p>vector with body ids to compare</p></dd>
+
+
 <dt>conn</dt>
 <dd><p>Optional, a <code>neuprint_connection</code> object, which also
 specifies the neuPrint server. Defaults to <code><a href="manc_neuprint.html">manc_neuprint</a>()</code> to
 ensure that query is against the VNC dataset.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>logical <code>TRUE</code> if group is complete, <code>FALSE</code> otherwise.</p>
+    
+
+<p>logical <code>TRUE</code> if group is complete, <code>FALSE</code> otherwise.</p>
     </div>
 
   </div>
@@ -98,7 +105,7 @@ ensure that query is against the VNC dataset.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

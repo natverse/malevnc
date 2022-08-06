@@ -25,7 +25,7 @@ clio_token returns a long lived token to use for clio
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -81,13 +81,13 @@ clio_token returns a long lived token to use for clio
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">clio_auth</span><span class="op">(</span>
-  email <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"malevnc.clio_email"</span>, <span class="fu">gargle</span><span class="fu">::</span><span class="fu"><a href="https://gargle.r-lib.org/reference/gargle_options.html" class="external-link">gargle_oauth_email</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
-  cache <span class="op">=</span> <span class="fu">gargle</span><span class="fu">::</span><span class="fu"><a href="https://gargle.r-lib.org/reference/gargle_options.html" class="external-link">gargle_oauth_cache</a></span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">clio_token</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">clio_auth</span><span class="op">(</span></span>
+<span>  email <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"malevnc.clio_email"</span>, <span class="fu">gargle</span><span class="fu">::</span><span class="fu"><a href="https://gargle.r-lib.org/reference/gargle_options.html" class="external-link">gargle_oauth_email</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  cache <span class="op">=</span> <span class="fu">gargle</span><span class="fu">::</span><span class="fu"><a href="https://gargle.r-lib.org/reference/gargle_options.html" class="external-link">gargle_oauth_cache</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">clio_token</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,11 +96,16 @@ clio_token returns a long lived token to use for clio
 <dd><p>An optional email - must be the one linked to your Clio account
 (and therefore linked to a Google account). See
 <code>gargle::link{credentials_user_oauth2}</code> for details.</p></dd>
+
+
 <dt>cache</dt>
 <dd><p>Whether to use an oauth cache (Expert use only, see
 <code><a href="https://gargle.r-lib.org/reference/gargle_options.html" class="external-link">gargle::gargle_oauth_cache</a></code> for details).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="https://gargle.r-lib.org/reference/token_fetch.html" class="external-link">gargle::token_fetch</a></code></p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -115,18 +120,18 @@ clio_token returns a long lived token to use for clio
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Get or refresh clio JWT token (with the associated email as an attribute)</span></span>
-<span class="r-in"><span class="fu">clio_token</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># regenerate token for specified email if you are getting 401 web errors</span></span>
-<span class="r-in"><span class="fu">clio_auth</span><span class="op">(</span><span class="st">"user@gmail.com"</span>, cache<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># To remember your preferred email (e.g. because you have &gt;1 Google account)</span></span>
-<span class="r-in"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/edit.html" class="external-link">edit_r_profile</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># then add this line, save and restart</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>malevnc.clio_email<span class="op">=</span><span class="st">"user@gmail.com"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Get or refresh clio JWT token (with the associated email as an attribute)</span></span></span>
+<span class="r-in"><span><span class="fu">clio_token</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># regenerate token for specified email if you are getting 401 web errors</span></span></span>
+<span class="r-in"><span><span class="fu">clio_auth</span><span class="op">(</span><span class="st">"user@gmail.com"</span>, cache<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># To remember your preferred email (e.g. because you have &gt;1 Google account)</span></span></span>
+<span class="r-in"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/edit.html" class="external-link">edit_r_profile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># then add this line, save and restart</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>malevnc.clio_email<span class="op">=</span><span class="st">"user@gmail.com"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -141,7 +146,7 @@ clio_token returns a long lived token to use for clio
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

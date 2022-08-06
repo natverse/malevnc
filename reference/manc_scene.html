@@ -21,7 +21,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -73,15 +73,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_scene</span><span class="op">(</span>
-  ids <span class="op">=</span> <span class="cn">NULL</span>,
-  node <span class="op">=</span> <span class="st">"clio"</span>,
-  open <span class="op">=</span> <span class="cn">FALSE</span>,
-  basescene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2022-04-13"</span>, <span class="st">"2022-01-13"</span>, <span class="st">"2021-05-05"</span>, <span class="st">"2021-05-04"</span>, <span class="st">"2021-04-01"</span>,
-    <span class="st">"2021-02-01"</span><span class="op">)</span>,
-  server <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"clio"</span>, <span class="st">"appspot"</span>, <span class="st">"janelia"</span><span class="op">)</span>,
-  return.json <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_scene</span><span class="op">(</span></span>
+<span>  ids <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  node <span class="op">=</span> <span class="st">"clio"</span>,</span>
+<span>  open <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  basescene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2022-04-13"</span>, <span class="st">"2022-01-13"</span>, <span class="st">"2021-05-05"</span>, <span class="st">"2021-05-04"</span>, <span class="st">"2021-04-01"</span>,</span>
+<span>    <span class="st">"2021-02-01"</span><span class="op">)</span>,</span>
+<span>  server <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"clio"</span>, <span class="st">"appspot"</span>, <span class="st">"janelia"</span><span class="op">)</span>,</span>
+<span>  return.json <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -89,26 +89,39 @@
     <dl><dt>ids</dt>
 <dd><p>A set of body ids to add to the neuroglancer scene in any form
 compatible with <code><a href="manc_ids.html">manc_ids</a></code></p></dd>
+
+
 <dt>node</dt>
 <dd><p>A DVID node e.g. as returned by <code>manc_dvid_node</code>. The
 (recommended) default behaviour is to use the current Clio node.</p></dd>
+
+
 <dt>open</dt>
 <dd><p>When <code>TRUE</code> opens the URL in your browser.</p></dd>
+
+
 <dt>basescene</dt>
 <dd><p>Which neuroglancer scene url to use as a base. You can also
 supply your own URL.</p></dd>
+
+
 <dt>server</dt>
 <dd><p>Whether to use Janelia's Clio branch, the Google server (newest
 version of neuroglancer) or the Janelia server (required for annotation in
 early 2021, but now deprecated in favour of Clio). 99<!-- % of the time you -->
 should keep the default.</p></dd>
+
+
 <dt>return.json</dt>
 <dd><p>Whether to return a JSON fragment defining the scene or
 (by default) a Neuroglancer URL.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A character vector containing a single Neuroglancer URL or a JSON
+    
+
+<p>A character vector containing a single Neuroglancer URL or a JSON
   fragment.</p>
     </div>
     <div id="details">
@@ -144,15 +157,15 @@ errors from Neuroglancer when attempting to use the annotation layer.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="fu">manc_scene</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># copy scene information with a sample neuron to the clipboard</span></span>
-<span class="r-in"><span class="fu">clipr</span><span class="fu">::</span><span class="fu"><a href="http://matthewlincoln.net/clipr/reference/write_clip.html" class="external-link">write_clip</a></span><span class="op">(</span><span class="fu">manc_scene</span><span class="op">(</span>ids<span class="op">=</span><span class="fl">13749</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># JSON fragment that could be copied into Clio</span></span>
-<span class="r-in"><span class="fu">clipr</span><span class="fu">::</span><span class="fu"><a href="http://matthewlincoln.net/clipr/reference/write_clip.html" class="external-link">write_clip</a></span><span class="op">(</span><span class="fu">manc_scene</span><span class="op">(</span>return.json <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="fu">manc_scene</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># copy scene information with a sample neuron to the clipboard</span></span></span>
+<span class="r-in"><span><span class="fu">clipr</span><span class="fu">::</span><span class="fu"><a href="http://matthewlincoln.net/clipr/reference/write_clip.html" class="external-link">write_clip</a></span><span class="op">(</span><span class="fu">manc_scene</span><span class="op">(</span>ids<span class="op">=</span><span class="fl">13749</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># JSON fragment that could be copied into Clio</span></span></span>
+<span class="r-in"><span><span class="fu">clipr</span><span class="fu">::</span><span class="fu"><a href="http://matthewlincoln.net/clipr/reference/write_clip.html" class="external-link">write_clip</a></span><span class="op">(</span><span class="fu">manc_scene</span><span class="op">(</span>return.json <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -167,7 +180,7 @@ errors from Neuroglancer when attempting to use the annotation layer.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

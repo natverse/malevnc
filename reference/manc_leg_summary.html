@@ -20,7 +20,7 @@ manc_side_summary summarises connections within all of
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -71,9 +71,9 @@ manc_side_summary summarises connections within all of
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="va">ids</span>, long <span class="op">=</span> <span class="cn">FALSE</span>, other <span class="op">=</span> <span class="cn">FALSE</span>, conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">manc_side_summary</span><span class="op">(</span><span class="va">ids</span>, long <span class="op">=</span> <span class="cn">FALSE</span>, conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="va">ids</span>, long <span class="op">=</span> <span class="cn">FALSE</span>, other <span class="op">=</span> <span class="cn">FALSE</span>, conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">manc_side_summary</span><span class="op">(</span><span class="va">ids</span>, long <span class="op">=</span> <span class="cn">FALSE</span>, conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -81,34 +81,47 @@ manc_side_summary summarises connections within all of
     <dl><dt>ids</dt>
 <dd><p>A set of body ids in any form understandable to
 <code><a href="manc_ids.html">manc_ids</a></code></p></dd>
+
+
 <dt>long</dt>
 <dd><p>Whether to return results in wide (default) or long format.</p></dd>
+
+
 <dt>other</dt>
 <dd><p>Whether to return the sum of all other neuropils as an extra
 column <code>other</code>.</p></dd>
+
+
 <dt>conn</dt>
 <dd><p>Optional, a <code>neuprint_connection</code> object, which also
 specifies the neuPrint server. Defaults to <code><a href="manc_neuprint.html">manc_neuprint</a>()</code> to
 ensure that query is against the VNC dataset.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a data.frame with one row per neuron (when <code>long=FALSE</code>) or one
-  row per ROI/IO combination (when <code>long=TRUE</code>). Note that <code>out</code>  columns refer to output synapses from the given bodyid onto downstream
+    
+
+<p>a data.frame with one row per neuron (when <code>long=FALSE</code>) or one
+  row per ROI/IO combination (when <code>long=TRUE</code>). Note that <code>out</code></p>
+
+
+<p>columns refer to output synapses from the given bodyid onto downstream
   partners.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dnals</span><span class="op">=</span><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10126</span>, <span class="fl">10118</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dnals</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dnals</span><span class="op">=</span><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10126</span>, <span class="fl">10118</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dnals</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 13</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid T1L_in T1L_out T1R_in T1R_out T2L_in T2L_out T2R_in T2R_out T3L_in</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">10</span>126    303    <span style="text-decoration: underline;">7</span>951      0       0    202    <span style="text-decoration: underline;">4</span>256      0       0    215</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">10</span>118      0       0    365    <span style="text-decoration: underline;">7</span>625      0       0    223    <span style="text-decoration: underline;">4</span>419      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 3 more variables: T3L_out &lt;int&gt;, T3R_in &lt;int&gt;, T3R_out &lt;int&gt;</span></span>
-<span class="r-in"><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10126</span>, <span class="fl">10118</span><span class="op">)</span>, long<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span>
+<span class="r-in"><span><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10126</span>, <span class="fl">10118</span><span class="op">)</span>, long<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: tidyr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    bodyid weight soma_neuromere side  polarity</span>
@@ -124,17 +137,18 @@ ensure that query is against the VNC dataset.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">10</span>126    215 T3             L     in      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">10</span>126   <span style="text-decoration: underline;">5</span>221 T3             L     out     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 14 more rows</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html" class="external-link">data.matrix</a></span><span class="op">(</span><span class="va">dnals</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"_out"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dnals</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
-<span class="r-in">  Colv <span class="op">=</span> <span class="cn">NA</span>, scale <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html" class="external-link">data.matrix</a></span><span class="op">(</span><span class="va">dnals</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"_out"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dnals</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Colv <span class="op">=</span> <span class="cn">NA</span>, scale <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="manc_leg_summary-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="va">dnls</span><span class="op">=</span><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="st">'class:Descending'</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html" class="external-link">data.matrix</a></span><span class="op">(</span><span class="va">dnls</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"_out"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dnls</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
-<span class="r-in">  Colv <span class="op">=</span> <span class="cn">NA</span>, scale <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="va">dnls</span><span class="op">=</span><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="st">'class:Descending'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html" class="external-link">data.matrix</a></span><span class="op">(</span><span class="va">dnls</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"_out"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dnls</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  Colv <span class="op">=</span> <span class="cn">NA</span>, scale <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="manc_leg_summary-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="fu">manc_side_summary</span><span class="op">(</span><span class="st">'Giant Fiber'</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="fu">manc_side_summary</span><span class="op">(</span><span class="st">'Giant Fiber'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid L_in L_out R_in R_out</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000    0     0   81   255</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002   71    53    0     0</span>
@@ -152,7 +166,7 @@ ensure that query is against the VNC dataset.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

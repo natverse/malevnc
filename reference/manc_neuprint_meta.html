@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -65,7 +65,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_neuprint_meta</span><span class="op">(</span>ids <span class="op">=</span> <span class="cn">NULL</span>, conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span>, roiInfo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_neuprint_meta</span><span class="op">(</span>ids <span class="op">=</span> <span class="cn">NULL</span>, conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span>, roiInfo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -73,41 +73,54 @@
     <dl><dt>ids</dt>
 <dd><p>A set of body ids in any form understandable to
 <code><a href="manc_ids.html">manc_ids</a></code></p></dd>
+
+
 <dt>conn</dt>
 <dd><p>Optional, a <code>neuprint_connection</code> object, which also
 specifies the neuPrint server. Defaults to <code><a href="manc_neuprint.html">manc_neuprint</a>()</code> to
 ensure that query is against the VNC dataset.</p></dd>
+
+
 <dt>roiInfo</dt>
 <dd><p>whether to include the <code>roiInfo</code> field detailing synapse
 numbers in different locations. This is omitted by default as it is
 returned as a character vector of unprocessed JSON.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data.frame with one row for each (unique) id and NAs for all
+    
+
+<p>A data.frame with one row for each (unique) id and NAs for all
   columns except bodyid when neuprint holds no metadata.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu">manc_neuprint_meta</span><span class="op">(</span><span class="st">"Giant Fiber"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="fu">manc_neuprint_meta</span><span class="op">(</span><span class="st">"Giant Fiber"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  pre post upstream downstream status    statusLabel      voxels</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 1033 2016     2016       5150 Traced Roughly traced 38743961712</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002  934 1948     1948       4606 Traced Roughly traced 39414880927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        gaba acetylcholine glutamate    neither cropped    name      class</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.1707151     0.5142119 0.2175471 0.09752578   FALSE 10000_R Descending</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.1434814     0.4596285 0.2562304 0.14065966   FALSE 10000_L Descending</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subclass group rootSide entryNerve          position hemilineage somaSide</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     &lt;NA&gt; 10000      RHS        CvC 24481,36044,67070        None     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     &lt;NA&gt; 10000      LHS        CvC 23217,35252,67070        None         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   serial exitNerve somaNeuromere somaLocation somaRadius description birthtime</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     NA      None          &lt;NA&gt;         &lt;NA&gt;         NA Giant fiber      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     NA      None          None         &lt;NA&gt;         NA Giant fiber      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             timeStamp        type longTract  soma        top.nt     top.p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                &lt;NA&gt; Giant Fiber      &lt;NA&gt; FALSE acetylcholine 0.5142119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2022-05-10T10:51:23 Giant Fiber      &lt;NA&gt; FALSE acetylcholine 0.4596285</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ntGabaProb ntAcetylcholineProb ntGlutamateProb ntUnknownProb cropped    name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.1707151           0.5142119       0.2175471    0.09752578   FALSE 10000_R</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.1434814           0.4596285       0.2562304    0.14065966   FALSE 10000_L</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   hemilineage somaSide description      class group serial          position</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        None     &lt;NA&gt; Giant fiber Descending 10000     NA 24481,36044,67070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        None     &lt;NA&gt; Giant fiber Descending 10000     NA 23217,35252,67070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   somaNeuromere birthtime somaLocation predictedNtProb   predictedNt prefix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;       0.5142119 acetylcholine   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          None      &lt;NA&gt;         &lt;NA&gt;       0.4596285 acetylcholine   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   namingUser                 user     lastModifiedBy subclass rootSide</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       &lt;NA&gt; Gregory SXE Jefferis tessoram@gmail.com     &lt;NA&gt;      RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       &lt;NA&gt;    Elizabeth C Marin  Katharina Eichler     &lt;NA&gt;      LHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   entryNerve origin exitNerve target subcluster timeStamp      rootPosition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        CvC   &lt;NA&gt;      None   &lt;NA&gt;         NA      &lt;NA&gt; 24481,36044,67070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        CvC   &lt;NA&gt;      None   &lt;NA&gt;         NA      &lt;NA&gt; 23217,35252,67070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   synonyms        type tosomaPosition longTract somaRadius  soma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     &lt;NA&gt; Giant Fiber           &lt;NA&gt;      &lt;NA&gt;         NA FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     &lt;NA&gt; Giant Fiber           &lt;NA&gt;      &lt;NA&gt;         NA FALSE</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -122,7 +135,7 @@ returned as a character vector of unprocessed JSON.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

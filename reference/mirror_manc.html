@@ -19,7 +19,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -69,9 +69,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mirror_manc</span><span class="op">(</span><span class="va">x</span>, level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">symmetric_manc</span><span class="op">(</span><span class="va">x</span>, level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>, mirror <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mirror_manc</span><span class="op">(</span><span class="va">x</span>, level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">symmetric_manc</span><span class="op">(</span><span class="va">x</span>, level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>, mirror <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,19 +79,28 @@
     <dl><dt>x</dt>
 <dd><p>3D vertices (or object containing them) in MANC microns. Could be
 <code><a href="https://rdrr.io/pkg/nat/man/neuron.html" class="external-link">neuron</a></code>, <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-link">neuronlist</a></code>, <code><a href="https://rdrr.io/pkg/nat/man/read.hxsurf.html" class="external-link">hxsurf</a></code> etc.</p></dd>
+
+
 <dt>level</dt>
 <dd><p>Which resolution level of the CMTK registrations to use. Higher
 number = higher resolution. This is for expert/testing purposes only - just
 stick with the default.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments passed to <code><a href="https://rdrr.io/pkg/nat/man/xform.html" class="external-link">xform</a></code> and friends</p></dd>
+
+
 <dt>mirror</dt>
 <dd><p>Whether to mirror across the midline when using
 <code>symmetric_manc</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Transformed points/object</p>
+    
+
+<p>Transformed points/object</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -101,48 +110,48 @@ stick with the default.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># NB convert from raw coordinates to microns on input</span></span>
-<span class="r-in"><span class="va">hookr</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">33549</span>, <span class="fl">45944</span>, <span class="fl">50806</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">8</span>,<span class="fl">8</span><span class="op">)</span><span class="op">/</span><span class="fl">1000</span></span>
-<span class="r-in"><span class="va">hookl</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">8718</span>, <span class="fl">40794</span>, <span class="fl">52140</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">8</span>,<span class="fl">8</span><span class="op">)</span><span class="op">/</span><span class="fl">1000</span></span>
-<span class="r-in"><span class="va">hookrl</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">hookr</span>, <span class="va">hookl</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># mirror these positions</span></span>
-<span class="r-in"><span class="va">hookrl.m</span><span class="op">=</span><span class="fu">mirror_manc</span><span class="op">(</span><span class="va">hookrl</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># NB convert from raw coordinates to microns on input</span></span></span>
+<span class="r-in"><span><span class="va">hookr</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">33549</span>, <span class="fl">45944</span>, <span class="fl">50806</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">8</span>,<span class="fl">8</span><span class="op">)</span><span class="op">/</span><span class="fl">1000</span></span></span>
+<span class="r-in"><span><span class="va">hookl</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">8718</span>, <span class="fl">40794</span>, <span class="fl">52140</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">8</span>,<span class="fl">8</span><span class="op">)</span><span class="op">/</span><span class="fl">1000</span></span></span>
+<span class="r-in"><span><span class="va">hookrl</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">hookr</span>, <span class="va">hookl</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># mirror these positions</span></span></span>
+<span class="r-in"><span><span class="va">hookrl.m</span><span class="op">=</span><span class="fu">mirror_manc</span><span class="op">(</span><span class="va">hookrl</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in cmtk.bindir(check = TRUE):</span> Cannot find CMTK. Please install from http://www.nitrc.org/projects/cmtk and make sure that it is your path!</span>
-<span class="r-in"><span class="va">hookrl.m</span></span>
+<span class="r-in"><span><span class="va">hookrl.m</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'hookrl.m' not found</span>
-<span class="r-in"><span class="co"># compute difference from</span></span>
-<span class="r-in"><span class="co"># transformed L to original R</span></span>
-<span class="r-in"><span class="co"># transformed R to original L</span></span>
-<span class="r-in"><span class="co"># distances are 1-8 microns in each axis, due to placement variations.</span></span>
-<span class="r-in"><span class="va">hookrl.m</span><span class="op">-</span><span class="va">hookrl</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span>, <span class="op">]</span></span>
+<span class="r-in"><span><span class="co"># compute difference from</span></span></span>
+<span class="r-in"><span><span class="co"># transformed L to original R</span></span></span>
+<span class="r-in"><span><span class="co"># transformed R to original L</span></span></span>
+<span class="r-in"><span><span class="co"># distances are 1-8 microns in each axis, due to placement variations.</span></span></span>
+<span class="r-in"><span><span class="va">hookrl.m</span><span class="op">-</span><span class="va">hookrl</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span>, <span class="op">]</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'hookrl.m' not found</span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/wire3d.html" class="external-link">wire3d</a></span><span class="op">(</span><span class="va">MANC.surf</span>, col<span class="op">=</span><span class="st">'grey'</span>, lwd<span class="op">=</span><span class="fl">.5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html" class="external-link">points3d</a></span><span class="op">(</span><span class="va">hookrl</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html" class="external-link">points3d</a></span><span class="op">(</span><span class="va">hookrl.m</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># the lines will link the transformed points</span></span>
-<span class="r-in"><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html" class="external-link">segments3d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">hookrl</span>, <span class="va">hookrl.m</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># show the original surface and the mirrored surface</span></span>
-<span class="r-in"><span class="va">MANC.surf.m</span><span class="op">=</span><span class="fu">mirror_manc</span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">MANC.surf.m</span><span class="op">=</span><span class="fu">mirror_manc</span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/nclear3d.html" class="external-link">nclear3d</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/wire3d.html" class="external-link">wire3d</a></span><span class="op">(</span><span class="va">MANC.surf.m</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">symmetric_manc</span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># mirror across the midline in symmetric space also</span></span>
-<span class="r-in"><span class="va">MANCsym.surf.m</span><span class="op">=</span><span class="fu">symmetric_manc</span><span class="op">(</span><span class="va">MANC.surf</span>, mirror<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot the two symmetric surfaces</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">MANCsym.surf</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/nat/man/wire3d.html" class="external-link">wire3d</a></span><span class="op">(</span><span class="va">MANCsym.surf.m</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">wire3d</span><span class="op">(</span><span class="va">MANC.surf</span>, col<span class="op">=</span><span class="st">'grey'</span>, lwd<span class="op">=</span><span class="fl">.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html" class="external-link">points3d</a></span><span class="op">(</span><span class="va">hookrl</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html" class="external-link">points3d</a></span><span class="op">(</span><span class="va">hookrl.m</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"green"</span>, <span class="st">"red"</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># the lines will link the transformed points</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/3dobjects.html" class="external-link">segments3d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">hookrl</span>, <span class="va">hookrl.m</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># show the original surface and the mirrored surface</span></span></span>
+<span class="r-in"><span><span class="va">MANC.surf.m</span><span class="op">=</span><span class="fu">mirror_manc</span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">MANC.surf.m</span><span class="op">=</span><span class="fu">mirror_manc</span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/nclear3d.html" class="external-link">nclear3d</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">wire3d</span><span class="op">(</span><span class="va">MANC.surf.m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">symmetric_manc</span><span class="op">(</span><span class="va">MANC.surf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># mirror across the midline in symmetric space also</span></span></span>
+<span class="r-in"><span><span class="va">MANCsym.surf.m</span><span class="op">=</span><span class="fu">symmetric_manc</span><span class="op">(</span><span class="va">MANC.surf</span>, mirror<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the two symmetric surfaces</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span><span class="va">MANCsym.surf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">wire3d</span><span class="op">(</span><span class="va">MANCsym.surf.m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -157,7 +166,7 @@ stick with the default.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

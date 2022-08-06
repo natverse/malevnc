@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -65,44 +65,59 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">manc_set_lrgroup</span><span class="op">(</span>
-  <span class="va">ids</span>,
-  sides <span class="op">=</span> <span class="cn">NULL</span>,
-  dryrun <span class="op">=</span> <span class="cn">TRUE</span>,
-  Force <span class="op">=</span> <span class="cn">FALSE</span>,
-  Partial <span class="op">=</span> <span class="cn">FALSE</span>,
-  group <span class="op">=</span> <span class="cn">NA</span>,
-  clio <span class="op">=</span> <span class="cn">TRUE</span>,
-  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"malevnc.dvid_user"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_set_lrgroup</span><span class="op">(</span></span>
+<span>  <span class="va">ids</span>,</span>
+<span>  sides <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dryrun <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  Force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  Partial <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  clio <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"malevnc.dvid_user"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>ids</dt>
 <dd><p>A set of body ids belonging to the same group</p></dd>
+
+
 <dt>sides</dt>
 <dd><p>Optional character vector specifying the sides (L,R,U) for the
 given <code>ids</code>. Will be taken from neuprint by default.</p></dd>
+
+
 <dt>dryrun</dt>
 <dd><p>When <code>TRUE</code>, the default, show what will happen rather
 than applying the annotations.</p></dd>
+
+
 <dt>Force</dt>
 <dd><p>Whether to update DVID instances (and clio group) even when
 there is existing DVID instance information.</p></dd>
+
+
 <dt>Partial</dt>
 <dd><p>Assigns group annotations (via DVID instances) only to neurons
 that do not yet have annotation.</p></dd>
+
+
 <dt>group</dt>
 <dd><p>Set a specific group id rather than accepting the default.</p></dd>
+
+
 <dt>clio</dt>
 <dd><p>Whether to set the Clio group field in addition to DVID.</p></dd>
+
+
 <dt>user</dt>
 <dd><p>Janelia user name to associate with the DVID instance annotation
 (defaults to the value of options("malevnc.dvid_user"), but can be
 overridden by this argument. NB a user must be provided by one of these
 means. If the user has no Janelia id, just use an id of the form
 <code>&lt;surname&gt;&lt;firstinitial&gt;</code> e.g. <code>jefferisg</code>.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -147,12 +162,12 @@ means. If the user has no Janelia id, just use an id of the form
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># check it makes sense, dryrun=T</span></span>
-<span class="r-in"><span class="fu">manc_set_lrgroup</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12516</span>, <span class="fl">12706</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># apply</span></span>
-<span class="r-in"><span class="fu">manc_set_lrgroup</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12516</span>, <span class="fl">12706</span><span class="op">)</span>, dryrun<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># check it makes sense, dryrun=T</span></span></span>
+<span class="r-in"><span><span class="fu">manc_set_lrgroup</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12516</span>, <span class="fl">12706</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># apply</span></span></span>
+<span class="r-in"><span><span class="fu">manc_set_lrgroup</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12516</span>, <span class="fl">12706</span><span class="op">)</span>, dryrun<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -167,7 +182,7 @@ means. If the user has no Janelia id, just use an id of the form
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
