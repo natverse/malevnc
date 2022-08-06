@@ -79,6 +79,26 @@ install_dvid_tools <- function(pyinstall='none') {
     pkgs = 'git+git://github.com/flyconnectome/dvid_tools@master')
 }
 
+#' Set DVID annotations for one or more ids.
+#' @description \code{manc_set_dvid_instance} sets DVID type and/or instance
+#'   (name) information for one or more ids. It also adds user information for
+#'   each field.
+#' @param bodyid One or more body ids (only one for
+#'   \code{manc_set_dvid_annotations})
+#' @param instance,type Character vector of instance/type values (recycled if
+#'   necessary).
+#' @param user The DVID user. Defaults to \code{options("malevnc.dvid_user")}.
+#' @param node The dvid node to use (defaults to 'neutu' i.e. current open node)
+#' @param ... Additional arguments passed to \code{pbapply::pbmapply} when
+#'   passing more than one bodyid.
+#'
+#' @return logical indicating success
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' manc_set_dvid_instance(1234567, type='LHAD1g1')
+#' }
 manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL, user=getOption("malevnc.dvid_user"), node='neutu', ...) {
 
   if(is.null(user))
@@ -110,11 +130,11 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL, user=getOpt
 }
 
 
-#' Low level function to set DVID annotations (expert use only!)
+#' @description \code{manc_set_dvid_annotations} is a low level function to set
+#'   arbitrary DVID annotations for exactly one body (expert use only!)
 #'
-#' @param bodyid A single bodyid
-#' @param annlist An R list containing key value pairs. Key names are not checked.
-#' @param node The dvid node to use
+#' @param annlist An R list containing key value pairs. Key names are not
+#'   checked.
 #'
 #' @return logical indicating success
 #' @export
@@ -124,6 +144,7 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL, user=getOpt
 #' manc_set_dvid_annotations(1234567, list(instance='LHAD1g1', instance_user=''))
 #'
 #' }
+#' @rdname manc_set_dvid_instance
 manc_set_dvid_annotations <- function(bodyid, annlist, node='neutu') {
   ann_dict=reticulate::dict(annlist)
   dt=dvid_tools(node = node)
