@@ -1,7 +1,7 @@
 Type: Package
 Package: malevnc
 Title: Support for Working with Janelia FlyEM Male VNC Dataset
-Version: 0.2.1
+Version: 0.2.2
 Authors@R:
     c(person(given = "Gregory",
            family = "Jefferis",

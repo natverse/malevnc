@@ -1,3 +1,9 @@
+# malevnc 0.2.2
+
+* Factor out and export low level `manc_set_dvid_annotations()` function.
+* Export `manc_set_dvid_instance()` and teach it to set instance/type and corresponding users for one or more body ids.
+
+
 # malevnc 0.2.1
 * Updated manc scene links by @dokato in https://github.com/flyconnectome/malevnc/pull/42
 * Fix point annotation dataset (eg for use by malecns) by @jefferis in https://github.com/flyconnectome/malevnc/pull/44 
