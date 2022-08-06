@@ -48,7 +48,7 @@ There is an optional 5 minute cache of these lookups (recreated for
   Note that under the hood this uses the \code{malevnc.dataset} option to
   define the set of annotations to query. You should not normally be setting
   this option yourself, but it does allow the same functions to repurposed
-  for other datasets eg CNS.
+  for other datasets e.g. CNS.
 }
 \examples{
 \dontrun{

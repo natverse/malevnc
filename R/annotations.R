@@ -356,7 +356,7 @@ updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
 #'   Note that under the hood this uses the \code{malevnc.dataset} option to
 #'   define the set of annotations to query. You should not normally be setting
 #'   this option yourself, but it does allow the same functions to repurposed
-#'   for other datasets eg CNS.
+#'   for other datasets e.g. CNS.
 #'
 #' @param groups Defines a group for which we would like to see all annotations.
 #'   When NULL, only returns annotations for your own user.

@@ -71,7 +71,8 @@ dvid_tools_version <- function() {
 
 #' @export
 #' @rdname dvid_tools
-#' @param pyinstall whether to install python as well as the dvidtools package. Default none will not install.
+#' @param pyinstall whether to install python as well as the \code{dvidtools}
+#'   package. Default none will not install.
 #' @description \code{install_dvid_tools} installs the python dvid_tools module
 install_dvid_tools <- function(pyinstall='none') {
   fafbseg:::check_package_available('reticulate')

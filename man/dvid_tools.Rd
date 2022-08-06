@@ -15,7 +15,8 @@ install_dvid_tools(pyinstall = "none")
 \item{node}{default DVID node to use for queries (see
 \code{\link{manc_dvid_node}})}
 
-\item{pyinstall}{whether to install python as well as the dvidtools package. Default none will not install.}
+\item{pyinstall}{whether to install python as well as the \code{dvidtools}
+package. Default none will not install.}
 }
 \description{
 \code{dvid_tools} provides a lower level and less specific

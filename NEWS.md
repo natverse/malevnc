@@ -6,7 +6,7 @@
 
 # malevnc 0.2.1
 * Updated manc scene links by @dokato in https://github.com/flyconnectome/malevnc/pull/42
-* Fix point annotation dataset (eg for use by malecns) by @jefferis in https://github.com/flyconnectome/malevnc/pull/44 
+* Fix point annotation dataset (e.g. for use by malecns) by @jefferis in https://github.com/flyconnectome/malevnc/pull/44 
 
 
 **Full Changelog**: https://github.com/flyconnectome/malevnc/compare/v0.2.0...v0.2.1
