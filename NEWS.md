@@ -1,3 +1,8 @@
+# malevnc 0.2.3
+
+* add `manc_view3d()` function with standard views based on symmetric MANC
+  template.
+
 # malevnc 0.2.2
 
 * Factor out and export low level `manc_set_dvid_annotations()` function.
