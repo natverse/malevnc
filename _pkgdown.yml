@@ -69,6 +69,7 @@ reference:
   - '`manc_read_neurons`'
   - '`mirror_manc`'
   - '`manc_lr_position`'
+  - '`manc_view3d`'
 - title: Data objects
   contents:
   - '`mancneckseeds`'
