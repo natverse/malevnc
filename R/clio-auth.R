@@ -120,7 +120,7 @@ clio_fetch_token <- function(force=FALSE) {
   jwt=httr::content(res, as='parsed')
   tokendir=dirname(tokenfile)
   if(!file.exists(tokendir))
-    dir.create(tokendir)
+    dir.create(tokendir, recursive = T)
   writeLines(jwt, tokenfile)
   jwt
 }
