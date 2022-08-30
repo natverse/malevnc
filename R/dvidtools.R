@@ -77,7 +77,7 @@ dvid_tools_version <- function() {
 install_dvid_tools <- function(pyinstall='none') {
   fafbseg:::check_package_available('reticulate')
   fafbseg::simple_python(pyinstall=pyinstall,
-    pkgs = 'git+git://github.com/flyconnectome/dvid_tools@master')
+    pkgs = 'git+https://github.com/flyconnectome/dvid_tools@master')
 }
 
 #' Set DVID annotations for one or more ids.
