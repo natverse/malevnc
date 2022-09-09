@@ -122,9 +122,9 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL, user=getOpt
     stop("You must specify at least one of instance or type!")
 
   annlist <- list()
-  if(!is.null(instance))
+  if(isTRUE(!is.na(instance) && nzchar(instance)))
     annlist <- list(instance=instance, "instance_user"=user)
-  if(!is.null(type))
+  if(isTRUE(!is.na(type) && nzchar(type)))
     annlist[c("type", "type_user")]=list(type, user)
   # annlist
   manc_set_dvid_annotations(bodyid, annlist, node=node)
