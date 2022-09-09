@@ -128,9 +128,9 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL,
     stop("You must specify at least one of instance or type!")
 
   annlist <- list()
-  if(isTRUE(!is.na(instance) && nzchar(instance)))
+  if(!is.null(instance))
     annlist <- list(instance=instance, "instance_user"=user)
-  if(isTRUE(!is.na(type) && nzchar(type)))
+  if(!is.null(type))
     annlist[c("type", "type_user")]=list(type, user)
   if(isTRUE(!is.na(synonyms) && nzchar(synonyms)))
     annlist[c("synonyms", "synonyms_user")]=list(synonyms, user)
