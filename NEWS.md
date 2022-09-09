@@ -1,3 +1,6 @@
+# malevnc 0.2.4
+
+* update `manc_set_dvid_instance()` to cope with synonyms
 # malevnc 0.2.3
 
 * add `manc_view3d()` function with standard views based on symmetric MANC
