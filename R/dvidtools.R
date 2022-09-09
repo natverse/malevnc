@@ -84,14 +84,16 @@ install_dvid_tools <- function(pyinstall='none') {
 #' @description \code{manc_set_dvid_instance} sets DVID type and/or instance
 #'   (name) information for one or more ids. It also adds user information for
 #'   each field.
+#'
 #' @param bodyid One or more body ids (only one for
 #'   \code{manc_set_dvid_annotations})
-#' @param instance,type Character vector of instance/type values (recycled if
-#'   necessary).
 #' @param user The DVID user. Defaults to \code{options("malevnc.dvid_user")}.
 #' @param node The dvid node to use (defaults to 'neutu' i.e. current open node)
 #' @param ... Additional arguments passed to \code{pbapply::pbmapply} when
 #'   passing more than one bodyid.
+#' @param type The authoritative type for a neuron
+#' @param instance An instance, either a candidate type or an authoritative type with suffix to indicate side.
+#' @param synonyms An alternative type for a neuron (e.g. one used in the past literature, one which is useful but unlikely to be the authoritative type etc).
 #'
 #' @return logical indicating success
 #' @export
@@ -100,7 +102,10 @@ install_dvid_tools <- function(pyinstall='none') {
 #' \dontrun{
 #' manc_set_dvid_instance(1234567, type='LHAD1g1')
 #' }
-manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL, user=getOption("malevnc.dvid_user"), node='neutu', ...) {
+manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL,
+                                   synonyms=NULL,
+                                   user=getOption("malevnc.dvid_user"),
+                                   node='neutu', ...) {
 
   if(is.null(user))
     stop("Please specify a user or set options(malevnc.dvid_user='<janelia_username>')")
@@ -113,6 +118,7 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL, user=getOpt
     return(pbapply::pbmapply(manc_set_dvid_instance,
                       bodyid=bodyid,
                       instance=instance,
+                      synonyms=synonyms,
                       type=type,
                       user=user,
                       MoreArgs = list(node=node), ...))
@@ -126,6 +132,8 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL, user=getOpt
     annlist <- list(instance=instance, "instance_user"=user)
   if(isTRUE(!is.na(type) && nzchar(type)))
     annlist[c("type", "type_user")]=list(type, user)
+  if(isTRUE(!is.na(synonyms) && nzchar(synonyms)))
+    annlist[c("synonyms", "synonyms_user")]=list(synonyms, user)
   # annlist
   manc_set_dvid_annotations(bodyid, annlist, node=node)
 }

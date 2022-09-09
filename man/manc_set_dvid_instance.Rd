@@ -9,6 +9,7 @@ manc_set_dvid_instance(
   bodyid,
   instance = NULL,
   type = NULL,
+  synonyms = NULL,
   user = getOption("malevnc.dvid_user"),
   node = "neutu",
   ...
@@ -20,8 +21,11 @@ manc_set_dvid_annotations(bodyid, annlist, node = "neutu")
 \item{bodyid}{One or more body ids (only one for
 \code{manc_set_dvid_annotations})}
 
-\item{instance, type}{Character vector of instance/type values (recycled if
-necessary).}
+\item{instance}{An instance, either a candidate type or an authoritative type with suffix to indicate side.}
+
+\item{type}{The authoritative type for a neuron}
+
+\item{synonyms}{An alternative type for a neuron (e.g. one used in the past literature, one which is useful but unlikely to be the authoritative type etc).}
 
 \item{user}{The DVID user. Defaults to \code{options("malevnc.dvid_user")}.}
 
