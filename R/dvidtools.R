@@ -124,8 +124,8 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL,
                       MoreArgs = list(node=node), ...))
   }
 
-  if(is.null(type) && is.null(type))
-    stop("You must specify at least one of instance or type!")
+  if(is.null(type) && is.null(type) && is.null(synonyms))
+    stop("You must specify at least one of instance, type or synonyms!")
 
   annlist <- list()
   if(!is.null(instance))
