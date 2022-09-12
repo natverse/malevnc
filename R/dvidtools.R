@@ -114,7 +114,34 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL,
   } else if (length(user)>1)
     stopifnot(isTRUE(length(user)==length(bodyid)))
 
+  if(is.null(type) && is.null(instance) && is.null(synonyms))
+    stop("You must specify at least one of instance, type or synonyms!")
+
+  # mapply doesn't seem to like NULL but I prefer NULL as a signalling argument
+  # convert internally to NA
+  if(is.null(type)) type=NA
+  if(is.null(instance)) instance=NA
+  if(is.null(synonyms)) synonyms=NA
+
   if(length(bodyid)>1) {
+    if(!is.null(type) && length(type)!=length(bodyid)) {
+      if(length(type)!=1)
+        stop("You must supply either one type or as many as there are body ids!")
+      type=rep(type, length(bodyid))
+    }
+    if(!is.null(synonyms) && length(synonyms)!=length(bodyid)) {
+      if(length(synonyms)!=1)
+        stop("You must supply either one synonyms entry or as many as there are body ids!")
+      synonyms=rep(synonyms, length(bodyid))
+    }
+    if(!is.null(instance) && length(instance)!=length(bodyid)) {
+      if(length(instance)!=1)
+        stop("You must supply either one instance or as many as there are body ids!")
+      instance=rep(instance, length(bodyid))
+    }
+    if(length(user)==1)
+      user=rep(user, length(bodyid))
+
     return(pbapply::pbmapply(manc_set_dvid_instance,
                       bodyid=bodyid,
                       instance=instance,
@@ -124,15 +151,13 @@ manc_set_dvid_instance <- function(bodyid, instance=NULL, type=NULL,
                       MoreArgs = list(node=node), ...))
   }
 
-  if(is.null(type) && is.null(type) && is.null(synonyms))
-    stop("You must specify at least one of instance, type or synonyms!")
 
   annlist <- list()
-  if(!is.null(instance))
+  if(isTRUE(!is.na(instance)))
     annlist <- list(instance=instance, "instance_user"=user)
-  if(!is.null(type))
+  if(isTRUE(!is.na(type)))
     annlist[c("type", "type_user")]=list(type, user)
-  if(isTRUE(!is.na(synonyms) && nzchar(synonyms)))
+  if(isTRUE(!is.na(synonyms)))
     annlist[c("synonyms", "synonyms_user")]=list(synonyms, user)
   # annlist
   manc_set_dvid_annotations(bodyid, annlist, node=node)
