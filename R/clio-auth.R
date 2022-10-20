@@ -214,7 +214,7 @@ clio_url <- function(path, test=FALSE) {
   u <- if(test)
     "https://clio-store-test-7fdj77ed7q-uk.a.run.app"
   else
-    "https://clio-store-vwzoicitea-uk.a.run.app"
+    "https://clio-store-test-7fdj77ed7q-uk.a.run.app"
   file.path(u, path, fsep = '/')
 }
 
@@ -260,4 +260,14 @@ clio_version <- function(version=NULL) {
     stop("Unable to read clio version from API. Please specify manually and\n",
          "file a bug report at https://github.com/flyconnectome/malevnc/issues")
   version
+}
+
+# private function to remove from clio store
+clio_remove <- function(url, config=NULL) {
+  if (is.null(config))
+    config=c(httr::config(),
+             httr::add_headers(Authorization = paste("Bearer", clio_token())))
+  resp <- httr::DELETE(config=config, url = url)
+  httr::stop_for_status(resp)
+  httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
 }
