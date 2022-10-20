@@ -184,7 +184,7 @@ clio_fetch_memo <- memoise::memoise(clio_fetch, ~memoise::timeout(5*60))
 
 clio_url <- function(path, test=FALSE) {
   u <- if(test)
-    "https://clio-test-7fdj77ed7q-uk.a.run.app"
+    "https://clio-store-test-7fdj77ed7q-uk.a.run.app"
   else
     "https://clio-store-vwzoicitea-uk.a.run.app"
   file.path(u, path, fsep = '/')
