@@ -8,6 +8,8 @@ manc_scene(
   ids = NULL,
   node = "clio",
   open = FALSE,
+  show_synapse_layer = TRUE,
+  show_sidebar = TRUE,
   basescene = c("2022-04-13", "2022-01-13", "2021-05-05", "2021-05-04", "2021-04-01",
     "2021-02-01"),
   server = c("clio", "appspot", "janelia"),
@@ -22,6 +24,12 @@ compatible with \code{\link{manc_ids}}}
 (recommended) default behaviour is to use the current Clio node.}
 
 \item{open}{When \code{TRUE} opens the URL in your browser.}
+
+\item{show_synapse_layer}{logical value that determines whether or not a
+synapse layer is visible by default}
+
+\item{show_sidebar}{logical value that determines whether or not a sidebar
+is visible by default}
 
 \item{basescene}{Which neuroglancer scene url to use as a base. You can also
 supply your own URL.}
