@@ -73,7 +73,7 @@
 #' }
 manc_scene <- function(ids=NULL, node='clio',
                        open=FALSE,
-                       show_synapse_layer = TRUE,
+                       show_synapse_layer = FALSE,
                        show_sidebar = TRUE,
                        basescene=c("2022-04-13", "2022-01-13", "2021-05-05",
                                    "2021-05-04", "2021-04-01", "2021-02-01"),
