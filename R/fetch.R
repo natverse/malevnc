@@ -1,8 +1,13 @@
 # simple get request
-manc_get <- function(path, urlargs=list(), as='parsed', ..., body=NULL) {
+manc_get <- function(path, urlargs=list(), as='parsed', ..., show=NULL, body=NULL) {
   u=manc_serverurl(path, urlargs=urlargs)
   if(!is.null(body))
     return(manc_get_body(u, body, as=as, ...))
+  if(!is.null(show)) {
+    if (!is.character(show) && !(show %in% c('all', 'time', 'user')))
+      stop("Show must be one of: 'all', 'time', 'user'.")
+    u = paste0(u, "&show='", show, "'")
+  }
   r=httr::GET(u)
   res=httr::stop_for_status(r)
   res2=httr::content(res, as=as, type='application/json', ...)

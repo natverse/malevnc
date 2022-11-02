@@ -106,6 +106,8 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #'   default is to return the current active (unlocked) node being used through
 #'   neutu.
 #' @param cache Whether to cache the result of this call for 5 minutes.
+#' @param columns_show Whether to show all columns, or just with '_user', or '_time'
+#' suffix.
 #'
 #' @return A \code{tibble} containing with columns including \itemize{
 #'
@@ -146,6 +148,7 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #' }
 manc_dvid_annotations <- function(ids=NULL, node='neutu',
                                   rval=c("data.frame", "list"),
+                                  columns_show = NULL,
                                   cache=FALSE) {
   rval=match.arg(rval)
   if(!is.null(ids)) {
@@ -155,7 +158,7 @@ manc_dvid_annotations <- function(ids=NULL, node='neutu',
   }
   node=manc_nodespec(node, several.ok = F)
   mda <- if(cache) manc_dvid_annotations_memo(node=node, rval=rval)
-  else .manc_dvid_annotations(node=node, rval=rval)
+  else .manc_dvid_annotations(node=node, rval=rval, show = columns_show)
   if(is.null(ids)) mda
   else {
     mda=mda[match(ids,mda$bodyid),,drop=F]
@@ -165,9 +168,10 @@ manc_dvid_annotations <- function(ids=NULL, node='neutu',
   }
 }
 
-.manc_dvid_annotations <- function(node, rval) {
+.manc_dvid_annotations <- function(node, rval, show = NULL) {
   path="api/node/%s/segmentation_annotations/keyrangevalues/0/Z?json=true"
-  d=manc_get(path, urlargs = list(node), as = 'parsed', simplifyVector = F)
+  d=manc_get(path, urlargs = list(node), show = show,
+             as = 'parsed', simplifyVector = F)
   df=list2df(d)
   df$bodyid=as.numeric(names(d))
   df[['body ID']]=NULL
