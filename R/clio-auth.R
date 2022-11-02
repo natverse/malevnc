@@ -92,6 +92,8 @@ clio_token <- function(force=FALSE) {
   token=clio_fetch_token(force=force)
   decoded=jwt_split(token)
   payload=decoded$payload
+  if (isFALSE(force) && payload$email != options("malevnc.clio_email"))
+    return(clio_fetch_token(force = TRUE))
   if(is.null(payload$email))
     stop("JWT token invalid: no email!")
   if(is.null(payload$exp))
