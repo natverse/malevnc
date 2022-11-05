@@ -3,6 +3,7 @@
 \name{clio_auth}
 \alias{clio_auth}
 \alias{clio_token}
+\alias{clio_set_token}
 \title{Clio authorisation infrastructure using Google via the gargle package + JWT}
 \usage{
 clio_auth(
@@ -11,7 +12,9 @@ clio_auth(
   ...
 )
 
-clio_token(force = FALSE)
+clio_token()
+
+clio_set_token(token, force = FALSE)
 }
 \arguments{
 \item{email}{An optional email - must be the one linked to your Clio account
@@ -23,8 +26,10 @@ clio_token(force = FALSE)
 
 \item{...}{Additional arguments passed to \code{gargle::\link{token_fetch}}}
 
-\item{force}{Whether to update Clio token even when there is an existing
-token.}
+\item{token}{character with a token value}
+
+\item{force}{logical value that determines whether to override the existing
+token or not (default FALSE).}
 }
 \description{
 \code{clio_auth} sets up the initial Google token that
@@ -37,6 +42,8 @@ token.}
 \code{clio_token} returns a long lived token to use for clio
   store queries. Experts may wish to use this to construct their own API
   requests.
+
+\code{clio_set_token} sets Clio token manually.
 }
 \details{
 Clio store authorisation is a multi step process. You must first

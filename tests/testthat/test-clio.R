@@ -156,3 +156,13 @@ test_that("clio version/email", {
   expect_match(clio_version(), regexp = '^v[0-9]\\.[0-9.]+')
   expect_error(clio_version('0.3.2'))
 })
+
+test_that("clio set token", {
+  prev <- clio_fetch_token()
+  expect_message(clio_set_token("abc"), "Token exists")
+  expect_message(clio_set_token("abc", force=T), "Token successfully set")
+  expect_equal(clio_fetch_token(), "abc")
+  expect_error(clio_token(), "JSON verification failed")
+  clio_set_token(prev, force=T)
+  expect_equal(clio_fetch_token(), prev)
+})
