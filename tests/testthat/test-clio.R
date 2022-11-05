@@ -158,6 +158,8 @@ test_that("clio version/email", {
 })
 
 test_that("clio set token", {
+  skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
+          message = "no clio token available")
   prev <- clio_fetch_token()
   expect_message(clio_set_token("abc"), "Token exists")
   expect_message(clio_set_token("abc", force=T), "Token successfully set")
