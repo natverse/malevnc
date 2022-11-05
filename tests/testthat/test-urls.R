@@ -18,6 +18,14 @@ test_that("manc_scene works", {
         '1ec355123bf94e588557a4568d26d258.*87654321'
       )
   }
+  expect_warning(manc_scene(ids = 87654321,
+                            show_synapse_layer = TRUE,
+                            basescene = "2021-05-04"))
+
+  url <- manc_scene(ids = 87654321, show_synapse_layer = TRUE)
+  expect_false(manc_scene(ids = 87654321) == url)
+  url <- manc_scene(ids = 87654321, show_sidebar = FALSE)
+  expect_false(manc_scene(ids = 87654321) == url)
 
   expect_match(manc_scene(server='appspot'), "^https://neuroglancer-demo.appspot.com")
 })
