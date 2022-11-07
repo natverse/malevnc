@@ -6,7 +6,7 @@ manc_get <- function(path, urlargs=list(), as='parsed', ..., show=NULL, body=NUL
   if(!is.null(show)) {
     if (!is.character(show) && !(show %in% c('all', 'time', 'user')))
       stop("Show must be one of: 'all', 'time', 'user'.")
-    u = paste0(u, "&show='", show, "'")
+    u = paste0(u, "&show=", show)
   }
   r=httr::GET(u)
   res=httr::stop_for_status(r)

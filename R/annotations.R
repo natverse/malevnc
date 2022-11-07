@@ -107,7 +107,7 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #'   neutu.
 #' @param cache Whether to cache the result of this call for 5 minutes.
 #' @param columns_show Whether to show all columns, or just with '_user', or '_time'
-#' suffix.
+#' suffix. Accepted options are: 'user', 'time', 'all'.
 #'
 #' @return A \code{tibble} containing with columns including \itemize{
 #'
