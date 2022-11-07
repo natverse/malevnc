@@ -7,8 +7,7 @@
   examples).
 clio_token returns a long lived token to use for clio
   store queries. Experts may wish to use this to construct their own API
-  requests.
-clio_set_token sets Clio token manually."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+  requests."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
@@ -79,7 +78,6 @@ clio_set_token sets Clio token manually."><!-- mathjax --><script src="https://c
 <p><code>clio_token</code> returns a long lived token to use for clio
   store queries. Experts may wish to use this to construct their own API
   requests.</p>
-<p><code>clio_set_token</code> sets Clio token manually.</p>
     </div>
 
     <div id="ref-usage">
@@ -89,9 +87,7 @@ clio_set_token sets Clio token manually."><!-- mathjax --><script src="https://c
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">clio_token</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">clio_set_token</span><span class="op">(</span><span class="va">token</span>, force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">clio_token</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -109,15 +105,6 @@ clio_set_token sets Clio token manually."><!-- mathjax --><script src="https://c
 
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="https://gargle.r-lib.org/reference/token_fetch.html" class="external-link">gargle::token_fetch</a></code></p></dd>
-
-
-<dt>token</dt>
-<dd><p>character with a token value</p></dd>
-
-
-<dt>force</dt>
-<dd><p>logical value that determines whether to override the existing
-token or not (default FALSE).</p></dd>
 
 </dl></div>
     <div id="details">
