@@ -84,8 +84,8 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
 #' @description \code{clio_token} returns a long lived token to use for clio
 #'   store queries. Experts may wish to use this to construct their own API
 #'   requests.
-#' @param force Whether to update Clio token (and clio group) even when
-#'   there is an existing.
+#' @param force Whether to update Clio token even when there is an existing
+#' token.
 #' @export
 #' @importFrom jose jwt_split
 clio_token <- function(force=FALSE) {
@@ -93,7 +93,8 @@ clio_token <- function(force=FALSE) {
   decoded=jwt_split(token)
   payload=decoded$payload
   if (isFALSE(force) && payload$email != options("malevnc.clio_email"))
-    return(clio_fetch_token(force = TRUE))
+    warning(paste("Token email mismatch:",
+                  payload$email, "and", options("malevnc.clio_email")))
   if(is.null(payload$email))
     stop("JWT token invalid: no email!")
   if(is.null(payload$exp))

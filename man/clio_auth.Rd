@@ -23,8 +23,8 @@ clio_token(force = FALSE)
 
 \item{...}{Additional arguments passed to \code{gargle::\link{token_fetch}}}
 
-\item{force}{Whether to update Clio token (and clio group) even when
-there is an existing.}
+\item{force}{Whether to update Clio token even when there is an existing
+token.}
 }
 \description{
 \code{clio_auth} sets up the initial Google token that
