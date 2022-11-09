@@ -99,30 +99,27 @@ returned as a character vector of unprocessed JSON.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">manc_neuprint_meta</span><span class="op">(</span><span class="st">"Giant Fiber"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  pre post upstream downstream status    statusLabel      voxels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 1033 2016     2016       5150 Traced Roughly traced 38743961712</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002  934 1948     1948       4606 Traced Roughly traced 39414880927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ntGabaProb ntAcetylcholineProb ntGlutamateProb ntUnknownProb cropped    name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.1707151           0.5142119       0.2175471    0.09752578   FALSE 10000_R</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.1434814           0.4596285       0.2562304    0.14065966   FALSE 10000_L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   hemilineage somaSide description      class group serial entryNerve</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        None     &lt;NA&gt; Giant fiber Descending 10000     NA        CvC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        None     &lt;NA&gt; Giant fiber Descending 10000     NA        CvC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            position somaNeuromere birthtime somaLocation predictedNtProb</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 24481,36044,67070          &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;       0.5142119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 23217,35252,67070          None      &lt;NA&gt;         &lt;NA&gt;       0.4596285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     predictedNt origin target prefix                 user     lastModifiedBy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 acetylcholine   &lt;NA&gt;   LTct     DN Gregory SXE Jefferis tessoram@gmail.com</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 acetylcholine   &lt;NA&gt;   LTct     DN    Elizabeth C Marin  Katharina Eichler</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   exitNerve namingUser        type subclass rootSide subcluster</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      None       &lt;NA&gt; Giant Fiber     &lt;NA&gt;      RHS         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      None       &lt;NA&gt; Giant Fiber     &lt;NA&gt;      LHS         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        rootPosition synonyms timeStamp longTract somaRadius tosomaPosition</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 24481,36044,67070     &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;         NA           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 23217,35252,67070     &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;         NA           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    soma</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  pre post upstream downstream status    statusLabel cropped    name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 1033 2016     2016       5150 Traced Roughly traced   FALSE 10000_R</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002  934 1948     1948       4606 Traced Roughly traced   FALSE 10000_L</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          type hemilineage somaSide description      class group rootSide</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Giant Fiber        None     &lt;NA&gt; Giant fiber Descending 10000      RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Giant Fiber        None     &lt;NA&gt; Giant fiber Descending 10000      LHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   entryNerve exitNerve          position somaNeuromere birthtime somaLocation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        CvC      None 24481,36044,67070          &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        CvC      None 23217,35252,67070          None      &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        voxels ntGabaProb ntAcetylcholineProb ntGlutamateProb ntUnknownProb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 38743961712  0.1707151           0.5142119       0.2175471    0.09752578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 39414880927  0.1434814           0.4596285       0.2562304    0.14065966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   predictedNtProb   predictedNt origin target prefix                 user</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.5142119 acetylcholine   &lt;NA&gt;   LTct     DN Gregory SXE Jefferis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.4596285 acetylcholine   &lt;NA&gt;   LTct     DN    Elizabeth C Marin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       lastModifiedBy serial namingUser subclass subcluster      rootPosition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 tessoram@gmail.com     NA       &lt;NA&gt;     &lt;NA&gt;         NA 24481,36044,67070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Katharina Eichler     NA       &lt;NA&gt;     &lt;NA&gt;         NA 23217,35252,67070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   synonyms somaRadius tosomaPosition timeStamp longTract  soma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     &lt;NA&gt;         NA           &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     &lt;NA&gt;         NA           &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt; FALSE</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

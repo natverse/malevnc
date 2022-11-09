@@ -87,7 +87,7 @@ clio_token returns a long lived token to use for clio
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">clio_token</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">clio_token</span><span class="op">(</span>force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -105,6 +105,11 @@ clio_token returns a long lived token to use for clio
 
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="https://gargle.r-lib.org/reference/token_fetch.html" class="external-link">gargle::token_fetch</a></code></p></dd>
+
+
+<dt>force</dt>
+<dd><p>Whether to update Clio token even when there is an existing
+token.</p></dd>
 
 </dl></div>
     <div id="details">
