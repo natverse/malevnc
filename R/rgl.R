@@ -14,7 +14,7 @@
 #'
 #' @return When \code{returnparams} a named list
 #' @export
-#'
+#' @importFrom rgl par3d
 #' @examples
 #' # default parameters
 #' manc_view3d(returnparams=TRUE)
