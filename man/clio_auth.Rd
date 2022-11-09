@@ -11,7 +11,7 @@ clio_auth(
   ...
 )
 
-clio_token()
+clio_token(force = FALSE)
 }
 \arguments{
 \item{email}{An optional email - must be the one linked to your Clio account
@@ -22,6 +22,9 @@ clio_token()
 \code{gargle::\link{gargle_oauth_cache}} for details).}
 
 \item{...}{Additional arguments passed to \code{gargle::\link{token_fetch}}}
+
+\item{force}{Whether to update Clio token even when there is an existing
+token.}
 }
 \description{
 \code{clio_auth} sets up the initial Google token that
