@@ -93,8 +93,8 @@ clio_token <- function(force=FALSE) {
   decoded=jwt_split(token)
   payload=decoded$payload
   if (isFALSE(force) &&
-      !is.null(options("malevnc.clio_email")) &&
-      payload$email != options("malevnc.clio_email"))
+      !is.null(getOption("malevnc.clio_email")) &&
+      payload$email != getOption("malevnc.clio_email"))
     warning(paste("Token email mismatch:",
                   payload$email, "and", options("malevnc.clio_email")))
   if(is.null(payload$email))
