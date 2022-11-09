@@ -1,3 +1,12 @@
+# malevnc 0.2.6
+## What's Changed
+* New test store address by @dokato in https://github.com/flyconnectome/malevnc/pull/49
+* More options added to manc scene by @dokato in https://github.com/flyconnectome/malevnc/pull/50
+* ENH: force option added to clio_token by @dokato in https://github.com/flyconnectome/malevnc/pull/51
+* Clio set token function added by @dokato in https://github.com/flyconnectome/malevnc/pull/52
+* manc_get supports new Clio API by @dokato in https://github.com/flyconnectome/malevnc/pull/53
+
+**Full Changelog**: https://github.com/flyconnectome/malevnc/compare/v0.2.3...v0.2.6
 # malevnc 0.2.5
 
 * Fix `manc_set_dvid_instance()` for >1 input ids
