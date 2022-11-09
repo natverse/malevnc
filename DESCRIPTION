@@ -38,11 +38,11 @@ Imports:
     utils,
     stringr,
     glue,
-    jose (>= 1.1.0)
+    jose (>= 1.1.0),
+    rgl
 Suggests: 
     testthat,
     dracor,
-    rgl,
     fafbseg,
     reticulate,
     spelling,
