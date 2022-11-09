@@ -12,7 +12,7 @@ clio_auth(
   ...
 )
 
-clio_token()
+clio_token(force = FALSE)
 
 clio_set_token(token, force = FALSE)
 }
@@ -26,10 +26,10 @@ clio_set_token(token, force = FALSE)
 
 \item{...}{Additional arguments passed to \code{gargle::\link{token_fetch}}}
 
-\item{token}{character with a token value}
-
 \item{force}{logical value that determines whether to override the existing
 token or not (default FALSE).}
+
+\item{token}{character with a token value}
 }
 \description{
 \code{clio_auth} sets up the initial Google token that
