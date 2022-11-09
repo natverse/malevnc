@@ -90,7 +90,11 @@ clio_auth <- function(email = getOption("malevnc.clio_email",
 #' @importFrom jose jwt_split
 clio_token <- function(force=FALSE) {
   token=clio_fetch_token(force=force)
-  decoded=jwt_split(token)
+  decoded=tryCatch({
+      jwt_split(token)
+  }, error = function(e) {
+      stop(paste("JSON verification failed. Possibly wrong token format:", token))
+  })
   payload=decoded$payload
   if (isFALSE(force) &&
       !is.null(getOption("malevnc.clio_email")) &&
@@ -130,6 +134,23 @@ clio_fetch_token <- function(force=FALSE) {
     dir.create(tokendir, recursive = T)
   writeLines(jwt, tokenfile)
   jwt
+}
+
+#' @rdname clio_auth
+#' @description \code{clio_set_token} sets Clio token manually.
+#' @param token character with a token value
+#' @param force logical value that determines whether to override the existing
+#' token or not (default FALSE).
+#' @export
+clio_set_token <- function(token, force=FALSE) {
+  tokenfile=file.path(rappdirs::user_data_dir(appname = 'rpkg-malevnc'), 'flyem_token.json')
+  tokendir=dirname(tokenfile)
+  if(!file.exists(tokendir))
+    dir.create(tokendir, recursive = T)
+  if(!force && file.exists(tokenfile))
+    message(paste("Token exists in file:", tokenfile))
+  writeLines(token, tokenfile)
+  message(paste("Token successfully set in:", tokenfile))
 }
 
 google_token <- function(token.only=FALSE) {
