@@ -148,7 +148,7 @@ clio_set_token <- function(token, force=FALSE) {
   if(!file.exists(tokendir))
     dir.create(tokendir, recursive = T)
   if(!force && file.exists(tokenfile))
-    message(paste("Token exists:", readLines(tokenfile)))
+    message(paste("Token exists in file:", tokenfile))
   writeLines(token, tokenfile)
   message(paste("Token successfully set in:", tokenfile))
 }
