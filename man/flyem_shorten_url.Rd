@@ -10,7 +10,7 @@ flyem_shorten_url(url, filename = NULL, ...)
 flyem_expand_url(url, return = c("url", "json", "parsed"), ...)
 }
 \arguments{
-\item{url}{An url to shorten or expand}
+\item{url}{One or more urls to shorten or expand}
 
 \item{filename}{An optional filename to use in the shortened URL (not yet
 supported)}
@@ -23,7 +23,8 @@ JSON text fragment.}
 \value{
 For \code{flyem_shorten_url} a character vector containing a short
   URL. For \code{flyem_expand_url} see a character vector or list depending
-  on \code{return} argument.
+  on \code{return} argument. If the input \code{url} argument is named vector
+  of length>1, then the output will also be named.
 }
 \description{
 Shorten a Neuroglancer URL using the Janelia FlyEM link shortener
@@ -31,7 +32,7 @@ Shorten a Neuroglancer URL using the Janelia FlyEM link shortener
 \details{
 see
   \href{https://flyem-cns.slack.com/archives/C01BZB05M8C/p1669646269799509}{FlyEM
-  CNS Slack} for more details.
+   CNS Slack} for more details.
 }
 \examples{
 \dontrun{
