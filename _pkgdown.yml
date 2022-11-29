@@ -29,12 +29,13 @@ navbar:
       href: SUPPORT.html
 
 reference:
-- title: Server connections
+- title: Server connections and Neuroglancer URLs
   contents:
   - '`manc_neuprint`'
   - '`manc_dvid_node`'
   - '`manc_scene`'
   - '`dvid_tools`'
+  - '`flyem_shorten_url`'
 - title: Body information and ids
   contents:
   - '`manc_ids`'
