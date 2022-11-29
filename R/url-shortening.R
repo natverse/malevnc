@@ -27,12 +27,10 @@
 flyem_shorten_url <- function(url, filename=NULL, ...) {
   # body=list(url, filename=filename)
   # body=list(fafbseg::ngl_encode_url(url))
-  stop("filename argument not yet supported!")
-  body <- if(is.null(filename)) url else list(
-    url,
-    filename=filename
-  )
-
+  body <- if(is.null(filename)) url else {
+    stop("filename argument not yet supported!")
+    list(url, filename=filename)
+  }
   us='https://shortng-bmcp5imp6q-uc.a.run.app/shortng'
   res=httr::POST(url = us, body = body, encode = 'json', ...)
   httr::stop_for_status(res)
