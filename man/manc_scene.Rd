@@ -10,6 +10,7 @@ manc_scene(
   open = FALSE,
   show_synapse_layer = FALSE,
   show_sidebar = TRUE,
+  shorten = FALSE,
   basescene = c("2022-04-13", "2022-01-13", "2021-05-05", "2021-05-04", "2021-04-01",
     "2021-02-01"),
   server = c("clio", "appspot", "janelia"),
@@ -30,6 +31,8 @@ synapse layer is visible by default}
 
 \item{show_sidebar}{logical value that determines whether or not a sidebar
 is visible by default}
+
+\item{shorten}{Whether to shorten the URL using the FlyEM URL shortener (see \code{})}
 
 \item{basescene}{Which neuroglancer scene url to use as a base. You can also
 supply your own URL.}
