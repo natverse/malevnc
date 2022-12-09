@@ -142,6 +142,22 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   out_list
 }
 
+#' Returns default query list or extends the existing list
+parse_query <- function(query, version) {
+  default_query = list(version=clio_version(version))
+  if (is.logical(query)) {
+    if (isTRUE(query))
+      query = default_query
+    else
+      query = NULL
+  } else {
+    if (!is.list(query))
+      stop("query must be boolean or list.")
+    query = c(default_query, query)
+  }
+  query
+}
+
 #' Set Clio body annotations
 #'
 #' @details Clio body annotations are stored in a
@@ -221,6 +237,9 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
 #'   can increase for a small speed up if you find your setup is fast enough.
 #'   Set to \code{Inf} to insist that all records are sent in a single request.
 #'   \bold{NB only applies when \code{x} is a data.frame}.
+#' @param query Special query to pass to Clio API. If TRUE, then the default is
+#' passed with Clio version, FALSE means no query, and list is allowed for a
+#' customized behavior.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
 #' @return \code{NULL} invisibly on success. Errors out on failure.
@@ -251,8 +270,8 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
 #'   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
 #' }
 manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE,
-                               protect=c("user"), chunksize=50, ...) {
-  query=list(version=clio_version(version))
+                               protect=c("user"), chunksize=50, query=TRUE, ...) {
+  query=parse_query(query, version=version)
   dataset=getOption('malevnc.dataset', default = 'VNC')
   u=clio_url(path=glue('v2/json-annotations/{dataset}/neurons'),
              test = test)

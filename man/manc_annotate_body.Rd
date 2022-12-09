@@ -11,6 +11,7 @@ manc_annotate_body(
   write_empty_fields = FALSE,
   protect = c("user"),
   chunksize = 50,
+  query = TRUE,
   ...
 )
 }
@@ -42,6 +43,10 @@ default be sent 50 records at a time to avoid any issue with timeouts. You
 can increase for a small speed up if you find your setup is fast enough.
 Set to \code{Inf} to insist that all records are sent in a single request.
 \bold{NB only applies when \code{x} is a data.frame}.}
+
+\item{query}{Special query to pass to Clio API. If TRUE, then the default is
+passed with Clio version, FALSE means no query, and list is allowed for a
+customized behavior.}
 
 \item{...}{Additional parameters passed to \code{pbapply::\link{pbsapply}}}
 }
