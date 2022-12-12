@@ -153,7 +153,8 @@ parse_query <- function(query, version) {
   } else {
     if (!is.list(query))
       stop("query must be boolean or list.")
-    query = c(default_query, query)
+    default_query[names(query)] <- query
+    query = default_query
   }
   query
 }
