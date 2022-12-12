@@ -147,10 +147,12 @@ clio_set_token <- function(token, force=FALSE) {
   tokendir=dirname(tokenfile)
   if(!file.exists(tokendir))
     dir.create(tokendir, recursive = T)
-  if(!force && file.exists(tokenfile))
+  if(!force && file.exists(tokenfile)) {
     message(paste("Token exists in file:", tokenfile))
-  writeLines(token, tokenfile)
-  message(paste("Token successfully set in:", tokenfile))
+  } else {
+    writeLines(token, tokenfile)
+    message(paste("Token successfully set in:", tokenfile))
+  }
 }
 
 google_token <- function(token.only=FALSE) {
