@@ -142,7 +142,7 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   out_list
 }
 
-#' Returns default query list or extends the existing list
+# Returns default query list or extends the existing list
 parse_query <- function(query, version) {
   default_query = list(version=clio_version(version))
   if (is.logical(query)) {
