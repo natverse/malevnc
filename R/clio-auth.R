@@ -205,6 +205,10 @@ clio_fetch <- function(url, config=NULL, ..., body=NULL, query=NULL, json=FALSE)
                     ...)
 
   }
+  if (resp$status == 400) {
+    warning(paste("Status 400 means wrong data format.",
+                  "Are your columns the right type?"))
+  }
   httr::stop_for_status(resp)
   res=httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
   if(json) res else jsonlite::fromJSON(res, bigint_as_char=TRUE)
