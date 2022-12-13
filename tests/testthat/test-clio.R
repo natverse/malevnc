@@ -166,6 +166,9 @@ test_that("clio set token", {
     expect_message(clio_set_token("abc"), "Token exists")
   }
   expect_message(clio_set_token("abc", force=T), "Token successfully set")
+  expect_failure(
+    expect_message(clio_set_token("abc", force=F), "Token successfully set")
+  )
   expect_equal(readLines(tokenfile), "abc")
   clio_set_token(prev, force=T)
   expect_equal(clio_fetch_token(), prev)
