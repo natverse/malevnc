@@ -62,5 +62,6 @@ Remotes:
     natverse/nat,
     natverse/neuprintr,
     natverse/nat.templatebrains,
-    natverse/fafbseg
+    natverse/fafbseg,
+    natverse/nat.jrcbrains
 Language: en-GB
