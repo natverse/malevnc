@@ -25,13 +25,13 @@
     <loc>/reference/MANC.tissue.surf.html</loc>
   </url>
   <url>
-    <loc>/reference/MANC.tracts.html</loc>
-  </url>
-  <url>
     <loc>/reference/MANCsym.html</loc>
   </url>
   <url>
     <loc>/reference/clio_auth.html</loc>
+  </url>
+  <url>
+    <loc>/reference/download_manc_registrations.html</loc>
   </url>
   <url>
     <loc>/reference/dvid_tools.html</loc>
