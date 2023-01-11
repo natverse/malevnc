@@ -369,6 +369,9 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' manc_remove_annotations(c(111, 222))
+#' }
 manc_remove_annotations <- function(x, test=T) {
   if (!is.vector(x) && !is.data.frame(x))
     stop(paste("Wrong type of `x` argument. Vector of bodyids",
@@ -385,13 +388,13 @@ manc_remove_annotations <- function(x, test=T) {
   bodyids=as.character(bodyids)
   message(
     paste(
-      "Are you sure that you want to remove neurons:\n",
+      "Are you sure that you want to remove the following neurons?\n",
       paste(bodyids, collapse = " "), ".",
       "You are using", ifelse(test, "test", "production"), "server now."
     )
   )
   continue = readline(
-      "This operation CANNOT be inverted. [(y)es/(n)o]"
+      "Please confirm. This operation CANNOT be inverted. [(y)es/(n)o]"
   )
 
   if (continue %in% c("y","yes")) {
@@ -401,5 +404,6 @@ manc_remove_annotations <- function(x, test=T) {
     res<-sapply(bodyids, function(id) {
       clio_remove(glue(url))
     })
+    cat("Done!\n")
   }
 }
