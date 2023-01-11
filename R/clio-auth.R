@@ -214,7 +214,7 @@ clio_url <- function(path, test=FALSE) {
   u <- if(test)
     "https://clio-store-test-7fdj77ed7q-uk.a.run.app"
   else
-    "https://clio-store-test-7fdj77ed7q-uk.a.run.app"
+    "https://clio-store-vwzoicitea-uk.a.run.app"
   file.path(u, path, fsep = '/')
 }
 
