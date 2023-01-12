@@ -147,10 +147,12 @@ clio_set_token <- function(token, force=FALSE) {
   tokendir=dirname(tokenfile)
   if(!file.exists(tokendir))
     dir.create(tokendir, recursive = T)
-  if(!force && file.exists(tokenfile))
+  if(!force && file.exists(tokenfile)) {
     message(paste("Token exists in file:", tokenfile))
-  writeLines(token, tokenfile)
-  message(paste("Token successfully set in:", tokenfile))
+  } else {
+    writeLines(token, tokenfile)
+    message(paste("Token successfully set in:", tokenfile))
+  }
 }
 
 google_token <- function(token.only=FALSE) {
@@ -202,6 +204,10 @@ clio_fetch <- function(url, config=NULL, ..., body=NULL, query=NULL, json=FALSE)
                     query = query,
                     ...)
 
+  }
+  if (resp$status == 400) {
+    warning(paste("Status 400 means wrong data format.",
+                  "Are your columns the right type?"))
   }
   httr::stop_for_status(resp)
   res=httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')

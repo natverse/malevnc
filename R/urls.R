@@ -56,6 +56,7 @@
 #'   synapse layer is visible by default
 #' @param show_sidebar logical value that determines whether or not a sidebar
 #'   is visible by default
+#' @param shorten Whether to shorten the URL using the FlyEM URL shortener (see \code{})
 #'
 #' @return A character vector containing a single Neuroglancer URL or a JSON
 #'   fragment.
@@ -75,6 +76,7 @@ manc_scene <- function(ids=NULL, node='clio',
                        open=FALSE,
                        show_synapse_layer = FALSE,
                        show_sidebar = TRUE,
+                       shorten = FALSE,
                        basescene=c("2022-04-13", "2022-01-13", "2021-05-05",
                                    "2021-05-04", "2021-04-01", "2021-02-01"),
                        server=c("clio","appspot", "janelia"), return.json=FALSE) {
@@ -134,6 +136,7 @@ manc_scene <- function(ids=NULL, node='clio',
   if(return.json) {
     fafbseg::ngl_decode_scene(url, return.json = TRUE)
   } else {
+    if(shorten) url <- malevnc::flyem_shorten_url(url)
     if(isTRUE(open)) {
       utils::browseURL(url)
       invisible(url)
