@@ -1,5 +1,5 @@
 test_that("mirror_manc works", {
-  skip_if(inherits(try(nat::cmtk.bindir(check = TRUE)), 'try-error'))
+  skip_if(inherits(try(nat::cmtk.bindir(check = TRUE), silent = T), 'try-error'))
   hookr=cbind(33549, 45944, 50806)*c(8,8,8)/1000
   hookl=cbind(8718, 40794, 52140)*c(8,8,8)/1000
   hookrl=rbind(hookr, hookl)
