@@ -11,11 +11,11 @@ test_that("manc neuprint works", {
 
   expect_s3_class(vncc, "neuprint_connection")
 
-  expect_equal(sort(manc_ids("Giant Fiber", integer64 = T)),
+  expect_equal(sort(manc_ids("DNp01", integer64 = T)),
                as.integer64(c(10000, 10002)))
 
   expect_s3_class(gf <- neuprintr::neuprint_get_meta(10000), 'data.frame')
-  expect_equal(gf$type,"Giant Fiber")
+  expect_equal(gf$type,"DNp01")
   expect_equal(gf$soma, FALSE)
 
   expect_true(10085 %in% manc_connection_table(10000, partners = 'out')$partner)

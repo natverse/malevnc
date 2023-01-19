@@ -47,7 +47,7 @@ is.url <- function(x) {
 #' @examples
 #' \donttest{
 #' # search by type
-#' manc_ids("Giant Fiber")
+#' manc_ids("DNp01")
 #' # or against the instance (name)
 #' manc_ids("name:10085")
 #' # You can also do more complex queries using regular expressions
@@ -96,7 +96,7 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE,
 #' @family manc-neuprint
 #' @examples
 #' \donttest{
-#' down=manc_connection_table("Giant Fiber", partners='outputs')
+#' down=manc_connection_table("DNp01", partners='outputs')
 #' \dontrun{
 #' manc_scene(down$partner[1:8], open=TRUE)
 #' }
@@ -154,7 +154,7 @@ add_top_nt <- function(x, nts=c("acetylcholine","gaba","glutamate","neither")) {
 #' @importFrom nat `data.frame<-`
 #' @examples
 #' \dontrun{
-#' gfs=manc_read_neurons("Giant Fiber")
+#' gfs=manc_read_neurons("DNp01")
 #' gfs[,]
 #' }
 manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=manc_neuprint(), ...) {
@@ -183,7 +183,7 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #'
 #' @examples
 #' \donttest{
-#' manc_neuprint_meta("Giant Fiber")
+#' manc_neuprint_meta("DNp01")
 #' }
 manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE) {
   if(is.null(ids))

@@ -27,6 +27,6 @@ Fetch neuprint metadata for MANC neurons
 }
 \examples{
 \donttest{
-manc_neuprint_meta("Giant Fiber")
+manc_neuprint_meta("DNp01")
 }
 }

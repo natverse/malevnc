@@ -43,7 +43,7 @@ Convenience wrapper for neuprint connection queries for VNC dataset
 }
 \examples{
 \donttest{
-down=manc_connection_table("Giant Fiber", partners='outputs')
+down=manc_connection_table("DNp01", partners='outputs')
 \dontrun{
 manc_scene(down$partner[1:8], open=TRUE)
 }

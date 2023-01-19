@@ -14,7 +14,7 @@ test_that("manc_nodespec", {
 })
 
 test_that("manc_dvid_annotations", {
-  expect_true(is.data.frame(manc_dvid_annotations('Giant Fiber')))
+  expect_true(is.data.frame(manc_dvid_annotations('DNp01')))
   expect_silent(df <- manc_dvid_annotations(1e9))
   expect_equal(df$bodyid, 1e9)
   expect_true(all(is.na(df[,-1])))

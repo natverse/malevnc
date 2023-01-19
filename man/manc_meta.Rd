@@ -52,7 +52,7 @@ This function will the latest per bodyid metadata using
 }
 \examples{
 \dontrun{
-manc_meta('Giant Fiber')
+manc_meta('DNp01')
 manc_meta(10002)
 }
 }

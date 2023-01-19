@@ -47,5 +47,5 @@ dnls=manc_leg_summary('class:Descending')
 heatmap(data.matrix(dnls[grep("_out", colnames(dnls))]),
   Colv = NA, scale = 'none')
 }
-manc_side_summary('Giant Fiber')
+manc_side_summary('DNp01')
 }

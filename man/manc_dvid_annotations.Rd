@@ -70,7 +70,7 @@ mdf=manc_dvid_annotations()
 head(mdf)
 table(mdf$status)
 
-manc_dvid_annotations('Giant Fiber')
+manc_dvid_annotations('DNp01')
 
 \dontrun{
 # compare live body annotations with version in clio

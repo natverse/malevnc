@@ -45,7 +45,7 @@ Read MANC skeletons via neuprint
 }
 \examples{
 \dontrun{
-gfs=manc_read_neurons("Giant Fiber")
+gfs=manc_read_neurons("DNp01")
 gfs[,]
 }
 }

@@ -138,7 +138,7 @@ list2df <- function(x, points=c('collapse', 'expand', 'list'),
 #' head(mdf)
 #' table(mdf$status)
 #'
-#' manc_dvid_annotations('Giant Fiber')
+#' manc_dvid_annotations('DNp01')
 #'
 #' \dontrun{
 #' # compare live body annotations with version in clio
@@ -432,7 +432,7 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
 #'
 #' @examples
 #' \dontrun{
-#' manc_meta('Giant Fiber')
+#' manc_meta('DNp01')
 #' manc_meta(10002)
 #' }
 manc_meta <- function(ids=NULL, cache=TRUE, unique=FALSE, node='neutu', update.bodyids=FALSE) {

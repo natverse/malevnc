@@ -69,7 +69,7 @@ manc_leg_summary <- function(ids, long=FALSE, other=FALSE, conn=manc_neuprint())
 #' @export
 #' @rdname manc_leg_summary
 #' @examples
-#' manc_side_summary('Giant Fiber')
+#' manc_side_summary('DNp01')
 #' @importFrom dplyr mutate select
 manc_side_summary <- function(ids, long=FALSE, conn=manc_neuprint()) {
   ids=manc_ids(ids, as_character = F)

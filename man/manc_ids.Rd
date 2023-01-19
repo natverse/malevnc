@@ -44,7 +44,7 @@ used. See \code{\link[neuprintr]{neuprint_login}} for details.}
 \examples{
 \donttest{
 # search by type
-manc_ids("Giant Fiber")
+manc_ids("DNp01")
 # or against the instance (name)
 manc_ids("name:10085")
 # You can also do more complex queries using regular expressions
