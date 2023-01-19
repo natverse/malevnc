@@ -4,6 +4,11 @@ test_that("manc_body_annotations works", {
   expect_s3_class(mba <- manc_body_annotations(ids=11442), 'data.frame')
   expect_equal(mba$bodyid, 11442)
 
+  expect_silent(mm <- manc_meta(mba$bodyid))
+  # rightly or wrongly this has character not numeric bodyids
+  mm$bodyid=manc_ids(mm$bodyid, as_character = F)
+  expect_equal(mm[colnames(mba)], mba)
+
   expect_error(manc_annotate_body(data.frame(bodyid="9223372036854775809", entry_nerve='None'), test = T))
   expect_error(manc_annotate_body(data.frame(bodyid=9223372036854775803, entry_nerve='None'), test = T))
 
