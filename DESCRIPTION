@@ -50,7 +50,8 @@ Suggests:
     purrr,
     nabor,
     withr,
-    tidyr
+    tidyr,
+    nat.jrcbrains
 Enhances:
     drvid
 URL: https://github.com/flyconnectome/malevnc
@@ -61,5 +62,6 @@ Remotes:
     natverse/nat,
     natverse/neuprintr,
     natverse/nat.templatebrains,
-    natverse/fafbseg
+    natverse/fafbseg,
+    natverse/nat.jrcbrains
 Language: en-GB
