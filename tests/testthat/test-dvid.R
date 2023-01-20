@@ -21,11 +21,13 @@ test_that("manc_dvid_annotations", {
 })
 
 test_that("manc_check_group_complete", {
+  skip("Skip manc_check_group_complete since instance has been repurposed")
   expect_true(manc_check_group_complete(10501, c(10501, 10507, 10627)))
   expect_false(manc_check_group_complete(10501, c(10501, 10507)))
 })
 
 test_that("manc_set_lrgroup", {
+  skip("Skip manc_set_lrgroup since instance has been repurposed")
   expect_error(manc_set_lrgroup(c(501, 502), Force = T, dryrun = T, clio=FALSE))
   # this is not a real pair, just a neuron on L and R
   expect_output(manc_set_lrgroup(c(10501, 10507), Force = T, dryrun = T, clio=FALSE),

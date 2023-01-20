@@ -300,6 +300,8 @@ manc_check_group_complete <- function(group_id, body_ids,
 manc_set_lrgroup <- function(ids, sides=NULL, dryrun=TRUE, Force=FALSE,
                              Partial=FALSE, group=NA, clio=TRUE,
                              user=getOption("malevnc.dvid_user")) {
+  .Defunct('manc_annotate_body',
+              msg = "The instance field no longer contains group+side information. Use manc_annotate_body to set group instead.")
   m=manc_neuprint_meta(ids)
   # nb group is presently encoded in instance/name ...
   if (!all(is.na(m$name)) && !isTRUE(Partial) && !isTRUE(Force))
