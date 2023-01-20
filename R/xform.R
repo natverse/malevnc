@@ -155,3 +155,44 @@ MANCsym = structure(
   ),
   class = "templatebrain"
 )
+
+#' Download MANC to JRC registrations
+#'
+#' It downloads publicly available registrations:
+#' MANC to JRC2018VNCM \url{https://figshare.com/s/7f003353c24741136df3}
+#' JRC2018VNCM <> JRC2018VNCU \url{https://figshare.com/s/42ad71eb14e7dd51e81a}
+#' RC2018VNCF <> JRC2018VNCU \url{https://figshare.com/s/c4589cef9180e1dd4ee1}
+#'
+#' It requires installation of a suggested dependency \code{nat.jrcbrains}.
+#' These transformations operate in units of microns.
+#' Therefore, any point coordinates must be converted to micron units
+#' before applying.
+#'
+#' @export
+#'
+#' @references See Bogovic et al. (2018) \url{https://doi.org/10.1101/376384}
+download_manc_registrations <- function() {
+  check_jrcbrains()
+  download_urls <- paste0(
+    "https://ndownloader.figshare.com/files/",
+    c(
+      "28908564?private_link=7f003353c24741136df3",
+      "28908795?private_link=42ad71eb14e7dd51e81a",
+      "28909212?private_link=c4589cef9180e1dd4ee1"
+  ))
+  names(download_urls) <- c(
+    "JRC2018VncM_MANC.h5",
+    "JRC2018VncM_JRC2018VncU.h5",
+    "JRC2018VncU_JRC2018VncF.h5"
+  )
+  nat.jrcbrains::download_saalfeldlab_registrations(
+    download_urls = download_urls
+  )
+}
+
+# checks whether nat.jrcbrains is installed
+check_jrcbrains <- function() {
+  if(!requireNamespace('nat.jrcbrains', quietly = TRUE))
+    stop("You must install the nat.jrcbrains package in order to download registrations locally!\n",
+         "Please see https://github.com/natverse/nat.jrcbrains for details")
+}

@@ -71,6 +71,7 @@ reference:
   - '`mirror_manc`'
   - '`manc_lr_position`'
   - '`manc_view3d`'
+  - '`download_manc_registrations`'
 - title: Data objects
   contents:
   - '`mancneckseeds`'
