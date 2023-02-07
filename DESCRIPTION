@@ -51,7 +51,8 @@ Suggests:
     nabor,
     withr,
     tidyr,
-    nat.jrcbrains
+    nat.jrcbrains,
+    xml2
 Enhances:
     drvid
 URL: https://github.com/flyconnectome/malevnc
