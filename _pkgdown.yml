@@ -72,6 +72,9 @@ reference:
   - '`manc_lr_position`'
   - '`manc_view3d`'
   - '`download_manc_registrations`'
+- title: Cartoon summaries
+  contents:
+  - '`colour_leg_muscles`'
 - title: Data objects
   contents:
   - '`mancneckseeds`'
