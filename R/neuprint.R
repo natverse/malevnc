@@ -86,7 +86,9 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE,
 #'   specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
 #'   ensure that query is against the VNC dataset.
 #' @param moredetails Whether to include additional metadata information such as
-#'   hemilineage, side etc.
+#'   hemilineage, side etc. Can take one of the values \code{c('minimal',
+#'   'recommended', 'neuprint', 'all')}. In addition \code{TRUE} is a synonym
+#'   for \code{'neuprint'} and \code{F} is a synonym for \code{'minimal'}.
 #' @param ... additional arguments passed to
 #'   \code{\link{neuprint_connection_table}}
 #' @inheritParams neuprintr::neuprint_connection_table
@@ -103,7 +105,7 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE,
 #' }
 manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
                                   prepost = c("PRE", "POST"),
-                                  moredetails=FALSE,
+                                  moredetails="recommended",
                                   conn=manc_neuprint(), ...) {
   if(!missing(partners)) {
     partners=match.arg(partners)
@@ -112,15 +114,21 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
   ids=manc_ids(ids, conn=conn)
   res=neuprintr::neuprint_connection_table(ids, prepost = prepost, details=T, conn=conn, ...)
   res$partner=manc_ids(res$partner, unique=FALSE)
+  if(is.na(moredetails))
+    moredetails='recommended'
   if(is.logical(moredetails))
     moredetails=ifelse(moredetails, 'neuprint', 'minimal')
-  moredetails=match.arg(moredetails, c("all", 'neuprint', 'minimal'))
+  moredetails=match.arg(moredetails, c("all", 'neuprint', 'minimal', 'recommended'))
   if(moredetails=='all') {
     details=manc_meta(res$partner, unique = F)
     stopifnot(all(res$partner==details$bodyid))
     res=cbind(res, details[setdiff(colnames(details), "bodyid")])
   } else if (moredetails!='minimal'){
     details=manc_neuprint_meta(unique(res$partner), conn=conn)
+    if(moredetails=='recommended'){
+      # details$predictedNtProb=round(details$predictedNtProb, 3)
+      details=details[c("bodyid", "class", "group", "serial", "somaSide", "somaNeuromere", "hemilineage", "predictedNt", "predictedNtProb", "subclass")]
+    }
     res=dplyr::left_join(res, details[c("bodyid", setdiff(colnames(details), colnames(res)))],
           by=c('partner'='bodyid'))
   }

@@ -8,7 +8,7 @@ manc_connection_table(
   ids,
   partners = c("inputs", "outputs"),
   prepost = c("PRE", "POST"),
-  moredetails = FALSE,
+  moredetails = "recommended",
   conn = manc_neuprint(),
   ...
 )
@@ -26,7 +26,9 @@ inputs) or \code{POST}: postsynaptic (downstream outputs) to the given
 you should only use one.}
 
 \item{moredetails}{Whether to include additional metadata information such as
-hemilineage, side etc.}
+hemilineage, side etc. Can take one of the values \code{c('minimal',
+'recommended', 'neuprint', 'all')}. In addition \code{TRUE} is a synonym
+for \code{'neuprint'} and \code{F} is a synonym for \code{'minimal'}.}
 
 \item{conn}{Optional, a \code{\link{neuprint_connection}} object, which also
 specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
