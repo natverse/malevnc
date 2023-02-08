@@ -121,8 +121,8 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
     res=cbind(res, details[setdiff(colnames(details), "bodyid")])
   } else if (moredetails!='minimal'){
     details=manc_neuprint_meta(unique(res$partner), conn=conn)
-    res=merge(res, details[c("bodyid", setdiff(colnames(details), colnames(res)))],
-          by.x='partner', by.y='bodyid', all.x = T, sort = F)
+    res=dplyr::left_join(res, details[c("bodyid", setdiff(colnames(details), colnames(res)))],
+          by=c('partner'='bodyid'))
   }
   res
 }
