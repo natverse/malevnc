@@ -144,18 +144,18 @@ suffix. Accepted options are: 'user', 'time', 'all'.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">10</span>004 Intrinsi… 13B in… None    <span style="color: #949494;">""</span>      <span style="text-decoration: underline;">10</span>004 13B     TBD     billyj… 0.003<span style="text-decoration: underline;">90</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">10</span>007 Local Se… <span style="color: #BB0000;">NA</span>      AbN3_R   <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> <span style="color: #BB0000;">NA</span>      TBD     imaan.… 0.886  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 38 more variables: nt_gaba_prob &lt;dbl&gt;, nt_glutamate_prob &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   nt_unknown_prob &lt;dbl&gt;, position &lt;chr&gt;, position_type &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   nt_unknown_prob &lt;dbl&gt;, origin &lt;chr&gt;, position &lt;chr&gt;, position_type &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   predicted_nt &lt;chr&gt;, predicted_nt_prob &lt;dbl&gt;, prefix &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   root_position &lt;chr&gt;, root_side &lt;chr&gt;, status &lt;chr&gt;, subclass &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   systematic_type &lt;chr&gt;, target &lt;chr&gt;, type &lt;chr&gt;, user &lt;chr&gt;, tag &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   soma_neuromere &lt;chr&gt;, soma_side &lt;chr&gt;, origin &lt;chr&gt;, reviewer &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   avg_location &lt;chr&gt;, birthtime &lt;chr&gt;, confidence &lt;chr&gt;, long_tract &lt;chr&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   synonyms &lt;chr&gt;, systematic_type &lt;chr&gt;, target &lt;chr&gt;, type &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   user &lt;chr&gt;, tag &lt;chr&gt;, soma_neuromere &lt;chr&gt;, soma_side &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   reviewer &lt;chr&gt;, avg_location &lt;chr&gt;, birthtime &lt;chr&gt;, confidence &lt;chr&gt;, …</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mdf</span><span class="op">$</span><span class="va">status</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                   0.5assign                Anchor </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   519                  1104                   212 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Orphan            PRT Orphan Prelim Roughly traced </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   151                   372                  5460 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   151                   372                  5459 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Primary Anchor             RT Orphan        Roughly traced </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     5                   160                 17145 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Sensory Anchor           Soma Anchor                Traced </span>
@@ -170,12 +170,12 @@ suffix. Accepted options are: 'user', 'time', 'all'.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">10</span>000 Descendi… Giant … CvC     None    <span style="text-decoration: underline;">10</span>000 None    TBD     lisa.m…   0.514</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">10</span>002 Descendi… Giant … CvC     None    <span style="text-decoration: underline;">10</span>000 None    TBD     lisa.m…   0.460</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 38 more variables: nt_gaba_prob &lt;dbl&gt;, nt_glutamate_prob &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   nt_unknown_prob &lt;dbl&gt;, position &lt;chr&gt;, position_type &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   nt_unknown_prob &lt;dbl&gt;, origin &lt;chr&gt;, position &lt;chr&gt;, position_type &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   predicted_nt &lt;chr&gt;, predicted_nt_prob &lt;dbl&gt;, prefix &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   root_position &lt;chr&gt;, root_side &lt;chr&gt;, status &lt;chr&gt;, subclass &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   systematic_type &lt;chr&gt;, target &lt;chr&gt;, type &lt;chr&gt;, user &lt;chr&gt;, tag &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   soma_neuromere &lt;chr&gt;, soma_side &lt;chr&gt;, origin &lt;chr&gt;, reviewer &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   avg_location &lt;chr&gt;, birthtime &lt;chr&gt;, confidence &lt;chr&gt;, long_tract &lt;chr&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   synonyms &lt;chr&gt;, systematic_type &lt;chr&gt;, target &lt;chr&gt;, type &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   user &lt;chr&gt;, tag &lt;chr&gt;, soma_neuromere &lt;chr&gt;, soma_side &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   reviewer &lt;chr&gt;, avg_location &lt;chr&gt;, birthtime &lt;chr&gt;, confidence &lt;chr&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># compare live body annotations with version in clio</span></span></span>
