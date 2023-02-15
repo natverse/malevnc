@@ -52,6 +52,9 @@ is.url <- function(x) {
 #' manc_ids("name:10085")
 #' # You can also do more complex queries using regular expressions
 #' lrpairs=manc_ids("/name:[0-9]{5,}_[LR]")
+#'
+#' # you can also use Neo4J cypher queries by using the where: prefix
+#' bignogroupids <- manc_ids("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
 #' \dontrun{
 #' # Finally you can use the same queries wherever you specify body ids
 #' # NB if you want to be sure that regular neuprintr functions target
@@ -188,10 +191,16 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #' @return A data.frame with one row for each (unique) id and NAs for all
 #'   columns except bodyid when neuprint holds no metadata.
 #' @export
+#' @seealso \code{\link{manc_ids}}
 #'
 #' @examples
 #' \donttest{
 #' manc_neuprint_meta("DNp01")
+#'
+#' # use of a full CYPHER query. NB Each field relating to the neuron must be
+#' # be preceded by "n."
+#' bignogroup <- manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
+#' head(bignogroup)
 #' }
 manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE) {
   if(is.null(ids))

@@ -49,6 +49,9 @@ manc_ids("DNp01")
 manc_ids("name:10085")
 # You can also do more complex queries using regular expressions
 lrpairs=manc_ids("/name:[0-9]{5,}_[LR]")
+
+# you can also use Neo4J cypher queries by using the where: prefix
+bignogroupids <- manc_ids("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
 \dontrun{
 # Finally you can use the same queries wherever you specify body ids
 # NB if you want to be sure that regular neuprintr functions target
