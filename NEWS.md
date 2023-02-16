@@ -1,3 +1,24 @@
+# malevnc 0.2.7
+
+## What's Changed
+* Add `flyem_shorten_url()`, `flyem_expand_url()` by @jefferis in https://github.com/flyconnectome/malevnc/pull/54
+* `manc_connection_table()` defaults to selected neuprint metadata
+* `MANC.tracts` meshes object added by @dokato in https://github.com/flyconnectome/malevnc/pull/59
+* Added `download_manc_registrations()` to download bridging registrations
+  MANC <> JRC2018VNCU/M/F by @dokato in https://github.com/flyconnectome/malevnc/pull/58
+* Add `colour_leg_muscles()` by @jefferis in https://github.com/flyconnectome/malevnc/pull/62
+
+* New Clio query parsing (for `manc_annotate_body`) parametrized by @dokato in https://github.com/flyconnectome/malevnc/pull/55
+  Also provides support for malecns annotation
+* read `options(malevnc.dataset)` in `clio_version` (mostly for malecns)
+* Critical fix to `clio_set_token()` by @dokato in https://github.com/flyconnectome/malevnc/pull/56
+* fix bug in `manc_meta()` due to retired instance field by @jefferis in e6035ad31e7b3d75d7395079c6821d62a8933922
+* Retire `manc_set_lrgroup()` We will now just set the group column directly
+  via the clio interface. No need to use DVID / set instance values / sides etc.
+
+
+**Full Changelog**: https://github.com/flyconnectome/malevnc/compare/v0.2.6...v0.2.7
+
 # malevnc 0.2.6
 ## What's Changed
 * New test store address by @dokato in https://github.com/flyconnectome/malevnc/pull/49
