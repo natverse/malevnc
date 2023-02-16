@@ -31,7 +31,8 @@ manc_neuprint_meta("DNp01")
 
 # use of a full CYPHER query. NB Each field relating to the neuron must be
 # be preceded by "n."
-bignogroup <- manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
+bignogroup <-
+  manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
 head(bignogroup)
 }
 }

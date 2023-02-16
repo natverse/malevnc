@@ -200,7 +200,8 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #'
 #' # use of a full CYPHER query. NB Each field relating to the neuron must be
 #' # be preceded by "n."
-#' bignogroup <- manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
+#' bignogroup <-
+#'   manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
 #' head(bignogroup)
 #' }
 manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE) {
