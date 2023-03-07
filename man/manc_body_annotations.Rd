@@ -12,6 +12,7 @@ manc_body_annotations(
   cache = FALSE,
   update.bodyids = FALSE,
   test = FALSE,
+  show.extra = c("none", "user", "time", "all"),
   ...
 )
 }
@@ -36,6 +37,8 @@ switched to \code{FALSE} as of Feb 2022.}
 
 \item{test}{Whether to unset the clio-store test server (default
 \code{FALSE})}
+
+\item{show.extra}{Extra columns to show with user/timestamp information.}
 
 \item{...}{Additional arguments passed to \code{pbapply::\link{pblapply}}}
 }
@@ -69,6 +72,7 @@ Missing values in each output column are filled with NA. But if a
 \examples{
 \dontrun{
 manc_body_annotations(ids=11442)
+manc_body_annotations(ids=11442, show.extra='user')
 manc_body_annotations(query='{"hemilineage": "0B"}')
 manc_body_annotations(query=list(user="janedoe@gmail.com"))
 manc_body_annotations(query=list(soma_side="RHS"))
@@ -82,6 +86,8 @@ mba=manc_body_annotations()
 }
 }
 \seealso{
+\href{https://clio-store-vwzoicitea-uk.a.run.app/docs}{swagger docs}
+  or
 \href{https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit}{basic
 docs from Bill Katz}.
 

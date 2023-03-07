@@ -202,6 +202,7 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #'   bearer token)
 #' @param json Whether to return unparsed JSON rather than an R list (default
 #'   \code{FALSE}).
+#' @param show.extra Extra columns to show with user/timestamp information.
 #' @param test Whether to unset the clio-store test server (default
 #'   \code{FALSE})
 #' @param ... Additional arguments passed to \code{pbapply::\link{pblapply}}
@@ -222,12 +223,14 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' @export
 #'
 #' @family manc-annotation
-#' @seealso
+#' @seealso \href{https://clio-store-vwzoicitea-uk.a.run.app/docs}{swagger docs}
+#'   or
 #' \href{https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit}{basic
 #' docs from Bill Katz}.
 #' @examples
 #' \dontrun{
 #' manc_body_annotations(ids=11442)
+#' manc_body_annotations(ids=11442, show.extra='user')
 #' manc_body_annotations(query='{"hemilineage": "0B"}')
 #' manc_body_annotations(query=list(user="janedoe@gmail.com"))
 #' manc_body_annotations(query=list(soma_side="RHS"))
@@ -240,10 +243,12 @@ manc_dvid_annotations_memo <- memoise::memoise(.manc_dvid_annotations,
 #' mba=manc_body_annotations()
 #' }
 manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
-                                  cache=FALSE, update.bodyids=FALSE, test=FALSE, ...) {
+                                  cache=FALSE, update.bodyids=FALSE, test=FALSE,
+                                  show.extra=c("none", "user", "time", "all"), ...) {
   dataset=getOption('malevnc.dataset', default = 'VNC')
   baseurl=clio_url(glue("v2/json-annotations/{dataset}/neurons"),
                    test=test)
+  show.extra=match.arg(show.extra)
   nmissing=sum(is.null(ids), is.null(query))
   FUN=if(cache) clio_fetch_memo else clio_fetch
   if(nmissing==2) {
@@ -296,11 +301,11 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
       query
     }
   }
-
+  ql=list(changes = "false", id_field = "bodyid", show=show.extra)
   res=FUN(
     u,
     body = body,
-    query = list(changes = "false", id_field = "bodyid"),
+    query = ql,
     config = config,
     json = json
   )
