@@ -4,7 +4,13 @@
 \alias{manc_neuprint_meta}
 \title{Fetch neuprint metadata for MANC neurons}
 \usage{
-manc_neuprint_meta(ids = NULL, conn = manc_neuprint(), roiInfo = FALSE)
+manc_neuprint_meta(
+  ids = NULL,
+  conn = manc_neuprint(),
+  roiInfo = FALSE,
+  fields.regex.exclude = NULL,
+  fields.regex.include = NULL
+)
 }
 \arguments{
 \item{ids}{A set of body ids in any form understandable to
@@ -17,6 +23,9 @@ ensure that query is against the VNC dataset.}
 \item{roiInfo}{whether to include the \code{roiInfo} field detailing synapse
 numbers in different locations. This is omitted by default as it is
 returned as a character vector of unprocessed JSON.}
+
+\item{fields.regex.exclude, fields.regex.include}{Optional regular expressions
+to define fields to include or exclude from the returned metadata.}
 }
 \value{
 A data.frame with one row for each (unique) id and NAs for all

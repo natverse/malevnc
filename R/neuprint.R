@@ -189,6 +189,8 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #' @param roiInfo whether to include the \code{roiInfo} field detailing synapse
 #'   numbers in different locations. This is omitted by default as it is
 #'   returned as a character vector of unprocessed JSON.
+#' @param fields.regex.exclude,fields.regex.include Optional regular expressions
+#'   to define fields to include or exclude from the returned metadata.
 #' @return A data.frame with one row for each (unique) id and NAs for all
 #'   columns except bodyid when neuprint holds no metadata.
 #' @export
@@ -204,7 +206,7 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #'   manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
 #' head(bignogroup)
 #' }
-manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE) {
+manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE, fields.regex.exclude=NULL, fields.regex.include=NULL) {
   if(is.null(ids))
     ids=manc_dvid_annotations(cache=T)
   ids=manc_ids(ids, integer64=T)
@@ -222,9 +224,15 @@ manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE) {
   fixeddf
 }
 
-mnp_fields <- memoise::memoise(function(conn=manc_neuprint()) {
+mnp_fields <- memoise::memoise(function(conn=manc_neuprint(), regex.exclude=NULL, regex.include=NULL) {
   allfields=neuprintr::neuprint_get_fields("", negateFields = T, conn=conn)
-  grep("^[a-z]{2}", allfields, value = T)
+  if(is.null(regex.include))
+    regex.include="^[a-z]{2}"
+  if(!is.null(regex.include))
+    allfields=grep(regex.include, allfields, value = T)
+  if(!is.null(regex.exclude))
+    allfields=grep(regex.exclude, allfields, value = T, invert = T)
+  allfields
 })
 
 manc_download_swcs <- function(ids, outdir, node='neutu', df=NULL, OmitFailures=T, Force=FALSE, ...) {
