@@ -1,5 +1,9 @@
 # malevnc (development version)
 
+* Add show.extra to manc_body_annotations 
+* more options to exclude neuprint fields driven by the (temporary) addition of hundreds of new columns to the visual system for the male cns dataset. https://github.com/flyconnectome/malevnc/commit/0cb652aade1835d33f290e2a4a1bc7c3b9e1c2df
+* Switch @dokato to author
+
 # malevnc 0.2.7
 
 ## What's Changed
