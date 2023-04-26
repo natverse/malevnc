@@ -115,122 +115,139 @@ to define fields to include or exclude from the returned metadata.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">manc_neuprint_meta</span><span class="op">(</span><span class="st">"DNp01"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  pre post upstream downstream synweight status    statusLabel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 1033 2016     2016       5150      7166 Traced Roughly traced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002  934 1948     1948       4606      6554 Traced Roughly traced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        voxels ntGabaProb ntAcetylcholineProb ntGlutamateProb ntUnknownProb name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 38743961712  0.1707151           0.5142120       0.2175471    0.09752578  TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 39414880927  0.1434814           0.4596285       0.2562304    0.14065966  TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            position predictedNtProb   predictedNt positionType cropped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 24481,36044,67070       0.5142120 acetylcholine         neck   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 23217,35252,67070       0.4596285 acetylcholine         neck   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        class   subclass group rootSide entryNerve origin  target prefix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Descending electrical 10000      RHS        CvC  brain LTct_RL     DN</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Descending electrical 10000      LHS        CvC  brain LTct_RL     DN</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   reviewer  type systematicType hemilineage somaSide serial exitNerve</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     &lt;NA&gt; DNp01        DNlt003        None     &lt;NA&gt;     NA      None</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     &lt;NA&gt; DNp01        DNlt003        None     &lt;NA&gt;     NA      None</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   somaNeuromere birthtime somaLocation subcluster                 user</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;         NA Gregory SXE Jefferis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          None      &lt;NA&gt;         &lt;NA&gt;         NA    Elizabeth C Marin</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      lastModifiedBy description groupOld  tag      rootPosition oldBodyids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Elizabeth C Marin Giant fiber       NA &lt;NA&gt; 24481,36044,67070         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Elizabeth C Marin Giant fiber       NA &lt;NA&gt; 23217,35252,67070         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   avgLocation confidence typingNotes    synonyms somaRadius longTract</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        &lt;NA&gt;       &lt;NA&gt;        &lt;NA&gt; Giant Fiber         NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        &lt;NA&gt;       &lt;NA&gt;        &lt;NA&gt; Giant Fiber         NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   tosomaPosition source modality receptorType  soma</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1           &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2           &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 1033 2059     2059       5202      7261 Traced Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002  934 1973     1973       4607      6580 Traced Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        voxels ntGabaProb ntAcetylcholineProb ntGlutamateProb ntUnknownProb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 38743961712  0.1707151           0.5142120       0.2175471    0.09752578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 39414880927  0.1434814           0.4596285       0.2562304    0.14065966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   cropped name      class subclass rootSide entryNerve          position</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   FALSE  TBD Descending       lt      RHS        CvC 24481,36044,67070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   FALSE  TBD Descending       lt      LHS        CvC 23217,35252,67070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   predictedNtProb   predictedNt origin  target prefix positionType reviewer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.5142120 acetylcholine  brain LTct_RL     DN         neck     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.4596285 acetylcholine  brain LTct_RL     DN         neck     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    tag systematicType hemilineage somaSide description group somaNeuromere</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 &lt;NA&gt;        DNlt002        None     &lt;NA&gt; Giant fiber 10000          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 &lt;NA&gt;        DNlt002        None          Giant fiber 10000          None</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   birthtime somaLocation                 user    lastModifiedBy avgLocation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      &lt;NA&gt;         &lt;NA&gt; Gregory SXE Jefferis Elizabeth C Marin        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt;         &lt;NA&gt;    Elizabeth C Marin Elizabeth C Marin        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   confidence typingNotes  type serial exitNerve subcluster serialMotif</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       &lt;NA&gt;        &lt;NA&gt; DNp01     NA      None         NA        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       &lt;NA&gt;        &lt;NA&gt; DNp01     NA      None         NA        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   transmission serial_motif groupOld      rootPosition oldBodyids longTract</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   electrical         &lt;NA&gt;       NA 24481,36044,67070         NA      none</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   electrical         &lt;NA&gt;       NA 23217,35252,67070         NA      none</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      synonyms somaRadius tosomaPosition tosoma_postion source modality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Giant Fiber         NA           &lt;NA&gt;             NA   &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Giant Fiber         NA           &lt;NA&gt;             NA   &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   receptorType  soma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         &lt;NA&gt; FALSE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># use of a full CYPHER query. NB Each field relating to the neuron must be</span></span></span>
 <span class="r-in"><span><span class="co"># be preceded by "n."</span></span></span>
 <span class="r-in"><span><span class="va">bignogroup</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu">manc_neuprint_meta</span><span class="op">(</span><span class="st">"where:NOT exists(n.group) AND n.synweight&gt;5000 AND n.class CONTAINS 'neuron'"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bignogroup</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  pre post upstream downstream synweight status           statusLabel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  14487  523 4599     4599       4301      8900 Traced        Roughly traced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  17685 1620 3195     3195      10233     13428 Traced        Roughly traced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  12024  553 3340     3340       4154      7494 Traced        Roughly traced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  20000  619 2721     2721       5081      7802 Traced        Roughly traced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  11537  979 3769     3769       9673     13442 Traced Prelim Roughly traced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  17733  340 2749     2749       2752      5501 Traced        Roughly traced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       voxels  ntGabaProb ntAcetylcholineProb ntGlutamateProb ntUnknownProb name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1171534908 0.009269903         0.957422450      0.02955370   0.003753942  TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2980016603 0.470944208         0.169709469      0.31638422   0.042962105  TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2005414081 0.031280272         0.943325465      0.02091881   0.004475454  TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  945138540 0.842403445         0.019575450      0.12935726   0.008663844  TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2371866344 0.792865791         0.017601760      0.18710177   0.002430678  TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  743873684 0.883237927         0.005398709      0.10719202   0.004171349  TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            position predictedNtProb   predictedNt positionType cropped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 23293,38376,67070       0.9574225 acetylcholine         user   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 24265,31026,57936       0.4709442          gaba         soma   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 23385,37982,67070       0.9433255 acetylcholine         user   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 25195,38150,45000       0.8424034          gaba         user   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 36674,31985,43673       0.7928658          gaba         soma   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 18951,37472,45337       0.8832379          gaba         user   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   class                subclass group rootSide entryNerve</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Ascending Interneuron                    &lt;NA&gt;    NA      RHS       None</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Ascending Interneuron putative neurosecretory    NA  Midline       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Ascending Interneuron                    &lt;NA&gt;    NA      RHS       None</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Ascending Interneuron                    &lt;NA&gt;    NA      LHS       None</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Ascending Interneuron                    &lt;NA&gt;    NA      RHS       None</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Ascending Interneuron                    &lt;NA&gt;    NA      RHS       None</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       origin     target prefix reviewer type systematicType hemilineage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      multi      multi     BA     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 ANm.IntTct ANm.IntTct     BA     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt; Primary_TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  LegNpT1_R  LegNpT1_R     BA     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         TBD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      multi      multi     BA     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         05B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      multi    LegNp_R     BA     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         09A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      multi      multi     BA     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         05B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   somaSide serial exitNerve somaNeuromere      birthtime      somaLocation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      RHS     NA       CvC            A8           &lt;NA&gt;  29113,10153,5684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Midline  13750       CvC            T1        primary 24265,31026,57936</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      LHS     NA       CvC            A9           &lt;NA&gt;  21248,14153,4278</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      RHS     NA       CvC            T1 secondary auto 23325,41413,44025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      RHS  10628       CvC            T2        primary 36674,31985,43673</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      LHS     NA       CvC            T1      secondary 20877,41021,44461</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subcluster                 user    lastModifiedBy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         NA Gregory SXE Jefferis    David Shepherd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         NA    Elizabeth C Marin Elizabeth C Marin</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      12024 Gregory SXE Jefferis Elizabeth C Marin</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         NA    Elizabeth C Marin      Imaan Tamimi</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         NA    Elizabeth C Marin Elizabeth C Marin</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         NA    Elizabeth C Marin    Marina Gkantia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  pre post upstream downstream synweight status    statusLabel</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  12024  552 3347     3347       4155      7502 Traced Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  14487  523 4622     4622       4314      8936 Traced Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  17685 1618 3199     3199      10255     13454 Traced Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  14318  358 3022     3022       2882      5904 Traced Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  20000  619 2724     2724       5104      7828 Traced Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  11537  979 3770     3770       9696     13466 Traced Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       voxels  ntGabaProb ntAcetylcholineProb ntGlutamateProb ntUnknownProb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2005414081 0.031280272         0.943325465      0.02091881   0.004475454</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1171534908 0.009269903         0.957422450      0.02955370   0.003753942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2980016603 0.470944208         0.169709469      0.31638422   0.042962105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  776162855 0.918771574         0.003175267      0.07543413   0.002619032</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  945138540 0.842403445         0.019575450      0.12935726   0.008663844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2371866344 0.792865791         0.017601760      0.18710177   0.002430678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   cropped name                 class                subclass rootSide</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   FALSE  TBD Ascending Interneuron                    &lt;NA&gt;      RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   FALSE  TBD Ascending Interneuron                    &lt;NA&gt;      RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   FALSE  TBD Ascending Interneuron putative neurosecretory  Midline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   FALSE  TBD Ascending Interneuron                    &lt;NA&gt;      RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   FALSE  TBD Ascending Interneuron                    &lt;NA&gt;      LHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   FALSE  TBD Ascending Interneuron                    &lt;NA&gt;      RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   entryNerve          position predictedNtProb   predictedNt     origin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       None 23385,37982,67070       0.9433255 acetylcholine  LegNpT1_R</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       None 23293,38376,67070       0.9574225 acetylcholine      multi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       &lt;NA&gt; 24265,31026,57936       0.4709442          gaba ANm.IntTct</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       None 18930,37472,45357       0.9187716          gaba      multi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       None 25195,38150,45000       0.8424034          gaba      multi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       None 36674,31985,43673       0.7928658          gaba      multi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       target prefix positionType reviewer  tag systematicType hemilineage</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  LegNpT1_R     BA         user     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         TBD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      multi     BA         user     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         TBD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 ANm.IntTct     BA         soma     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         TBD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      multi     BA         user     &lt;NA&gt; &lt;NA&gt;       AN05B013         05B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      multi     BA         user     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         05B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    LegNp_R     BA         soma     &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;         09A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   somaSide</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      LHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Midline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      LHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      RHS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                           description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                  dorsal soma; possibly serial 10477</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 5B in T1 RHS; needs major merge from 19809 37303 44681; truncated by tissue damage at posterior end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                               9A? primary in T2 RHS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                          5B in T1 LHS; 1st pass ECM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   groupOld  tag rootPosition oldBodyids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA &lt;NA&gt;         &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       NA &lt;NA&gt;         &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       NA &lt;NA&gt;         &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    14318 &lt;NA&gt;         &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       NA &lt;NA&gt;         &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    14318 &lt;NA&gt;         &lt;NA&gt;         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                  dorsal soma; possibly serial 10477</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                          5B in T1 LHS; 1st pass ECM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 5B in T1 RHS; needs major merge from 19809 37303 44681; truncated by tissue damage at posterior end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                               9A? primary in T2 RHS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group somaNeuromere      birthtime      somaLocation                 user</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    NA            A9           &lt;NA&gt;  21248,14153,4278 Gregory SXE Jefferis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    NA            A8           &lt;NA&gt;  29113,10153,5684 Gregory SXE Jefferis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    NA            T1        primary 24265,31026,57936    Elizabeth C Marin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    NA            T1      secondary 19687,39944,44160    Elizabeth C Marin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    NA            T1 secondary auto 23325,41413,44025    Elizabeth C Marin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    NA            T2        primary 36674,31985,43673    Elizabeth C Marin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      lastModifiedBy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Elizabeth C Marin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    David Shepherd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Elizabeth C Marin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    Marina Gkantia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      Imaan Tamimi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Elizabeth C Marin</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                 avgLocation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 list(25171, 38150, 45076),list(name = "cartesian-3d", properties = list(href = "http://spatialreference.org/ref/sr-org/9157/ogcwkt/", type = "ogcwkt"), srid = 9157, type = "link"),Point</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 list(18873, 37472, 45448),list(name = "cartesian-3d", properties = list(href = "http://spatialreference.org/ref/sr-org/9157/ogcwkt/", type = "ogcwkt"), srid = 9157, type = "link"),Point</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   confidence                              typingNotes synonyms somaRadius</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       &lt;NA&gt;                                     &lt;NA&gt;     &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       &lt;NA&gt;                                     &lt;NA&gt;     &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       &lt;NA&gt;                                     &lt;NA&gt;     &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          3 ANs; Does not include putative primaries     &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       &lt;NA&gt;                                     &lt;NA&gt;     &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          3 ANs; Does not include putative primaries     &lt;NA&gt;         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   longTract tosomaPosition source modality receptorType soma</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      &lt;NA&gt;           &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt;           &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt;           &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt;           &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt;           &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt;           &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 list(18873, 37472, 45448),list(name = "cartesian-3d", properties = list(href = "http://spatialreference.org/ref/sr-org/9157/ogcwkt/", type = "ogcwkt"), srid = 9157, type = "link"),Point</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 list(25171, 38150, 45076),list(name = "cartesian-3d", properties = list(href = "http://spatialreference.org/ref/sr-org/9157/ogcwkt/", type = "ogcwkt"), srid = 9157, type = "link"),Point</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                                        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   confidence                              typingNotes type serial exitNerve</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       &lt;NA&gt;                                     &lt;NA&gt; &lt;NA&gt;     NA       CvC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       &lt;NA&gt;                                     &lt;NA&gt; &lt;NA&gt;     NA       CvC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       &lt;NA&gt;                                     &lt;NA&gt; &lt;NA&gt;  13750       CvC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          3 ANs; Does not include putative primaries &lt;NA&gt;     NA       CvC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          3 ANs; Does not include putative primaries &lt;NA&gt;     NA       CvC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       &lt;NA&gt;                                     &lt;NA&gt; &lt;NA&gt;  10628       CvC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   subcluster serialMotif            transmission serial_motif groupOld</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      12024        &lt;NA&gt;                    &lt;NA&gt;         &lt;NA&gt;       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         NA        &lt;NA&gt;                    &lt;NA&gt;         &lt;NA&gt;       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         NA      dorsal putative neurosecretory         &lt;NA&gt;       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      13169        &lt;NA&gt;                    &lt;NA&gt;         &lt;NA&gt;       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         NA        &lt;NA&gt;                    &lt;NA&gt;         &lt;NA&gt;    14318</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         NA     complex                    &lt;NA&gt;         &lt;NA&gt;       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   rootPosition oldBodyids longTract synonyms somaRadius tosomaPosition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         &lt;NA&gt;         NA      &lt;NA&gt;     &lt;NA&gt;         NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         &lt;NA&gt;         NA      &lt;NA&gt;     &lt;NA&gt;         NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         &lt;NA&gt;         NA      &lt;NA&gt;     &lt;NA&gt;         NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         &lt;NA&gt;         NA      &lt;NA&gt;     &lt;NA&gt;         NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         &lt;NA&gt;         NA      &lt;NA&gt;     &lt;NA&gt;         NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         &lt;NA&gt;         NA      &lt;NA&gt;     &lt;NA&gt;         NA           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   tosoma_postion source modality receptorType soma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             NA   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2             NA   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             NA   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             NA   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5             NA   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6             NA   &lt;NA&gt;     &lt;NA&gt;         &lt;NA&gt; TRUE</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -242,7 +259,7 @@ to define fields to include or exclude from the returned metadata.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Gregory Jefferis.</p>
+  <p></p><p>Developed by Gregory Jefferis, Dominik Krzeminski.</p>
 </div>
 
 <div class="pkgdown">

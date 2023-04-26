@@ -119,7 +119,7 @@ ensure that query is against the VNC dataset.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">10</span>126      0       0      0       0      0       0      0       0      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">10</span>118      0       0      0       0      0       0      0       0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 3 more variables: T3L_out &lt;int&gt;, T3R_in &lt;int&gt;, T3R_out &lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 3 more variables: T3L_out &lt;int&gt;, T3R_in &lt;int&gt;, T3R_out &lt;int&gt;</span></span>
 <span class="r-in"><span><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10126</span>, <span class="fl">10118</span><span class="op">)</span>, long<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: tidyr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 5</span></span>
@@ -135,7 +135,7 @@ ensure that query is against the VNC dataset.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">10</span>126      0 T2             R     out     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">10</span>126      0 T3             L     in      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">10</span>126      0 T3             L     out     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 14 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more rows</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html" class="external-link">data.matrix</a></span><span class="op">(</span><span class="va">dnals</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"_out"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dnals</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  Colv <span class="op">=</span> <span class="cn">NA</span>, scale <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="manc_leg_summary-1.png" alt="" width="700" height="433"></span>
@@ -148,8 +148,8 @@ ensure that query is against the VNC dataset.</p></dd>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="fu">manc_side_summary</span><span class="op">(</span><span class="st">'DNp01'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid L_in L_out R_in R_out</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000    0     0   81   255</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002   71    53    0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000    0     0   96   273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002   86    56    0     0</span>
 </code></pre></div>
     </div>
   </div>
@@ -160,7 +160,7 @@ ensure that query is against the VNC dataset.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Gregory Jefferis.</p>
+  <p></p><p>Developed by Gregory Jefferis, Dominik Krzeminski.</p>
 </div>
 
 <div class="pkgdown">
