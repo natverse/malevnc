@@ -28,9 +28,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Gregory Jefferis \email{jefferis@gmail.com} (\href{https://orcid.org/0000-0002-0587-9355}{ORCID})
 
-Other contributors:
+Authors:
 \itemize{
-  \item Dominik Krzeminski \email{dkk33@cam.ac.uk} (\href{https://orcid.org/0000-0003-4568-0583}{ORCID}) [contributor]
+  \item Dominik Krzeminski \email{dkk33@cam.ac.uk} (\href{https://orcid.org/0000-0003-4568-0583}{ORCID})
 }
 
 }
