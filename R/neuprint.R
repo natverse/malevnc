@@ -191,6 +191,7 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #'   returned as a character vector of unprocessed JSON.
 #' @param fields.regex.exclude,fields.regex.include Optional regular expressions
 #'   to define fields to include or exclude from the returned metadata.
+#' @param ... Additional arguments passed to \code{\link{neuprint_get_meta}}
 #' @return A data.frame with one row for each (unique) id and NAs for all
 #'   columns except bodyid when neuprint holds no metadata.
 #' @export
@@ -206,14 +207,14 @@ manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=ma
 #'   manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
 #' head(bignogroup)
 #' }
-manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE, fields.regex.exclude=NULL, fields.regex.include=NULL) {
+manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE, fields.regex.exclude=NULL, fields.regex.include=NULL, ...) {
   if(is.null(ids))
     ids=manc_dvid_annotations(cache=T)
   ids=manc_ids(ids, integer64=T)
   fields=mnp_fields(conn=conn)
   if(!isTRUE(roiInfo))
     fields=setdiff(fields, "roiInfo")
-  metadf=neuprintr::neuprint_get_meta(ids, conn=conn, possibleFields=fields)
+  metadf=neuprintr::neuprint_get_meta(ids, conn=conn, possibleFields=fields, ...)
   metadf$bodyid=as.integer64(metadf$bodyid)
   dfids=data.frame(bodyid=ids)
   fixeddf=dplyr::left_join(dfids, metadf, by='bodyid')

@@ -9,7 +9,8 @@ manc_neuprint_meta(
   conn = manc_neuprint(),
   roiInfo = FALSE,
   fields.regex.exclude = NULL,
-  fields.regex.include = NULL
+  fields.regex.include = NULL,
+  ...
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ returned as a character vector of unprocessed JSON.}
 
 \item{fields.regex.exclude, fields.regex.include}{Optional regular expressions
 to define fields to include or exclude from the returned metadata.}
+
+\item{...}{Additional arguments passed to \code{\link{neuprint_get_meta}}}
 }
 \value{
 A data.frame with one row for each (unique) id and NAs for all
