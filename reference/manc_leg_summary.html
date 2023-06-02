@@ -20,7 +20,7 @@ manc_side_summary summarises connections within all of
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">malevnc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.7.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.8</span>
       </span>
     </div>
 
@@ -44,7 +44,7 @@ manc_side_summary summarises connections within all of
   <a href="https://natverse.github.io" class="external-link">natverse</a>
 </li>
 <li>
-  <a href="https://github.com/flyconnectome/malevnc/" class="external-link">
+  <a href="https://github.com/natverse/malevnc/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -59,7 +59,7 @@ manc_side_summary summarises connections within all of
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simple summaries of which regions different neurons innervate</h1>
-    <small class="dont-index">Source: <a href="https://github.com/flyconnectome/malevnc/blob/HEAD/R/rois.R" class="external-link"><code>R/rois.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/HEAD/R/rois.R" class="external-link"><code>R/rois.R</code></a></small>
     <div class="hidden name"><code>manc_leg_summary.Rd</code></div>
     </div>
 
@@ -142,14 +142,15 @@ ensure that query is against the VNC dataset.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="va">dnls</span><span class="op">=</span><span class="fu">manc_leg_summary</span><span class="op">(</span><span class="st">'class:Descending'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in neuprintr::neuprint_ids(x = x, conn = conn, mustWork = mustWork,     unique = unique, ...):</span> No valid ids provided!</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/heatmap.html" class="external-link">heatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html" class="external-link">data.matrix</a></span><span class="op">(</span><span class="va">dnls</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"_out"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dnls</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  Colv <span class="op">=</span> <span class="cn">NA</span>, scale <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="manc_leg_summary-2.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'dnls' not found</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="fu">manc_side_summary</span><span class="op">(</span><span class="st">'DNp01'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid L_in L_out R_in R_out</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000    0     0   96   273</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002   86    56    0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000    0     0   93   218</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002   82    45    0     0</span>
 </code></pre></div>
     </div>
   </div>
