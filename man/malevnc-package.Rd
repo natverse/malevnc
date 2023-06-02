@@ -20,8 +20,8 @@ Will provide regional surface meshes and template brain support for the Janelia 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/flyconnectome/malevnc}
-  \item Report bugs at \url{https://github.com/flyconnectome/malevnc/issues}
+  \item \url{https://github.com/natverse/malevnc}
+  \item Report bugs at \url{https://github.com/natverse/malevnc/issues}
 }
 
 }

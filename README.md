@@ -1,8 +1,8 @@
 # malevnc
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/flyconnectome/malevnc/workflows/R-CMD-check/badge.svg)](https://github.com/flyconnectome/malevnc/actions)
-[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://flyconnectome.github.io/malevnc/reference/)
+[![R-CMD-check](https://github.com/natverse/malevnc/workflows/R-CMD-check/badge.svg)](https://github.com/natverse/malevnc/actions)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/malevnc/reference/)
 <!-- badges: end -->
 
 The goal of malevnc is to provide a package to support analysis on the Janelia
@@ -17,7 +17,7 @@ You can install the development version of malevnc from github:
 
 ``` r
 install.packages("natmanager")
-natmanager::install(pkgs="flyconnectome/malevnc")
+natmanager::install(pkgs="natverse/malevnc")
 ```
 
 Note that you must have been given access to the [github repository](https://github.com/flyconnectome/malevnc/) and have a GitHub Personal Access Token (PAT) set up in order

@@ -265,6 +265,6 @@ clio_version <- function(version=NULL) {
   version=cds[[dataset]][["tag"]]
   if(is.null(version))
     stop("Unable to read clio version from API. Please specify manually and\n",
-         "file a bug report at https://github.com/flyconnectome/malevnc/issues")
+         "file a bug report at https://github.com/natverse/malevnc/issues")
   version
 }
