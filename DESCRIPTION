@@ -21,7 +21,7 @@ LazyData: true
 LazyDataCompression: xz
 RoxygenNote: 7.2.3
 Imports:
-    nat,
+    nat (>= 1.9.2.9000),
     checkmate,
     nat.templatebrains,
     tibble,
