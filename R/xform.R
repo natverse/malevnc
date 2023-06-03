@@ -2,8 +2,9 @@
 #'
 #' @details These registration functions depend on an installation of the CMTK
 #'   registration toolkit. See \code{\link[nat]{cmtk.bindir}} for details.
-#' @param x 3D vertices (or object containing them) in MANC microns. Could be
-#'   \code{\link{neuron}}, \code{\link{neuronlist}}, \code{\link{hxsurf}} etc.
+#' @param x 3D vertices (or object containing them) in MANC space with
+#'   \bold{units of microns}. Could be \code{\link{neuron}},
+#'   \code{\link{neuronlist}}, \code{\link{hxsurf}} etc.
 #' @param level Which resolution level of the CMTK registrations to use. Higher
 #'   number = higher resolution. This is for expert/testing purposes only - just
 #'   stick with the default.
@@ -28,6 +29,15 @@
 #' # distances are 1-8 microns in each axis, due to placement variations.
 #' hookrl.m-hookrl[2:1, ]
 #' }
+#'
+#' \dontrun{
+#' # example of mirroring a neuron in original MANC space
+#' dna02.um=manc_read_neurons("DNa02", units='microns')
+#' dna02.um.m=mirror_manc(dna02.um, units='microns')
+#' plot3d(dna02.um)
+#' plot3d(dna02.um.m, col='grey')
+#' }
+#'
 #' \dontrun{
 #' wire3d(MANC.surf, col='grey', lwd=.5)
 #' points3d(hookrl, col=c("green", "red"), size=10)

@@ -154,8 +154,9 @@ add_top_nt <- function(x, nts=c("acetylcholine","gaba","glutamate","neither")) {
 #' Read MANC skeletons via neuprint
 #'
 #' @details \code{manc_read_neurons} fetches metadata from neuprint but does not
-#'   fetch synapse locations by default as this is very time consuming.
-#'
+#'   fetch synapse locations by default as this is very time consuming. For historical
+#'   reasons the default units are in raw image voxels (ie 8nm spacing, what flyem returns) but for most other functions such as \code{\link{symmetric_manc}} you need units of microns.
+#' @param units Units of the returned neurons (default \code{raw} ie 8nm voxels)
 #' @inheritParams manc_connection_table
 #' @inheritParams neuprintr::neuprint_read_neurons
 #' @param ... Additional arguments passed to
@@ -168,11 +169,20 @@ add_top_nt <- function(x, nts=c("acetylcholine","gaba","glutamate","neither")) {
 #' \dontrun{
 #' gfs=manc_read_neurons("DNp01")
 #' gfs[,]
+#'
+#' dna02.um=manc_read_neurons("DNa02", units='microns')
+#' dna02.um.m=mirror_manc(dna02.um, units='microns')
+#' plot3d(dna02.um)
+#' plot3d(dna02.um.m, col='grey')
 #' }
-manc_read_neurons <- function(ids, connectors=FALSE, heal.threshold=Inf, conn=manc_neuprint(), ...) {
+manc_read_neurons <- function(ids, units=c("raw", "microns", "nm"),
+                              connectors=FALSE, heal.threshold=Inf, conn=manc_neuprint(), ...) {
+  units=match.arg(units)
   ids=manc_ids(ids, conn=conn, as_character = T)
   nl=neuprintr::neuprint_read_neurons(ids, meta = F, connectors = connectors,
                                    heal.threshold=heal.threshold, conn=conn, ...)
+  # rep(,4) ensures that radius information is also scaled
+  nl=switch(units, nm=nl*rep(8,4), microns=nl*rep(8/1000, 4), nl)
   # we're fetching the metadata ourselves because of some wrinkles with
   # 1. missing metadata
   # 2. numeric ids that do not correctly format with as.character

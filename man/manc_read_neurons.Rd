@@ -6,6 +6,7 @@
 \usage{
 manc_read_neurons(
   ids,
+  units = c("raw", "microns", "nm"),
   connectors = FALSE,
   heal.threshold = Inf,
   conn = manc_neuprint(),
@@ -15,6 +16,8 @@ manc_read_neurons(
 \arguments{
 \item{ids}{A set of body ids in any form understandable to
 \code{\link{manc_ids}}}
+
+\item{units}{Units of the returned neurons (default \code{raw} ie 8nm voxels)}
 
 \item{connectors}{whether or not to add synapse data to the retrieved
 skeletons in the format used by the \code{rcatmaid} package, for easy use
@@ -41,11 +44,17 @@ Read MANC skeletons via neuprint
 }
 \details{
 \code{manc_read_neurons} fetches metadata from neuprint but does not
-  fetch synapse locations by default as this is very time consuming.
+  fetch synapse locations by default as this is very time consuming. For historical
+  reasons the default units are in raw image voxels (ie 8nm spacing, what flyem returns) but for most other functions such as \code{\link{symmetric_manc}} you need units of microns.
 }
 \examples{
 \dontrun{
 gfs=manc_read_neurons("DNp01")
 gfs[,]
+
+dna02.um=manc_read_neurons("DNa02", units='microns')
+dna02.um.m=mirror_manc(dna02.um, units='microns')
+plot3d(dna02.um)
+plot3d(dna02.um.m, col='grey')
 }
 }
