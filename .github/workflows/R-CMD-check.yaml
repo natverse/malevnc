@@ -66,8 +66,7 @@ jobs:
         # this is not getting picked up by system requirements for some reason
       - name: Install glpk
         if: runner.os == 'Linux'
-        run: |
-        sudo apt-get install -y libglpk-dev
+        run: sudo apt-get install -y libglpk-dev
 
       - name: Install system dependencies
         if: runner.os == 'Linux'
