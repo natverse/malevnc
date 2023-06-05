@@ -15,7 +15,8 @@ choose_malevnc_dataset <- function(dataset=NULL,
     if(!isTRUE(use_clio)) {
       ops=list(
         malevnc.dataset=dataset,
-        malevnc.neuprint='https://neuprint.janelia.org'
+        malevnc.neuprint='https://neuprint.janelia.org',
+        malevnc.neuprint_dataset="manc:v1.0"
       )
       if(set) return(options(ops)) else return(ops)
     }
@@ -30,11 +31,15 @@ choose_flyem_dataset <- function(dataset=getOption("malevnc.dataset"), set=TRUE)
   ds=flyem_dataset(dataset)
   s=flyem_servers4dataset(ds)
   r=flyem_rootnode4dataset(ds)
-  np=ds$neuprintHTTP$server
+  nps=ds$neuprintHTTP$server
+  npd=ds$neuprintHTTP$dataset
+  if(!is.null(ds$neuprintHTTP$version))
+    npd=paste0(npd, sep=":", ds$neuprintHTTP$version)
   ops=list(malevnc.server=s$dvid,
            malevnc.rootnode=r,
            malevnc.dataset=dataset,
-           malevnc.neuprint=np)
+           malevnc.neuprint=nps,
+           malevnc.neuprint_dataset=npd)
   if(set) options(ops) else ops
 }
 
