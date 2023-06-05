@@ -247,10 +247,12 @@ clio_email <- memoise::memoise(function(email=getOption("malevnc.clio_email")) {
 
 
 clio_datasets <- function(cached=TRUE, json=FALSE) {
-  if(cached)
-    clio_fetch_memo(clio_url('v2/datasets'), json=json)
+  js <- if(cached)
+    clio_fetch_memo(clio_url('v2/datasets'), json=TRUE)
   else
-    clio_fetch(clio_url('v2/datasets'), json=json)
+    clio_fetch(clio_url('v2/datasets'), json=TRUE)
+  if(json) js
+  else jsonlite::fromJSON(js, simplifyVector = T, simplifyDataFrame = F)
 }
 
 clio_version <- function(version=NULL) {
