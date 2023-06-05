@@ -48,6 +48,11 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
+      - name: Set private VNC dataset for full check
+        run: |
+          cat("\noptions(malevnc.dataset = 'VNC')\n", file = "~/.Rprofile", append = TRUE)
+        shell: Rscript {0}
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
