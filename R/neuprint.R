@@ -1,8 +1,14 @@
 #' Login to MANC neuprint server
 #'
+#' @param server A neuprint server (a sensible default should be chosen)
+#' @param dataset A neuprint dataset (a sensible default should be chosen based
+#'   on which dataset has been specified for Clio/DVID)
+#' @param token neuprint authorisation token obtained e.g. from
+#'   neuprint.janelia.org website.
 #' @param ... Additional arguments passed to \code{\link{neuprint_login}}
 #'
-#' @return a \code{\link{neuprint_connection}} object returned by \code{\link{neuprint_login}}
+#' @return a \code{\link{neuprint_connection}} object returned by
+#'   \code{\link{neuprint_login}}
 #' @export
 #' @family manc-neuprint
 #' @examples
@@ -16,11 +22,14 @@
 #' plot(cumsum(sort(anchormeta$post, decreasing = TRUE)), ylab='Cumulative postsynapses')
 #' }
 #' @importFrom neuprintr neuprint_login
-manc_neuprint <- function(...) {
+manc_neuprint <- function(server = getOption('malevnc.neuprint'),
+                          dataset = getOption('malevnc.neuprint_dataset'),
+                          token = Sys.getenv("neuprint_token"),
+                          ...) {
   neuprint_login(
-    server = getOption('malevnc.neuprint'),
-    dataset = tolower(getOption('malevnc.dataset')),
-    token = Sys.getenv("neuprint_token"),
+    server=server,
+    dataset=dataset,
+    token=token,
     ...
   )
 }
