@@ -10,6 +10,8 @@ choose_malevnc_dataset <- function(dataset=NULL,
   if(is.null(dataset))
     dataset=getOption("malevnc.dataset")
   if(is.null(dataset))
+    dataset=Sys.getenv('MALEVNC_DATASET')
+  if(is.null(dataset))
     dataset='MANC'
   if(isTRUE(dataset=='MANC')){
     if(!isTRUE(use_clio)) {

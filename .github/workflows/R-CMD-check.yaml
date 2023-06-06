@@ -38,6 +38,7 @@ jobs:
       _R_CHECK_TESTS_NLINES_: 0
       neuprint_token: ${{ secrets.NEUPRINT_TOKEN }}
       CLIO_TOKEN: ${{ secrets.CLIO_TOKEN }}
+      MALEVNC_DATASET: VNC
 
     steps:
       - uses: actions/checkout@v2
@@ -47,11 +48,6 @@ jobs:
           r-version: ${{ matrix.config.r }}
 
       - uses: r-lib/actions/setup-pandoc@v2
-
-      - name: Set private VNC dataset for full check
-        run: |
-          cat("\noptions(malevnc.dataset = 'VNC')\n", file = "~/.Rprofile", append = TRUE)
-        shell: Rscript {0}
 
       - name: Query dependencies
         run: |
