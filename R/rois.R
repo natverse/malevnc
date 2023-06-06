@@ -21,7 +21,7 @@
 #'   Colv = NA, scale = 'none')
 #'
 #' \donttest{
-#' dnls=manc_leg_summary('class:Descending')
+#' dnls=manc_leg_summary('class:descending')
 #' heatmap(data.matrix(dnls[grep("_out", colnames(dnls))]),
 #'   Colv = NA, scale = 'none')
 #' }
