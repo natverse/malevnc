@@ -34,6 +34,8 @@ choose_flyem_dataset <- function(dataset=getOption("malevnc.dataset"), set=TRUE)
   s=flyem_servers4dataset(ds)
   r=flyem_rootnode4dataset(ds)
   nps=ds$neuprintHTTP$server
+  if(!isTRUE(substr(nps,1, 8)=="https://"))
+    nps=paste0("https://", nps)
   npd=ds$neuprintHTTP$dataset
   if(!is.null(ds$neuprintHTTP$version))
     npd=paste0(npd, sep=":", ds$neuprintHTTP$version)
