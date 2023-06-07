@@ -5,11 +5,7 @@
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/malevnc/reference/)
 <!-- badges: end -->
 
-The goal of malevnc is to provide a package to support analysis on the Janelia
-male VNC dataset aka (MANC). Note that this package points to private resources
-made available by the male VNC project led by the FlyEM team at Janelia.
-You will therefore need appropriate authorisation both to install the package
-from github and access the data.
+The goal of malevnc is to provide a package to support analysis of the Drosophila Male Adult Nerve Cord dataset (aka MANC). You can read more about the MANC dataset and find links to a range of data and tools at https://www.janelia.org/project-team/flyem/manc-connectome.
 
 ## Installation
 
@@ -17,35 +13,44 @@ You can install the development version of malevnc from github:
 
 ``` r
 install.packages("natmanager")
-natmanager::install(pkgs="natverse/malevnc")
+natmanager::install(pkgs="malevnc")
+```
+## Usage
+
+### Dataset options
+The package currently supports two distinct use cases / datasets
+
+1. Access to the stable `MANC` connectome release for all general users
+2. Access to an in progress `VNC` release for [flyconnectome](https://flyconnecto.me) and collaborators who need to update annotations etc.
+
+Case 1 is now the default. If you need the second option then you must set
+
+```
+options(malevnc.dataset='VNC')
 ```
 
-Note that you must have been given access to the [github repository](https://github.com/flyconnectome/malevnc/) and have a GitHub Personal Access Token (PAT) set up in order
-to install the library for as long as it remains private. Do :
+in your `.Rprofile` e.g. by doing
 
 ```
-natmanager::check_pat()
+usethis::edit_r_profile()
 ```
 
-to check and follow the instructions if necessary to create. Should you run into any errors with that (there have been some significant changes at 
-github recently), you can also try:
+### Authentication - Neuprint
 
-```
-usethis::create_github_token()
-```
+Access to neuprint requires authentication. 
+See https://github.com/natverse/neuprintr#authentication for details.
 
-See https://usethis.r-lib.org/articles/articles/git-credentials.html for the 
-gory details.
-
-### Authentication
-
-Access to neuprint / Clio then depends on authorisation. For neuprint, please
-see https://github.com/natverse/neuprintr#authentication; you only need to set
+The recommendation is to set
 the `neuprint_token` environment variable, which is available after logging in
-to the neuprint website. For Clio, you will prompted to 
-authenticate via a Google OAuth "dance" in your web browser. 
+to the neuprint website. 
+
+### Authentication - Clio
+
+You only need to authenticate to the Clio API if you are interacting with the
+in progress pre-release dataset (`VNC`).
+You do this via a Google OAuth "dance" in your web browser. 
 Note that the Clio and neuprint tokens look similar, but are *not* the same.
-Note also that the neuprint token appears to be indefinite while the clio token
+Note also that the neuprint token appears to be indefinite while the Clio token
 currently lasts 3 weeks.
 
 ### Registrations
@@ -64,7 +69,7 @@ nat::cmtk.bindir()
 nat::cmtk.dof2mat(version = T)
 ```
 
-## Example
+## Quick start
 
 You can check everything is working like so:
 
@@ -73,6 +78,9 @@ library(nat)
 library(malevnc)
 plot3d(MANC.surf)
 
-table(manc_dvid_annotations()$naming_user)
+dnmeta=manc_neuprint_meta("class:descending")
+dnmeta
 ```
+
+To find out more, a quick tour round the [documentation website](https://natverse.org/malevnc/)
 

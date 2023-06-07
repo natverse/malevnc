@@ -21,14 +21,14 @@
 #'   Colv = NA, scale = 'none')
 #'
 #' \donttest{
-#' dnls=manc_leg_summary('class:Descending')
+#' dnls=manc_leg_summary('class:descending')
 #' heatmap(data.matrix(dnls[grep("_out", colnames(dnls))]),
 #'   Colv = NA, scale = 'none')
 #' }
 manc_leg_summary <- function(ids, long=FALSE, other=FALSE, conn=manc_neuprint()) {
   ids=manc_ids(ids)
   res=neuprintr::neuprint_get_roiInfo(ids, conn = conn)
-  legcols=grep("IntNp.*T[1-3].+stream", colnames(res), value = T)
+  legcols=grep("LegNp.*T[1-3].+stream", colnames(res), value = T)
   colstokeep=c("bodyid", legcols)
   res2=res[colstokeep]
   newlegcols=sub(".*(T[1-3]).+([LR]).+(down|up)stream", "\\1\\2_\\3", legcols)

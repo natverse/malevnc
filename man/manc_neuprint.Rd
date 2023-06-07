@@ -4,13 +4,27 @@
 \alias{manc_neuprint}
 \title{Login to MANC neuprint server}
 \usage{
-manc_neuprint(...)
+manc_neuprint(
+  server = getOption("malevnc.neuprint"),
+  dataset = getOption("malevnc.neuprint_dataset"),
+  token = Sys.getenv("neuprint_token"),
+  ...
+)
 }
 \arguments{
+\item{server}{A neuprint server (a sensible default should be chosen)}
+
+\item{dataset}{A neuprint dataset (a sensible default should be chosen based
+on which dataset has been specified for Clio/DVID)}
+
+\item{token}{neuprint authorisation token obtained e.g. from
+neuprint.janelia.org website.}
+
 \item{...}{Additional arguments passed to \code{\link{neuprint_login}}}
 }
 \value{
-a \code{\link{neuprint_connection}} object returned by \code{\link{neuprint_login}}
+a \code{\link{neuprint_connection}} object returned by
+  \code{\link{neuprint_login}}
 }
 \description{
 Login to MANC neuprint server
