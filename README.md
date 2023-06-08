@@ -1,5 +1,7 @@
 # malevnc
 
+<img src="man/figures/manc-render-phubbard-200h.png" align="right" height="200" />
+
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/natverse/malevnc/workflows/R-CMD-check/badge.svg)](https://github.com/natverse/malevnc/actions)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/malevnc/reference/)
