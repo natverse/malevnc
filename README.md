@@ -7,7 +7,9 @@
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/malevnc/reference/)
 <!-- badges: end -->
 
-The goal of malevnc is to provide a package to support analysis of the Drosophila Male Adult Nerve Cord dataset (aka MANC). You can read more about the MANC dataset and find links to a range of data and tools at https://www.janelia.org/project-team/flyem/manc-connectome.
+The malevnc package provides a convenient natverse/neuprintr approach to 
+analysing the Drosophila Male Adult Nerve Cord dataset (aka MANC). You can read
+more about the MANC dataset and find links to a range of data and tools at https://www.janelia.org/project-team/flyem/manc-connectome.
 
 ## Installation
 
@@ -86,3 +88,29 @@ dnmeta
 
 To find out more, a quick tour round the [documentation website](https://natverse.org/malevnc/)
 
+## Acknowledgements
+
+We hope you find this package useful. If so, please can we trouble you for some
+citations:
+
+For the natverse and this package:
+
+Alexander Shakeel Bates, James D Manton, Sridhar R Jagannathan, Marta Costa, Philipp Schlegel, Torsten Rohlfing, Gregory SXE Jefferis (2020) The natverse, a versatile toolbox for combining and analysing neuroanatomical data eLife 9:e53350 https://doi.org/10.7554/eLife.53350
+
+For the MANC connectome (neuron morphologies, connectivity etc):
+
+A Connectome of the Male Drosophila Ventral Nerve Cord
+Shin-ya Takemura, Kenneth J Hayworth, Gary B Huang, Michal Januszewski, Zhiyuan Lu, Elizabeth C Marin, Stephan Preibisch, C Shan Xu, John Bogovic, Andrew S Champion, Han S J Cheong, Marta Costa, Katharina Eichler, William Katz, Christopher Knecht, Feng Li, Billy J Morris, Christopher Ordish, Patricia K Rivlin, Philipp Schlegel, Kazunori Shinomiya, Tomke Sturner, Ting Zhao, Griffin Badalamente, Dennis Bailey, Paul Brooks, Brandon S Canino, Jody Clements, Michael Cook, Octave Duclos, Christopher R Dunne, Kelli Fairbanks, Siqi Fang, Samantha Finley-May, Audrey Francis, Reed George, Marina Gkantia, Kyle Harrington, Gary Patrick Hopkins, Joseph Hsu, Philip M Hubbard, Alexandre Javier, Dagmar Kainmueller, Wyatt Korff, Julie Kovalyak, Dominik Krzeminski, Shirley A Lauchie, Alanna Lohff, Charli Maldonado, Emily A Manley, Caroline Mooney, Erika Neace, Matthew Nichols, Omotara Ogundeyi, Nneoma Okeoma, Tyler Paterson, Elliott Phillips, Emily M Phillips, Caitlin Ribeiro, Sean M Ryan, Jon Thomson Rymer, Anne K Scott, Ashley L Scott, David Shepherd, Aya Shinomiya, Claire Smith, Natalie Smith, Alia Suleiman, Satoko Takemura, Iris Talebi, Imaan F M Tamimi, Eric T Trautman, Lowell Umayam, John J Walsh, Tansy Yang, Gerald M Rubin, Louis K Scheffer, Jan Funke, Stephan Saalfeld, Harald F Hess, Stephen M Plaza, Gwyneth M Card, Gregory S X E Jefferis, Stuart Berg
+bioRxiv 2023.06.05.543757; doi: https://doi.org/10.1101/2023.06.05.543757
+
+For general annotations of the MANC connectome (cell classes, types etc):
+
+Systematic annotation of a complete adult male Drosophila nerve cord connectome reveals principles of functional organisation
+Elizabeth C Marin, Billy J Morris, Tomke Stuerner, Andrew S Champion, Dominik Krzeminski, Griffin Badalamente, Marina Gkantia, Christopher R Dunne, Katharina Eichler, Shin-ya Takemura, Imaan F M Tamimi, Siqi Fang, Sung Soo Moon, Han S J Cheong, Feng Li, Philipp Schlegel, Stuart Berg, FlyEM Project Team, Gwyneth M Card, Marta Costa, David Shepherd, Gregory S X E Jefferis
+bioRxiv 2023.06.05.543407; doi: https://doi.org/10.1101/2023.06.05.543407
+
+For descending neuron or motor neuron cell types:
+
+Transforming descending input into behavior: The organization of premotor circuits in the Drosophila Male Adult Nerve Cord connectome
+Han S J Cheong, Katharina Eichler, Tomke Stuerner, Samuel K Asinof, Andrew S Champion, Elizabeth C Marin, Tess B Oram, Marissa Sumathipala, Lalanti Venkatasubramanian, Shigehiro Namiki, Igor Siwanowicz, Marta Costa, Stuart Berg, Janelia FlyEM Project Team, Gregory S X E Jefferis, Gwyneth M Card
+bioRxiv 2023.06.07.543976; doi: https://doi.org/10.1101/2023.06.07.543976
