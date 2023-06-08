@@ -176,14 +176,14 @@ download_manc_registrations <- function() {
   download_urls <- paste0(
     "https://ndownloader.figshare.com/files/",
     c(
-      "28908564?private_link=7f003353c24741136df3",
+      "38827794",
       "28908795?private_link=42ad71eb14e7dd51e81a",
       "28909212?private_link=c4589cef9180e1dd4ee1"
   ))
   names(download_urls) <- c(
-    "JRC2018VncM_MANC.h5",
-    "JRC2018VncM_JRC2018VncU.h5",
-    "JRC2018VncU_JRC2018VncF.h5"
+    "JRC2018VNCM_MANC.h5",
+    "JRC2018VNCM_JRC2018VNCU.h5",
+    "JRC2018VNCU_JRC2018VNCF.h5"
   )
   nat.jrcbrains::download_saalfeldlab_registrations(
     download_urls = download_urls
