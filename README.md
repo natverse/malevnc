@@ -1,7 +1,7 @@
 # malevnc
 
 <img src="man/figures/manc-render-phubbard-200h.png" align="right" height="200" 
-alt="A rendering by Phil Hubbard (Janelia) of a sample of MANC neurons" title="MANC"/>
+alt="A rendering by Phil Hubbard (Janelia) of a sample of MANC neurons" title="MANC by P. Hubbard"/>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/natverse/malevnc/workflows/R-CMD-check/badge.svg)](https://github.com/natverse/malevnc/actions)
