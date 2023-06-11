@@ -156,21 +156,47 @@ MANCsym = structure(
   class = "templatebrain"
 )
 
-#' Download MANC to JRC registrations
+#' Download MANC (EM) to JRC (light level) registrations
 #'
-#' It downloads publicly available registrations:
-#' MANC to JRC2018VNCM \url{https://figshare.com/s/7f003353c24741136df3}
-#' JRC2018VNCM <> JRC2018VNCU \url{https://figshare.com/s/42ad71eb14e7dd51e81a}
-#' RC2018VNCF <> JRC2018VNCU \url{https://figshare.com/s/c4589cef9180e1dd4ee1}
+#' John Bogovic and Stephan Saalfeld have constructed a series of
+#' \href{https://www.janelia.org/open-science/jrc-2018-brain-templates}{bridging
+#' registrations} from both light level and EM brains imaged at HHMI Janelia
+#' Research Campus. This function downloads the VNC registrations to your local
+#' machine to allow you to convert data between this different template spaces.
+#'
+#' It downloads publicly available registrations: MANC to JRC2018VNCM
+#' \url{https://figshare.com/s/7f003353c24741136df3} JRC2018VNCM <> JRC2018VNCU
+#' \url{https://figshare.com/s/42ad71eb14e7dd51e81a} RC2018VNCF <> JRC2018VNCU
+#' \url{https://figshare.com/s/c4589cef9180e1dd4ee1}
 #'
 #' It requires installation of a suggested dependency \code{nat.jrcbrains}.
-#' These transformations operate in units of microns.
-#' Therefore, any point coordinates must be converted to micron units
-#' before applying.
+#' These transformations operate in units of microns. Therefore, any point
+#' coordinates must be converted to micron units before applying.
+#'
+#' In order to use the registrations you need to load the \code{nat.jrcbrains}.
 #'
 #' @export
+#' @references See Bogovic et al. (2018) \doi{10.1101/376384}
+#' @examples
 #'
-#' @references See Bogovic et al. (2018) \url{https://doi.org/10.1101/376384}
+#' \dontrun{
+#' # one time install of optional package if you don't have it
+#' if(!requireNamespace('nat.jrcbrains'))
+#'   natmanager::install(pkgs = 'nat.jrcbrains')
+#' # load this to use bridging registrations to JRC templates
+#' library(nat.jrcbrains)
+#'
+#' # one time download of large (~1.4 GB) bridging registrations
+#' if(!"MANC" %in% allreg_dataframe()$reference)
+#'   download_manc_registrations()
+#'
+#' DNa02s=read_manc_meshes('DNa02')
+#' # nb convert from nm to microns
+#' DNa02s.jrcvnc2018u=xform_brain(DNa02s/1e3, reference = "JRCVNC2018U", sample="")
+#' plot3d(DNa02s.jrcvnc2018u)
+#' plot3d(JRCVNC2018U)
+#' }
+#'
 download_manc_registrations <- function() {
   check_jrcbrains()
   download_urls <- paste0(
@@ -181,9 +207,9 @@ download_manc_registrations <- function() {
       "28909212?private_link=c4589cef9180e1dd4ee1"
   ))
   names(download_urls) <- c(
-    "JRC2018VNCM_MANC.h5",
-    "JRC2018VNCM_JRC2018VNCU.h5",
-    "JRC2018VNCU_JRC2018VNCF.h5"
+    "JRCVNC2018M_MANC.h5",
+    "JRCVNC2018M_JRC2018VNCU.h5",
+    "JRCVNC2018U_JRC2018VNCF.h5"
   )
   nat.jrcbrains::download_saalfeldlab_registrations(
     download_urls = download_urls
@@ -194,5 +220,7 @@ download_manc_registrations <- function() {
 check_jrcbrains <- function() {
   if(!requireNamespace('nat.jrcbrains', quietly = TRUE))
     stop("You must install the nat.jrcbrains package in order to download registrations locally!\n",
-         "Please see https://github.com/natverse/nat.jrcbrains for details")
+         "  natmanager::install(pkgs = 'nat.jrcbrains')\n",
+         "should do the trick. ",
+         "Please see https://github.com/natverse/nat.jrcbrains for details.")
 }
