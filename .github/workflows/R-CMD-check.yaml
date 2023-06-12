@@ -83,6 +83,8 @@ jobs:
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
           remotes::install_cran("pkgdown")
+          # manual install because somebody wants to get this from CRAN
+          remotes::install_cran("natverse/nat.templatebrains")
         shell: Rscript {0}
 
       - name: Install fafbseg + python
