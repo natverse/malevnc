@@ -36,6 +36,7 @@ reference:
   - '`manc_scene`'
   - '`dvid_tools`'
   - '`flyem_shorten_url`'
+  - '`dr_manc`'
 - title: Body information and ids
   contents:
   - '`manc_ids`'

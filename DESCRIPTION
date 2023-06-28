@@ -53,7 +53,8 @@ Suggests:
     tidyr,
     nat.jrcbrains,
     xml2,
-    digest
+    digest,
+    sessioninfo
 Enhances:
     drvid
 URL: https://github.com/natverse/malevnc
