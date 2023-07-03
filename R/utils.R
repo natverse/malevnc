@@ -50,6 +50,23 @@ dr_manc <- function() {
         "and uuid",npds[[1]]$uuid, "\n")
   }
 
+  message("Checking bridging registrations")
+  jrcok=!inherits(try(check_jrcbrains(), silent = T), "try-error")
+  if(!jrcok)
+    cat("Missing suggested package to use bridging registrations\n",
+    "natmanager::install(pkgs = 'nat.jrcbrains')")
+
+  pp=manc_reg_paths()
+  pmissing=pp[!file.exists(pp)]
+  regok=TRUE
+  if(length(pmissing)>0) {
+    regok=FALSE
+    cat("missing registration files:",
+        paste(pmissing, collapse = ','))
+  }
+  if(jrcok && regok)
+    cat("Registration files all present!\n")
+
   message("\nRelevant malevnc options:")
   print(options()[grepl("^malevnc", names(options()))])
 

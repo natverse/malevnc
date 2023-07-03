@@ -199,18 +199,31 @@ MANCsym = structure(
 #'
 download_manc_registrations <- function() {
   check_jrcbrains()
+
+  nat.jrcbrains::download_saalfeldlab_registrations(
+    download_urls = manc_reg_urls()
+  )
+}
+
+manc_reg_paths <- function() {
+  check_jrcbrains()
+  uu=manc_reg_urls()
+  based=path.expand(getOption("nat.jrcbrains.regfolder"))
+  if(is.null(based))
+    return(NULL)
+  file.path(based, tools::file_path_sans_ext(basename(uu)), basename(uu))
+}
+
+manc_reg_urls <- function() {
   download_urls <- paste0(
     "https://ndownloader.figshare.com/files/",
     c(
       "38827794",
       "28908795?private_link=42ad71eb14e7dd51e81a",
       "28909212?private_link=c4589cef9180e1dd4ee1"
-  ))
+    ))
   names(download_urls) <- c(
     "JRCVNC2018M_MANC.h5",
-  )
-  nat.jrcbrains::download_saalfeldlab_registrations(
-    download_urls = download_urls
     "JRCVNC2018M_JRCVNC2018U.h5",
     "JRCVNC2018U_JRCVNC2018F.h5"
   )
