@@ -112,6 +112,13 @@ jobs:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
 
+      - name: Upload check log results
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.config.tag }}-results
+          path: ${{ github.event.repository.name }}.Rcheck/00check.log
+
       - name: Deploy package
         run: |
           git config --local user.email "actions@github.com"
