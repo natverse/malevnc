@@ -64,10 +64,10 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-        # this is not getting picked up by system requirements for some reason
+        # these are not getting picked up by system requirements for some reason
       - name: Install glpk
         if: runner.os == 'Linux'
-        run: sudo apt-get install -y libglpk-dev
+        run: sudo apt-get install -y libglpk-dev libharfbuzz-dev libfribidi-dev
 
       - name: Install system dependencies
         if: runner.os == 'Linux'
