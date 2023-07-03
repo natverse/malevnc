@@ -208,11 +208,11 @@ download_manc_registrations <- function() {
   ))
   names(download_urls) <- c(
     "JRCVNC2018M_MANC.h5",
-    "JRCVNC2018M_JRC2018VNCU.h5",
-    "JRCVNC2018U_JRC2018VNCF.h5"
   )
   nat.jrcbrains::download_saalfeldlab_registrations(
     download_urls = download_urls
+    "JRCVNC2018M_JRCVNC2018U.h5",
+    "JRCVNC2018U_JRCVNC2018F.h5"
   )
 }
 
