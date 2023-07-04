@@ -8,6 +8,15 @@
 \description{
 Provides support for analysis of the male Drosophila ventral nerve cord dataset released in June 2023 by the Janelia FlyEM team in collaboration with the Hess lab, Google and Drosophila Connectomics Group, Cambridge. This includes reading of connectivity information, skeleton and mesh representations of neurons and symmetrising and inter-template registrations.
 }
+\section{Registration}{
+ For information about left-right mirroring and
+  symmetrising registrations within MANC, please see
+  \code{\link{mirror_manc}}.
+
+  For information about across-template registrations, please see
+  \code{\link{download_manc_registrations}}.
+}
+
 \section{Package Options}{
  \itemize{
 
