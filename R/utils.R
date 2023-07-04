@@ -18,7 +18,7 @@ dr_manc <- function() {
   }
 
   message("Dataset/auth status:")
-  cds=try(malevnc:::clio_datasets())
+  cds=try(clio_datasets())
   if(inherits(cds, "try-error"))
     message("Trouble connecting to clio to list datasets.")
   else {
