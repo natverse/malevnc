@@ -6,7 +6,7 @@
 \alias{malevnc-package}
 \title{malevnc: Support for Working with Janelia FlyEM Male VNC Dataset}
 \description{
-Will provide regional surface meshes and template brain support for the Janelia FlyEM / Hess lab male VNC data set currently for which proofreading started Autumn 2020.
+Provides support for analysis of the male Drosophila ventral nerve cord dataset released in June 2023 by the Janelia FlyEM team in collaboration with the Hess lab, Google and Drosophila Connectomics Group, Cambridge. This includes reading of connectivity information, skeleton and mesh representations of neurons and symmetrising and inter-template registrations.
 }
 \section{Package Options}{
  \itemize{
