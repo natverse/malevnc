@@ -4,7 +4,7 @@
 alt="A rendering by Phil Hubbard (Janelia) of a sample of MANC neurons" title="MANC by P. Hubbard"/>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/natverse/malevnc/workflows/R-CMD-check/badge.svg)](https://github.com/natverse/malevnc/actions)
+[![R-CMD-check](https://github.com/flyconnectome/malevnc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/flyconnectome/malevnc/actions/workflows/R-CMD-check.yaml)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/malevnc/reference/)
 <!-- badges: end -->
 
