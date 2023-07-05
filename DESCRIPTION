@@ -57,7 +57,8 @@ Suggests:
     nat.jrcbrains,
     xml2,
     digest,
-    sessioninfo
+    sessioninfo,
+    remotes
 Enhances:
     drvid
 URL: https://github.com/natverse/malevnc
