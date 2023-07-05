@@ -1,3 +1,8 @@
+op <- choose_malevnc_dataset('MANC')
+on.exit(options(op))
+
+for(ds in c("MANC", "VNC")) {
+  choose_malevnc_dataset(ds)
 test_that("manc neuprint works", {
 
   expect_equal(manc_ids(10000, as_character = T), "10000")
@@ -20,3 +25,4 @@ test_that("manc neuprint works", {
 
   expect_true(10085 %in% manc_connection_table(10000, partners = 'out')$partner)
 })
+}

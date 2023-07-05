@@ -1,3 +1,6 @@
+op <- choose_malevnc_dataset('VNC')
+on.exit(options(op))
+
 test_that("somapos works", {
   skip_if_offline()
   skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
@@ -6,3 +9,5 @@ test_that("somapos works", {
   expect_equal(res$bodyid, 23279)
   expect_equal(manc_somapos(ids = 23279, details = T), res)
 })
+
+options(op)

@@ -1,3 +1,6 @@
+url: https://natverse.org/malevnc/
+template:
+  bootstrap: 5
 navbar:
   structure:
     left:
@@ -29,8 +32,13 @@ navbar:
       href: SUPPORT.html
 
 reference:
+- title: General package functions
+  contents:
+  - '`malevnc-package`'
+  - '`dr_manc`'
 - title: Server connections and Neuroglancer URLs
   contents:
+  - '`choose_malevnc_dataset`'
   - '`manc_neuprint`'
   - '`manc_dvid_node`'
   - '`manc_scene`'

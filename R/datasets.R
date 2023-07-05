@@ -4,6 +4,36 @@ flyem_dataset <- function(dataset) {
   cds[[dataset]]
 }
 
+#' Choose active male VNC / FlyEM dataset
+#'
+#' @description \code{choose_malevnc_dataset} chooses the dataset that will be
+#'   used by the male VNC package.
+#' @details For \code{choose_malevnc_dataset} the \code{dataset} will be one of
+#'   \code{MANC} (release) or \code{VNC} (pre-release) dataset. Note the latter
+#'   will only be available for authenticated collaborators of the FlyEM team.
+#'   When \code{dataset=NULL} the options("malevnc.dataset") will be checked,
+#'   then the environment variable \code{MALEVNC_DATASET} and finally the
+#'   default value (MANC i.e. released dataset) will be selected.
+#'
+#' @param dataset Character vector specifying dataset name. Default value of
+#'   \code{NULL} will respect package options or choose default dataset if none
+#'   set.
+#' @param set Whether to set the relevant package options or just to return the,
+#' @param use_clio Whether to use clio to list datasets (expert use only;
+#'   default of \code{use_clio=NA} should do the right thing).
+#'
+#' @return A list of options (when \code{set=FALSE}) or the \emph{previous}
+#'   value of those options, mimicking the behaviour of \code{\link{options}}.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # switch dataset
+#' op <- choose_malevnc_dataset("MANC")
+#' on.exit(options(op))
+#' # reset the previous state
+#' options(op)
+#' }
 choose_malevnc_dataset <- function(dataset=NULL,
                                    set=TRUE,
                                    use_clio=NA) {
@@ -11,7 +41,7 @@ choose_malevnc_dataset <- function(dataset=NULL,
     dataset=getOption("malevnc.dataset")
   if(is.null(dataset))
     dataset=Sys.getenv('MALEVNC_DATASET')
-  if(is.null(dataset))
+  if(is.null(dataset) || dataset=="")
     dataset='MANC'
   if(isTRUE(dataset=='MANC')){
     if(!isTRUE(use_clio)) {
@@ -31,6 +61,11 @@ choose_malevnc_dataset <- function(dataset=NULL,
   choose_flyem_dataset(dataset = dataset, set=set)
 }
 
+#' @rdname choose_malevnc_dataset
+#' @export
+#' @description \code{choose_flyem_dataset} is a generic function underneath
+#'   \code{choose_malevnc_dataset}. It is intended primarily for developers of
+#'   other packages.
 choose_flyem_dataset <- function(dataset=getOption("malevnc.dataset"), set=TRUE) {
   ds=flyem_dataset(dataset)
   s=flyem_servers4dataset(ds)

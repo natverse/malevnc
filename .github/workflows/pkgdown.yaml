@@ -5,12 +5,18 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  release:
+    types: [published]
+  workflow_dispatch:
 
-name: R-CMD-check
+name: pkgdown
 
 jobs:
-  R-CMD-check:
+  pkgdown:
     runs-on: ubuntu-latest
+    # Only restrict concurrency for non-PR jobs
+    concurrency:
+      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
@@ -24,9 +30,12 @@ jobs:
       neuprint_token: ${{ secrets.NEUPRINT_TOKEN }}
       CLIO_TOKEN: ${{ secrets.CLIO_TOKEN }}
       MALEVNC_DATASET: VNC
-
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
+
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -34,21 +43,17 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::pkgdown, catmaid=natverse/rcatmaid
-          needs: check
+          extra-packages: any::pkgdown, local::., catmaid=natverse/rcatmaid
+          needs: website
 
-      - uses: r-lib/actions/check-r-package@v2
+      - name: Build site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
 
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
-
-      - name: Upload check log results
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.config.tag }}-results
-          path: ${{ github.event.repository.name }}.Rcheck/00check.log
+          clean: false
+          branch: gh-pages
+          folder: docs

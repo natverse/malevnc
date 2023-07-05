@@ -1,7 +1,7 @@
 Type: Package
 Package: malevnc
 Title: Support for Working with Janelia FlyEM Male VNC Dataset
-Version: 0.2.8.9000
+Version: 0.2.9
 Authors@R:
     c(person(given = "Gregory",
            family = "Jefferis",
@@ -12,9 +12,12 @@ Authors@R:
            role = c("aut"),
            email = "dkk33@cam.ac.uk",
            comment = c(ORCID = "0000-0003-4568-0583")))
-Description: Will provide regional surface meshes and template
-    brain support for the Janelia FlyEM / Hess lab male VNC data set
-    currently for which proofreading started Autumn 2020.
+Description: Provides support for analysis of the male Drosophila ventral nerve 
+    cord dataset released in June 2023 by the Janelia FlyEM team in 
+    collaboration with the Hess lab, Google and Drosophila Connectomics Group, 
+    Cambridge. This includes reading of connectivity information, skeleton and
+    mesh representations of neurons and symmetrising and inter-template 
+    registrations.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -39,11 +42,11 @@ Imports:
     stringr,
     glue,
     jose (>= 1.1.0),
-    rgl
+    rgl,
+    fafbseg
 Suggests: 
     testthat,
     dracor,
-    fafbseg,
     reticulate,
     spelling,
     rappdirs,
@@ -53,10 +56,12 @@ Suggests:
     tidyr,
     nat.jrcbrains,
     xml2,
-    digest
+    digest,
+    sessioninfo,
+    remotes
 Enhances:
     drvid
-URL: https://github.com/natverse/malevnc
+URL: https://github.com/natverse/malevnc, https://natverse.org/malevnc/
 BugReports: https://github.com/natverse/malevnc/issues
 Depends: 
     R (>= 3.6.0)
@@ -67,3 +72,4 @@ Remotes:
     natverse/fafbseg,
     natverse/nat.jrcbrains
 Language: en-GB
+Config/Needs/website: pkgdown
