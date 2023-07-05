@@ -61,7 +61,7 @@ Suggests:
     remotes
 Enhances:
     drvid
-URL: https://github.com/natverse/malevnc
+URL: https://github.com/natverse/malevnc, https://natverse.org/malevnc/
 BugReports: https://github.com/natverse/malevnc/issues
 Depends: 
     R (>= 3.6.0)

@@ -5,7 +5,7 @@ alt="A rendering by Phil Hubbard (Janelia) of a sample of MANC neurons" title="M
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/flyconnectome/malevnc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/flyconnectome/malevnc/actions/workflows/R-CMD-check.yaml)
-[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/malevnc/reference/)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.org/malevnc/reference/)
 <!-- badges: end -->
 
 The malevnc package provides a convenient natverse/neuprintr approach to 

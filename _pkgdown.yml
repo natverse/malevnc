@@ -1,3 +1,6 @@
+url: https://natverse.org/malevnc/
+template:
+  bootstrap: 5
 navbar:
   structure:
     left:
