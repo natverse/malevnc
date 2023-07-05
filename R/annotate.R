@@ -90,6 +90,9 @@ extract_int64_bodyid <- function(x, field="bodyid") {
   bodyids
 }
 
+# see ?rlang::`dot-data`
+utils::globalVariables(".data")
+
 # Returns list with fields that are different from Clio
 # annotations
 #' @importFrom bit64 %in%
@@ -99,7 +102,7 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
                                        update.bodyids = FALSE,
                                        test = test)
   if (length(clio_annots) == 0) return(x)
-  clio_annots <- clio_annots %>% filter(!is.na(bodyid))
+  clio_annots <- clio_annots %>% filter(!is.na(.data$bodyid))
   clio_annots$status <- NULL # not needed here
   # nothing to compare
   if (length(clio_annots) == 0) return(x)
