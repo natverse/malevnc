@@ -5,6 +5,19 @@ check_package_available <- function(pkg) {
 }
 
 
+#' Status report for the malevnc package
+#'
+#' @description \code{dr_manc} gives a very useful status report for the malevnc
+#'   package.
+#'
+#'
+#' @return Called for its side effect
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' dr_manc()
+#' }
 dr_manc <- function() {
   check_package_available('sessioninfo')
   res=sessioninfo::package_info(pkgs = 'loaded')
