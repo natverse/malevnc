@@ -1,3 +1,6 @@
+op <- choose_malevnc_dataset('VNC')
+on.exit(options(op))
+
 test_that("manc_nodespec", {
   mnc=manc_node_chain()
   expect_equal(manc_nodespec("clio"), manc_dvid_node('clio'))

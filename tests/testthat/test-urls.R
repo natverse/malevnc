@@ -1,4 +1,5 @@
 test_that("manc_scene works", {
+  withr::local_options(choose_malevnc_dataset('VNC', set = F))
   expect_is(manc_scene(), 'character')
 
   # check we can set ids for all scenes
@@ -28,4 +29,7 @@ test_that("manc_scene works", {
   expect_false(manc_scene(ids = 87654321) == url)
 
   expect_match(manc_scene(server='appspot'), "^https://neuroglancer-demo.appspot.com")
+
+  withr::local_options(choose_malevnc_dataset('MANC', set = F))
+
 })

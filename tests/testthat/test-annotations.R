@@ -1,5 +1,6 @@
 context("annotations")
-
+op <- choose_malevnc_dataset('VNC')
+on.exit(options(op))
 test_that("manc_meta", {
   skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
           message = "no clio token available")
