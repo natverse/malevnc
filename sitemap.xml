@@ -1,141 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://natverse.org/malevnc/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://natverse.org/malevnc/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/SUPPORT.html</loc>
+    <loc>https://natverse.org/malevnc/SUPPORT.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://natverse.org/malevnc/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://natverse.org/malevnc/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://natverse.org/malevnc/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/MANC.surf.html</loc>
+    <loc>https://natverse.org/malevnc/reference/MANC.surf.html</loc>
   </url>
   <url>
-    <loc>/reference/MANC.tissue.surf.html</loc>
+    <loc>https://natverse.org/malevnc/reference/MANC.tissue.surf.html</loc>
   </url>
   <url>
-    <loc>/reference/MANC.tracts.html</loc>
+    <loc>https://natverse.org/malevnc/reference/MANC.tracts.html</loc>
   </url>
   <url>
-    <loc>/reference/MANCsym.html</loc>
+    <loc>https://natverse.org/malevnc/reference/MANCsym.html</loc>
   </url>
   <url>
-    <loc>/reference/clio_auth.html</loc>
+    <loc>https://natverse.org/malevnc/reference/choose_malevnc_dataset.html</loc>
   </url>
   <url>
-    <loc>/reference/colour_leg_muscles.html</loc>
+    <loc>https://natverse.org/malevnc/reference/clio_auth.html</loc>
   </url>
   <url>
-    <loc>/reference/download_manc_registrations.html</loc>
+    <loc>https://natverse.org/malevnc/reference/colour_leg_muscles.html</loc>
   </url>
   <url>
-    <loc>/reference/dvid_tools.html</loc>
+    <loc>https://natverse.org/malevnc/reference/download_manc_registrations.html</loc>
   </url>
   <url>
-    <loc>/reference/flyem_shorten_url.html</loc>
+    <loc>https://natverse.org/malevnc/reference/dr_manc.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://natverse.org/malevnc/reference/dvid_tools.html</loc>
   </url>
   <url>
-    <loc>/reference/malevnc-package.html</loc>
+    <loc>https://natverse.org/malevnc/reference/flyem_shorten_url.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_annotate_body.html</loc>
+    <loc>https://natverse.org/malevnc/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_annotate_soma.html</loc>
+    <loc>https://natverse.org/malevnc/reference/malevnc-package.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_body_annotations.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_annotate_body.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_check_group_complete.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_annotate_soma.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_connection_table.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_body_annotations.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_dvid_annotations.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_check_group_complete.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_dvid_node.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_connection_table.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_ids.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_dvid_annotations.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_islatest.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_dvid_node.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_leg_summary.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_ids.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_lr_position.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_islatest.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_meta.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_leg_summary.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_mutations.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_lr_position.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_neuprint.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_meta.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_neuprint_meta.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_mutations.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_point_annotations.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_neuprint.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_read_neurons.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_neuprint_meta.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_scene.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_point_annotations.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_set_dvid_instance.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_read_neurons.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_set_lrgroup.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_scene.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_size.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_set_dvid_instance.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_somapos.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_set_lrgroup.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_user_annotations.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_size.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_view3d.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_somapos.html</loc>
   </url>
   <url>
-    <loc>/reference/manc_xyz2bodyid.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_user_annotations.html</loc>
   </url>
   <url>
-    <loc>/reference/mancneckseeds.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_view3d.html</loc>
   </url>
   <url>
-    <loc>/reference/mancsomapos.html</loc>
+    <loc>https://natverse.org/malevnc/reference/manc_xyz2bodyid.html</loc>
   </url>
   <url>
-    <loc>/reference/mirror_manc.html</loc>
+    <loc>https://natverse.org/malevnc/reference/mancneckseeds.html</loc>
   </url>
   <url>
-    <loc>/reference/read_manc_meshes.html</loc>
+    <loc>https://natverse.org/malevnc/reference/mancsomapos.html</loc>
+  </url>
+  <url>
+    <loc>https://natverse.org/malevnc/reference/mirror_manc.html</loc>
+  </url>
+  <url>
+    <loc>https://natverse.org/malevnc/reference/read_manc_meshes.html</loc>
   </url>
 </urlset>
