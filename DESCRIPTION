@@ -42,11 +42,11 @@ Imports:
     stringr,
     glue,
     jose (>= 1.1.0),
-    rgl
+    rgl,
+    fafbseg
 Suggests: 
     testthat,
     dracor,
-    fafbseg,
     reticulate,
     spelling,
     rappdirs,
