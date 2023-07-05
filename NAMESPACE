@@ -2,6 +2,8 @@
 
 S3method(print,dvid_tools)
 export(MANCsym)
+export(choose_flyem_dataset)
+export(choose_malevnc_dataset)
 export(clio_auth)
 export(clio_set_token)
 export(clio_token)

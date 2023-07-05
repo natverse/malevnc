@@ -9,10 +9,18 @@
 #'
 #' @section Package Options: \itemize{
 #'
+#'   \item \code{malevnc.dataset} A shortname defining the active dataset
+#'   (usually\code{MANC}). See \code{\link{choose_malevnc_dataset}} for details.
+#'
 #'   \item \code{malevnc.server} The https URL to the main Janelia server
 #'   hosting male VNC data.
 #'
 #'   }
+#'
+#' @examples
+#' # List all package options
+#' options()[grepl("^malevnc", names(options()))]
+#'
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage

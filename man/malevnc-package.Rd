@@ -20,12 +20,20 @@ Provides support for analysis of the male Drosophila ventral nerve cord dataset 
 \section{Package Options}{
  \itemize{
 
+  \item \code{malevnc.dataset} A shortname defining the active dataset
+  (usually\code{MANC}). See \code{\link{choose_malevnc_dataset}} for details.
+
   \item \code{malevnc.server} The https URL to the main Janelia server
   hosting male VNC data.
 
   }
 }
 
+\examples{
+# List all package options
+options()[grepl("^malevnc", names(options()))]
+
+}
 \seealso{
 Useful links:
 \itemize{
