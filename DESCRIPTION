@@ -72,3 +72,4 @@ Remotes:
     natverse/fafbseg,
     natverse/nat.jrcbrains
 Language: en-GB
+Config/Needs/website: pkgdown
