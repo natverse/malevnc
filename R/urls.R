@@ -82,8 +82,6 @@ manc_scene <- function(ids=NULL, node='clio',
                        server=c("clio","appspot", "janelia"), return.json=FALSE) {
   server=match.arg(server)
   node=manc_nodespec(node, several.ok = F)
-  if(!requireNamespace("fafbseg", quietly = TRUE))
-    stop("Please install suggested fafbseg package!")
 
   if(length(basescene)>1 || isTRUE(nchar(basescene)<20)) {
     basescene=match.arg(basescene)
