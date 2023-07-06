@@ -19,8 +19,9 @@
 #'
 #' @examples
 #' # List all package options
+#' \dontrun{
 #' options()[grepl("^malevnc", names(options()))]
-#'
+#' }
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage
