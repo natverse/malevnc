@@ -1,4 +1,12 @@
-# malevnc (development version)
+# malevnc 0.2.9
+This is a major release providing support for the publication of the [MANC connectome]
+(https://www.janelia.org/project-team/flyem/manc-connectome). We expect to bump
+to v0.3 when all changes have stabilised.
+
+* Feature/neuron units by @jefferis in https://github.com/natverse/malevnc/pull/60
+* Feature/manc 1.0 by @jefferis in https://github.com/natverse/malevnc/pull/65
+* improved support for JRC xforms by @jefferis in https://github.com/natverse/malevnc/pull/66
+* Test/actionsv3 by @jefferis in https://github.com/natverse/malevnc/pull/67
 
 # malevnc 0.2.8
 
