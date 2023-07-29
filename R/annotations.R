@@ -273,7 +273,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
     if(length(ids)>1000 && !json) {
       # it's quicker to fetch all and then filter post hoc
       # but we can't do that with json
-      mba=manc_body_annotations(cache=cache, config=config, update.bodyids=update.bodyids, test=test, ...)
+      mba=manc_body_annotations(cache=cache, config=config, update.bodyids=update.bodyids, test=test, show.extra=show.extra, ...)
       res=mba[match(ids, mba$bodyid),,drop=F]
       return(res)
     } else {
@@ -283,7 +283,8 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
         chunkedids=split(ids, chunknums)
         res=pbapply::pblapply(chunkedids, manc_body_annotations, json=json,
                               config=config, cache=cache, test=test,
-                              update.bodyids=update.bodyids, ...)
+                              update.bodyids=update.bodyids,
+                              show.extra=show.extra, ...)
         return(dplyr::bind_rows(res))
       }
       if(length(ids)>1)
