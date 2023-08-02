@@ -24,7 +24,7 @@ MANC.nerves
 \code{MANC.tissue.surf.sym} is a symmetrised version of
   \code{MANC.tissue.surf} using \code{\link{symmetric_manc}}.
 
-\code{MANC.nerves} contains mesh of 31 MANC nerves:
+\code{MANC.nerves} contains mesh of 35 MANC nerves:
 15 symmetric ("L"/"R") and "AbNT".
 }
 \examples{
@@ -38,6 +38,10 @@ wire3d(MANC.tissue.surf.sym)
 # Depends on nat
 library(nat)
 plot3d(MANC.nerves)
+}
+\donttest{
+# Nerve names and their default colours
+as.data.frame(MANC.nerves[c("RegionList", "RegionColourList")])
 }
 }
 \keyword{datasets}

@@ -67,17 +67,21 @@
 #' @rdname MANC.tissue.surf
 "MANC.tissue.surf.sym"
 
-#' Simplified meshes of 31 MALEVNC nerves.
+#' Simplified meshes of 35 Male VNC nerves.
 #'
 #' @name MANC.tissue.surf
 #' @docType data
-#' @description \code{MANC.nerves} contains mesh of 31 MANC nerves:
+#' @description \code{MANC.nerves} contains mesh of 35 MANC nerves:
 #' 15 symmetric ("L"/"R") and "AbNT".
 #' @examples
 #' \dontrun{
 #' # Depends on nat
 #' library(nat)
 #' plot3d(MANC.nerves)
+#' }
+#' \donttest{
+#' # Nerve names and their default colours
+#' as.data.frame(MANC.nerves[c("RegionList", "RegionColourList")])
 #' }
 "MANC.nerves"
 
