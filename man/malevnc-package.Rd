@@ -31,13 +31,15 @@ Provides support for analysis of the male Drosophila ventral nerve cord dataset 
 
 \examples{
 # List all package options
+\dontrun{
 options()[grepl("^malevnc", names(options()))]
-
+}
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://github.com/natverse/malevnc}
+  \item \url{https://natverse.org/malevnc/}
   \item Report bugs at \url{https://github.com/natverse/malevnc/issues}
 }
 
