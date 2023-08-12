@@ -24,8 +24,11 @@ MANC.nerves
 \code{MANC.tissue.surf.sym} is a symmetrised version of
   \code{MANC.tissue.surf} using \code{\link{symmetric_manc}}.
 
-\code{MANC.nerves} contains mesh of 35 MANC nerves:
-15 symmetric ("L"/"R") and "AbNT".
+\code{MANC.nerves} contains meshes of 35 nerves: 17 symmetric
+ pairs \code{(L)/(R)} and \code{AbNT}. These were hand-drawn based on the
+ MANC grayscale data, guided by motor neuron and sensory neuron axon
+ reconstructions. Abbreviated names follow the conventions established in
+ Court et al., 2020 and are defined in Table 2 of Takemura et al., 2023.
 }
 \examples{
 \dontrun{
