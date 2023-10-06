@@ -50,7 +50,7 @@ choose_malevnc_dataset <- function(dataset=NULL,
         malevnc.neuprint='https://neuprint.janelia.org',
         malevnc.neuprint_dataset="manc:v1.0",
         malevnc.rootnode=NULL,
-        malevnc.server=NULL
+        malevnc.server="https://manc-dvid.janelia.org"
       )
       if(set) return(options(ops)) else return(ops)
     }
