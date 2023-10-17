@@ -45,12 +45,14 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
   if(is.null(dsname))
     stop("The package option malevnc.dataset is unset. Please set or manually reload package!")
 
-  if(type=='neuprint') {
+  if(dsname=="MANC" || type=='neuprint') {
     vncc=manc_neuprint()
     ds=neuprintr::neuprint_datasets(cache = cached, conn=vncc)
-    node=ds[[tolower(dsname)]]$uuid
-    if(is.null(node))
+    nds=sort(names(ds),decreasing = T)
+    midx=match(tolower(dsname), sub(":.+", "", nds))
+    if(is.na(midx))
       stop("Unable to find neuprint node")
+    node=ds[[nds[midx]]]$uuid
     return(node)
   }
 
