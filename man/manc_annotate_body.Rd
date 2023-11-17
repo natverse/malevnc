@@ -9,6 +9,7 @@ manc_annotate_body(
   test = TRUE,
   version = NULL,
   write_empty_fields = FALSE,
+  designated_user = NULL,
   protect = c("user"),
   chunksize = 50,
   query = TRUE,
@@ -33,10 +34,14 @@ fields in the clio-store database (when they are not protected by the
 fields to an empty value (usually the empty string) then you must set
 \code{write_empty_fields=TRUE}.}
 
+\item{designated_user}{Optional email address when one person is uploading
+annotations on behalf of another user. See \bold{Users} section for
+details.}
+
 \item{protect}{Vector of fields that will not be overwritten if they already
 have a value in clio store. Set to \code{TRUE} to protect all fields and to
 \code{FALSE} to overwrite all fields for which you provide data. See
-details for the rational behind the default value of "user"}
+details for the rationale behind the default value of "user"}
 
 \item{chunksize}{When you have many bodies to annotate the request will by
 default be sent 50 records at a time to avoid any issue with timeouts. You
@@ -57,9 +62,13 @@ customized behavior.}
 Set Clio body annotations
 }
 \details{
-Clio body annotations are stored in a
-  \href{https://cloud.google.com/firestore}{Google Firestore} database.
-  Further details are provided in
+Clio body annotations are stored in a shared backend between DVID
+  and Clio (aka neurojson). There are
+  \href{https://clio-store-vwzoicitea-uk.a.run.app/docs#/default/post_annotations_v2_json_annotations__dataset__neurons_post}{API
+  (Swagger) docs}.
+
+  Formerly they were in a \href{https://cloud.google.com/firestore}{Google
+  Firestore} database. Further details are provided in
   \href{https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit}{basic
    docs from Bill Katz}. Each body has an associated JSON list containing a
   set of standard user visible fields. Some of these are constrained. See
@@ -100,20 +109,20 @@ Clio body annotations are stored in a
 }
 
 \section{Users}{
- You should record users with the email address that they use
-  to authenticate to Clio. At present you are responsible for choosing how to
-  set the two user fields: \itemize{
+ Any modifications to columns in clio are associated with the
+  email address that used to authenticate to Clio. This happens transparently
+  with a \code{<field>_user} being added automatically when modifications are
+  made via the front-end or API. For example the \code{type} field has a
+  corresponding \code{type_user} field which can be displayed when
+  \code{manc_body_annotations(show.extra='user')}.
 
-  \item \code{user} This is intended to be the user that first created the
-  annotation record for a body. At some point they may have some control over
-  edits.
+  If you want to upload annotations on someone else's behalf you can now
+  specify a \code{designated_user}. This should be the email address
+  registered with their Clio account.
 
-  \item \code{last_modified_by} This is intended to be the user who provided
-  the last change to a record; in the case of bulk uploads, this should be
-  the user providing (or at least guaranteeing) the biological insight if at
-  all possible.
-
-  }
+  Formerly only two fields collected information about changes, \code{user}
+  and \code{last_modified_by}. These are now deprecated and should no longer
+  be set.
 }
 
 \examples{
