@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">malevnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +68,7 @@
 <span>  test <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  version <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  write_empty_fields <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  designated_user <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  protect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"user"</span><span class="op">)</span>,</span>
 <span>  chunksize <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  query <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -102,11 +103,17 @@ fields to an empty value (usually the empty string) then you must set
 <code>write_empty_fields=TRUE</code>.</p></dd>
 
 
+<dt>designated_user</dt>
+<dd><p>Optional email address when one person is uploading
+annotations on behalf of another user. See <b>Users</b> section for
+details.</p></dd>
+
+
 <dt>protect</dt>
 <dd><p>Vector of fields that will not be overwritten if they already
 have a value in clio store. Set to <code>TRUE</code> to protect all fields and to
 <code>FALSE</code> to overwrite all fields for which you provide data. See
-details for the rational behind the default value of "user"</p></dd>
+details for the rationale behind the default value of "user"</p></dd>
 
 
 <dt>chunksize</dt>
@@ -135,9 +142,12 @@ customized behavior.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Clio body annotations are stored in a
-  <a href="https://cloud.google.com/firestore" class="external-link">Google Firestore</a> database.
-  Further details are provided in
+    <p>Clio body annotations are stored in a shared backend between DVID
+  and Clio (aka neurojson). There are
+  <a href="https://clio-store-vwzoicitea-uk.a.run.app/docs#/default/post_annotations_v2_json_annotations__dataset__neurons_post" class="external-link">API
+  (Swagger) docs</a>.</p>
+<p>Formerly they were in a <a href="https://cloud.google.com/firestore" class="external-link">Google
+  Firestore</a> database. Further details are provided in
   <a href="https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit" class="external-link">basic
    docs from Bill Katz</a>. Each body has an associated JSON list containing a
   set of standard user visible fields. Some of these are constrained. See
@@ -173,16 +183,19 @@ customized behavior.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="users">Users<a class="anchor" aria-label="anchor" href="#users"></a></h2>
-    <p>You should record users with the email address that they use
-  to authenticate to Clio. At present you are responsible for choosing how to
-  set the two user fields:</p><ul><li><p><code>user</code> This is intended to be the user that first created the
-  annotation record for a body. At some point they may have some control over
-  edits.</p></li>
-<li><p><code>last_modified_by</code> This is intended to be the user who provided
-  the last change to a record; in the case of bulk uploads, this should be
-  the user providing (or at least guaranteeing) the biological insight if at
-  all possible.</p></li>
-</ul></div>
+    <p>Any modifications to columns in clio are associated with the
+  email address that used to authenticate to Clio. This happens transparently
+  with a <code>&lt;field&gt;_user</code> being added automatically when modifications are
+  made via the front-end or API. For example the <code>type</code> field has a
+  corresponding <code>type_user</code> field which can be displayed when
+  <code>manc_body_annotations(show.extra='user')</code>.</p>
+<p>If you want to upload annotations on someone else's behalf you can now
+  specify a <code>designated_user</code>. This should be the email address
+  registered with their Clio account.</p>
+<p>Formerly only two fields collected information about changes, <code>user</code>
+  and <code>last_modified_by</code>. These are now deprecated and should no longer
+  be set.</p>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other manc-annotation: 
