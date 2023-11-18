@@ -164,9 +164,13 @@ parse_query <- function(query, version) {
 
 #' Set Clio body annotations
 #'
-#' @details Clio body annotations are stored in a
-#'   \href{https://cloud.google.com/firestore}{Google Firestore} database.
-#'   Further details are provided in
+#' @details Clio body annotations are stored in a shared backend between DVID
+#'   and Clio (aka neurojson). There are
+#'   \href{https://clio-store-vwzoicitea-uk.a.run.app/docs#/default/post_annotations_v2_json_annotations__dataset__neurons_post}{API
+#'   (Swagger) docs}.
+#'
+#'   Formerly they were in a \href{https://cloud.google.com/firestore}{Google
+#'   Firestore} database. Further details are provided in
 #'   \href{https://docs.google.com/document/d/14wzFX6cMf0JcR0ozf7wmufNoUcVtlruzUo5BdAgdM-g/edit}{basic
 #'    docs from Bill Katz}. Each body has an associated JSON list containing a
 #'   set of standard user visible fields. Some of these are constrained. See
@@ -204,20 +208,20 @@ parse_query <- function(query, version) {
 #'   For these reasons, \bold{it is strongly recommended that end users provide
 #'   \code{data.frame} input}.
 #'
-#' @section Users: You should record users with the email address that they use
-#'   to authenticate to Clio. At present you are responsible for choosing how to
-#'   set the two user fields: \itemize{
+#' @section Users: Any modifications to columns in clio are associated with the
+#'   email address that used to authenticate to Clio. This happens transparently
+#'   with a \code{<field>_user} being added automatically when modifications are
+#'   made via the front-end or API. For example the \code{type} field has a
+#'   corresponding \code{type_user} field which can be displayed when
+#'   \code{manc_body_annotations(show.extra='user')}.
 #'
-#'   \item \code{user} This is intended to be the user that first created the
-#'   annotation record for a body. At some point they may have some control over
-#'   edits.
+#'   If you want to upload annotations on someone else's behalf you can now
+#'   specify a \code{designated_user}. This should be the email address
+#'   registered with their Clio account.
 #'
-#'   \item \code{last_modified_by} This is intended to be the user who provided
-#'   the last change to a record; in the case of bulk uploads, this should be
-#'   the user providing (or at least guaranteeing) the biological insight if at
-#'   all possible.
-#'
-#'   }
+#'   Formerly only two fields collected information about changes, \code{user}
+#'   and \code{last_modified_by}. These are now deprecated and should no longer
+#'   be set.
 #'
 #' @param x A data.frame, list or JSON string containing body annotations.
 #'   \bold{End users are strongly recommended to use data.frames.}
@@ -225,10 +229,13 @@ parse_query <- function(query, version) {
 #'   default \code{NULL} uses the current version returned by the API.
 #' @param test Whether to use the test clio store (recommended until you are
 #'   sure you know what you are doing).
+#' @param designated_user Optional email address when one person is uploading
+#'   annotations on behalf of another user. See \bold{Users} section for
+#'   details.
 #' @param protect Vector of fields that will not be overwritten if they already
 #'   have a value in clio store. Set to \code{TRUE} to protect all fields and to
 #'   \code{FALSE} to overwrite all fields for which you provide data. See
-#'   details for the rational behind the default value of "user"
+#'   details for the rationale behind the default value of "user"
 #' @param write_empty_fields When \code{x} is a data.frame, this controls
 #'   whether empty fields in \code{x} (i.e. \code{NA} or \code{""}) overwrite
 #'   fields in the clio-store database (when they are not protected by the
@@ -242,8 +249,8 @@ parse_query <- function(query, version) {
 #'   Set to \code{Inf} to insist that all records are sent in a single request.
 #'   \bold{NB only applies when \code{x} is a data.frame}.
 #' @param query Special query to pass to Clio API. If TRUE, then the default is
-#' passed with Clio version, FALSE means no query, and list is allowed for a
-#' customized behavior.
+#'   passed with Clio version, FALSE means no query, and list is allowed for a
+#'   customized behavior.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
 #' @return \code{NULL} invisibly on success. Errors out on failure.
@@ -273,12 +280,17 @@ parse_query <- function(query, version) {
 #' manc_annotate_body(list(bodyid=10002, class='',
 #'   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
 #' }
-manc_annotate_body <- function(x, test=TRUE, version=NULL, write_empty_fields=FALSE,
+manc_annotate_body <- function(x, test=TRUE, version=NULL,
+                               write_empty_fields=FALSE,
+                               designated_user=NULL,
                                protect=c("user"), chunksize=50, query=TRUE, ...) {
   query=parse_query(query, version=version)
   dataset=getOption('malevnc.dataset', default = 'VNC')
   u=clio_url(path=glue('v2/json-annotations/{dataset}/neurons'),
              test = test)
+  if(!is.null(designated_user)) {
+    u=glue("{u}?designated_user={designated_user}")
+  }
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
