@@ -122,7 +122,8 @@ Clio body annotations are stored in a shared backend between DVID
 
   Formerly only two fields collected information about changes, \code{user}
   and \code{last_modified_by}. These are now deprecated and should no longer
-  be set.
+  be set. Related to this, the default value of protect has remained
+  \code{"user"} to avoid modifying the \code{user} field until it is retired.
 }
 
 \examples{
