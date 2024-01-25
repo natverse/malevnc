@@ -1,4 +1,15 @@
-# malevnc (development version)
+# malevnc 0.3
+
+Version 0.3 provides stable access to the public manc data release.
+
+* support annotating with alternative clio user by @jefferis in https://github.com/natverse/malevnc/pull/68
+* support for 64 bit ids in manc_annotate_body by @jefferis in https://github.com/natverse/malevnc/pull/69
+* Update MANC.nerves to 35 meshes and update cols / docs for nerve meshes
+* Respect `show.extra` even for long id lists (d25fdfd6e9e8a4d7032a4ab964eee8ec30181687)
+* support for meshes with public manc release
+* Respect show.extra even for long id lists (d25fdfd6e9e8a4d7032a4ab964eee8ec30181687)
+
+**Full Changelog**: https://github.com/natverse/malevnc/compare/v0.2.9...v0.2.10
 
 # malevnc 0.2.9
 This is a major release providing support for the publication of the [MANC connectome]
