@@ -99,7 +99,7 @@ test_that("manc_point_annotations/clioannotationdf2list works", {
       entry_nerve = c("None", "None", "None", "None"),
       exit_nerve = c("CvC",
                      "CvC", "CvC", "CvC"),
-      group = c(NA, 10223, 10223, 10245),
+      group = manc_ids(c(NA, 10223, 10223, 10245), integer64 = T, unique = F),
       user = c(
         "jefferis@gmail.com",
         "jefferis@gmail.com",
@@ -124,7 +124,7 @@ test_that("manc_point_annotations/clioannotationdf2list works", {
   )
 
  expect_known_hash(cliolist <- clioannotationdf2list(ansforuploadsample),
-                    "b57d0a3fdf")
+                    "9783889b09")
   # a row with only bodyid should be dropped
   ansforuploadsample[5,'bodyid']=1
   expect_equal(clioannotationdf2list(ansforuploadsample), cliolist)
