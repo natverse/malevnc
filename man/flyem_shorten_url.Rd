@@ -46,13 +46,9 @@ The default filename for these fragments consists of the date and
  many of these links in quick succession. To overcome this limitation, you
  can specify your own filename. We also provide two convenience naming
  methods:
-
 . \itemize{
-
-   \item md5 An md5 hash of the URL+title e.g. \code{"9a35fc580f710f3a62b2809a10fe106d.json"}
-
-.   \item ms timestamp to the nearest millisecond e.g. \code{"1708773000.001.json"}
-
+   \item \bold{md5} An md5 hash of the URL+title e.g. \code{"9a35fc580f710f3a62b2809a10fe106d.json"}
+.   \item \bold{ms} Timestamp to the nearest millisecond e.g. \code{"1708773000.001.json"}
   }
 
  Note that this is an open endpoint so there are two potential security
