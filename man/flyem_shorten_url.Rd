@@ -5,15 +5,26 @@
 \alias{flyem_expand_url}
 \title{Shorten a Neuroglancer URL using the Janelia FlyEM link shortener}
 \usage{
-flyem_shorten_url(url, filename = NULL, ...)
+flyem_shorten_url(
+  url,
+  filename = NA_character_,
+  title = NA_character_,
+  method = c("default", "md5", "ms"),
+  ...
+)
 
 flyem_expand_url(url, return = c("url", "json", "parsed"), ...)
 }
 \arguments{
-\item{url}{One or more urls to shorten or expand}
+\item{url}{One or more URLs to shorten or expand}
 
-\item{filename}{An optional filename to use in the shortened URL (not yet
-supported)}
+\item{filename}{An optional filename to use in the shortened URL. You can also
+provide a URL in which case the terminal filename will be extracted.}
+
+\item{title}{An optional title for the webpage}
+
+\item{method}{An optional scheme for automatic naming of shortened URLs. See
+details.}
 
 \item{...}{Additional arguments passed to \code{httr::POST}}
 
@@ -22,25 +33,48 @@ JSON text fragment.}
 }
 \value{
 For \code{flyem_shorten_url} a character vector containing a short
-  URL. For \code{flyem_expand_url} see a character vector or list depending
-  on \code{return} argument. If the input \code{url} argument is named vector
-  of length>1, then the output will also be named.
+ URL. For \code{flyem_expand_url} a character vector or list depending on the
+ \code{return} argument. If the input \code{url} argument is a named vector
+ of length>1, then the output will also be named.
 }
 \description{
 Shorten a Neuroglancer URL using the Janelia FlyEM link shortener
 }
 \details{
+The default filename for these fragments consists of the date and
+ time to the nearest second. For this reason you will have trouble generating
+ many of these links in quick succession. To overcome this limitation, you
+ can specify your own filename. We also provide two convenience naming
+ methods:
+
+. \itemize{
+
+   \item md5 An md5 hash of the URL+title e.g. \code{"9a35fc580f710f3a62b2809a10fe106d.json"}
+
+.   \item ms timestamp to the nearest millisecond e.g. \code{"1708773000.001.json"}
+
+  }
+
+ Note that this is an open endpoint so there are two potential security
+ concerns. URLs named by date/time can potentially be guessed and inspected.
+ Known URLs can be overwritten to point to a new location. If these are
+ concerns then the MD5 hash format has some advantages.
+
 see
   \href{https://flyem-cns.slack.com/archives/C01BZB05M8C/p1669646269799509}{FlyEM
    CNS Slack} for more details.
 }
 \examples{
 \dontrun{
-su=flyem_shorten_url(manc_scene('group:10200'))
+# this reads the URL from the clipboard
+su=flyem_shorten_url(clipr::read_clip())
 lu=flyem_expand_url(su)
 fafbseg::ngl_decode_scene(lu)
 # these give you the same result
 browseURL(su)
 browseURL(lu)
+
+# Generate many unique short URLs based on an MD5 hash of the long URL
+sus=flyem_shorten_url("<Long URLs>", method='md5')
 }
 }
