@@ -90,17 +90,21 @@ read_draco_meshes <- function(x) {
 #' }
 read_manc_meshes <- function(ids, node="clio", type=c('merged', 'supervoxels'), ...) {
   type=match.arg(type)
-  ids=manc_ids(ids, as_character = F)
+  ids=manc_ids(ids, as_character = T)
   node=manc_nodespec(node, several.ok = F)
   if(type=='merged') {
-    checkmate::checkIntegerish(ids, lower=1)
+    vi=fafbseg:::valid_id(ids, na.ok = FALSE)
+    if(!all(vi))
+      stop(sum(!vi), " ids appear to be invalid! Please verify.")
     res=pbapply::pbsapply(ids, read_manc_neuroglancer_mesh, node=node, ..., simplify = F)
     return(as.neuronlist(res, AddClassToNeurons=F))
   }
-  checkmate::checkIntegerish(ids, lower=0, len = 1)
+  vi=fafbseg:::valid_id(ids, na.ok = FALSE)
+  if(!all(vi))
+    stop(sum(!vi), " ids appear to be invalid! Please verify.")
 
   surl=manc_serverurl("api/node/%s/segmentation_sv_meshes/tarfile/%s",
-                      node, as.character(ids))
+                      node, ids)
   read_draco_meshes(surl)
 }
 
