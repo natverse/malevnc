@@ -1,3 +1,12 @@
+# malevnc 0.3.1
+
+* make manc:v1.2.1 the public default
+* fix bug in reading meshes for id=100000
+* Feature/flexible url shortening by @jefferis in https://github.com/natverse/malevnc/pull/70
+* doc polishing by @jefferis in https://github.com/natverse/malevnc/pull/71
+
+**Full Changelog**: https://github.com/natverse/malevnc/compare/v0.3...v0.3.1
+
 # malevnc 0.3
 
 Version 0.3 provides stable access to the public manc data release.
@@ -9,7 +18,7 @@ Version 0.3 provides stable access to the public manc data release.
 * support for meshes with public manc release
 * Respect show.extra even for long id lists (d25fdfd6e9e8a4d7032a4ab964eee8ec30181687)
 
-**Full Changelog**: https://github.com/natverse/malevnc/compare/v0.2.9...v0.2.10
+**Full Changelog**: https://github.com/natverse/malevnc/compare/v0.2.9...v0.3
 
 # malevnc 0.2.9
 This is a major release providing support for the publication of the [MANC connectome]
