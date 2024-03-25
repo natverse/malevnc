@@ -63,13 +63,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">flyem_shorten_url</span><span class="op">(</span></span>
-<span>  <span class="va">url</span>,</span>
-<span>  filename <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
-<span>  title <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
-<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"default"</span>, <span class="st">"md5"</span>, <span class="st">"ms"</span><span class="op">)</span>,</span>
-<span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">flyem_shorten_url</span><span class="op">(</span><span class="va">url</span>, filename <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">flyem_expand_url</span><span class="op">(</span><span class="va">url</span>, return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"url"</span>, <span class="st">"json"</span>, <span class="st">"parsed"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -77,21 +71,12 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>url</dt>
-<dd><p>One or more URLs to shorten or expand</p></dd>
+<dd><p>One or more urls to shorten or expand</p></dd>
 
 
 <dt>filename</dt>
-<dd><p>An optional filename to use in the shortened URL. You can also
-provide a URL in which case the terminal filename will be extracted.</p></dd>
-
-
-<dt>title</dt>
-<dd><p>An optional title for the webpage</p></dd>
-
-
-<dt>method</dt>
-<dd><p>An optional scheme for automatic naming of shortened URLs. See
-details.</p></dd>
+<dd><p>An optional filename to use in the shortened URL (not yet
+supported)</p></dd>
 
 
 <dt>...</dt>
@@ -108,26 +93,13 @@ JSON text fragment.</p></dd>
     
 
 <p>For <code>flyem_shorten_url</code> a character vector containing a short
- URL. For <code>flyem_expand_url</code> a character vector or list depending on the</p>
-<p></p>
-<p><code>return</code> argument. If the input <code>url</code> argument is a named vector
- of length&gt;1, then the output will also be named.</p>
+  URL. For <code>flyem_expand_url</code> see a character vector or list depending
+  on <code>return</code> argument. If the input <code>url</code> argument is named vector
+  of length&gt;1, then the output will also be named.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The default filename for these fragments consists of the date and
- time to the nearest second. For this reason you will have trouble generating
- many of these links in quick succession. To overcome this limitation, you
- can specify your own filename. We also provide two convenience naming
- methods:
-.</p><ul><li><p><b>md5</b> An md5 hash of the URL+title e.g. <code>"9a35fc580f710f3a62b2809a10fe106d.json"</code>
-.</p></li>
-<li><p><b>ms</b> Timestamp to the nearest millisecond e.g. <code>"1708773000.001.json"</code></p></li>
-</ul><p>Note that this is an open endpoint so there are two potential security
- concerns. URLs named by date/time can potentially be guessed and inspected.
- Known URLs can be overwritten to point to a new location. If these are
- concerns then the MD5 hash format has some advantages.</p>
-<p>see
+    <p>see
   <a href="https://flyem-cns.slack.com/archives/C01BZB05M8C/p1669646269799509" class="external-link">FlyEM
    CNS Slack</a> for more details.</p>
     </div>
@@ -135,16 +107,12 @@ JSON text fragment.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># this reads the URL from the clipboard</span></span></span>
-<span class="r-in"><span><span class="va">su</span><span class="op">=</span><span class="fu">flyem_shorten_url</span><span class="op">(</span><span class="fu">clipr</span><span class="fu">::</span><span class="fu"><a href="http://matthewlincoln.net/clipr/reference/read_clip.html" class="external-link">read_clip</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">su</span><span class="op">=</span><span class="fu">flyem_shorten_url</span><span class="op">(</span><span class="fu"><a href="manc_scene.html">manc_scene</a></span><span class="op">(</span><span class="st">'group:10200'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lu</span><span class="op">=</span><span class="fu">flyem_expand_url</span><span class="op">(</span><span class="va">su</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">fafbseg</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fafbseg/man/ngl_decode_scene.html" class="external-link">ngl_decode_scene</a></span><span class="op">(</span><span class="va">lu</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># these give you the same result</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="va">su</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="va">lu</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Generate many unique short URLs based on an MD5 hash of the long URL</span></span></span>
-<span class="r-in"><span><span class="va">sus</span><span class="op">=</span><span class="fu">flyem_shorten_url</span><span class="op">(</span><span class="st">"&lt;Long URLs&gt;"</span>, method<span class="op">=</span><span class="st">'md5'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
