@@ -171,12 +171,10 @@ contents of <code><a href="mancsomapos.html">mancsomapos</a></code>.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># just the XYZ position</span></span></span>
 <span class="r-in"><span><span class="fu">manc_somapos</span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       X  Y  Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] NA NA NA</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in manc_dvid_node("neutu"):</span> The package option malevnc.dataset is unset. Please set or manually reload package!</span>
 <span class="r-in"><span><span class="co"># with details including data source</span></span></span>
 <span class="r-in"><span><span class="fu">manc_somapos</span><span class="op">(</span><span class="fl">10000</span>, details<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  n  X  Y  Z source  tag</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 NA NA NA NA   &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in manc_dvid_node("neutu"):</span> The package option malevnc.dataset is unset. Please set or manually reload package!</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
