@@ -229,7 +229,7 @@ manc_read_neurons <- function(ids, units=c("raw", "microns", "nm"),
 manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE, fields.regex.exclude=NULL, fields.regex.include=NULL, ...) {
   if(is.null(ids))
     ids=manc_dvid_annotations(cache=T)
-  ids=manc_ids(ids, integer64=T)
+  ids=manc_ids(ids, integer64=T, conn=conn)
   fields=mnp_fields(conn=conn)
   if(!isTRUE(roiInfo))
     fields=setdiff(fields, "roiInfo")
