@@ -237,6 +237,7 @@ manc_reg_urls <- function() {
     "JRCVNC2018M_JRCVNC2018U.h5",
     "JRCVNC2018U_JRCVNC2018F.h5"
   )
+  download_urls
 }
 
 # checks whether nat.jrcbrains is installed
