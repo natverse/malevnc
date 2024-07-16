@@ -36,7 +36,7 @@ Annotate an XYZ location in Clio as a soma or root
 }
 \details{
 You should use the tags in the following order of preference
-  \itemize{
+  \describe{
 
   \item{soma}{ If there is a visible soma, use this tag.}
 
