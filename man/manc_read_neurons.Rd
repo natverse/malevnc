@@ -44,8 +44,10 @@ Read MANC skeletons via neuprint
 }
 \details{
 \code{manc_read_neurons} fetches metadata from neuprint but does not
-  fetch synapse locations by default as this is very time consuming. For historical
-  reasons the default units are in raw image voxels (ie 8nm spacing, what flyem returns) but for most other functions such as \code{\link{symmetric_manc}} you need units of microns.
+  fetch synapse locations by default as this is very time consuming. For
+  historical reasons the default units are in raw image voxels (i.e. 8nm
+  spacing, what flyem returns) but for most other functions such as
+  \code{\link{symmetric_manc}} you need units of microns.
 }
 \examples{
 \dontrun{
