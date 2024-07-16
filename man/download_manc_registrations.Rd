@@ -40,7 +40,7 @@ if(!"MANC" \%in\% allreg_dataframe()$reference)
 
 DNa02s=read_manc_meshes('DNa02')
 # nb convert from nm to microns
-DNa02s.jrcvnc2018u=xform_brain(DNa02s/1e3, reference = "JRCVNC2018U", sample="")
+DNa02s.jrcvnc2018u=xform_brain(DNa02s/1e3, reference = "JRCVNC2018U", sample="MANC")
 plot3d(DNa02s.jrcvnc2018u)
 plot3d(JRCVNC2018U)
 }
