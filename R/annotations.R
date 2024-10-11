@@ -313,6 +313,23 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
   updatebodyids(res, update=update.bodyids, cache = cache)
 }
 
+#' @rdname manc_body_annotations
+#' @description \code{clio_fields} returns all the fields currently known to
+#'   exist in the clio store for a given dataset. A short description...
+#' @param dataset short name of the dataset (VNC or CNS)
+#' @export
+#' @examples
+#' clio_fields()
+clio_fields <- function(dataset=getOption("malevnc.dataset")) {
+  if(isTRUE(dataset=='MANC')) {
+    warning("clio annotations only work with the production MANC dataset, coded as VNC")
+    dataset='VNC'
+  }
+  u=glue::glue("/v2/json-annotations/{dataset}/neurons/fields")
+  clio_fetch(clio_url(u))
+}
+
+
 # update can be T/F or a bodyid
 updatebodyids <- function(x, update=TRUE, cache=FALSE, add_auto=TRUE) {
   # first figure out if this is an "auto" entry without any manually entered

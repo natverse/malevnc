@@ -224,9 +224,6 @@ clio_url <- function(path, test=FALSE) {
   file.path(u, path, fsep = '/')
 }
 
-clio_fields <- function() {
-  clio_fetch(clio_url("/v2/json-annotations/VNC/neurons/fields"))
-}
 
 validate_email <- function(email) {
   emailregex="(^[A-z0-9_.+-]+@[A-z0-9-]+\\.[A-z0-9.-]+$)"

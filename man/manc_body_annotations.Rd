@@ -2,6 +2,7 @@
 % Please edit documentation in R/annotations.R
 \name{manc_body_annotations}
 \alias{manc_body_annotations}
+\alias{clio_fields}
 \title{Return clio-store body annotations for set of ids or a flexible query}
 \usage{
 manc_body_annotations(
@@ -15,6 +16,8 @@ manc_body_annotations(
   show.extra = c("none", "user", "time", "all"),
   ...
 )
+
+clio_fields(dataset = getOption("malevnc.dataset"))
 }
 \arguments{
 \item{ids}{A set of body ids in any form understandable to
@@ -41,6 +44,8 @@ switched to \code{FALSE} as of Feb 2022.}
 \item{show.extra}{Extra columns to show with user/timestamp information.}
 
 \item{...}{Additional arguments passed to \code{pbapply::\link{pblapply}}}
+
+\item{dataset}{short name of the dataset (VNC or CNS)}
 }
 \value{
 An R data.frame or a character vector containing JSON (when
@@ -58,7 +63,8 @@ An R data.frame or a character vector containing JSON (when
    for details of the position / position type fields. }
 }
 \description{
-Return clio-store body annotations for set of ids or a flexible query
+\code{clio_fields} returns all the fields currently known to
+  exist in the clio store for a given dataset. A short description...
 }
 \details{
 Missing values in each output column are filled with NA. But if a
@@ -84,6 +90,7 @@ manc_body_annotations(ids=
 # fetch all bodyids
 mba=manc_body_annotations()
 }
+clio_fields()
 }
 \seealso{
 \href{https://clio-store-vwzoicitea-uk.a.run.app/docs}{swagger docs}
