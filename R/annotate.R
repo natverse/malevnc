@@ -303,7 +303,7 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
         chunknums=floor((seq_along(x)-1)/chunksize)+1
         chunkedx=split(x, chunknums)
         res=pbapply::pbsapply(chunkedx, manc_annotate_body, version=version,
-                          test=test, chunksize=Inf, ...)
+                          test=test, chunksize=Inf, protect=protect, ...)
         return(invisible(res))
       }
     } else if(!is.list(x))
