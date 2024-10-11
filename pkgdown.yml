@@ -1,8 +1,8 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-07-16T10:27Z
+last_built: 2024-10-11T10:36Z
 urls:
   reference: https://natverse.org/malevnc/reference
   article: https://natverse.org/malevnc/articles
