@@ -100,7 +100,7 @@ flyem_scene4dataset <- memoise::memoise(function(dataset=NULL) {
 flyem_servers4dataset <- memoise::memoise(function(dataset=NULL) {
   sc=flyem_scene4dataset(dataset)
   dl=flyem_dvidlayer4scene(sc)
-  u=dl$source$url
+  u=if(is.character(dl$source)) dl$source else dl$source$url
   dvid=sub("dvid-service=.*", "", u)
   dvid=sub("dvid://", "", dvid)
   dvid=sub("(https://[^/]+).*", "\\1", dvid)
@@ -112,7 +112,10 @@ flyem_servers4dataset <- memoise::memoise(function(dataset=NULL) {
 
 flyem_dvidlayer4scene <- function(sc) {
   dvidlayer <- sapply(sc$layers, function(x) isTRUE(try(grepl("dvid", x$source$url), silent = T)))
-  # if(sum(dvidlayer)!=1)
+  if(sum(dvidlayer)<1) {
+    # try again just with source
+    dvidlayer <- sapply(sc$layers, function(x) isTRUE(try(grepl("dvid", x$source), silent = T)))
+  }
   #   warning("Unable to extract a unique DVID layer!")
   dl=sc$layers[[min(which(dvidlayer))]]
   dl
