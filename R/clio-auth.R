@@ -186,7 +186,17 @@ store_token_expiry <- function(token=NULL, start=Sys.time()) {
 }
 
 # private function to talk to clio store
-clio_fetch <- function(url, config=NULL, ..., body=NULL, query=NULL, json=FALSE) {
+clio_fetch <- function(url, config=NULL, ..., body=NULL, query=NULL, json=FALSE,
+                       app='natverse') {
+  if(!is.null(app)) {
+    pu=httr::parse_url(url)
+    if(is.null(pu$query)) {
+      pu$query=glue::glue('app={app}')
+    } else {
+      pu$query=glue::glue('{pu$query}&app={app}')
+    }
+    url <- httr::build_url(pu)
+  }
   if (is.null(config))
     config=c(httr::config(),
              httr::add_headers(Authorization = paste("Bearer", clio_token())))
