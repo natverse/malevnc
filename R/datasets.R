@@ -93,6 +93,10 @@ flyem_scene4dataset <- memoise::memoise(function(dataset=NULL) {
   # there are some key layers here
   sc2=fafbseg::ngl_decode_scene(ds$versions[[1]]$neuroglancer)
   ll=c(sc$layers[1], sc2$layers[1], sc$layers[-1], sc2$layers[-1])
+  if(!is.null(ds$orderedLayers) && all(ds$orderedLayers %in% names(ll))) {
+    # reorder layers based on clio config information putting preferred ones first
+    ll=ll[union(ds$orderedLayers, names(ll))]
+  }
   fafbseg::ngl_layers(sc) <- ll
   sc
 })
