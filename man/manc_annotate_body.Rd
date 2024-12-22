@@ -9,6 +9,7 @@ manc_annotate_body(
   test = TRUE,
   version = NULL,
   write_empty_fields = FALSE,
+  allow_new_fields = FALSE,
   designated_user = NULL,
   protect = c("user"),
   chunksize = 50,
@@ -34,6 +35,10 @@ fields in the clio-store database (when they are not protected by the
 fields to an empty value (usually the empty string) then you must set
 \code{write_empty_fields=TRUE}.}
 
+\item{allow_new_fields}{Whether to allow creation of new clio fields. Default
+\code{FALSE} will produce an error encouraging you to check the field
+names.}
+
 \item{designated_user}{Optional email address when one person is uploading
 annotations on behalf of another user. See \bold{Users} section for
 details.}
@@ -51,7 +56,7 @@ Set to \code{Inf} to insist that all records are sent in a single request.
 
 \item{query}{Special query to pass to Clio API. If TRUE, then the default is
 passed with Clio version, FALSE means no query, and list is allowed for a
-customized behavior.}
+customized behaviour.}
 
 \item{...}{Additional parameters passed to \code{pbapply::\link{pbsapply}}}
 }
