@@ -24,3 +24,8 @@ test_that("parse_query", {
   expect_equal(res$version, "v9.9.9")
   expect_true("abc" %in% names(res))
 })
+
+test_that("new field check", {
+  df=data.frame(bodyid=10002, new_field='rhubarb', new_field2='crumble')
+  expect_error(manc_annotate_body(df, allow_new_fields = FALSE))
+})

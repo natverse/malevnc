@@ -251,7 +251,10 @@ parse_query <- function(query, version) {
 #'   \bold{NB only applies when \code{x} is a data.frame}.
 #' @param query Special query to pass to Clio API. If TRUE, then the default is
 #'   passed with Clio version, FALSE means no query, and list is allowed for a
-#'   customized behavior.
+#'   customized behaviour.
+#' @param allow_new_fields Whether to allow creation of new clio fields. Default
+#'   \code{FALSE} will produce an error encouraging you to check the field
+#'   names.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
 #' @return \code{NULL} invisibly on success. Errors out on failure.
@@ -283,6 +286,7 @@ parse_query <- function(query, version) {
 #' }
 manc_annotate_body <- function(x, test=TRUE, version=NULL,
                                write_empty_fields=FALSE,
+                               allow_new_fields=FALSE,
                                designated_user=NULL,
                                protect=c("user"), chunksize=50, query=TRUE, ...) {
   query=parse_query(query, version=version)
@@ -295,6 +299,14 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
+      cf=clio_fields()
+      new_fields=setdiff(colnames(x), cf)
+      if(isFALSE(allow_new_fields)) {
+        if(length(new_fields)>0)
+          stop("If you are sure you want to add new fields: \n    ",
+               paste(new_fields, collapse = ', '),
+               "\nafter appropriate discussion then please set `allow_new_fields=TRUE`")
+      }
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
       if (length(x) > 0)
         x <- compute_clio_delta(x, test = test, write_empty_fields = write_empty_fields)
