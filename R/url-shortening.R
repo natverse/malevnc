@@ -70,13 +70,12 @@ flyem_shorten_url <- function(url, filename=NA_character_, title=NA_character_,
       filename=basename(filename)
   }
   if(is.na(filename)) filename=NULL
-  body <- if(is.null(filename) && is.null(title)) url else {
-    list(filename=filename, text=url, title=title)
-  }
+  body <- list(filename=filename, text=url, title=title)
   us='https://shortng-bmcp5imp6q-uc.a.run.app/shortng'
-  res=httr::POST(url = us, body = body, encode = 'multipart', ...)
+  res=httr::POST(url = us, body = body, encode = 'json', ...)
   httr::stop_for_status(res)
-  httr::content(res, as='text')
+  # extract the URL itself
+  httr::content(res, as='parsed')[[1]]
 }
 
 #' @export
