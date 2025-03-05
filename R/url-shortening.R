@@ -21,6 +21,7 @@
 #'@param title An optional title for the webpage
 #'@param method An optional scheme for automatic naming of shortened URLs. See
 #'  details.
+#' @param password Optional password to allow rewriting of short URLs
 #'@param return When expanding, whether to return a long URL, an R list or a
 #'  JSON text fragment.
 #'@param ... Additional arguments passed to \code{httr::POST}
@@ -30,9 +31,9 @@
 #'  \code{return} argument. If the input \code{url} argument is a named vector
 #'  of length>1, then the output will also be named.
 #'@export
-#'@details see
-#'   \href{https://flyem-cns.slack.com/archives/C01BZB05M8C/p1669646269799509}{FlyEM
-#'    CNS Slack} for more details.
+#'@details see the underlying
+#' \href{https://github.com/janelia-flyem/flyem-shortener}{github repo} for
+#' details.
 #'
 #' @examples
 #' \dontrun{
@@ -48,13 +49,14 @@
 #' sus=flyem_shorten_url("<Long URLs>", method='md5')
 #' }
 flyem_shorten_url <- function(url, filename=NA_character_, title=NA_character_,
-                              method=c("default", "md5", "ms"), ...) {
+                              method=c("default", "md5", "ms"),
+                              password=NULL, ...) {
   method=match.arg(method)
   if(length(url)>1) {
     named=!is.null(names(url))
     res <- pbapply::pbmapply(flyem_shorten_url, url=url,
                         filename=filename, title=title, ...,
-                        MoreArgs = list(method=method), USE.NAMES = named)
+                        MoreArgs = list(method=method, password=password), USE.NAMES = named)
     return(res)
   }
   if(is.na(title)) title=NULL
@@ -70,7 +72,7 @@ flyem_shorten_url <- function(url, filename=NA_character_, title=NA_character_,
       filename=basename(filename)
   }
   if(is.na(filename)) filename=NULL
-  body <- list(filename=filename, text=url, title=title)
+  body <- list(filename=filename, text=url, title=title, password=password)
   us='https://shortng-bmcp5imp6q-uc.a.run.app/shortng'
   res=httr::POST(url = us, body = body, encode = 'json', ...)
   if(httr::status_code(res)>200) {

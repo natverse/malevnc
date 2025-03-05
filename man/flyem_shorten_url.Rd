@@ -10,6 +10,7 @@ flyem_shorten_url(
   filename = NA_character_,
   title = NA_character_,
   method = c("default", "md5", "ms"),
+  password = NULL,
   ...
 )
 
@@ -25,6 +26,8 @@ provide a URL in which case the terminal filename will be extracted.}
 
 \item{method}{An optional scheme for automatic naming of shortened URLs. See
 details.}
+
+\item{password}{Optional password to allow rewriting of short URLs}
 
 \item{...}{Additional arguments passed to \code{httr::POST}}
 
@@ -56,9 +59,9 @@ The default filename for these fragments consists of the date and
  Known URLs can be overwritten to point to a new location. If these are
  concerns then the MD5 hash format has some advantages.
 
-see
-  \href{https://flyem-cns.slack.com/archives/C01BZB05M8C/p1669646269799509}{FlyEM
-   CNS Slack} for more details.
+see the underlying
+\href{https://github.com/janelia-flyem/flyem-shortener}{github repo} for
+details.
 }
 \examples{
 \dontrun{
