@@ -73,7 +73,12 @@ flyem_shorten_url <- function(url, filename=NA_character_, title=NA_character_,
   body <- list(filename=filename, text=url, title=title)
   us='https://shortng-bmcp5imp6q-uc.a.run.app/shortng'
   res=httr::POST(url = us, body = body, encode = 'json', ...)
-  httr::stop_for_status(res)
+  if(httr::status_code(res)>200) {
+    errmsg=httr::content(res, 'parsed')[['text']]
+    if(isTRUE(nzchar(errmsg)))
+      stop(errmsg)
+    httr::stop_for_status(res)
+  }
   # extract the URL itself
   httr::content(res, as='parsed')[[1]]
 }
