@@ -76,12 +76,12 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
            " clio UUID from datasets reported by clio server!\n",
            "I recommend asking @katzw/@jefferis what's up on #clio-ui\n",
            "https://flyem-cns.slack.com/archives/C01MYQ1AQ5D")
-    clio_node=mbv[pmatch(clio_uuid, mbv)]
-    if(is.na(clio_node) && cached) {
-      # can't find the node: most likely a DVID commit has just happened
-      memoise::forget(manc_branch_versions)
-      mbv=manc_branch_versions()
-      clio_node=mbv[pmatch(ds$uuid, mbv)]
+    nodes=manc_dvid_nodeinfo(cached = cached)[['UUID']]
+    clio_node=nodes[pmatch(clio_uuid, nodes)]
+    if(is.na(clio_node) & cached) {
+      # can't find the node: perhaps a DVID commit has just happened
+      nodes=manc_dvid_nodeinfo(cached=FALSE)[['UUID']]
+      clio_node=nodes[pmatch(ds$uuid, nodes)]
     }
     if(is.na(clio_node))
       stop("Unable to establish full length clio node: ", ds$uuid)
