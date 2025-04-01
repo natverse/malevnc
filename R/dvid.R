@@ -50,6 +50,15 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
     ds=neuprintr::neuprint_datasets(cache = cached, conn=vncc)
     nds=sort(names(ds),decreasing = T)
     midx=match(tolower(dsname), sub(":.+", "", nds))
+    if(is.na(midx)) {
+      # try harder to find the neuprint node
+      cds=clio_datasets(cached=cached)
+      cdsn=cds[[dsname]]
+      # use clio config to identify neuprint dataset name
+      np_dsname=cdsn[['neuprintHTTP']][['dataset']]
+      if(!is.null(np_dsname))
+        midx=match(tolower(np_dsname), sub(":.+", "", nds))
+    }
     if(is.na(midx))
       stop("Unable to find neuprint node")
     node=ds[[nds[midx]]]$uuid
