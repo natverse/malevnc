@@ -68,7 +68,7 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
   if(!isTRUE(cached))
     memoise::forget(manc_branch_versions)
   mbv=manc_branch_versions()
-  if(type=='neutu') {
+  if(type %in% c('neutu', 'master')) {
     return(mbv[1])
   }
 
