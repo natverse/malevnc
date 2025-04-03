@@ -94,15 +94,109 @@ to define fields to include or exclude from the returned metadata.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">manc_neuprint_meta</span><span class="op">(</span><span class="st">"DNp01"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in neuprint_login(server = server, dataset = dataset, token = token,     ...):</span> Sorry you must specify a neuprint server! See ?neuprint_login for details!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid post  pre downstream upstream synweight totalNtPredictions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 2002 1027       4318     2002      6320               1027</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10002 1902  933       3826     1902      5728                933</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     predictedNt celltypeTotalNtPredictions celltypePredictedNt      voxels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 acetylcholine                       1960       acetylcholine 38743961712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 acetylcholine                       1960       acetylcholine 39414880927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               class entryNerve          name ntAcetylcholineProb ntGabaProb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 descending neuron        CvC DNlt002_CvC_R           0.5142119  0.1707151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 descending neuron        CvC DNlt002_CvC_L           0.4596285  0.1434814</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ntGlutamateProb ntUnknownProb origin          location locationType</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.2175471    0.09752578  brain 24481,36044,67070         neck</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.2562304    0.14065966  brain 23217,35252,67070         neck</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   predictedNtProb prefix      rootLocation rootSide    statusLabel subclass</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.5142119     DN 24481,36044,67070      RHS Roughly traced       lt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.4596285     DN 23217,35252,67070      LHS Roughly traced       lt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          synonyms systematicType  target  type        vfbId modality  tag</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 GF, Giant Fiber        DNlt002 LTct_RL DNp01 VFB_jrcv07ps     &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 GF, Giant Fiber        DNlt002 LTct_RL DNp01 VFB_jrcv07pu     &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   cluster subcluster receptorType status group somaSide birthtime hemilineage</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      NA         NA         &lt;NA&gt; Traced 10000     &lt;NA&gt;      &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      NA         NA         &lt;NA&gt; Traced 10000     &lt;NA&gt;      &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   serial serialMotif somaNeuromere somaLocation description avgLocation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     NA        &lt;NA&gt;          &lt;NA&gt;         &lt;NA&gt; Giant fiber        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     NA        &lt;NA&gt;          &lt;NA&gt;         &lt;NA&gt; Giant fiber        &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   exitNerve subclassabbr transmission tosomaLocation longTract source  soma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      None         &lt;NA&gt;   electrical           &lt;NA&gt;      none   &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      None         &lt;NA&gt;   electrical           &lt;NA&gt;      none   &lt;NA&gt; FALSE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># use of a full CYPHER query. NB Each field relating to the neuron must be</span></span></span>
 <span class="r-in"><span><span class="co"># be preceded by "n."</span></span></span>
 <span class="r-in"><span><span class="va">bignogroup</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu">manc_neuprint_meta</span><span class="op">(</span><span class="st">"where:NOT exists(n.group) AND n.synweight&gt;5000 AND n.class CONTAINS 'neuron'"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in neuprint_login(server = server, dataset = dataset, token = token,     ...):</span> Sorry you must specify a neuprint server! See ?neuprint_login for details!</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bignogroup</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'bignogroup' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid post pre downstream upstream synweight totalNtPredictions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  28027  437 456       4868      437      5305                456</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  19177  411 569       4629      411      5040                569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  20240  594 601       4447      594      5041                601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  13967  912 644       4252      912      5164                644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  17446  724 655       4455      724      5179                655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 171382  746 541       4320      746      5066                541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     predictedNt celltypeTotalNtPredictions celltypePredictedNt     voxels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 acetylcholine                      45044           glutamate  225825889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 acetylcholine                      18960       acetylcholine  589533979</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 acetylcholine                       9470       acetylcholine  566489384</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 acetylcholine                      11136       acetylcholine 1243780740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 acetylcholine                      18960       acetylcholine  750977826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 acetylcholine                      16834       acetylcholine  465918537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            class entryNerve            name ntAcetylcholineProb ntGabaProb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 sensory neuron   MesoLN_R SNppxx_MesoLN_R           0.5811309 0.03783341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 sensory neuron     AbNT_R   SNxx23_AbNT_R           0.9122434 0.03305553</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 sensory neuron   MetaLN_R SNxx29_MetaLN_R           0.7210513 0.22840150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 sensory neuron     AbNT_L   SNxx10_AbNT_L           0.8687301 0.05167811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 sensory neuron     AbNT_R   SNxx23_AbNT_R           0.8022338 0.07676595</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 sensory neuron     AbNT_R   SNxx07_AbNT_R           0.8937346 0.03987283</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ntGlutamateProb ntUnknownProb           origin          location locationType</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.36905804   0.011977710 mesothoracic leg 25981,36162,29442         auto</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0.04326012   0.011440937          abdomen  25729,12900,7969         auto</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0.03870988   0.011837316 metathoracic leg 23896,22133,19804         auto</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0.06977999   0.009811865          abdomen  22095,14384,8847         auto</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      0.09062613   0.030374180          abdomen  25555,14853,7796         auto</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      0.05699900   0.009393622          abdomen  27032,12900,7461         user</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   predictedNtProb prefix      rootLocation rootSide           statusLabel</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0.5811309     SN 27866,36885,22115      RHS Prelim Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0.9122434     SN     26421,8062,16      RHS Prelim Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       0.7210513     SN  32867,17818,7495      RHS Prelim Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       0.8687301     SN     25947,7375,16      LHS Prelim Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       0.8022338     SN     26876,7774,15      RHS Prelim Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0.8937346   &lt;NA&gt;     26665,8341,29      RHS Prelim Roughly traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   subclass             synonyms systematicType        target   type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     &lt;NA&gt;                 &lt;NA&gt;         SNppxx     LegNpT2_R SNppxx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     &lt;NA&gt;                 &lt;NA&gt;         SNxx23           ANm SNxx23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     &lt;NA&gt; ppk heat nociceptive         SNxx29 LegNpT3_R.ANm SNxx29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     &lt;NA&gt;                 &lt;NA&gt;         SNxx10           ANm SNxx10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     &lt;NA&gt;                 &lt;NA&gt;         SNxx23           ANm SNxx23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     &lt;NA&gt;                 &lt;NA&gt;         SNxx07           ANm SNxx07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          vfbId       modality      tag cluster subcluster receptorType status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 VFB_jrcv0lmj proprioceptive 15.08.h3      NA         NA         &lt;NA&gt; Traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 VFB_jrcv0esp        unknown     &lt;NA&gt;      38         75         &lt;NA&gt; Traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 VFB_jrcv0fm8        unknown     &lt;NA&gt;      43         33         &lt;NA&gt; Traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 VFB_jrcv0arz        unknown     &lt;NA&gt;      25         68         &lt;NA&gt; Traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 VFB_jrcv0dgm        unknown     &lt;NA&gt;      38         75         &lt;NA&gt; Traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 VFB_jrcv3o8m        unknown     &lt;NA&gt;      22         67         &lt;NA&gt; Traced</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   group somaSide birthtime hemilineage serial serialMotif somaNeuromere</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    NA     &lt;NA&gt;      &lt;NA&gt;        &lt;NA&gt;     NA        &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    NA     &lt;NA&gt;      &lt;NA&gt;        &lt;NA&gt;     NA        &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    NA     &lt;NA&gt;      &lt;NA&gt;        &lt;NA&gt;  20453        &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    NA     &lt;NA&gt;      &lt;NA&gt;        &lt;NA&gt;     NA        &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    NA     &lt;NA&gt;      &lt;NA&gt;        &lt;NA&gt;     NA        &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    NA     &lt;NA&gt;      &lt;NA&gt;        &lt;NA&gt;     NA        &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   somaLocation description avgLocation exitNerve subclassabbr transmission</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         &lt;NA&gt;     unusual        &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      &lt;NA&gt;         &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   tosomaLocation longTract source  soma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5           &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt; FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt; FALSE</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
