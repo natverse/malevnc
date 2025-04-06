@@ -37,6 +37,13 @@ A data.frame with one row for each (unique) id and NAs for all
 \description{
 Fetch neuprint metadata for MANC neurons
 }
+\details{
+When \code{ids = NULL} then a default set of bodies is selected
+  using the \code{\link{manc_dvid_annotations}} function. Since April 2025
+  this uses the \code{node='neuprint'}. This should correspond to all neurons
+  with an annotation. You can also use other searches e.g. to fetch all
+  neurons, see examples.
+}
 \examples{
 \donttest{
 manc_neuprint_meta("DNp01")
@@ -46,6 +53,12 @@ manc_neuprint_meta("DNp01")
 bignogroup <-
   manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
 head(bignogroup)
+}
+\dontrun{
+# fetch all neurons
+allneurons <- manc_neuprint_meta('where:exists(n.bodyId)')
+# in theory you could do this, but it often seems to time out:
+allsegs=neuprintr::neuprint_ids('where:exists(n.bodyId)', all_segments=TRUE)
 }
 }
 \seealso{
