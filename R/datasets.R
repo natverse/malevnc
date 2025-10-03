@@ -90,7 +90,9 @@ flyem_scene4dataset <- memoise::memoise(function(dataset=NULL) {
   stopifnot(!is.null(ds$neuroglancer))
   sc=fafbseg::ngl_decode_scene(ds$neuroglancer)
 
-  # there are some key layers here
+  # there are some key layers here, but not always present
+  if(is.null(ds$versions[[1]]$neuroglancer))
+    return(sc)
   sc2=fafbseg::ngl_decode_scene(ds$versions[[1]]$neuroglancer)
   ll=c(sc$layers[1], sc2$layers[1], sc$layers[-1], sc2$layers[-1])
   if(!is.null(ds$orderedLayers) && all(ds$orderedLayers %in% names(ll))) {
@@ -104,6 +106,10 @@ flyem_scene4dataset <- memoise::memoise(function(dataset=NULL) {
 flyem_servers4dataset <- memoise::memoise(function(dataset=NULL) {
   sc=flyem_scene4dataset(dataset)
   dl=flyem_dvidlayer4scene(sc)
+  if(is.null(dl)) {
+    dvid=dataset$dvid
+    return(list(dvid=dvid, support=NULL))
+  }
   u=if(is.character(dl$source)) dl$source else dl$source$url
   dvid=sub("dvid-service=.*", "", u)
   dvid=sub("dvid://", "", dvid)
@@ -121,6 +127,7 @@ flyem_dvidlayer4scene <- function(sc) {
     dvidlayer <- sapply(sc$layers, function(x) isTRUE(try(grepl("dvid", x$source), silent = T)))
   }
   #   warning("Unable to extract a unique DVID layer!")
+  if(!any(dvidlayer)) return(NULL)
   dl=sc$layers[[min(which(dvidlayer))]]
   dl
 }
