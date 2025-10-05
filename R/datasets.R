@@ -18,7 +18,8 @@ flyem_dataset <- function(dataset) {
 #' @param dataset Character vector specifying dataset name. Default value of
 #'   \code{NULL} will respect package options or choose default dataset if none
 #'   set.
-#' @param set Whether to set the relevant package options or just to return the,
+#' @param set Whether to set the relevant package options or just to return a
+#'   list of the required options.
 #' @param use_clio Whether to use clio to list datasets (expert use only;
 #'   default of \code{use_clio=NA} should do the right thing).
 #'

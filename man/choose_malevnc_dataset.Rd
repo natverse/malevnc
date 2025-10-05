@@ -14,7 +14,8 @@ choose_flyem_dataset(dataset = getOption("malevnc.dataset"), set = TRUE)
 \code{NULL} will respect package options or choose default dataset if none
 set.}
 
-\item{set}{Whether to set the relevant package options or just to return the,}
+\item{set}{Whether to set the relevant package options or just to return a
+list of the required options.}
 
 \item{use_clio}{Whether to use clio to list datasets (expert use only;
 default of \code{use_clio=NA} should do the right thing).}
