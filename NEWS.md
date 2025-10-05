@@ -1,5 +1,11 @@
-# malevnc (development version)
+# malevnc 0.3.2
 
+* Update to cope with malecns clio config by @jefferis in https://github.com/natverse/malevnc/pull/77
+* support clio configs that refer to any DVID node by @jefferis in https://github.com/natverse/malevnc/pull/76
+* Add clio new fields annotation check by @jefferis in https://github.com/natverse/malevnc/pull/75
+* Support for yakuba by @jefferis in https://github.com/natverse/malevnc/pull/74
+
+**Full Changelog**: https://github.com/natverse/malevnc/compare/v0.3.1...v0.3.2
 # malevnc 0.3.1
 
 * make manc:v1.2.1 the public default
