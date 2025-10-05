@@ -6,6 +6,7 @@
 * Support for yakuba by @jefferis in https://github.com/natverse/malevnc/pull/74
 
 **Full Changelog**: https://github.com/natverse/malevnc/compare/v0.3.1...v0.3.2
+
 # malevnc 0.3.1
 
 * make manc:v1.2.1 the public default
