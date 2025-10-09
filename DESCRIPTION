@@ -30,7 +30,7 @@ Imports:
     tibble,
     memoise,
     pbapply,
-    neuprintr (>= 1.2),
+    neuprintr (> 1.3.4),
     curl,
     cachem,
     httr,
