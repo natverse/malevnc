@@ -87,7 +87,9 @@ manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE,
   else if(!is.integer64(x)){
     # nb if we have integer64 input they must already be ids
     # so no need to send to neuprint
-    neuprintr::neuprint_ids(x=x, conn=conn, mustWork = mustWork, unique=unique, ...)
+    cache=check_cache_arg(cache)
+    neuprintr::neuprint_ids(x=x, conn=conn, mustWork = mustWork, unique=unique,
+                            cache=cache, ...)
   } else if(unique) unique(x) else x
   if(is.data.frame(x) && length(ids)!=nrow(x))
     stop("Unable to extract a vector of ",nrow(x), " body ids from x!")
@@ -267,12 +269,7 @@ manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), cache=NA,
   if(!isTRUE(roiInfo))
     fields=setdiff(fields, "roiInfo")
 
-  if(is.na(cache)) {
-    nds=getOption("malevnc.neuprint_dataset", default = "")
-    if(isTRUE(grepl(":v", nds)))
-      cache=TRUE
-  }
-
+  cache <- check_cache_arg(cache)
   metadf=neuprintr::neuprint_get_meta(ids, conn=conn, possibleFields=fields,
                                       cache=cache, ...)
   metadf$bodyid=as.integer64(metadf$bodyid)
@@ -330,3 +327,11 @@ swc2mutids <- function(ff) {
   mids=stringr::str_match(l3, "(mutation id).*?(\\d+)")[,3]
   mids
 }
+
+check_cache_arg <- function(cache) {
+  if(is.na(cache)) {
+    nds=getOption("malevnc.neuprint_dataset", default = "")
+    cache <- isTRUE(grepl(":v", nds))
+  }
+}
+
