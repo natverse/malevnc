@@ -48,8 +48,15 @@ is.url <- function(x) {
 #' @param x A vector of body ids, data.frame (containing a bodyid column) or a
 #'   neuroglancer URL.
 #' @param integer64 whether to return ids with class bit64::integer64.
+#' @inheritParams manc_neuprint_meta
 #' @inheritParams neuprintr::neuprint_ids
 #' @inheritParams fafbseg::ngl_segments
+#' @details
+#'   This function will now cache neuprint queries when using a snapshot release
+#'   (which is assumed not to change). Snapshot releases are identified by
+#'   containing the string \code{":v"} as in \code{manc:v1.2.3}. The cache
+#'   currently lasts for 24h.
+#'
 #' @export
 #' @family manc-neuprint
 #' @seealso \code{\link{neuprint_ids}}
@@ -74,7 +81,7 @@ is.url <- function(x) {
 #' }
 #' @importFrom bit64 is.integer64 as.integer64
 manc_ids <- function(x, mustWork=TRUE, as_character=TRUE, integer64=FALSE,
-                     unique=TRUE, conn=manc_neuprint(), ...) {
+                     unique=TRUE, cache=NA, conn=manc_neuprint(), ...) {
   ids <- if(fafbseg:::is.ngscene(x) || (length(x)==1 && is.url(x)))
     fafbseg::ngl_segments(x, must_work = mustWork, as_character = as_character, ...)
   else if(!is.integer64(x)){
@@ -212,6 +219,9 @@ manc_read_neurons <- function(ids, units=c("raw", "microns", "nm"),
 #'   returned as a character vector of unprocessed JSON.
 #' @param fields.regex.exclude,fields.regex.include Optional regular expressions
 #'   to define fields to include or exclude from the returned metadata.
+#' @param cache whether to cache the query. When \code{cache=NA} (the default)
+#'   queries are cached for neuprint snapshot versions (but not production
+#'   datasets). See details.
 #' @param ... Additional arguments passed to \code{\link{neuprint_get_meta}}
 #' @return A data.frame with one row for each (unique) id and NAs for all
 #'   columns except bodyid when neuprint holds no metadata.
@@ -222,6 +232,11 @@ manc_read_neurons <- function(ids, units=c("raw", "microns", "nm"),
 #'   this uses the \code{node='neuprint'}. This should correspond to all neurons
 #'   with an annotation. You can also use other searches e.g. to fetch all
 #'   neurons, see examples.
+#'
+#'   This function will now cache neuprint queries when using a snapshot release
+#'   (which is assumed not to change). Snapshot releases are identified by
+#'   containing the string \code{":v"} as in \code{manc:v1.2.3}. The cache
+#'   currently lasts for 24h.
 #'
 #' @seealso \code{\link{manc_ids}}
 #'
@@ -241,14 +256,25 @@ manc_read_neurons <- function(ids, units=c("raw", "microns", "nm"),
 #' # in theory you could do this, but it often seems to time out:
 #' allsegs=neuprintr::neuprint_ids('where:exists(n.bodyId)', all_segments=TRUE)
 #' }
-manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), roiInfo=FALSE, fields.regex.exclude=NULL, fields.regex.include=NULL, ...) {
+manc_neuprint_meta <- function(ids=NULL, conn=manc_neuprint(), cache=NA,
+                               roiInfo=FALSE, fields.regex.exclude=NULL,
+                               fields.regex.include=NULL,
+                               ...) {
   if(is.null(ids))
     ids=manc_dvid_annotations(node = 'neuprint',cache=T)
   ids=manc_ids(ids, integer64=T, conn=conn)
   fields=mnp_fields(conn=conn)
   if(!isTRUE(roiInfo))
     fields=setdiff(fields, "roiInfo")
-  metadf=neuprintr::neuprint_get_meta(ids, conn=conn, possibleFields=fields, ...)
+
+  if(is.na(cache)) {
+    nds=getOption("malevnc.neuprint_dataset", default = "")
+    if(isTRUE(grepl(":v", nds)))
+      cache=TRUE
+  }
+
+  metadf=neuprintr::neuprint_get_meta(ids, conn=conn, possibleFields=fields,
+                                      cache=cache, ...)
   metadf$bodyid=as.integer64(metadf$bodyid)
   dfids=data.frame(bodyid=ids)
   fixeddf=dplyr::left_join(dfids, metadf, by='bodyid')

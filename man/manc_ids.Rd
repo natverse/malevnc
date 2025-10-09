@@ -10,6 +10,7 @@ manc_ids(
   as_character = TRUE,
   integer64 = FALSE,
   unique = TRUE,
+  cache = NA,
   conn = manc_neuprint(),
   ...
 )
@@ -29,17 +30,26 @@ numeric vector (the default is character for safety).}
 \item{unique}{Whether to ensure that only unique ids are returned (default
 \code{TRUE})}
 
-\item{conn}{optional, a neuprintr connection object, which also specifies the
-neuPrint server. If NULL, the defaults set in your
-\code{\link[=Startup]{.Rprofile}} or \code{\link[=Startup]{.Renviron}} are
-used. See \code{\link[neuprintr]{neuprint_login}} for details.}
+\item{cache}{whether to cache the query. When \code{cache=NA} (the default)
+queries are cached for neuprint snapshot versions (but not production
+datasets). See details.}
 
-\item{...}{Additional arguments passed to \code{\link[neuprintr]{neuprint_search}}}
+\item{conn}{Optional, a \code{\link{neuprint_connection}} object, which also
+specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
+ensure that query is against the VNC dataset.}
+
+\item{...}{Additional arguments passed to \code{\link{neuprint_get_meta}}}
 }
 \description{
 \code{manc_ids} provides a convenient way to extract body ids
   from a variety of objects as well as allowing text searches against
   type/instance information defined in neuprint.
+}
+\details{
+This function will now cache neuprint queries when using a snapshot release
+  (which is assumed not to change). Snapshot releases are identified by
+  containing the string \code{":v"} as in \code{manc:v1.2.3}. The cache
+  currently lasts for 24h.
 }
 \examples{
 \donttest{

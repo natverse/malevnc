@@ -7,6 +7,7 @@
 manc_neuprint_meta(
   ids = NULL,
   conn = manc_neuprint(),
+  cache = NA,
   roiInfo = FALSE,
   fields.regex.exclude = NULL,
   fields.regex.include = NULL,
@@ -20,6 +21,10 @@ manc_neuprint_meta(
 \item{conn}{Optional, a \code{\link{neuprint_connection}} object, which also
 specifies the neuPrint server. Defaults to \code{\link{manc_neuprint}()} to
 ensure that query is against the VNC dataset.}
+
+\item{cache}{whether to cache the query. When \code{cache=NA} (the default)
+queries are cached for neuprint snapshot versions (but not production
+datasets). See details.}
 
 \item{roiInfo}{whether to include the \code{roiInfo} field detailing synapse
 numbers in different locations. This is omitted by default as it is
@@ -43,6 +48,11 @@ When \code{ids = NULL} then a default set of bodies is selected
   this uses the \code{node='neuprint'}. This should correspond to all neurons
   with an annotation. You can also use other searches e.g. to fetch all
   neurons, see examples.
+
+  This function will now cache neuprint queries when using a snapshot release
+  (which is assumed not to change). Snapshot releases are identified by
+  containing the string \code{":v"} as in \code{manc:v1.2.3}. The cache
+  currently lasts for 24h.
 }
 \examples{
 \donttest{
