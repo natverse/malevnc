@@ -149,7 +149,9 @@ manc_connection_table <- function(ids, partners=c("inputs", "outputs"),
     details=manc_neuprint_meta(unique(res$partner), conn=conn)
     if(moredetails=='recommended'){
       # details$predictedNtProb=round(details$predictedNtProb, 3)
-      details=details[c("bodyid", "class", "group", "serial", "somaSide", "somaNeuromere", "hemilineage", "predictedNt", "predictedNtProb", "subclass")]
+
+      desired_fields=c("bodyid", "class", "group", "serial", "somaSide", "rootSide", "somaNeuromere", "hemilineage", "predictedNt", "predictedNtProb", "subclass")
+      details=details[intersect(desired_fields,colnames(details))]
     }
     res=dplyr::left_join(res, details[c("bodyid", setdiff(colnames(details), colnames(res)))],
           by=c('partner'='bodyid'))
