@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">malevnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Return the soma or root position of MANC bodyids</h1>
-      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/master/R/soma.R" class="external-link"><code>R/soma.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/v0.3.2/R/soma.R" class="external-link"><code>R/soma.R</code></a></small>
       <div class="d-none name"><code>manc_somapos.Rd</code></div>
     </div>
 
@@ -148,12 +148,10 @@ contents of <code><a href="mancsomapos.html">mancsomapos</a></code>.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># just the XYZ position</span></span></span>
 <span class="r-in"><span><span class="fu">manc_somapos</span><span class="op">(</span><span class="fl">10000</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       X  Y  Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] NA NA NA</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in manc_dvid_node("neutu"):</span> The package option malevnc.dataset is unset. Please set or manually reload package!</span>
 <span class="r-in"><span><span class="co"># with details including data source</span></span></span>
 <span class="r-in"><span><span class="fu">manc_somapos</span><span class="op">(</span><span class="fl">10000</span>, details<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bodyid  n  X  Y  Z source  tag</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  10000 NA NA NA NA   &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in manc_dvid_node("neutu"):</span> The package option malevnc.dataset is unset. Please set or manually reload package!</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -166,7 +164,7 @@ contents of <code><a href="mancsomapos.html">mancsomapos</a></code>.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

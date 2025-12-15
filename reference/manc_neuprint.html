@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">malevnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Login to MANC neuprint server</h1>
-      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/master/R/neuprint.R" class="external-link"><code>R/neuprint.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/v0.3.2/R/neuprint.R" class="external-link"><code>R/neuprint.R</code></a></small>
       <div class="d-none name"><code>manc_neuprint.Rd</code></div>
     </div>
 
@@ -78,22 +78,25 @@ neuprint.janelia.org website.</p></dd>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other manc-neuprint:
-<code><a href="manc_connection_table.html">manc_connection_table</a>()</code>,
-<code><a href="manc_ids.html">manc_ids</a>()</code></p></div>
+<code><a href="manc_connection_table.html">manc_connection_table()</a></code>,
+<code><a href="manc_ids.html">manc_ids()</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="va">vncc</span><span class="op">=</span><span class="fu">manc_neuprint</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in neuprint_login(server = server, dataset = dataset, token = token,     ...):</span> Sorry you must specify a neuprint server! See ?neuprint_login for details!</span>
 <span class="r-in"><span><span class="va">anchorids</span> <span class="op">&lt;-</span> <span class="fu">neuprintr</span><span class="fu">::</span><span class="fu"><a href="https://natverse.org/neuprintr/reference/neuprint_search.html" class="external-link">neuprint_ids</a></span><span class="op">(</span><span class="st">"status:Anchor"</span>, conn<span class="op">=</span><span class="va">vncc</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'vncc' not found</span>
 <span class="r-in"><span><span class="co"># the last connection will be used by default</span></span></span>
 <span class="r-in"><span><span class="va">anchormeta</span> <span class="op">&lt;-</span> <span class="fu">neuprintr</span><span class="fu">::</span><span class="fu"><a href="https://natverse.org/neuprintr/reference/neuprint_get_meta.html" class="external-link">neuprint_get_meta</a></span><span class="op">(</span><span class="st">"status:Anchor"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in neuprint_login(conn):</span> Sorry you must specify a neuprint server! See ?neuprint_login for details!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">anchormeta</span><span class="op">$</span><span class="va">pre</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, ylab<span class="op">=</span><span class="st">'Cumulative presynapses'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="manc_neuprint-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'anchormeta' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">anchormeta</span><span class="op">$</span><span class="va">post</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, ylab<span class="op">=</span><span class="st">'Cumulative postsynapses'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="manc_neuprint-2.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'anchormeta' not found</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -106,7 +109,7 @@ neuprint.janelia.org website.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

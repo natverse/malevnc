@@ -1,0 +1,279 @@
+# Changelog
+
+## malevnc 0.3.2
+
+- Update to cope with malecns clio config by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/77>
+- support clio configs that refer to any DVID node by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/76>
+- Add clio new fields annotation check by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/75>
+- Support for yakuba by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/74>
+
+**Full Changelog**:
+<https://github.com/natverse/malevnc/compare/v0.3.1>…v0.3.2 \# malevnc
+0.3.1
+
+- make manc:v1.2.1 the public default
+- fix bug in reading meshes for id=100000
+- Feature/flexible url shortening by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/70>
+- doc polishing by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/71>
+
+**Full Changelog**:
+<https://github.com/natverse/malevnc/compare/v0.3>…v0.3.1
+
+## malevnc 0.3
+
+Version 0.3 provides stable access to the public manc data release.
+
+- support annotating with alternative clio user by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/68>
+- support for 64 bit ids in manc_annotate_body by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/69>
+- Update MANC.nerves to 35 meshes and update cols / docs for nerve
+  meshes
+- Respect `show.extra` even for long id lists
+  (d25fdfd6e9e8a4d7032a4ab964eee8ec30181687)
+- support for meshes with public manc release
+- Respect show.extra even for long id lists
+  (d25fdfd6e9e8a4d7032a4ab964eee8ec30181687)
+
+**Full Changelog**:
+<https://github.com/natverse/malevnc/compare/v0.2.9>…v0.3
+
+## malevnc 0.2.9
+
+This is a major release providing support for the publication of the
+\[MANC connectome\]
+(<https://www.janelia.org/project-team/flyem/manc-connectome>). We
+expect to bump to v0.3 when all changes have stabilised.
+
+- Feature/neuron units by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/60>
+- Feature/manc 1.0 by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/65>
+- improved support for JRC xforms by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/66>
+- `Test/actionsv3` by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/natverse/malevnc/pull/67>
+
+## malevnc 0.2.8
+
+- switch repo to natverse org preparing for public data release
+- Add show.extra to manc_body_annotations
+- more options to exclude neuprint fields driven by the (temporary)
+  addition of hundreds of new columns to the visual system for the male
+  cns dataset.
+  <https://github.com/flyconnectome/malevnc/commit/0cb652aade1835d33f290e2a4a1bc7c3b9e1c2df>
+- Switch [@dokato](https://github.com/dokato) to author
+
+## malevnc 0.2.7
+
+### What’s Changed
+
+- Add
+  [`flyem_shorten_url()`](https://natverse.org/malevnc/reference/flyem_shorten_url.md),
+  [`flyem_expand_url()`](https://natverse.org/malevnc/reference/flyem_shorten_url.md)
+  by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/54>
+
+- [`manc_connection_table()`](https://natverse.org/malevnc/reference/manc_connection_table.md)
+  defaults to selected neuprint metadata
+
+- `MANC.tracts` meshes object added by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/59>
+
+- Added
+  [`download_manc_registrations()`](https://natverse.org/malevnc/reference/download_manc_registrations.md)
+  to download bridging registrations MANC \<\> JRC2018VNCU/M/F by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/58>
+
+- Add
+  [`colour_leg_muscles()`](https://natverse.org/malevnc/reference/colour_leg_muscles.md)
+  by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/62>
+
+- New Clio query parsing (for `manc_annotate_body`) parametrized by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/55> Also provides
+  support for malecns annotation
+
+- read `options(malevnc.dataset)` in `clio_version` (mostly for malecns)
+
+- Critical fix to
+  [`clio_set_token()`](https://natverse.org/malevnc/reference/clio_auth.md)
+  by [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/56>
+
+- fix bug in
+  [`manc_meta()`](https://natverse.org/malevnc/reference/manc_meta.md)
+  due to retired instance field by
+  [@jefferis](https://github.com/jefferis) in
+  e6035ad31e7b3d75d7395079c6821d62a8933922
+
+- Retire
+  [`manc_set_lrgroup()`](https://natverse.org/malevnc/reference/manc_set_lrgroup.md)
+  We will now just set the group column directly via the clio interface.
+  No need to use DVID / set instance values / sides etc.
+
+**Full Changelog**:
+<https://github.com/flyconnectome/malevnc/compare/v0.2.6>…v0.2.7
+
+## malevnc 0.2.6
+
+### What’s Changed
+
+- New test store address by [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/49>
+- More options added to manc scene by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/50>
+- ENH: force option added to clio_token by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/51>
+- Clio set token function added by [@dokato](https://github.com/dokato)
+  in <https://github.com/flyconnectome/malevnc/pull/52>
+- manc_get supports new Clio API by [@dokato](https://github.com/dokato)
+  in <https://github.com/flyconnectome/malevnc/pull/53>
+
+**Full Changelog**:
+<https://github.com/flyconnectome/malevnc/compare/v0.2.3>…v0.2.6 \#
+malevnc 0.2.5
+
+- Fix
+  [`manc_set_dvid_instance()`](https://natverse.org/malevnc/reference/manc_set_dvid_instance.md)
+  for \>1 input ids
+
+## malevnc 0.2.4
+
+- update
+  [`manc_set_dvid_instance()`](https://natverse.org/malevnc/reference/manc_set_dvid_instance.md)
+  to cope with synonyms
+
+## malevnc 0.2.3
+
+- add
+  [`manc_view3d()`](https://natverse.org/malevnc/reference/manc_view3d.md)
+  function with standard views based on symmetric MANC template.
+
+## malevnc 0.2.2
+
+- Factor out and export low level
+  [`manc_set_dvid_annotations()`](https://natverse.org/malevnc/reference/manc_set_dvid_instance.md)
+  function.
+- Export
+  [`manc_set_dvid_instance()`](https://natverse.org/malevnc/reference/manc_set_dvid_instance.md)
+  and teach it to set instance/type and corresponding users for one or
+  more body ids.
+
+## malevnc 0.2.1
+
+- Updated manc scene links by [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/42>
+- Fix point annotation dataset (e.g. for use by malecns) by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/44>
+
+**Full Changelog**:
+<https://github.com/flyconnectome/malevnc/compare/v0.2.0>…v0.2.1
+
+## malevnc 0.2.0
+
+- WIP: simplified compute_clio_delta and remove NAs by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/30>
+- Add manc_leg_summary/manc_side_summary by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/31>
+- Fix/dvid nodes by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/32>
+- MANC nerve mesh added by [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/25>
+- Quck fix manc meta by [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/33>
+- Fix handling of clio int64 bodyids by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/34>
+- Feature/prepare mcns by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/35>
+- don’t update bodyids in manc meta by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/39>
+- Use non-default oauth app when talking to google by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/40>
+
+**Full Changelog**:
+<https://github.com/flyconnectome/malevnc/compare/v0.1.2>…v0.2.0
+
+## malevnc 0.1.2
+
+- updatebodyids - backward compatibility by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/27>
+
+**Full Changelog**:
+<https://github.com/flyconnectome/malevnc/compare/v0.1.1>…v0.1.2
+
+## malevnc 0.1.1
+
+### What’s Changed
+
+- Add support for reading clio store body annotations by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/3>
+- ellipsis passed to mirror_brain in mirror_manc by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/5>
+- manc tissue surface added by [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/6>
+- handling missing values by [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/7>
+- Use long-lived clio token by default by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/9>
+- Fix/manc read neurons missing by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/10>
+- Feature/clio annotate bodies by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/14>
+- symmetrized tissue surface added by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/15>
+- randomise the id used for body annotation tests by
+  [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/17>
+- Feature/new soma info by [@jefferis](https://github.com/jefferis) in
+  <https://github.com/flyconnectome/malevnc/pull/18>
+- Update manc annotate body by [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/19>
+- manc_set_lrgroup accepts partial changes by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/22>
+- Fixed dvidtools and tests added by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/24>
+- fix in manc_meta when setting dvid_group by
+  [@dokato](https://github.com/dokato) in
+  <https://github.com/flyconnectome/malevnc/pull/26>
+- Added a `NEWS.md` file to track changes to the package.
+
+**Full Changelog**:
+<https://github.com/flyconnectome/malevnc/commits/v0.1.1>
+
+## malevnc 0.1
+
+- first version

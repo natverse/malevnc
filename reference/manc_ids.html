@@ -11,7 +11,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">malevnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Flexible specification of manc body ids</h1>
-      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/master/R/neuprint.R" class="external-link"><code>R/neuprint.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/v0.3.2/R/neuprint.R" class="external-link"><code>R/neuprint.R</code></a></small>
       <div class="d-none name"><code>manc_ids.Rd</code></div>
     </div>
 
@@ -52,7 +52,6 @@
 <span>  as_character <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  integer64 <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  unique <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  cache <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -86,35 +85,23 @@ numeric vector (the default is character for safety).</p></dd>
 <code>TRUE</code>)</p></dd>
 
 
-<dt id="arg-cache">cache<a class="anchor" aria-label="anchor" href="#arg-cache"></a></dt>
-<dd><p>whether to cache the query. When <code>cache=NA</code> (the default)
-queries are cached for neuprint snapshot versions (but not production
-datasets). See details.</p></dd>
-
-
 <dt id="arg-conn">conn<a class="anchor" aria-label="anchor" href="#arg-conn"></a></dt>
-<dd><p>Optional, a <code>neuprint_connection</code> object, which also
-specifies the neuPrint server. Defaults to <code><a href="manc_neuprint.html">manc_neuprint</a>()</code> to
-ensure that query is against the VNC dataset.</p></dd>
+<dd><p>optional, a neuprintr connection object, which also specifies the
+neuPrint server. If NULL, the defaults set in your
+<code><a href="https://rdrr.io/r/base/Startup.html" class="external-link">.Rprofile</a></code> or <code><a href="https://rdrr.io/r/base/Startup.html" class="external-link">.Renviron</a></code> are
+used. See <code><a href="https://natverse.org/neuprintr/reference/neuprint_login.html" class="external-link">neuprint_login</a></code> for details.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional arguments passed to <code>neuprint_get_meta</code></p></dd>
+<dd><p>Additional arguments passed to <code><a href="https://natverse.org/neuprintr/reference/neuprint_search.html" class="external-link">neuprint_search</a></code></p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function will now cache neuprint queries when using a snapshot release
-  (which is assumed not to change). Snapshot releases are identified by
-  containing the string <code>":v"</code> as in <code>manc:v1.2.3</code>. The cache
-  currently lasts for 24h.</p>
-    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code>neuprint_ids</code></p>
 <p>Other manc-neuprint:
-<code><a href="manc_connection_table.html">manc_connection_table</a>()</code>,
-<code><a href="manc_neuprint.html">manc_neuprint</a>()</code></p></div>
+<code><a href="manc_connection_table.html">manc_connection_table()</a></code>,
+<code><a href="manc_neuprint.html">manc_neuprint()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -122,15 +109,17 @@ ensure that query is against the VNC dataset.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># search by type</span></span></span>
 <span class="r-in"><span><span class="fu">manc_ids</span><span class="op">(</span><span class="st">"DNp01"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "10000" "10002"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in neuprint_login(server = server, dataset = dataset, token = token,     ...):</span> Sorry you must specify a neuprint server! See ?neuprint_login for details!</span>
 <span class="r-in"><span><span class="co"># You can also do more complex queries using regular expressions</span></span></span>
 <span class="r-in"><span><span class="co"># introduced by a slash and specifying the field to be searched</span></span></span>
 <span class="r-in"><span><span class="va">dns</span><span class="op">=</span><span class="fu">manc_ids</span><span class="op">(</span><span class="st">"/type:DN.+"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in neuprint_login(server = server, dataset = dataset, token = token,     ...):</span> Sorry you must specify a neuprint server! See ?neuprint_login for details!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># you can also use Neo4J cypher queries by using the where: prefix</span></span></span>
 <span class="r-in"><span><span class="co"># note that each field of the neuron must prefixed with "n."</span></span></span>
 <span class="r-in"><span><span class="va">bignogroupids</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu">manc_ids</span><span class="op">(</span><span class="st">"where:NOT exists(n.group) AND n.synweight&gt;5000 AND n.class CONTAINS 'neuron'"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in neuprint_login(server = server, dataset = dataset, token = token,     ...):</span> Sorry you must specify a neuprint server! See ?neuprint_login for details!</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># Finally you can use the same queries wherever you specify body ids</span></span></span>
 <span class="r-in"><span><span class="co"># NB if you want to be sure that regular neuprintr functions target</span></span></span>
@@ -149,7 +138,7 @@ ensure that query is against the VNC dataset.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

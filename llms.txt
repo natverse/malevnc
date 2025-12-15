@@ -1,0 +1,307 @@
+# malevnc
+
+![A rendering by Phil Hubbard (Janelia) of a sample of MANC
+neurons](reference/figures/manc-render-phubbard-200h.png "MANC by P. Hubbard")
+
+The malevnc package provides a convenient natverse/neuprintr approach to
+analysing the Drosophila Male Adult Nerve Cord dataset (aka MANC). You
+can read more about the MANC dataset and find links to a range of data
+and tools at
+<https://www.janelia.org/project-team/flyem/manc-connectome>.
+
+## Installation
+
+You can install the development version of malevnc from github:
+
+``` r
+install.packages("natmanager")
+natmanager::install(pkgs="malevnc")
+```
+
+## Usage
+
+### Dataset options
+
+The package currently supports two distinct use cases / datasets
+
+1.  Access to the stable `MANC` connectome release for all general users
+2.  Access to an in progress `VNC` release for
+    [flyconnectome](https://flyconnecto.me) and collaborators who need
+    to update annotations etc.
+
+Case 1 is now the default. If you usually need the second option then
+you must set
+
+``` r
+options(malevnc.dataset='VNC')
+```
+
+in your `.Rprofile` e.g. by doing
+
+``` r
+usethis::edit_r_profile()
+```
+
+You can also make a temporary change in the middle of a session by doing
+one of:
+
+``` r
+malevnc:::choose_malevnc_dataset('VNC')
+malevnc:::choose_malevnc_dataset('MANC')
+```
+
+The `malevnc:::` prefix is required because
+[`choose_malevnc_dataset()`](https://natverse.org/malevnc/reference/choose_malevnc_dataset.md)
+is currently a private function.
+
+### Authentication - Neuprint
+
+Access to neuprint requires authentication. See
+<https://github.com/natverse/neuprintr#authentication> for details.
+
+The recommendation is to set the `neuprint_token` environment variable,
+which is available after logging in to the neuprint website.
+
+### Authentication - Clio
+
+You only need to authenticate to the Clio API if you are interacting
+with the in progress pre-release dataset (`VNC`). You do this via a
+Google OAuth “dance” in your web browser. Note that the Clio and
+neuprint tokens look similar, but are *not* the same. Note also that the
+neuprint token appears to be indefinite while the Clio token currently
+lasts 3 weeks.
+
+### Registrations
+
+Running the symmetrising/bridging registrations currently depends on
+CMTK. To use these you will need a CMTK installation.
+
+- For MacOS X use the dmg from <https://www.nitrc.org/projects/cmtk/>
+- For windows, I recommend Cygwin install. See
+  <https://natverse.org/nat/articles/Installation.html#cmtk-nat-on-windows>
+  for details.
+- For Linux I recommend compiling or using
+  [neurodebian](http://neuro.debian.net/pkgs/cmtk.md).
+
+Check that the natverse has found CMTK like so:
+
+``` r
+nat::cmtk.bindir()
+nat::cmtk.dof2mat(version = T)
+```
+
+## Quick start
+
+You can check everything is working like so:
+
+``` r
+library(nat)
+library(malevnc)
+plot3d(MANC.surf)
+
+dnmeta=manc_neuprint_meta("class:descending")
+dnmeta
+```
+
+To find out more, a quick tour round the [documentation
+website](https://natverse.org/malevnc/)
+
+## Acknowledgements
+
+We hope you find this package useful. If so, please can we trouble you
+for some citations. This is important to justify the funding for
+connectome generation and especially for continued development of the
+natverse and related tools:
+
+**For the natverse and this package**:
+
+Alexander Shakeel Bates, James D Manton, Sridhar R Jagannathan, Marta
+Costa, Philipp Schlegel, Torsten Rohlfing, Gregory SXE Jefferis (2020)
+The natverse, a versatile toolbox for combining and analysing
+neuroanatomical data eLife 9:e53350
+<https://doi.org/10.7554/eLife.53350>
+
+**For the MANC connectome (neuron morphologies, connectivity etc)**:
+
+*A Connectome of the Male Drosophila Ventral Nerve Cord.* Shin-ya
+Takemura, Kenneth J Hayworth, Gary B Huang, Michal Januszewski, Zhiyuan
+Lu, Elizabeth C Marin, Stephan Preibisch, C Shan Xu, John Bogovic,
+Andrew S Champion, Han S J Cheong, Marta Costa, Katharina Eichler,
+William Katz, Christopher Knecht, Feng Li, Billy J Morris, Christopher
+Ordish, Patricia K Rivlin, Philipp Schlegel, Kazunori Shinomiya, Tomke
+Sturner, Ting Zhao, Griffin Badalamente, Dennis Bailey, Paul Brooks,
+Brandon S Canino, Jody Clements, Michael Cook, Octave Duclos,
+Christopher R Dunne, Kelli Fairbanks, Siqi Fang, Samantha Finley-May,
+Audrey Francis, Reed George, Marina Gkantia, Kyle Harrington, Gary
+Patrick Hopkins, Joseph Hsu, Philip M Hubbard, Alexandre Javier, Dagmar
+Kainmueller, Wyatt Korff, Julie Kovalyak, Dominik Krzeminski, Shirley A
+Lauchie, Alanna Lohff, Charli Maldonado, Emily A Manley, Caroline
+Mooney, Erika Neace, Matthew Nichols, Omotara Ogundeyi, Nneoma Okeoma,
+Tyler Paterson, Elliott Phillips, Emily M Phillips, Caitlin Ribeiro,
+Sean M Ryan, Jon Thomson Rymer, Anne K Scott, Ashley L Scott, David
+Shepherd, Aya Shinomiya, Claire Smith, Natalie Smith, Alia Suleiman,
+Satoko Takemura, Iris Talebi, Imaan F M Tamimi, Eric T Trautman, Lowell
+Umayam, John J Walsh, Tansy Yang, Gerald M Rubin, Louis K Scheffer, Jan
+Funke, Stephan Saalfeld, Harald F Hess, Stephen M Plaza, Gwyneth M Card,
+Gregory S X E Jefferis, Stuart Berg bioRxiv 2023.06.05.543757; doi:
+<https://doi.org/10.1101/2023.06.05.543757>
+
+**For general annotations of the MANC connectome (cell classes, types
+etc)**:
+
+*Systematic annotation of a complete adult male Drosophila nerve cord
+connectome reveals principles of functional organisation* Elizabeth C
+Marin, Billy J Morris, Tomke Stuerner, Andrew S Champion, Dominik
+Krzeminski, Griffin Badalamente, Marina Gkantia, Christopher R Dunne,
+Katharina Eichler, Shin-ya Takemura, Imaan F M Tamimi, Siqi Fang, Sung
+Soo Moon, Han S J Cheong, Feng Li, Philipp Schlegel, Stuart Berg, FlyEM
+Project Team, Gwyneth M Card, Marta Costa, David Shepherd, Gregory S X E
+Jefferis bioRxiv 2023.06.05.543407; doi:
+<https://doi.org/10.1101/2023.06.05.543407>
+
+**For descending neuron or motor neuron cell types**:
+
+*Transforming descending input into behavior: The organization of
+premotor circuits in the Drosophila Male Adult Nerve Cord connectome*
+Han S J Cheong, Katharina Eichler, Tomke Stuerner, Samuel K Asinof,
+Andrew S Champion, Elizabeth C Marin, Tess B Oram, Marissa Sumathipala,
+Lalanti Venkatasubramanian, Shigehiro Namiki, Igor Siwanowicz, Marta
+Costa, Stuart Berg, Janelia FlyEM Project Team, Gregory S X E Jefferis,
+Gwyneth M Card bioRxiv 2023.06.07.543976; doi:
+<https://doi.org/10.1101/2023.06.07.543976>
+
+# Package index
+
+## General package functions
+
+- [`malevnc`](https://natverse.org/malevnc/reference/malevnc-package.md)
+  [`malevnc-package`](https://natverse.org/malevnc/reference/malevnc-package.md)
+  : malevnc: Support for Working with Janelia FlyEM Male VNC Dataset
+- [`dr_manc()`](https://natverse.org/malevnc/reference/dr_manc.md) :
+  Status report for the malevnc package
+
+## Server connections and Neuroglancer URLs
+
+- [`choose_malevnc_dataset()`](https://natverse.org/malevnc/reference/choose_malevnc_dataset.md)
+  [`choose_flyem_dataset()`](https://natverse.org/malevnc/reference/choose_malevnc_dataset.md)
+  : Choose active male VNC / FlyEM dataset
+- [`manc_neuprint()`](https://natverse.org/malevnc/reference/manc_neuprint.md)
+  : Login to MANC neuprint server
+- [`manc_dvid_node()`](https://natverse.org/malevnc/reference/manc_dvid_node.md)
+  [`manc_dvid_nodeinfo()`](https://natverse.org/malevnc/reference/manc_dvid_node.md)
+  : Information about DVID nodes / return latest node
+- [`manc_scene()`](https://natverse.org/malevnc/reference/manc_scene.md)
+  : Return a Neuroglancer scene URL for MANC dataset
+- [`dvid_tools()`](https://natverse.org/malevnc/reference/dvid_tools.md)
+  [`install_dvid_tools()`](https://natverse.org/malevnc/reference/dvid_tools.md)
+  : Interface to the python dvid_tools module from Philipp Schlegel
+- [`flyem_shorten_url()`](https://natverse.org/malevnc/reference/flyem_shorten_url.md)
+  [`flyem_expand_url()`](https://natverse.org/malevnc/reference/flyem_shorten_url.md)
+  : Shorten a Neuroglancer URL using the Janelia FlyEM link shortener
+
+## Body information and ids
+
+- [`manc_ids()`](https://natverse.org/malevnc/reference/manc_ids.md) :
+  Flexible specification of manc body ids
+- [`manc_xyz2bodyid()`](https://natverse.org/malevnc/reference/manc_xyz2bodyid.md)
+  : Find the bodyid for an XYZ location
+- [`manc_islatest()`](https://natverse.org/malevnc/reference/manc_islatest.md)
+  : Check if a bodyid still exists in the specified DVID node
+- [`manc_size()`](https://natverse.org/malevnc/reference/manc_size.md) :
+  Return the size (in voxels) of specified bodies
+- [`manc_mutations()`](https://natverse.org/malevnc/reference/manc_mutations.md)
+  : Get all the modifications associated with one or more DVID nodes
+- [`manc_somapos()`](https://natverse.org/malevnc/reference/manc_somapos.md)
+  [`manc_rootpos()`](https://natverse.org/malevnc/reference/manc_somapos.md)
+  : Return the soma or root position of MANC bodyids
+
+## Read annotations
+
+- [`manc_body_annotations()`](https://natverse.org/malevnc/reference/manc_body_annotations.md)
+  [`clio_fields()`](https://natverse.org/malevnc/reference/manc_body_annotations.md)
+  : Return clio-store body annotations for set of ids or a flexible
+  query
+- [`manc_dvid_annotations()`](https://natverse.org/malevnc/reference/manc_dvid_annotations.md)
+  : Return all DVID body annotations
+- [`manc_point_annotations()`](https://natverse.org/malevnc/reference/manc_point_annotations.md)
+  : Return point annotations from Clio store
+- [`manc_meta()`](https://natverse.org/malevnc/reference/manc_meta.md) :
+  Return full metadata from Clio/DVID for MANC bodyids (cached by
+  default)
+- [`manc_neuprint_meta()`](https://natverse.org/malevnc/reference/manc_neuprint_meta.md)
+  : Fetch neuprint metadata for MANC neurons
+- [`manc_user_annotations()`](https://natverse.org/malevnc/reference/manc_user_annotations.md)
+  : Read point annotations from DVID using neuprint authentication
+- [`clio_auth()`](https://natverse.org/malevnc/reference/clio_auth.md)
+  [`clio_token()`](https://natverse.org/malevnc/reference/clio_auth.md)
+  [`clio_set_token()`](https://natverse.org/malevnc/reference/clio_auth.md)
+  : Clio authorisation infrastructure using Google via the gargle
+  package + JWT
+
+## Make annotations
+
+- [`manc_annotate_body()`](https://natverse.org/malevnc/reference/manc_annotate_body.md)
+  : Set Clio body annotations
+- [`manc_annotate_soma()`](https://natverse.org/malevnc/reference/manc_annotate_soma.md)
+  : Annotate an XYZ location in Clio as a soma or root
+- [`manc_set_lrgroup()`](https://natverse.org/malevnc/reference/manc_set_lrgroup.md)
+  : Set Left-Right matching groups for neurons in DVID and optionally
+  Clio
+- [`manc_check_group_complete()`](https://natverse.org/malevnc/reference/manc_check_group_complete.md)
+  : Check if group is complete
+- [`manc_set_dvid_instance()`](https://natverse.org/malevnc/reference/manc_set_dvid_instance.md)
+  [`manc_set_dvid_annotations()`](https://natverse.org/malevnc/reference/manc_set_dvid_instance.md)
+  : Set DVID annotations for one or more ids.
+
+## Connectivity
+
+- [`manc_connection_table()`](https://natverse.org/malevnc/reference/manc_connection_table.md)
+  : Convenience wrapper for neuprint connection queries for VNC dataset
+- [`manc_leg_summary()`](https://natverse.org/malevnc/reference/manc_leg_summary.md)
+  [`manc_side_summary()`](https://natverse.org/malevnc/reference/manc_leg_summary.md)
+  : Simple summaries of which regions different neurons innervate
+
+## Meshes, Skeletons and Geometry
+
+- [`read_draco_meshes()`](https://natverse.org/malevnc/reference/read_manc_meshes.md)
+  [`read_manc_meshes()`](https://natverse.org/malevnc/reference/read_manc_meshes.md)
+  : Read draco encoded 3D meshes from tarballs (as used by Janelia
+  FlyEM)
+- [`manc_read_neurons()`](https://natverse.org/malevnc/reference/manc_read_neurons.md)
+  : Read MANC skeletons via neuprint
+- [`mirror_manc()`](https://natverse.org/malevnc/reference/mirror_manc.md)
+  [`symmetric_manc()`](https://natverse.org/malevnc/reference/mirror_manc.md)
+  : Mirror points or other 3D objects along the MANC midline
+- [`manc_lr_position()`](https://natverse.org/malevnc/reference/manc_lr_position.md)
+  : Calculate the left-right position wrt to the symmetrised MANC
+  midline
+- [`manc_view3d()`](https://natverse.org/malevnc/reference/manc_view3d.md)
+  : Set a standard viewpoint for MANC data
+- [`download_manc_registrations()`](https://natverse.org/malevnc/reference/download_manc_registrations.md)
+  : Download MANC (EM) to JRC (light level) registrations
+
+## Cartoon summaries
+
+- [`colour_leg_muscles()`](https://natverse.org/malevnc/reference/colour_leg_muscles.md)
+  [`leg_muscle_palette()`](https://natverse.org/malevnc/reference/colour_leg_muscles.md)
+  : Create SVG figure with leg muscles coloured based on supplied colour
+  palette
+
+## Data objects
+
+- [`mancneckseeds`](https://natverse.org/malevnc/reference/mancneckseeds.md)
+  : Seed plane for the Neck Connective
+- [`mancsomapos`](https://natverse.org/malevnc/reference/mancsomapos.md)
+  : Soma locations for all intrinsic neurons of the ventral nerve cord
+- [`MANC.surf`](https://natverse.org/malevnc/reference/MANC.surf.md)
+  [`JRCFIBVNC2020MNP.surf`](https://natverse.org/malevnc/reference/MANC.surf.md)
+  : Surface model of neuropils in the MANC dataset
+- [`MANC.tissue.surf`](https://natverse.org/malevnc/reference/MANC.tissue.surf.md)
+  [`MANC.tissue.surf.sym`](https://natverse.org/malevnc/reference/MANC.tissue.surf.md)
+  [`MANC.nerves`](https://natverse.org/malevnc/reference/MANC.tissue.surf.md)
+  : Simplified (and symmetrized) tissue surface of MALEVNC
+- [`MANC.tracts`](https://natverse.org/malevnc/reference/MANC.tracts.md)
+  : Meshes of 22 MALEVNC tracts.
+- [`MANCsym`](https://natverse.org/malevnc/reference/MANCsym.md) : MANC
+  symmetric template
+
