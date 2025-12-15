@@ -1,4 +1,10 @@
-# malevnc (development version)
+# malevnc 0.3.3
+
+* switch to manc:v1.2.3 as default public dataset
+* manc_connection_table: check if desired fields exist
+* cache manc_ids, manc_neuprint_meta for static data 
+
+**Full Changelog**: https://github.com/natverse/malevnc/compare/v0.3.2...v0.3.3
 
 # malevnc 0.3.2
 
