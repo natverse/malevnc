@@ -13,6 +13,7 @@ manc_ids(
   as_character = TRUE,
   integer64 = FALSE,
   unique = TRUE,
+  cache = NA,
   conn = manc_neuprint(),
   ...
 )
@@ -43,19 +44,29 @@ manc_ids(
 
   Whether to ensure that only unique ids are returned (default `TRUE`)
 
+- cache:
+
+  whether to cache the query. When `cache=NA` (the default) queries are
+  cached for neuprint snapshot versions (but not production datasets).
+  See details.
+
 - conn:
 
-  optional, a neuprintr connection object, which also specifies the
-  neuPrint server. If NULL, the defaults set in your
-  [`.Rprofile`](https://rdrr.io/r/base/Startup.html) or
-  [`.Renviron`](https://rdrr.io/r/base/Startup.html) are used. See
-  [`neuprint_login`](https://natverse.org/neuprintr/reference/neuprint_login.html)
-  for details.
+  Optional, a `neuprint_connection` object, which also specifies the
+  neuPrint server. Defaults to
+  [`manc_neuprint()`](https://natverse.org/malevnc/reference/manc_neuprint.md)
+  to ensure that query is against the VNC dataset.
 
 - ...:
 
-  Additional arguments passed to
-  [`neuprint_search`](https://natverse.org/neuprintr/reference/neuprint_search.html)
+  Additional arguments passed to `neuprint_get_meta`
+
+## Details
+
+This function will now cache neuprint queries when using a snapshot
+release (which is assumed not to change). Snapshot releases are
+identified by containing the string `":v"` as in `manc:v1.2.3`. The
+cache currently lasts for 24h.
 
 ## See also
 

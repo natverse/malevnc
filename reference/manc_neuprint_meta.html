@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">malevnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fetch neuprint metadata for MANC neurons</h1>
-      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/v0.3.2/R/neuprint.R" class="external-link"><code>R/neuprint.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/master/R/neuprint.R" class="external-link"><code>R/neuprint.R</code></a></small>
       <div class="d-none name"><code>manc_neuprint_meta.Rd</code></div>
     </div>
 
@@ -43,6 +43,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_neuprint_meta</span><span class="op">(</span></span>
 <span>  ids <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  conn <span class="op">=</span> <span class="fu"><a href="manc_neuprint.html">manc_neuprint</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  cache <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  roiInfo <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fields.regex.exclude <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fields.regex.include <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -63,6 +64,12 @@
 <dd><p>Optional, a <code>neuprint_connection</code> object, which also
 specifies the neuPrint server. Defaults to <code><a href="manc_neuprint.html">manc_neuprint()</a></code> to
 ensure that query is against the VNC dataset.</p></dd>
+
+
+<dt id="arg-cache">cache<a class="anchor" aria-label="anchor" href="#arg-cache"></a></dt>
+<dd><p>whether to cache the query. When <code>cache=NA</code> (the default)
+queries are cached for neuprint snapshot versions (but not production
+datasets). See details.</p></dd>
 
 
 <dt id="arg-roiinfo">roiInfo<a class="anchor" aria-label="anchor" href="#arg-roiinfo"></a></dt>
@@ -92,6 +99,10 @@ to define fields to include or exclude from the returned metadata.</p></dd>
   this uses the <code>node='neuprint'</code>. This should correspond to all neurons
   with an annotation. You can also use other searches e.g. to fetch all
   neurons, see examples.</p>
+<p>This function will now cache neuprint queries when using a snapshot release
+  (which is assumed not to change). Snapshot releases are identified by
+  containing the string <code>":v"</code> as in <code>manc:v1.2.3</code>. The cache
+  currently lasts for 24h.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

@@ -8,6 +8,7 @@ Fetch neuprint metadata for MANC neurons
 manc_neuprint_meta(
   ids = NULL,
   conn = manc_neuprint(),
+  cache = NA,
   roiInfo = FALSE,
   fields.regex.exclude = NULL,
   fields.regex.include = NULL,
@@ -28,6 +29,12 @@ manc_neuprint_meta(
   neuPrint server. Defaults to
   [`manc_neuprint()`](https://natverse.org/malevnc/reference/manc_neuprint.md)
   to ensure that query is against the VNC dataset.
+
+- cache:
+
+  whether to cache the query. When `cache=NA` (the default) queries are
+  cached for neuprint snapshot versions (but not production datasets).
+  See details.
 
 - roiInfo:
 
@@ -56,6 +63,11 @@ When `ids = NULL` then a default set of bodies is selected using the
 function. Since April 2025 this uses the `node='neuprint'`. This should
 correspond to all neurons with an annotation. You can also use other
 searches e.g. to fetch all neurons, see examples.
+
+This function will now cache neuprint queries when using a snapshot
+release (which is assumed not to change). Snapshot releases are
+identified by containing the string `":v"` as in `manc:v1.2.3`. The
+cache currently lasts for 24h.
 
 ## See also
 

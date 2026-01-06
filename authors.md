@@ -11,16 +11,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/natverse/malevnc/blob/v0.3.2/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/natverse/malevnc/blob/master/DESCRIPTION)
 
-Jefferis G, Krzeminski D (2025). *malevnc: Support for Working with
-Janelia FlyEM Male VNC Dataset*. R package version 0.3.2,
+Jefferis G, Krzeminski D (2026). *malevnc: Support for Working with
+Janelia FlyEM Male VNC Dataset*. R package version 0.3.3,
 <https://github.com/natverse/malevnc>.
 
     @Manual{,
       title = {malevnc: Support for Working with Janelia FlyEM Male VNC Dataset},
       author = {Gregory Jefferis and Dominik Krzeminski},
-      year = {2025},
-      note = {R package version 0.3.2},
+      year = {2026},
+      note = {R package version 0.3.3},
       url = {https://github.com/natverse/malevnc},
     }

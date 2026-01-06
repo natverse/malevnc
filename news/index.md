@@ -1,5 +1,14 @@
 # Changelog
 
+## malevnc 0.3.3
+
+- switch to manc:v1.2.3 as default public dataset
+- manc_connection_table: check if desired fields exist
+- cache manc_ids, manc_neuprint_meta for static data
+
+**Full Changelog**:
+<https://github.com/natverse/malevnc/compare/v0.3.2>…v0.3.3
+
 ## malevnc 0.3.2
 
 - Update to cope with malecns clio config by
@@ -15,8 +24,9 @@
   <https://github.com/natverse/malevnc/pull/74>
 
 **Full Changelog**:
-<https://github.com/natverse/malevnc/compare/v0.3.1>…v0.3.2 \# malevnc
-0.3.1
+<https://github.com/natverse/malevnc/compare/v0.3.1>…v0.3.2
+
+## malevnc 0.3.1
 
 - make manc:v1.2.1 the public default
 - fix bug in reading meshes for id=100000

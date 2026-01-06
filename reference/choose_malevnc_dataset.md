@@ -24,7 +24,8 @@ choose_flyem_dataset(dataset = getOption("malevnc.dataset"), set = TRUE)
 
 - set:
 
-  Whether to set the relevant package options or just to return the,
+  Whether to set the relevant package options or just to return a list
+  of the required options.
 
 - use_clio:
 
