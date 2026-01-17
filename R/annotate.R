@@ -404,3 +404,54 @@ clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
   x=purrr::keep(x, function(y) length(y)>1)
   x
 }
+
+#' Removes records associated with given bodyids from Clio
+#'
+#' Use with EXTREME caution!
+#' Only certain users have permissions to delete annotations.
+#' This operation is irrevertible.
+#'
+#' @param x data.frame or vector with bodyids
+#' @param test Whether to use the test clio store (recommended until you are
+#'   sure you know what you are doing).
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' manc_remove_annotations(c(111, 222))
+#' }
+manc_remove_annotations <- function(x, test=T) {
+  if (!is.vector(x) && !is.data.frame(x))
+    stop(paste("Wrong type of `x` argument. Vector of bodyids",
+               "or data.frame with bodyid column expected"))
+  if (is.data.frame(x)) {
+    if(isFALSE('bodyid' %in% colnames(x)))
+      stop("Your dataframe must contain a bodyid column")
+    if(!all(fafbseg:::valid_id(x$bodyid)))
+      stop("Your dataframe must contain valid bodyids for every row")
+    bodyids=manc_ids(x$bodyid, integer64 = TRUE)
+  }
+  if (is.vector(x))
+    bodyids=manc_ids(x, integer64 = TRUE)
+  bodyids=as.character(bodyids)
+  message(
+    paste(
+      "Are you sure that you want to remove the following neurons?\n",
+      paste(bodyids, collapse = " "), ".",
+      "You are using", ifelse(test, "test", "production"), "server now."
+    )
+  )
+  continue = readline(
+      "Please confirm. This operation CANNOT be inverted. [(y)es/(n)o]"
+  )
+
+  if (continue %in% c("y","yes")) {
+    dataset=getOption('malevnc.dataset', default = 'VNC')
+    url=paste0(clio_url(glue("v2/json-annotations/{dataset}/neurons/id-number/"),
+                 test=test),"{id}")
+    res<-sapply(bodyids, function(id) {
+      clio_remove(glue(url))
+    })
+    cat("Done!\n")
+  }
+}

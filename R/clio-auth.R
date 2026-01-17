@@ -277,3 +277,13 @@ clio_version <- function(version=NULL) {
          "file a bug report at https://github.com/natverse/malevnc/issues")
   version
 }
+
+# private function to remove from clio store
+clio_remove <- function(url, config=NULL) {
+  if (is.null(config))
+    config=c(httr::config(),
+             httr::add_headers(Authorization = paste("Bearer", clio_token())))
+  resp <- httr::DELETE(config=config, url = url)
+  httr::stop_for_status(resp)
+  httr::content(resp, as='text', type='application/json', encoding = 'UTF-8')
+}
