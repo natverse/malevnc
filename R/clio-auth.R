@@ -191,9 +191,9 @@ clio_fetch <- function(url, config=NULL, ..., body=NULL, query=NULL, json=FALSE,
   if(!is.null(app)) {
     pu=httr::parse_url(url)
     if(is.null(pu$query)) {
-      pu$query=glue::glue('app={app}')
+      pu$query=list(app=app)
     } else {
-      pu$query=glue::glue('{pu$query}&app={app}')
+      pu$query=c(pu$query, app=app)
     }
     url <- httr::build_url(pu)
   }
