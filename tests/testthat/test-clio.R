@@ -1,6 +1,22 @@
 op <- choose_malevnc_dataset('VNC')
 on.exit(options(op))
 
+test_that("coerce_integerish_clio_fields works", {
+  df <- data.frame(
+    bodyid = c("123", "456"),
+    group = c("123", NA),
+    class = c("DN", "AN"),
+    stringsAsFactors = FALSE
+  )
+  out <- coerce_integerish_clio_fields(
+    df,
+    types = c(bodyid = "integer", group = "integer", class = "string")
+  )
+  expect_s3_class(out$bodyid, "integer64")
+  expect_s3_class(out$group, "integer64")
+  expect_type(out$class, "character")
+})
+
 test_that("manc_body_annotations works", {
   skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
           message = "no clio token available")

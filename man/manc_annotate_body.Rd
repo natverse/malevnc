@@ -10,6 +10,8 @@ manc_annotate_body(
   version = NULL,
   write_empty_fields = FALSE,
   allow_new_fields = FALSE,
+  check_types = TRUE,
+  coerce_integerish = TRUE,
   designated_user = NULL,
   protect = c("user"),
   chunksize = 50,
@@ -38,6 +40,12 @@ fields to an empty value (usually the empty string) then you must set
 \item{allow_new_fields}{Whether to allow creation of new clio fields. Default
 \code{FALSE} will produce an error encouraging you to check the field
 names.}
+
+\item{check_types}{Whether to verify data-frame column types against the
+active Clio schema before upload. Default \code{TRUE}.}
+
+\item{coerce_integerish}{Whether to coerce numeric-like character columns for
+integer-valued Clio schema fields before upload. Default \code{TRUE}.}
 
 \item{designated_user}{Optional email address when one person is uploading
 annotations on behalf of another user. See \bold{Users} section for
