@@ -11,7 +11,10 @@ test_that("manc_body_annotations works", {
   # rightly or wrongly this has character not numeric bodyids
   mm$bodyid=manc_ids(mm$bodyid, as_character = F)
   expect_equal(mm[colnames(mba)], mba)
+})
 
+test_that("manc_body_annotations test-server writes", {
+  skip("Skipping since Clio test server is no longer available.")
   expect_error(manc_annotate_body(data.frame(bodyid="9223372036854775809", entry_nerve='None'), test = T))
   expect_error(manc_annotate_body(data.frame(bodyid=9223372036854775803, entry_nerve='None'), test = T))
 
@@ -27,8 +30,7 @@ test_that("manc_body_annotations works", {
 })
 
 test_that("compute_clio_delta works", {
-  skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
-          message = "no clio token available")
+  skip("Skipping since Clio test server is no longer available.")
   tstlist <- list()
   tstlist[[1]] <- list(bodyid=12345780)
   tstlist[[2]] <- list(bodyid=12345770)
@@ -36,6 +38,7 @@ test_that("compute_clio_delta works", {
 })
 
 test_that("manc_annotate_body works", {
+  skip("Skipping since Clio test server is no longer available.")
   # just enough randomness to make collisions unlikely
   rid=12345678+sample(1:300, size=1)
   json=sprintf('[{"last_modified_by":"lisa.marin@gmail.com","class":"Descending","soma_side":"TBD","description":"Giant fiber","status":"Prelim Roughly traced","hemilineage":"NA","bodyid":%s,"user":"lisa.marin@gmail.com"}]',rid)

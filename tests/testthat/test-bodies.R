@@ -1,4 +1,5 @@
 test_that("manc_mutations", {
+  skip("Skipping due to a regression in the MANC DVID setup.")
   withr::local_options(choose_malevnc_dataset('VNC', set = F))
   expect_s3_class(muts <- manc_mutations('956250c3062245f9b63a000dfe05289c'),
                   'data.frame')
