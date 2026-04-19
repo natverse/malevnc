@@ -61,10 +61,10 @@ manc_annotate_soma <- function(pos, tag=c("soma", "tosoma", "root"), user=getOpt
 
 manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("malevnc.clio_email"), description=NULL, protect=c('user'), update=TRUE, test=TRUE, ...) {
   dataset=getOption('malevnc.dataset', default = 'VNC')
-  url=clio_url(path=glue("v2/annotations/{dataset}?replace={replace}{cond}",
-                         replace=tolower(!update),
-                         cond=ifelse(length(protect)>0,
-                                     paste0("&conditional=",paste(protect, collapse = ',')))), test = test)
+  url=clio_url(path=glue("v2/annotations/{dataset}"), test = test)
+  query=list(replace=tolower(!update))
+  if(length(protect)>0)
+    query$conditional=paste(protect, collapse = ',')
   pos=checkmate::assert_numeric(c(pos), len = 3)
   user=validate_email(user)
   body=list(kind="point",
@@ -74,7 +74,7 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   if(!is.null(description))
     body$description=description
   bodyj=jsonlite::toJSON(body, auto_unbox = TRUE)
-  clio_fetch(url, body=bodyj, ...)
+  clio_fetch(url, body=bodyj, query=query, ...)
 }
 
 

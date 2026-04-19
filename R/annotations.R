@@ -410,12 +410,12 @@ manc_point_annotations <- function(groups="UK Drosophila Connectomics", cache=FA
 
   dataset=getOption('malevnc.dataset', default = 'VNC')
   u=clio_url(glue("v2/annotations/{dataset}"), test = test)
+  query <- NULL
 
   if(!is.null(groups)) {
-    groups=gsub(" ", "+", groups)
-    u=paste0(u, "?groups=", groups)
+    query <- list(groups = groups)
   }
-  res <- if(cache) clio_fetch_memo(u) else clio_fetch(u)
+  res <- if(cache) clio_fetch_memo(u, query = query) else clio_fetch(u, query = query)
   if(!is.null(res$prop$timestamp)) {
     res$timestamp=as.POSIXct(as.numeric(res$prop$timestamp)/1e3, origin="1970-01-01", tz="UTC")
   }
