@@ -42,10 +42,7 @@ faster when up to date.
 
 ``` r
 manc_size(10056)
-#> Warning: running command 'curl -X GET --silent --data "[10056]" https://emdata-drumindor.janelia.org/api/node/dabe640270a24993b0805a2b563a2db5/segmentation/sizes' had status 7
-#> Error: lexical error: invalid char in json text.
-#>                                        NA
-#>                      (right here) ------^
+#> [1] 9371355727
 # zero as doesn't exist
 manc_size(10000056)
 #> [1] 0

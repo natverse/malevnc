@@ -78,10 +78,7 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">manc_size</span><span class="op">(</span><span class="fl">10056</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>running command 'curl -X GET --silent --data "[10056]" https://emdata-drumindor.janelia.org/api/node/dabe640270a24993b0805a2b563a2db5/segmentation/sizes' had status 7</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> lexical error: invalid char in json text.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>                                        NA</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>                      (right here) ------^</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9371355727</span>
 <span class="r-in"><span><span class="co"># zero as doesn't exist</span></span></span>
 <span class="r-in"><span><span class="fu">manc_size</span><span class="op">(</span><span class="fl">10000056</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
