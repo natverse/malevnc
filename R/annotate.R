@@ -217,7 +217,6 @@ compute_clio_dry_run <- function(x, test = TRUE, write_empty_fields = FALSE,
   clio_list <- list()
   if (is.data.frame(clio_annots) && nrow(clio_annots) > 0) {
     clio_annots <- clio_annots %>% filter(!is.na(.data$bodyid))
-    clio_annots$status <- NULL
     if (nrow(clio_annots) > 0) {
       # write_empty_fields=TRUE so we can distinguish "no value" from
       # "empty string" when evaluating the protect semantics.
