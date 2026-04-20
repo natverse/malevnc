@@ -61,10 +61,10 @@ manc_annotate_soma <- function(pos, tag=c("soma", "tosoma", "root"), user=getOpt
 
 manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("malevnc.clio_email"), description=NULL, protect=c('user'), update=TRUE, test=TRUE, ...) {
   dataset=getOption('malevnc.dataset', default = 'VNC')
-  url=clio_url(path=glue("v2/annotations/{dataset}?replace={replace}{cond}",
-                         replace=tolower(!update),
-                         cond=ifelse(length(protect)>0,
-                                     paste0("&conditional=",paste(protect, collapse = ',')))), test = test)
+  url=clio_url(path=glue("v2/annotations/{dataset}"), test = test)
+  query=list(replace=tolower(!update))
+  if(length(protect)>0)
+    query$conditional=paste(protect, collapse = ',')
   pos=checkmate::assert_numeric(c(pos), len = 3)
   user=validate_email(user)
   body=list(kind="point",
@@ -74,7 +74,7 @@ manc_annotate_point <- function(pos, kind="point", tags=NULL, user=getOption("ma
   if(!is.null(description))
     body$description=description
   bodyj=jsonlite::toJSON(body, auto_unbox = TRUE)
-  clio_fetch(url, body=bodyj, ...)
+  clio_fetch(url, body=bodyj, query=query, ...)
 }
 
 
@@ -291,11 +291,6 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
                                protect=c("user"), chunksize=50, query=TRUE, ...) {
   query=parse_query(query, version=version)
   dataset=getOption('malevnc.dataset', default = 'VNC')
-  u=clio_url(path=glue('v2/json-annotations/{dataset}/neurons'),
-             test = test)
-  if(!is.null(designated_user)) {
-    u=glue("{u}?designated_user={designated_user}")
-  }
   fafbseg:::check_package_available('purrr')
   if(!is.character(x)) {
     if(is.data.frame(x)) {
@@ -315,7 +310,8 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
         chunknums=floor((seq_along(x)-1)/chunksize)+1
         chunkedx=split(x, chunknums)
         res=pbapply::pbsapply(chunkedx, manc_annotate_body, version=version,
-                          test=test, chunksize=Inf, protect=protect, ...)
+                              designated_user=designated_user,
+                              test=test, chunksize=Inf, protect=protect, ...)
         return(invisible(res))
       }
     } else if(!is.list(x))
@@ -342,6 +338,10 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
   last=substr(x, nchar(x), nchar(x))
   if(!isTRUE(first %in% c("{","[")) || !isTRUE(last %in% c("}","]") ))
     stop("Annotations do not form a JSON list. Please verify!")
+  u=clio_url(path=glue('v2/json-annotations/{dataset}/neurons'),
+             test = test)
+  if(!is.null(designated_user))
+    query$designated_user=designated_user
   res=clio_fetch(u, config=NULL, body = x, query=query, encode='raw',
                  httr::content_type_json())
   invisible(res)
