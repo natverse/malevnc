@@ -406,13 +406,21 @@ coerce_integerish_clio_fields <- function(x, fields = NULL, types = NULL) {
 
   for (nm in integer_fields) {
     xi <- x[[nm]]
-    if (!is.character(xi) && !is.factor(xi)) {
-      next
-    }
+    if (bit64::is.integer64(xi)) next
+    # Skip non-whole-number numerics to avoid silent truncation.
+    if (is.numeric(xi) && !is.integer(xi) &&
+        !isTRUE(all(xi == floor(xi), na.rm = TRUE))) next
 
-    xic <- as.character(xi)
-    present <- !is.na(xic) & nzchar(xic)
-    if (all(grepl('^-?[0-9]+$', xic[present]))) {
+    xic <- suppressWarnings(fafbseg:::id2char(xi))
+    had_input <- if (is.character(xi) || is.factor(xi)) {
+      xch <- as.character(xi)
+      !is.na(xch) & nzchar(xch)
+    } else {
+      !is.na(xi)
+    }
+    # id2char -> NA means integer64 overflow: don't coerce.
+    if (any(had_input & is.na(xic))) next
+    if (all(grepl('^-?[0-9]+$', xic[had_input]))) {
       x[[nm]] <- bit64::as.integer64(xic)
     }
   }
