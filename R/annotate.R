@@ -255,6 +255,10 @@ parse_query <- function(query, version) {
 #' @param allow_new_fields Whether to allow creation of new clio fields. Default
 #'   \code{FALSE} will produce an error encouraging you to check the field
 #'   names.
+#' @param check_types Whether to verify data-frame column types against the
+#'   active Clio schema before upload. Default \code{TRUE}.
+#' @param coerce_integerish Whether to coerce numeric-like character columns for
+#'   integer-valued Clio schema fields before upload. Default \code{TRUE}.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
 #' @return \code{NULL} invisibly on success. Errors out on failure.
@@ -287,6 +291,8 @@ parse_query <- function(query, version) {
 manc_annotate_body <- function(x, test=TRUE, version=NULL,
                                write_empty_fields=FALSE,
                                allow_new_fields=FALSE,
+                               check_types=TRUE,
+                               coerce_integerish=TRUE,
                                designated_user=NULL,
                                protect=c("user"), chunksize=50, query=TRUE, ...) {
   query=parse_query(query, version=version)
@@ -302,6 +308,12 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
                paste(new_fields, collapse = ', '),
                "\nafter appropriate discussion then please set `allow_new_fields=TRUE`")
       }
+      if (isTRUE(coerce_integerish)) {
+        x <- tryCatch(coerce_integerish_clio_fields(x), error = function(e) x)
+      }
+      if (isTRUE(check_types)) {
+        schema_compare(x)
+      }
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
       if (length(x) > 0)
         x <- compute_clio_delta(x, test = test, write_empty_fields = write_empty_fields)
@@ -309,9 +321,19 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
       if(length(x)>chunksize) {
         chunknums=floor((seq_along(x)-1)/chunksize)+1
         chunkedx=split(x, chunknums)
-        res=pbapply::pbsapply(chunkedx, manc_annotate_body, version=version,
-                              designated_user=designated_user,
-                              test=test, chunksize=Inf, protect=protect, ...)
+        res=pbapply::pbsapply(
+          chunkedx,
+          manc_annotate_body,
+          version=version,
+          allow_new_fields=allow_new_fields,
+          check_types=check_types,
+          coerce_integerish=coerce_integerish,
+          designated_user=designated_user,
+          test=test,
+          chunksize=Inf,
+          protect=protect,
+          ...
+        )
         return(invisible(res))
       }
     } else if(!is.list(x))
@@ -345,6 +367,96 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
   res=clio_fetch(u, config=NULL, body = x, query=query, encode='raw',
                  httr::content_type_json())
   invisible(res)
+}
+
+.url_clio_schema <- function(server = getOption('malevnc.server')) {
+  if (is.null(server) || !nzchar(server)) {
+    stop('Unable to determine `malevnc.server` for Clio schema lookup')
+  }
+  paste0(server, '/api/node/:master/segmentation_annotations/json_schema')
+}
+
+clio_schema_types <- memoise::memoise(function(server = getOption('malevnc.server')) {
+  types <- clio_fetch(.url_clio_schema(server = server))
+  sapply(types$properties, function(x) {
+    if (length(x$type)) x$type[[1]] else NA_character_
+  })
+})
+
+TYPES_MAPPING <- list(
+  "integer" = c("numeric", "integer", "integer64"),
+  "string" = c("character", "factor"),
+  "array" = c("list"),
+  "boolean" = c("logical")
+)
+
+coerce_integerish_clio_fields <- function(x, fields = NULL, types = NULL) {
+  if (!is.data.frame(x)) {
+    return(x)
+  }
+
+  if (is.null(types)) {
+    types <- clio_schema_types()
+  }
+  integer_fields <- names(types)[types == 'integer']
+  if (!is.null(fields)) {
+    integer_fields <- intersect(integer_fields, fields)
+  }
+  integer_fields <- intersect(integer_fields, colnames(x))
+
+  for (nm in integer_fields) {
+    xi <- x[[nm]]
+    if (bit64::is.integer64(xi)) next
+    # Skip non-whole-number numerics to avoid silent truncation.
+    if (is.numeric(xi) && !is.integer(xi) &&
+        !isTRUE(all(xi == floor(xi), na.rm = TRUE))) next
+
+    xic <- suppressWarnings(fafbseg:::id2char(xi))
+    had_input <- if (is.character(xi) || is.factor(xi)) {
+      xch <- as.character(xi)
+      !is.na(xch) & nzchar(xch)
+    } else {
+      !is.na(xi)
+    }
+    # id2char -> NA means integer64 overflow: don't coerce.
+    if (any(had_input & is.na(xic))) next
+    if (all(grepl('^-?[0-9]+$', xic[had_input]))) {
+      x[[nm]] <- bit64::as.integer64(xic)
+    }
+  }
+
+  x
+}
+
+schema_compare <- function(x, types = NULL) {
+  if (!is.data.frame(x)) {
+    return(invisible(TRUE))
+  }
+
+  if (is.null(types)) {
+    types <- clio_schema_types()
+  }
+  col_types <- sapply(x, class, simplify = FALSE)
+
+  schema_nm_check <- function(nm) {
+    if (nm %in% names(types) && !is.na(types[[nm]])) {
+      col_types[[nm]] %in% TYPES_MAPPING[[types[[nm]]]]
+    } else {
+      TRUE
+    }
+  }
+
+  check_types <- sapply(names(col_types), schema_nm_check)
+  if (isFALSE(all(check_types))) {
+    stop(
+      paste(
+        "Wrong types of columns:",
+        paste(names(check_types[check_types == FALSE]), collapse = ", ")
+      )
+    )
+  }
+
+  invisible(TRUE)
 }
 
 clioannotationdf2list <- function(x, write_empty_fields=FALSE) {
