@@ -16,6 +16,7 @@ manc_annotate_body(
   protect = c("user"),
   chunksize = 50,
   query = TRUE,
+  dry_run = FALSE,
   ...
 )
 }
@@ -66,10 +67,20 @@ Set to \code{Inf} to insist that all records are sent in a single request.
 passed with Clio version, FALSE means no query, and list is allowed for a
 customized behaviour.}
 
+\item{dry_run}{When \code{TRUE}, no data is written to Clio. Instead a
+\code{tibble} is returned previewing what would actually change. There is
+one row per input bodyid that would have at least one field modified, and
+one column per submitted field. A cell is \code{NA} when the field would
+\strong{not} be changed — either because its value already matches Clio or
+because it is covered by \code{protect} and Clio already has a non-empty
+value (so the server's \code{conditional} write would reject it). Requires
+a data.frame input.}
+
 \item{...}{Additional parameters passed to \code{pbapply::\link{pbsapply}}}
 }
 \value{
-\code{NULL} invisibly on success. Errors out on failure.
+\code{NULL} invisibly on success. Errors out on failure. When
+  \code{dry_run=TRUE} returns a \code{tibble} (see \code{dry_run} above).
 }
 \description{
 Set Clio body annotations
@@ -161,6 +172,10 @@ manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
 #' # overwrite all fields in database even if supplied data has empty values
 manc_annotate_body(list(bodyid=10002, class='',
   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
+
+# preview what would actually be written, without touching Clio
+manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',
+  description='Giant Fiber'), test=TRUE, dry_run=TRUE)
 }
 }
 \seealso{
