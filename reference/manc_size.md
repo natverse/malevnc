@@ -42,10 +42,13 @@ faster when up to date.
 
 ``` r
 manc_size(10056)
-#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
+#> Warning: running command 'curl -X GET --silent --data "[10056]" https://emdata-drumindor.janelia.org/api/node/dabe640270a24993b0805a2b563a2db5/segmentation/sizes' had status 7
+#> Error: lexical error: invalid char in json text.
+#>                                        NA
+#>                      (right here) ------^
 # zero as doesn't exist
 manc_size(10000056)
-#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
+#> [1] 0
 if (FALSE) { # \dontrun{
 # try splitting up
 ids=manc_size("class:Ascending Interneuron", chunksize=500L, cl=4)

@@ -66,7 +66,6 @@ Other manc-neuprint:
 ``` r
 # \donttest{
 down=manc_connection_table("DNp01", partners='outputs')
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 if (FALSE) { # \dontrun{
 manc_scene(down$partner[1:8], open=TRUE)
 } # }

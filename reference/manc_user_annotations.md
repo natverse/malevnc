@@ -64,16 +64,10 @@ A data.frame
 ``` r
 # \donttest{
 df=manc_user_annotations()
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 head(df)
-#>                                               
-#> 1 function (x, df1, df2, ncp, log = FALSE)    
-#> 2 {                                           
-#> 3     if (missing(ncp))                       
-#> 4         .Call(C_df, x, df1, df2, log)       
-#> 5     else .Call(C_dnf, x, df1, df2, ncp, log)
-#> 6 }                                           
+#> $timestamp
+#> POSIXct of length 0
+#> 
 json=httr::content(manc_user_annotations(raw=TRUE))
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 # }
 ```

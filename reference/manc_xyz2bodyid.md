@@ -33,15 +33,14 @@ A character vector of body ids (0 is missing somas / missing locations)
 
 ``` r
 ids=manc_xyz2bodyid(mancneckseeds)
-#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
 tids=table(ids)
-#> Error: object 'ids' not found
 # are there many duplicate ids
 table(tids)
-#> Error: object 'tids' not found
+#> tids
+#>    1    2    3    4 
+#> 3630   69    3    1 
 
 dups=names(tids[tids>1])
-#> Error: object 'tids' not found
 if (FALSE) { # \dontrun{
 manc_scene(ids=dups)
 } # }

@@ -69,15 +69,14 @@ neutu.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ids</span><span class="op">=</span><span class="fu">manc_xyz2bodyid</span><span class="op">(</span><span class="va">mancneckseeds</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in manc_dvid_node("neutu"):</span> The package option malevnc.dataset is unset. Please set or manually reload package!</span>
 <span class="r-in"><span><span class="va">tids</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">ids</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ids' not found</span>
 <span class="r-in"><span><span class="co"># are there many duplicate ids</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tids</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'tids' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tids</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1    2    3    4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3630   69    3    1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dups</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tids</span><span class="op">[</span><span class="va">tids</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'tids' not found</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="manc_scene.html">manc_scene</a></span><span class="op">(</span>ids<span class="op">=</span><span class="va">dups</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>

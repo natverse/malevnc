@@ -82,17 +82,15 @@ Other manc-neuprint:
 # \donttest{
 # search by type
 manc_ids("DNp01")
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
+#> [1] "10000" "10002"
 # You can also do more complex queries using regular expressions
 # introduced by a slash and specifying the field to be searched
 dns=manc_ids("/type:DN.+")
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 
 # you can also use Neo4J cypher queries by using the where: prefix
 # note that each field of the neuron must prefixed with "n."
 bignogroupids <-
   manc_ids("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 if (FALSE) { # \dontrun{
 # Finally you can use the same queries wherever you specify body ids
 # NB if you want to be sure that regular neuprintr functions target

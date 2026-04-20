@@ -83,14 +83,47 @@ because of a bad node.
 ``` r
 # \donttest{
 mdf=manc_dvid_annotations()
-#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
 head(mdf)
-#> Error: object 'mdf' not found
+#> # A tibble: 6 × 54
+#>   bodyid class      description entry_nerve exit_nerve group instance long_tract
+#>    <dbl> <chr>      <chr>       <chr>       <chr>      <dbl> <chr>    <chr>     
+#> 1  10000 descendin… Giant fiber CvC         "None"     10000 DNlt002… none      
+#> 2  10001 sensory n… NA          ProLN_R      NA           NA SNxxxx_… NA        
+#> 3  10002 descendin… Giant fiber CvC         "None"     10000 DNlt002… none      
+#> 4  10003 sensory n… NA          ProLN_L      NA           NA SNta29_… NA        
+#> 5  10004 intrinsic… 13B in T2 … None        ""         10004 IN13B07… NA        
+#> 6  10007 sensory n… NA          AbN3_R       NA           NA SNpp03_… NA        
+#> # ℹ 46 more variables: nt_acetylcholine_prob <dbl>, nt_gaba_prob <dbl>,
+#> #   nt_glutamate_prob <dbl>, nt_unknown_prob <dbl>, origin <chr>,
+#> #   position <chr>, position_type <chr>, predicted_nt <chr>,
+#> #   predicted_nt_prob <dbl>, prefix <chr>, root_position <chr>,
+#> #   root_side <chr>, status <chr>, subclass <chr>, synonyms <chr>,
+#> #   systematic_type <chr>, target <chr>, transmission <chr>, type <chr>,
+#> #   user <chr>, vfb_id <chr>, modality <chr>, tag <chr>, soma_side <chr>, …
 table(mdf$status)
-#> Error: object 'mdf' not found
+#> 
+#>                                   0.5assign                Anchor 
+#>                   497                   892                   168 
+#>                Orphan            PRT Orphan Prelim Roughly traced 
+#>                   287                   245                  4896 
+#>        Primary Anchor             RT Orphan        Roughly traced 
+#>                     1                   314                 18304 
+#>        Sensory Anchor           Soma Anchor           Unimportant 
+#>                    45                     3                  1617 
 
 manc_dvid_annotations('DNp01')
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
+#> # A tibble: 2 × 54
+#>   bodyid class      description entry_nerve exit_nerve group instance long_tract
+#>    <dbl> <chr>      <chr>       <chr>       <chr>      <dbl> <chr>    <chr>     
+#> 1  10000 descendin… Giant fiber CvC         None       10000 DNlt002… none      
+#> 2  10002 descendin… Giant fiber CvC         None       10000 DNlt002… none      
+#> # ℹ 46 more variables: nt_acetylcholine_prob <dbl>, nt_gaba_prob <dbl>,
+#> #   nt_glutamate_prob <dbl>, nt_unknown_prob <dbl>, origin <chr>,
+#> #   position <chr>, position_type <chr>, predicted_nt <chr>,
+#> #   predicted_nt_prob <dbl>, prefix <chr>, root_position <chr>,
+#> #   root_side <chr>, status <chr>, subclass <chr>, synonyms <chr>,
+#> #   systematic_type <chr>, target <chr>, transmission <chr>, type <chr>,
+#> #   user <chr>, vfb_id <chr>, modality <chr>, tag <chr>, soma_side <chr>, …
 
 if (FALSE) { # \dontrun{
 # compare live body annotations with version in clio

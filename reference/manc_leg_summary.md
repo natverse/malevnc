@@ -46,22 +46,41 @@ output synapses from the given bodyid onto downstream partners.
 
 ``` r
 dnals=manc_leg_summary(c(10126, 10118))
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 dnals
-#> Error: object 'dnals' not found
+#> # A tibble: 2 × 13
+#>   bodyid T1L_in T1L_out T1R_in T1R_out T2L_in T2L_out T2R_in T2R_out T3L_in
+#>    <dbl>  <int>   <int>  <int>   <int>  <int>   <int>  <int>   <int>  <int>
+#> 1  10126    262    6987      0       0    183    3695      0       0    166
+#> 2  10118      0       0    310    6718      0       0    195    3865      0
+#> # ℹ 3 more variables: T3L_out <int>, T3R_in <int>, T3R_out <int>
 manc_leg_summary(c(10126, 10118), long=TRUE)
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
+#> Loading required namespace: tidyr
+#> # A tibble: 24 × 5
+#>    bodyid weight soma_neuromere side  polarity
+#>     <dbl>  <int> <chr>          <chr> <chr>   
+#>  1  10126    262 T1             L     in      
+#>  2  10126   6987 T1             L     out     
+#>  3  10126      0 T1             R     in      
+#>  4  10126      0 T1             R     out     
+#>  5  10126    183 T2             L     in      
+#>  6  10126   3695 T2             L     out     
+#>  7  10126      0 T2             R     in      
+#>  8  10126      0 T2             R     out     
+#>  9  10126    166 T3             L     in      
+#> 10  10126   4575 T3             L     out     
+#> # ℹ 14 more rows
 heatmap(data.matrix(dnals[grep("_out", colnames(dnals))]),
   Colv = NA, scale = 'none')
-#> Error: object 'dnals' not found
+
 
 # \donttest{
 dnls=manc_leg_summary('class:descending')
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 heatmap(data.matrix(dnls[grep("_out", colnames(dnls))]),
   Colv = NA, scale = 'none')
-#> Error: object 'dnls' not found
+
 # }
 manc_side_summary('DNp01')
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
+#>   bodyid L_in L_out R_in R_out
+#> 1  10000    0     0    0     0
+#> 2  10002    0     0    0     0
 ```

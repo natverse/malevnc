@@ -48,16 +48,13 @@ Other manc-neuprint:
 ``` r
 # \donttest{
 vncc=manc_neuprint()
-#> Error in neuprint_login(server = server, dataset = dataset, token = token,     ...): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 anchorids <- neuprintr::neuprint_ids("status:Anchor", conn=vncc)
-#> Error: object 'vncc' not found
 # the last connection will be used by default
 anchormeta <- neuprintr::neuprint_get_meta("status:Anchor")
-#> Error in neuprint_login(conn): Sorry you must specify a neuprint server! See ?neuprint_login for details!
 
 plot(cumsum(sort(anchormeta$pre, decreasing = TRUE)), ylab='Cumulative presynapses')
-#> Error: object 'anchormeta' not found
+
 plot(cumsum(sort(anchormeta$post, decreasing = TRUE)), ylab='Cumulative postsynapses')
-#> Error: object 'anchormeta' not found
+
 # }
 ```
