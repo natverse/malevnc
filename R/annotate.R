@@ -144,90 +144,30 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   out_list
 }
 
-# Pure comparison core for the dry-run preview; separated so it can be
-# unit-tested without hitting Clio.
-clio_dry_run_impl <- function(xlist, clio_by_id, protect = FALSE) {
-  all_fields <- setdiff(unique(unlist(lapply(xlist, names))), "bodyid")
-  protect_fields <- if (isTRUE(protect)) all_fields
-                    else if (isFALSE(protect) || is.null(protect)) character()
-                    else intersect(protect, all_fields)
-
-  has_content <- function(v) {
-    if (is.null(v) || length(v) == 0) return(FALSE)
-    if (is.list(v)) return(any(vapply(v, has_content, logical(1))))
-    any(!is.na(v) & (!is.character(v) | nzchar(v)))
-  }
-
-  rows <- lapply(xlist, function(to_cl) {
-    bid <- to_cl$bodyid
-    bid_key <- as.character(bit64::as.integer64(bid))
-    from_cl <- clio_by_id[[bid_key]]
-    vals <- setNames(vector("list", length(all_fields)), all_fields)
-    for (nm in intersect(names(to_cl), all_fields)) {
-      if (identical(nm, "bodyid")) next
-      new_val <- to_cl[[nm]]
-      in_clio <- !is.null(from_cl) && nm %in% names(from_cl)
-      clio_val <- if (in_clio) from_cl[[nm]] else NULL
-      unchanged <- in_clio && isTRUE(all.equal(new_val, clio_val))
-      blocked <- nm %in% protect_fields && in_clio && has_content(clio_val)
-      if (!unchanged && !blocked) vals[[nm]] <- new_val
+# Returns a tibble previewing the POST body that manc_annotate_body
+# would send to Clio. One row per input bodyid with at least one field
+# differing from Clio; one column per submitted field. Cells are NA for
+# fields that match Clio (so would not be sent). Server-side conditional
+# writes (`protect`) are not modelled — if `protect` covers a field that
+# Clio already has a non-empty value for, the server may still reject
+# the update even if this preview shows it.
+compute_clio_dry_run <- function(x, test = TRUE, write_empty_fields = FALSE) {
+  delta <- compute_clio_delta(x, test = test,
+                              write_empty_fields = write_empty_fields)
+  if (length(delta) == 0)
+    return(tibble::tibble(bodyid = bit64::integer64()))
+  all_fields <- setdiff(unique(unlist(lapply(x, names))), "bodyid")
+  dfs <- lapply(delta, function(r) {
+    cells <- setNames(c(list(r$bodyid), rep(list(NA), length(all_fields))),
+                      c("bodyid", all_fields))
+    for (nm in intersect(names(r), all_fields)) {
+      v <- r[[nm]]
+      cells[[nm]] <- if (length(v) > 1 || is.list(v) || is.matrix(v)) list(v)
+                     else v
     }
-    c(list(bodyid = bid), vals)
-  })
-
-  # keep only rows with at least one field that would be written
-  keep <- vapply(rows, function(r) {
-    any(lengths(r[setdiff(names(r), "bodyid")]) > 0)
-  }, logical(1))
-  rows <- rows[keep]
-
-  if (length(rows) == 0) {
-    empty_cols <- c(list(bodyid = bit64::integer64()),
-                    setNames(replicate(length(all_fields),
-                                       logical(0), simplify = FALSE),
-                             all_fields))
-    return(tibble::as_tibble(empty_cols))
-  }
-
-  # build one tibble per row (wrapping non-scalar values as list elements),
-  # then bind so bind_rows handles type coercion and missing columns.
-  dfs <- lapply(rows, function(r) {
-    cells <- lapply(r, function(v) {
-      if (is.null(v)) return(NA)
-      if (length(v) > 1 || is.list(v) || is.matrix(v)) return(list(v))
-      v
-    })
     tibble::as_tibble(cells)
   })
   dplyr::bind_rows(dfs)
-}
-
-# Returns a tibble previewing which submitted fields would actually be
-# written to Clio. One row per input bodyid with at least one change; NA
-# cells mean the field would not change (either it matches the current
-# Clio value, or `protect` covers it and Clio already has a non-empty
-# value that would trigger the server's conditional-write rejection).
-compute_clio_dry_run <- function(x, test = TRUE, write_empty_fields = FALSE,
-                                 protect = FALSE) {
-  body_ids <- extract_int64_bodyid(x)
-  clio_annots <- manc_body_annotations(body_ids,
-                                       update.bodyids = FALSE,
-                                       test = test)
-  clio_list <- list()
-  if (is.data.frame(clio_annots) && nrow(clio_annots) > 0) {
-    clio_annots <- clio_annots %>% filter(!is.na(.data$bodyid))
-    if (nrow(clio_annots) > 0) {
-      # write_empty_fields=TRUE so we can distinguish "no value" from
-      # "empty string" when evaluating the protect semantics.
-      clio_list <- clioannotationdf2list(clio_annots, write_empty_fields = TRUE)
-    }
-  }
-  clio_keys <- vapply(clio_list,
-                      function(r) as.character(bit64::as.integer64(r$bodyid)),
-                      character(1))
-  clio_by_id <- setNames(clio_list, clio_keys)
-
-  clio_dry_run_impl(x, clio_by_id, protect = protect)
 }
 
 # Returns default query list or extends the existing list
@@ -345,13 +285,13 @@ parse_query <- function(query, version) {
 #' @param coerce_integerish Whether to coerce numeric-like character columns for
 #'   integer-valued Clio schema fields before upload. Default \code{TRUE}.
 #' @param dry_run When \code{TRUE}, no data is written to Clio. Instead a
-#'   \code{tibble} is returned previewing what would actually change. There is
-#'   one row per input bodyid that would have at least one field modified, and
-#'   one column per submitted field. A cell is \code{NA} when the field would
-#'   \strong{not} be changed — either because its value already matches Clio or
-#'   because it is covered by \code{protect} and Clio already has a non-empty
-#'   value (so the server's \code{conditional} write would reject it). Requires
-#'   a data.frame input.
+#'   \code{tibble} is returned previewing the POST body that would be sent.
+#'   One row per input bodyid with at least one field differing from Clio; one
+#'   column per submitted field. Cells are \code{NA} for fields that already
+#'   match Clio (so would not be sent). Server-side conditional writes (from
+#'   \code{protect}) are \strong{not} modelled — a protected field that Clio
+#'   already has a non-empty value for will still appear here, even though the
+#'   server may refuse to overwrite it. Requires a data.frame input.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
 #' @return \code{NULL} invisibly on success. Errors out on failure. When
@@ -418,8 +358,7 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
         if (length(x) == 0)
           return(tibble::tibble(bodyid = bit64::integer64()))
         return(compute_clio_dry_run(x, test = test,
-                                    write_empty_fields = write_empty_fields,
-                                    protect = protect))
+                                    write_empty_fields = write_empty_fields))
       }
       if (length(x) > 0)
         x <- compute_clio_delta(x, test = test, write_empty_fields = write_empty_fields)

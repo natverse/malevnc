@@ -95,41 +95,6 @@ test_that("manc_annotate_body dry_run matches live Clio state", {
   }
 })
 
-test_that("clio_dry_run_impl previews writes correctly", {
-  bid <- function(i) bit64::as.integer64(i)
-  xlist <- list(
-    list(bodyid = bid(10001), class = "Descending Neuron",
-         description = "Giant Fiber"),
-    list(bodyid = bid(10002), class = "Ascending", description = "blah")
-  )
-  clio_by_id <- list(
-    "10001" = list(bodyid = bid(10001), class = "Descending Neuron",
-                   description = "old desc", user = "a@x"),
-    "10002" = list(bodyid = bid(10002), status = "Roughly traced",
-                   description = "to be replaced", user = "a@x")
-  )
-
-  # protect=FALSE: all differing fields would be written
-  out <- clio_dry_run_impl(xlist, clio_by_id, protect = FALSE)
-  expect_equal(nrow(out), 2)
-  expect_true(is.na(out$class[out$bodyid == bid(10001)]))
-  expect_equal(out$description[out$bodyid == bid(10001)], "Giant Fiber")
-  expect_equal(out$class[out$bodyid == bid(10002)], "Ascending")
-
-  # protect='description': 10001 drops (only description differed, now blocked);
-  # 10002 keeps class but description is blocked because clio has a value.
-  out2 <- clio_dry_run_impl(xlist, clio_by_id, protect = "description")
-  expect_equal(nrow(out2), 1)
-  expect_equal(out2$bodyid, bid(10002))
-  expect_equal(out2$class, "Ascending")
-  expect_true(is.na(out2$description))
-
-  # identical input -> 0 rows
-  xlist2 <- list(list(bodyid = bid(10001), class = "Descending Neuron",
-                      description = "old desc"))
-  expect_equal(nrow(clio_dry_run_impl(xlist2, clio_by_id, protect = FALSE)), 0)
-})
-
 test_that("manc_annotate_body works", {
   skip("Skipping since Clio test server is no longer available.")
   # just enough randomness to make collisions unlikely

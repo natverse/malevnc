@@ -68,13 +68,13 @@ passed with Clio version, FALSE means no query, and list is allowed for a
 customized behaviour.}
 
 \item{dry_run}{When \code{TRUE}, no data is written to Clio. Instead a
-\code{tibble} is returned previewing what would actually change. There is
-one row per input bodyid that would have at least one field modified, and
-one column per submitted field. A cell is \code{NA} when the field would
-\strong{not} be changed — either because its value already matches Clio or
-because it is covered by \code{protect} and Clio already has a non-empty
-value (so the server's \code{conditional} write would reject it). Requires
-a data.frame input.}
+\code{tibble} is returned previewing the POST body that would be sent.
+One row per input bodyid with at least one field differing from Clio; one
+column per submitted field. Cells are \code{NA} for fields that already
+match Clio (so would not be sent). Server-side conditional writes (from
+\code{protect}) are \strong{not} modelled — a protected field that Clio
+already has a non-empty value for will still appear here, even though the
+server may refuse to overwrite it. Requires a data.frame input.}
 
 \item{...}{Additional parameters passed to \code{pbapply::\link{pbsapply}}}
 }
