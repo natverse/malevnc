@@ -103,7 +103,6 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
                                        test = test)
   if (length(clio_annots) == 0) return(x)
   clio_annots <- clio_annots %>% filter(!is.na(.data$bodyid))
-  clio_annots$status <- NULL # not needed here
   # nothing to compare
   if (length(clio_annots) == 0) return(x)
 
