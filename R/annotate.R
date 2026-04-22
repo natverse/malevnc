@@ -285,16 +285,14 @@ parse_query <- function(query, version) {
 #'   active Clio schema before upload. Default \code{TRUE}.
 #' @param coerce_integerish Whether to coerce numeric-like character columns for
 #'   integer-valued Clio schema fields before upload. Default \code{TRUE}.
-#' @param dry_run New in 0.4.0. When \code{TRUE} (the default), no data is
-#'   written to Clio; instead a \code{tibble} is returned previewing the POST
-#'   body that would be sent. One row per input bodyid with at least one
-#'   field differing from Clio; one column per submitted field. Cells are
-#'   \code{NA} for fields that already match Clio (so would not be sent).
-#'   Server-side conditional writes (from \code{protect}) are \strong{not}
-#'   modelled — a protected field that Clio already has a non-empty value
-#'   for will still appear here, even though the server may refuse to
-#'   overwrite it. Set \code{dry_run=FALSE} to actually write. Requires a
-#'   data.frame input.
+#' @param dry_run When \code{TRUE} (the default), no data is written to Clio;
+#'   instead a \code{tibble} is returned with one row for each bodyid with at
+#'   least one field differing from Clio. Cells are \code{NA} if they already
+#'   match what is stored in Clio (and would therefore not be sent). Server-side
+#'   conditional writes (when \code{protect} is not \code{FALSE}) are
+#'   \strong{not} modelled — a protected field that already has a non-empty
+#'   value in Clio will still appear here, even though the server may refuse to
+#'   overwrite it. Set \code{dry_run=FALSE} to actually write.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
 #' @return \code{NULL} invisibly on success. Errors out on failure. When
