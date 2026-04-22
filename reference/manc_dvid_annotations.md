@@ -112,6 +112,7 @@ table(mdf$status)
 #>                    45                     3                  1617 
 
 manc_dvid_annotations('DNp01')
+#> Warning: NAs introduced by coercion to integer64 range
 #> # A tibble: 2 × 54
 #>   bodyid class      description entry_nerve exit_nerve group instance long_tract
 #>    <dbl> <chr>      <chr>       <chr>       <chr>      <dbl> <chr>    <chr>     

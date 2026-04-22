@@ -1,5 +1,40 @@
 # Changelog
 
+## malevnc 0.4.0
+
+**Breaking change** to
+[`manc_annotate_body()`](https://natverse.org/malevnc/reference/manc_annotate_body.md)
+defaults:
+
+- `test` now defaults to `FALSE` (was `TRUE`). Calls without an explicit
+  `test` argument now hit the production Clio store rather than the
+  (retired) test server.
+- New `dry_run` argument with default `TRUE`. Calls without an explicit
+  `dry_run` argument now return a preview `tibble` of the POST body that
+  would be sent, instead of writing annotations. Pass `dry_run=FALSE` to
+  actually write.
+
+Together these defaults make the function safe-by-default while actually
+offering an opportunity for end users to check the annotations to be
+uploaded. Since `test=FALSE` essentially always generated an error at
+the moment, it was not very useful. Existing scripts intended to write
+to Clio will need to add `dry_run=FALSE`; scripts that intentionally
+relied on the test server will need to add `test=TRUE`.
+
+Other changes in this release:
+
+- New `dry_run` argument on
+  [`manc_annotate_body()`](https://natverse.org/malevnc/reference/manc_annotate_body.md)
+  preview the POST body that would be sent to Clio, without writing.
+- Fix latent bug in `compute_clio_delta()` that stripped the fetched
+  `status` column, causing redundant writes of unchanged status values.
+- Clio schema type checks in
+  [`manc_annotate_body()`](https://natverse.org/malevnc/reference/manc_annotate_body.md)
+  based on `check_types`, `coerce_integerish` which default to `TRUE`.
+
+**Full Changelog**:
+<https://github.com/natverse/malevnc/compare/v0.3.3>…v0.4.0
+
 ## malevnc 0.3.3
 
 - switch to manc:v1.2.3 as default public dataset

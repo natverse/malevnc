@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">malevnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,16 +131,14 @@ customized behaviour.</p></dd>
 
 
 <dt id="arg-dry-run">dry_run<a class="anchor" aria-label="anchor" href="#arg-dry-run"></a></dt>
-<dd><p>New in 0.4.0. When <code>TRUE</code> (the default), no data is
-written to Clio; instead a <code>tibble</code> is returned previewing the POST
-body that would be sent. One row per input bodyid with at least one
-field differing from Clio; one column per submitted field. Cells are
-<code>NA</code> for fields that already match Clio (so would not be sent).
-Server-side conditional writes (from <code>protect</code>) are <strong>not</strong>
-modelled — a protected field that Clio already has a non-empty value
-for will still appear here, even though the server may refuse to
-overwrite it. Set <code>dry_run=FALSE</code> to actually write. Requires a
-data.frame input.</p></dd>
+<dd><p>When <code>TRUE</code> (the default), no data is written to Clio;
+instead a <code>tibble</code> is returned with one row for each bodyid with at
+least one field differing from Clio. Cells are <code>NA</code> if they already
+match what is stored in Clio (and would therefore not be sent). Server-side
+conditional writes (when <code>protect</code> is not <code>FALSE</code>) are
+<strong>not</strong> modelled — a protected field that already has a non-empty
+value in Clio will still appear here, even though the server may refuse to
+overwrite it. Set <code>dry_run=FALSE</code> to actually write.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

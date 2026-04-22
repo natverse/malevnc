@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">malevnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,19 @@
       <small>Source: <a href="https://github.com/natverse/malevnc/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="malevnc-040">malevnc 0.4.0<a class="anchor" aria-label="anchor" href="#malevnc-040"></a></h2>
+<p><strong>Breaking change</strong> to <code><a href="../reference/manc_annotate_body.html">manc_annotate_body()</a></code> defaults:</p>
+<ul><li>
+<code>test</code> now defaults to <code>FALSE</code> (was <code>TRUE</code>). Calls without an explicit <code>test</code> argument now hit the production Clio store rather than the (retired) test server.</li>
+<li>New <code>dry_run</code> argument with default <code>TRUE</code>. Calls without an explicit <code>dry_run</code> argument now return a preview <code>tibble</code> of the POST body that would be sent, instead of writing annotations. Pass <code>dry_run=FALSE</code> to actually write.</li>
+</ul><p>Together these defaults make the function safe-by-default while actually offering an opportunity for end users to check the annotations to be uploaded. Since <code>test=FALSE</code> essentially always generated an error at the moment, it was not very useful. Existing scripts intended to write to Clio will need to add <code>dry_run=FALSE</code>; scripts that intentionally relied on the test server will need to add <code>test=TRUE</code>.</p>
+<p>Other changes in this release:</p>
+<ul><li>New <code>dry_run</code> argument on <code><a href="../reference/manc_annotate_body.html">manc_annotate_body()</a></code> preview the POST body that would be sent to Clio, without writing.</li>
+<li>Fix latent bug in <code>compute_clio_delta()</code> that stripped the fetched <code>status</code> column, causing redundant writes of unchanged status values.</li>
+<li>Clio schema type checks in <code><a href="../reference/manc_annotate_body.html">manc_annotate_body()</a></code> based on <code>check_types</code>, <code>coerce_integerish</code> which default to <code>TRUE</code>.</li>
+</ul><p><strong>Full Changelog</strong>: <a href="https://github.com/natverse/malevnc/compare/v0.3.3" class="external-link uri">https://github.com/natverse/malevnc/compare/v0.3.3</a>…v0.4.0</p>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.3" id="malevnc-033">malevnc 0.3.3<a class="anchor" aria-label="anchor" href="#malevnc-033"></a></h2>
 <ul><li>switch to manc:v1.2.3 as default public dataset</li>

@@ -92,15 +92,14 @@ manc_annotate_body(
 
 - dry_run:
 
-  New in 0.4.0. When `TRUE` (the default), no data is written to Clio;
-  instead a `tibble` is returned previewing the POST body that would be
-  sent. One row per input bodyid with at least one field differing from
-  Clio; one column per submitted field. Cells are `NA` for fields that
-  already match Clio (so would not be sent). Server-side conditional
-  writes (from `protect`) are **not** modelled — a protected field that
-  Clio already has a non-empty value for will still appear here, even
-  though the server may refuse to overwrite it. Set `dry_run=FALSE` to
-  actually write. Requires a data.frame input.
+  When `TRUE` (the default), no data is written to Clio; instead a
+  `tibble` is returned with one row for each bodyid with at least one
+  field differing from Clio. Cells are `NA` if they already match what
+  is stored in Clio (and would therefore not be sent). Server-side
+  conditional writes (when `protect` is not `FALSE`) are **not**
+  modelled — a protected field that already has a non-empty value in
+  Clio will still appear here, even though the server may refuse to
+  overwrite it. Set `dry_run=FALSE` to actually write.
 
 - ...:
 

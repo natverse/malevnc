@@ -75,11 +75,13 @@ heatmap(data.matrix(dnals[grep("_out", colnames(dnals))]),
 
 # \donttest{
 dnls=manc_leg_summary('class:descending')
+#> Warning: NAs introduced by coercion to integer64 range
 heatmap(data.matrix(dnls[grep("_out", colnames(dnls))]),
   Colv = NA, scale = 'none')
 
 # }
 manc_side_summary('DNp01')
+#> Warning: NAs introduced by coercion to integer64 range
 #>   bodyid L_in L_out R_in R_out
 #> 1  10000    0     0    0     0
 #> 2  10002    0     0    0     0

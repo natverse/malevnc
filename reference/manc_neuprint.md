@@ -49,8 +49,10 @@ Other manc-neuprint:
 # \donttest{
 vncc=manc_neuprint()
 anchorids <- neuprintr::neuprint_ids("status:Anchor", conn=vncc)
+#> Warning: NAs introduced by coercion to integer64 range
 # the last connection will be used by default
 anchormeta <- neuprintr::neuprint_get_meta("status:Anchor")
+#> Warning: NAs introduced by coercion to integer64 range
 
 plot(cumsum(sort(anchormeta$pre, decreasing = TRUE)), ylab='Cumulative presynapses')
 

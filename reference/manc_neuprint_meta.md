@@ -78,6 +78,7 @@ cache currently lasts for 24h.
 ``` r
 # \donttest{
 manc_neuprint_meta("DNp01")
+#> Warning: NAs introduced by coercion to integer64 range
 #>   bodyid post  pre downstream upstream synweight             class description
 #> 1  10000 2002 1027       4318     2002      6320 descending neuron Giant fiber
 #> 2  10002 1902  933       3826     1902      5728 descending neuron Giant fiber
@@ -110,6 +111,7 @@ manc_neuprint_meta("DNp01")
 # be preceded by "n."
 bignogroup <-
   manc_neuprint_meta("where:NOT exists(n.group) AND n.synweight>5000 AND n.class CONTAINS 'neuron'")
+#> Warning: NAs introduced by coercion to integer64 range
 head(bignogroup)
 #>   bodyid post pre downstream upstream synweight          class description
 #> 1  28027  437 456       4868      437      5305 sensory neuron        <NA>
