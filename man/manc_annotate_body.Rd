@@ -6,7 +6,7 @@
 \usage{
 manc_annotate_body(
   x,
-  test = TRUE,
+  test = FALSE,
   version = NULL,
   write_empty_fields = FALSE,
   allow_new_fields = FALSE,
@@ -16,6 +16,7 @@ manc_annotate_body(
   protect = c("user"),
   chunksize = 50,
   query = TRUE,
+  dry_run = TRUE,
   ...
 )
 }
@@ -23,8 +24,9 @@ manc_annotate_body(
 \item{x}{A data.frame, list or JSON string containing body annotations.
 \bold{End users are strongly recommended to use data.frames.}}
 
-\item{test}{Whether to use the test clio store (recommended until you are
-sure you know what you are doing).}
+\item{test}{Whether to use the test clio store. The default \code{FALSE}
+writes to the production Clio store; set to \code{TRUE} to use the test
+server instead. (Prior to 0.4.0 the default was \code{TRUE}.)}
 
 \item{version}{Optional clio version to associate with this annotation. The
 default \code{NULL} uses the current version returned by the API.}
@@ -66,10 +68,22 @@ Set to \code{Inf} to insist that all records are sent in a single request.
 passed with Clio version, FALSE means no query, and list is allowed for a
 customized behaviour.}
 
+\item{dry_run}{New in 0.4.0. When \code{TRUE} (the default), no data is
+written to Clio; instead a \code{tibble} is returned previewing the POST
+body that would be sent. One row per input bodyid with at least one
+field differing from Clio; one column per submitted field. Cells are
+\code{NA} for fields that already match Clio (so would not be sent).
+Server-side conditional writes (from \code{protect}) are \strong{not}
+modelled — a protected field that Clio already has a non-empty value
+for will still appear here, even though the server may refuse to
+overwrite it. Set \code{dry_run=FALSE} to actually write. Requires a
+data.frame input.}
+
 \item{...}{Additional parameters passed to \code{pbapply::\link{pbsapply}}}
 }
 \value{
-\code{NULL} invisibly on success. Errors out on failure.
+\code{NULL} invisibly on success. Errors out on failure. When
+  \code{dry_run=TRUE} returns a \code{tibble} (see \code{dry_run} above).
 }
 \description{
 Set Clio body annotations
@@ -161,6 +175,10 @@ manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
 #' # overwrite all fields in database even if supplied data has empty values
 manc_annotate_body(list(bodyid=10002, class='',
   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
+
+# preview what would actually be written, without touching Clio
+manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',
+  description='Giant Fiber'), test=TRUE, dry_run=TRUE)
 }
 }
 \seealso{

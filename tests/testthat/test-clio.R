@@ -53,6 +53,48 @@ test_that("compute_clio_delta works", {
   expect_equal(length(compute_clio_delta(tstlist)), 2)
 })
 
+test_that("manc_annotate_body dry_run matches live Clio state", {
+  skip_if(inherits(try(clio_token(), silent = T), 'try-error'),
+          message = "no clio token available")
+
+  mba <- manc_body_annotations(ids = 11442)
+  skip_if(is.null(mba) || nrow(mba) != 1,
+          "reference bodyid 11442 has no annotations")
+
+  # pick two populated scalar-string clio fields we can compare cleanly
+  candidates <- c("type", "soma_side", "status", "class", "subclass",
+                  "description")
+  populated <- candidates[vapply(intersect(candidates, colnames(mba)),
+                                 function(nm) {
+                                   v <- mba[[nm]]
+                                   is.character(v) && length(v) == 1 &&
+                                     !is.na(v) && nzchar(v)
+                                 }, logical(1))]
+  skip_if(length(populated) < 2, "need at least 2 populated string fields")
+
+  same <- mba[, c("bodyid", populated), drop = FALSE]
+
+  # round-trip: identical data should preview no changes
+  dry_same <- manc_annotate_body(same, test = FALSE, dry_run = TRUE,
+                                 protect = FALSE, check_types = FALSE)
+  expect_s3_class(dry_same, "tbl_df")
+  expect_equal(nrow(dry_same), 0)
+
+  # change one field -> exactly that field previews as a pending write,
+  # the other submitted fields preview as NA (unchanged)
+  nm1 <- populated[1]
+  changed <- same
+  changed[[nm1]] <- paste0(changed[[nm1]], "__dryrun_sentinel")
+  dry_chg <- manc_annotate_body(changed, test = FALSE, dry_run = TRUE,
+                                protect = FALSE, check_types = FALSE)
+  expect_equal(nrow(dry_chg), 1)
+  expect_equal(dry_chg[[nm1]], changed[[nm1]])
+  for (nm in setdiff(populated, nm1)) {
+    expect_true(is.na(dry_chg[[nm]]),
+                info = sprintf("unchanged field %s should preview as NA", nm))
+  }
+})
+
 test_that("manc_annotate_body works", {
   skip("Skipping since Clio test server is no longer available.")
   # just enough randomness to make collisions unlikely

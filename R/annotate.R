@@ -103,7 +103,6 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
                                        test = test)
   if (length(clio_annots) == 0) return(x)
   clio_annots <- clio_annots %>% filter(!is.na(.data$bodyid))
-  clio_annots$status <- NULL # not needed here
   # nothing to compare
   if (length(clio_annots) == 0) return(x)
 
@@ -143,6 +142,32 @@ compute_clio_delta <- function(x, test=TRUE, write_empty_fields = FALSE) {
   delta_list <- delta_list[!is.na(delta_list)]
   out_list <- do.call(c, list(out_list, delta_list))
   out_list
+}
+
+# Returns a tibble previewing the POST body that manc_annotate_body
+# would send to Clio. One row per input bodyid with at least one field
+# differing from Clio; one column per submitted field. Cells are NA for
+# fields that match Clio (so would not be sent). Server-side conditional
+# writes (`protect`) are not modelled — if `protect` covers a field that
+# Clio already has a non-empty value for, the server may still reject
+# the update even if this preview shows it.
+compute_clio_dry_run <- function(x, test = TRUE, write_empty_fields = FALSE) {
+  delta <- compute_clio_delta(x, test = test,
+                              write_empty_fields = write_empty_fields)
+  if (length(delta) == 0)
+    return(tibble::tibble(bodyid = bit64::integer64()))
+  all_fields <- setdiff(unique(unlist(lapply(x, names))), "bodyid")
+  dfs <- lapply(delta, function(r) {
+    cells <- setNames(c(list(r$bodyid), rep(list(NA), length(all_fields))),
+                      c("bodyid", all_fields))
+    for (nm in intersect(names(r), all_fields)) {
+      v <- r[[nm]]
+      cells[[nm]] <- if (length(v) > 1 || is.list(v) || is.matrix(v)) list(v)
+                     else v
+    }
+    tibble::as_tibble(cells)
+  })
+  dplyr::bind_rows(dfs)
 }
 
 # Returns default query list or extends the existing list
@@ -228,8 +253,9 @@ parse_query <- function(query, version) {
 #'   \bold{End users are strongly recommended to use data.frames.}
 #' @param version Optional clio version to associate with this annotation. The
 #'   default \code{NULL} uses the current version returned by the API.
-#' @param test Whether to use the test clio store (recommended until you are
-#'   sure you know what you are doing).
+#' @param test Whether to use the test clio store. The default \code{FALSE}
+#'   writes to the production Clio store; set to \code{TRUE} to use the test
+#'   server instead. (Prior to 0.4.0 the default was \code{TRUE}.)
 #' @param designated_user Optional email address when one person is uploading
 #'   annotations on behalf of another user. See \bold{Users} section for
 #'   details.
@@ -259,9 +285,20 @@ parse_query <- function(query, version) {
 #'   active Clio schema before upload. Default \code{TRUE}.
 #' @param coerce_integerish Whether to coerce numeric-like character columns for
 #'   integer-valued Clio schema fields before upload. Default \code{TRUE}.
+#' @param dry_run New in 0.4.0. When \code{TRUE} (the default), no data is
+#'   written to Clio; instead a \code{tibble} is returned previewing the POST
+#'   body that would be sent. One row per input bodyid with at least one
+#'   field differing from Clio; one column per submitted field. Cells are
+#'   \code{NA} for fields that already match Clio (so would not be sent).
+#'   Server-side conditional writes (from \code{protect}) are \strong{not}
+#'   modelled — a protected field that Clio already has a non-empty value
+#'   for will still appear here, even though the server may refuse to
+#'   overwrite it. Set \code{dry_run=FALSE} to actually write. Requires a
+#'   data.frame input.
 #' @param ... Additional parameters passed to \code{pbapply::\link{pbsapply}}
 #'
-#' @return \code{NULL} invisibly on success. Errors out on failure.
+#' @return \code{NULL} invisibly on success. Errors out on failure. When
+#'   \code{dry_run=TRUE} returns a \code{tibble} (see \code{dry_run} above).
 #' @family manc-annotation
 #' @export
 #'
@@ -287,14 +324,19 @@ parse_query <- function(query, version) {
 #' #' # overwrite all fields in database even if supplied data has empty values
 #' manc_annotate_body(list(bodyid=10002, class='',
 #'   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
+#'
+#' # preview what would actually be written, without touching Clio
+#' manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',
+#'   description='Giant Fiber'), test=TRUE, dry_run=TRUE)
 #' }
-manc_annotate_body <- function(x, test=TRUE, version=NULL,
+manc_annotate_body <- function(x, test=FALSE, version=NULL,
                                write_empty_fields=FALSE,
                                allow_new_fields=FALSE,
                                check_types=TRUE,
                                coerce_integerish=TRUE,
                                designated_user=NULL,
-                               protect=c("user"), chunksize=50, query=TRUE, ...) {
+                               protect=c("user"), chunksize=50, query=TRUE,
+                               dry_run=TRUE, ...) {
   query=parse_query(query, version=version)
   dataset=getOption('malevnc.dataset', default = 'VNC')
   fafbseg:::check_package_available('purrr')
@@ -315,6 +357,12 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
         schema_compare(x)
       }
       x <- clioannotationdf2list(x, write_empty_fields = write_empty_fields)
+      if (isTRUE(dry_run)) {
+        if (length(x) == 0)
+          return(tibble::tibble(bodyid = bit64::integer64()))
+        return(compute_clio_dry_run(x, test = test,
+                                    write_empty_fields = write_empty_fields))
+      }
       if (length(x) > 0)
         x <- compute_clio_delta(x, test = test, write_empty_fields = write_empty_fields)
 
@@ -338,6 +386,8 @@ manc_annotate_body <- function(x, test=TRUE, version=NULL,
       }
     } else if(!is.list(x))
       stop("x should be a data.frame, list or JSON character vector!")
+    if (isTRUE(dry_run))
+      stop("dry_run=TRUE currently requires a data.frame input.")
 
     fields=unique(unlist(purrr::map(x, names)))
     if(is.null(fields)) fields = names(x)
