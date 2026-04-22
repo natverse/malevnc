@@ -42,7 +42,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">manc_annotate_body</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  test <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  test <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  version <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  write_empty_fields <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  allow_new_fields <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -52,6 +52,7 @@
 <span>  protect <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"user"</span><span class="op">)</span>,</span>
 <span>  chunksize <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>  query <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  dry_run <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -66,8 +67,9 @@
 
 
 <dt id="arg-test">test<a class="anchor" aria-label="anchor" href="#arg-test"></a></dt>
-<dd><p>Whether to use the test clio store (recommended until you are
-sure you know what you are doing).</p></dd>
+<dd><p>Whether to use the test clio store. The default <code>FALSE</code>
+writes to the production Clio store; set to <code>TRUE</code> to use the test
+server instead. (Prior to 0.4.0 the default was <code>TRUE</code>.)</p></dd>
 
 
 <dt id="arg-version">version<a class="anchor" aria-label="anchor" href="#arg-version"></a></dt>
@@ -128,13 +130,27 @@ passed with Clio version, FALSE means no query, and list is allowed for a
 customized behaviour.</p></dd>
 
 
+<dt id="arg-dry-run">dry_run<a class="anchor" aria-label="anchor" href="#arg-dry-run"></a></dt>
+<dd><p>New in 0.4.0. When <code>TRUE</code> (the default), no data is
+written to Clio; instead a <code>tibble</code> is returned previewing the POST
+body that would be sent. One row per input bodyid with at least one
+field differing from Clio; one column per submitted field. Cells are
+<code>NA</code> for fields that already match Clio (so would not be sent).
+Server-side conditional writes (from <code>protect</code>) are <strong>not</strong>
+modelled — a protected field that Clio already has a non-empty value
+for will still appear here, even though the server may refuse to
+overwrite it. Set <code>dry_run=FALSE</code> to actually write. Requires a
+data.frame input.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional parameters passed to <code><a href="https://peter.solymos.org/pbapply/reference/pbapply.html" class="external-link">pbapply::pbsapply</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>NULL</code> invisibly on success. Errors out on failure.</p>
+    <p><code>NULL</code> invisibly on success. Errors out on failure. When
+  <code>dry_run=TRUE</code> returns a <code>tibble</code> (see <code>dry_run</code> above).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -224,6 +240,10 @@ customized behaviour.</p></dd>
 <span class="r-in"><span><span class="co">#' # overwrite all fields in database even if supplied data has empty values</span></span></span>
 <span class="r-in"><span><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">''</span>,</span></span>
 <span class="r-in"><span>  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span>, protect<span class="op">=</span><span class="cn">FALSE</span>, write_empty_fields <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># preview what would actually be written, without touching Clio</span></span></span>
+<span class="r-in"><span><span class="fu">manc_annotate_body</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>bodyid<span class="op">=</span><span class="fl">10002</span>, class<span class="op">=</span><span class="st">'Descending Neuron'</span>,</span></span>
+<span class="r-in"><span>  description<span class="op">=</span><span class="st">'Giant Fiber'</span><span class="op">)</span>, test<span class="op">=</span><span class="cn">TRUE</span>, dry_run<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

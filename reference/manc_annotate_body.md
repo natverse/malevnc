@@ -7,7 +7,7 @@ Set Clio body annotations
 ``` r
 manc_annotate_body(
   x,
-  test = TRUE,
+  test = FALSE,
   version = NULL,
   write_empty_fields = FALSE,
   allow_new_fields = FALSE,
@@ -17,6 +17,7 @@ manc_annotate_body(
   protect = c("user"),
   chunksize = 50,
   query = TRUE,
+  dry_run = TRUE,
   ...
 )
 ```
@@ -30,8 +31,9 @@ manc_annotate_body(
 
 - test:
 
-  Whether to use the test clio store (recommended until you are sure you
-  know what you are doing).
+  Whether to use the test clio store. The default `FALSE` writes to the
+  production Clio store; set to `TRUE` to use the test server instead.
+  (Prior to 0.4.0 the default was `TRUE`.)
 
 - version:
 
@@ -88,6 +90,18 @@ manc_annotate_body(
   with Clio version, FALSE means no query, and list is allowed for a
   customized behaviour.
 
+- dry_run:
+
+  New in 0.4.0. When `TRUE` (the default), no data is written to Clio;
+  instead a `tibble` is returned previewing the POST body that would be
+  sent. One row per input bodyid with at least one field differing from
+  Clio; one column per submitted field. Cells are `NA` for fields that
+  already match Clio (so would not be sent). Server-side conditional
+  writes (from `protect`) are **not** modelled — a protected field that
+  Clio already has a non-empty value for will still appear here, even
+  though the server may refuse to overwrite it. Set `dry_run=FALSE` to
+  actually write. Requires a data.frame input.
+
 - ...:
 
   Additional parameters passed to
@@ -95,7 +109,8 @@ manc_annotate_body(
 
 ## Value
 
-`NULL` invisibly on success. Errors out on failure.
+`NULL` invisibly on success. Errors out on failure. When `dry_run=TRUE`
+returns a `tibble` (see `dry_run` above).
 
 ## Details
 
@@ -194,5 +209,9 @@ manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
 #' # overwrite all fields in database even if supplied data has empty values
 manc_annotate_body(list(bodyid=10002, class='',
   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
+
+# preview what would actually be written, without touching Clio
+manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',
+  description='Giant Fiber'), test=TRUE, dry_run=TRUE)
 } # }
 ```
