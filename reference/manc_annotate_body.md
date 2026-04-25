@@ -7,17 +7,14 @@ Set Clio body annotations
 ``` r
 manc_annotate_body(
   x,
-  test = FALSE,
+  test = TRUE,
   version = NULL,
   write_empty_fields = FALSE,
   allow_new_fields = FALSE,
-  check_types = TRUE,
-  coerce_integerish = TRUE,
   designated_user = NULL,
   protect = c("user"),
   chunksize = 50,
   query = TRUE,
-  dry_run = TRUE,
   ...
 )
 ```
@@ -31,9 +28,8 @@ manc_annotate_body(
 
 - test:
 
-  Whether to use the test clio store. The default `FALSE` writes to the
-  production Clio store; set to `TRUE` to use the test server instead.
-  (Prior to 0.4.0 the default was `TRUE`.)
+  Whether to use the test clio store (recommended until you are sure you
+  know what you are doing).
 
 - version:
 
@@ -53,16 +49,6 @@ manc_annotate_body(
 
   Whether to allow creation of new clio fields. Default `FALSE` will
   produce an error encouraging you to check the field names.
-
-- check_types:
-
-  Whether to verify data-frame column types against the active Clio
-  schema before upload. Default `TRUE`.
-
-- coerce_integerish:
-
-  Whether to coerce numeric-like character columns for integer-valued
-  Clio schema fields before upload. Default `TRUE`.
 
 - designated_user:
 
@@ -90,17 +76,6 @@ manc_annotate_body(
   with Clio version, FALSE means no query, and list is allowed for a
   customized behaviour.
 
-- dry_run:
-
-  When `TRUE` (the default), no data is written to Clio; instead a
-  `tibble` is returned with one row for each bodyid with at least one
-  field differing from Clio. Cells are `NA` if they already match what
-  is stored in Clio (and would therefore not be sent). Server-side
-  conditional writes (when `protect` is not `FALSE`) are **not**
-  modelled — a protected field that already has a non-empty value in
-  Clio will still appear here, even though the server may refuse to
-  overwrite it. Set `dry_run=FALSE` to actually write.
-
 - ...:
 
   Additional parameters passed to
@@ -108,8 +83,7 @@ manc_annotate_body(
 
 ## Value
 
-`NULL` invisibly on success. Errors out on failure. When `dry_run=TRUE`
-returns a `tibble` (see `dry_run` above).
+`NULL` invisibly on success. Errors out on failure.
 
 ## Details
 
@@ -208,9 +182,5 @@ manc_annotate_body(list(bodyid=10002, class='Descending Neuron',
 #' # overwrite all fields in database even if supplied data has empty values
 manc_annotate_body(list(bodyid=10002, class='',
   description='Giant Fiber'), test=TRUE, protect=FALSE, write_empty_fields = TRUE)
-
-# preview what would actually be written, without touching Clio
-manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',
-  description='Giant Fiber'), test=TRUE, dry_run=TRUE)
 } # }
 ```
