@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">malevnc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Return clio-store body annotations for set of ids or a flexible query</h1>
-      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/v0.4.0/R/annotations.R" class="external-link"><code>R/annotations.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/natverse/malevnc/blob/master/R/annotations.R" class="external-link"><code>R/annotations.R</code></a></small>
       <div class="d-none name"><code>manc_body_annotations.Rd</code></div>
     </div>
 
@@ -159,88 +159,88 @@ docs from Bill Katz</a>.</p>
 <span class="r-in"><span><span class="va">mba</span><span class="op">=</span><span class="fu">manc_body_annotations</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="fu">clio_fields</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "target"                     "to_review_user"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] "synonyms"                   "nt_gaba_prob_user"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5] "neuropils_axonal_time"      "predicted_nt"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "entry_nerve_user"           "neuropils_dendritic_user"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [9] "class_time"                 "position_type_user"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [11] "soma_position_time"         "soma_side"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "subclass"                   "tosoma_position"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "nt_gaba_prob_time"          "soma_side_user"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [17] "type_time"                  "serial_motif"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "confidence_time"            "bodyid"                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [21] "serial_motif_time"          "naming_user_time"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [23] "class"                      "long_tract_time"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "instance_time"              "old_bodyids_time"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [27] "vfb_id_user"                "origin_user"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [29] "group_time"                 "entry_nerve"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "root_position"              "receptor_type_time"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [33] "status_user"                "source_time"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [35] "group_old"                  "systematic_type"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "tosoma_position_time"       "subclass_time"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [39] "predicted_nt_prob_time"     "tosoma_position_user"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [41] "entry_nerve_time"           "target_time"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "predicted_nt_prob_user"     "subclass_user"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [45] "modality_time"              "systematic_type_time"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [47] "soma_position"              "neuropils_dendritic_time"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "type"                       "reviewer_user"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [51] "nt_acetylcholine_prob_user" "serial_motif_user"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [53] "root_position_time"         "nt_glutamate_prob_time"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "class_user"                 "nt_unknown_prob"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [57] "description"                "old_bodyids_user"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [59] "confidence"                 "receptor_type"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "avg_location"               "tag_user"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [63] "old_bodyids"                "root_side_user"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [65] "source"                     "soma_neuromere"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "reviewer_time"              "to_review"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [69] "subclassabbr"               "position"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [71] "group_old_time"             "exit_nerve_user"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "root_side"                  "typing_notes_time"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] "transmission_time"          "position_user"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [77] "origin_time"                "tag_time"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "typing_notes_user"          "neuropils_axonal_user"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [81] "position_type"              "subcluster_time"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [83] "predicted_nt_prob"          "long_tract_user"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "prefix"                     "hemilineage_user"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [87] "naming_user"                "modality_user"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [89] "birthtime"                  "instance"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "tag"                        "receptor_type_user"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [93] "cluster_time"               "vfb_id"                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [95] "prefix_user"                "source_user"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "modality"                   "target_user"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [99] "soma_position_user"         "subcluster_user"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [101] "subclassabbr_time"          "avg_location_user"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "synonyms_user"              "neuropils_axonal"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [105] "soma_neuromere_user"        "group_user"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [107] "nt_glutamate_prob_user"     "fru_dsx"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "cluster_user"               "long_tract"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [111] "exit_nerve"                 "hemilineage_time"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [113] "cluster"                    "neuropils_dendritic"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "nt_unknown_prob_time"       "birthtime_time"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [117] "typing_notes"               "nt_acetylcholine_prob_time"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [119] "description_time"           "exit_nerve_time"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "user_time"                  "confidence_user"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [123] "subclassabbr_user"          "prefix_time"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [125] "description_user"           "position_type_time"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "fru_dsx_user"               "group"                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [129] "subcluster"                 "to_review_time"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [131] "group_old_user"             "serial_user"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [133] "fru_dsx_time"               "vfb_id_time"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [135] "instance_user"              "reviewer"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [137] "user"                       "predicted_nt_time"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [139] "birthtime_user"             "synonyms_time"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [141] "serial"                     "user_user"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [143] "hemilineage"                "soma_neuromere_time"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [145] "naming_user_user"           "transmission"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [147] "systematic_type_user"       "origin"                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [149] "soma_side_time"             "transmission_user"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [151] "status"                     "avg_location_time"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [153] "root_side_time"             "nt_glutamate_prob"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [155] "position_time"              "serial_time"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [157] "nt_acetylcholine_prob"      "nt_unknown_prob_user"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [159] "nt_gaba_prob"               "predicted_nt_user"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [161] "status_time"                "type_user"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [163] "root_position_user"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "predicted_nt_prob_user"     "source_user"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] "nt_glutamate_prob_user"     "neuropils_dendritic_user"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5] "long_tract_user"            "tag"                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "synonyms_user"              "position_type_user"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [9] "confidence_user"            "bodyid"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [11] "origin"                     "reviewer_user"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "neuropils_axonal"           "serial"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "nt_gaba_prob_time"          "group"                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [17] "prefix_user"                "soma_neuromere_user"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "description_time"           "predicted_nt"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [21] "vfb_id_user"                "position"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [23] "position_type"              "class_time"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "naming_user_time"           "predicted_nt_prob"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [27] "position_time"              "user_time"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [29] "cluster"                    "old_bodyids_user"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "birthtime_time"             "tag_user"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [33] "position_user"              "source"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [35] "serial_motif"               "group_time"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "root_side"                  "instance_user"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [39] "reviewer"                   "root_position_time"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [41] "typing_notes_user"          "group_old_time"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "group_old_user"             "nt_unknown_prob_user"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [45] "old_bodyids"                "reviewer_time"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [47] "position_type_time"         "modality_user"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "instance"                   "subclass"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [51] "user_user"                  "tag_time"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [53] "subclass_user"              "nt_gaba_prob"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "serial_motif_user"          "nt_glutamate_prob"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [57] "exit_nerve_time"            "type"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [59] "class_user"                 "group_old"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "soma_neuromere"             "receptor_type_user"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [63] "tosoma_position_time"       "naming_user"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [65] "nt_gaba_prob_user"          "serial_user"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "instance_time"              "cluster_time"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [69] "exit_nerve"                 "vfb_id_time"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [71] "nt_unknown_prob_time"       "nt_unknown_prob"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "tosoma_position_user"       "entry_nerve_time"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] "prefix_time"                "root_side_time"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [77] "subclassabbr"               "status_time"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "transmission_time"          "root_position"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [81] "hemilineage_time"           "subcluster"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [83] "source_time"                "nt_acetylcholine_prob_user"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "birthtime_user"             "entry_nerve_user"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [87] "subcluster_time"            "subcluster_user"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [89] "modality_time"              "nt_acetylcholine_prob_time"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "predicted_nt_user"          "tosoma_position"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [93] "description_user"           "to_review_user"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [95] "origin_user"                "fru_dsx_time"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "subclassabbr_user"          "target_time"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [99] "soma_side_user"             "birthtime"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [101] "confidence"                 "systematic_type_time"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "user"                       "long_tract_time"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [105] "avg_location_time"          "target"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [107] "soma_position_user"         "typing_notes_time"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "to_review_time"             "predicted_nt_prob_time"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [111] "transmission_user"          "fru_dsx_user"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [113] "nt_glutamate_prob_time"     "avg_location"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "class"                      "long_tract"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [117] "synonyms_time"              "exit_nerve_user"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [119] "hemilineage_user"           "neuropils_dendritic_time"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "nt_acetylcholine_prob"      "subclassabbr_time"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [123] "systematic_type_user"       "soma_position"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [125] "description"                "root_position_user"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "receptor_type_time"         "entry_nerve"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [129] "old_bodyids_time"           "origin_time"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [131] "confidence_time"            "typing_notes"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [133] "soma_side"                  "modality"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [135] "type_user"                  "vfb_id"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [137] "transmission"               "fru_dsx"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [139] "soma_side_time"             "avg_location_user"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [141] "hemilineage"                "synonyms"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [143] "prefix"                     "soma_neuromere_time"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [145] "neuropils_axonal_user"      "status_user"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [147] "serial_motif_time"          "group_user"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [149] "predicted_nt_time"          "serial_time"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [151] "receptor_type"              "to_review"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [153] "naming_user_user"           "soma_position_time"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [155] "subclass_time"              "root_side_user"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [157] "type_time"                  "neuropils_dendritic"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [159] "cluster_user"               "neuropils_axonal_time"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [161] "status"                     "systematic_type"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [163] "target_user"               </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
