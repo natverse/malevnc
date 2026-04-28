@@ -49,7 +49,12 @@ manc_dvid_node <- function(type=c("clio", "neutu", "neuprint", "master"), cached
     vncc=manc_neuprint()
     ds=neuprintr::neuprint_datasets(cache = cached, conn=vncc)
     nds=sort(names(ds),decreasing = T)
-    midx=match(tolower(dsname), sub(":.+", "", nds))
+    # try a direct match first (handles versioned dsnames like
+    # "male-cns:v0.13"), then fall back to stripping the version off nds for
+    # unversioned dsnames like "MANC" matching nds entries like "manc:v1.2.3"
+    midx=match(tolower(dsname), tolower(nds))
+    if(is.na(midx))
+      midx=match(tolower(dsname), sub(":.+", "", nds))
     if(is.na(midx)) {
       # try harder to find the neuprint node
       cds=clio_datasets(cached=cached)
