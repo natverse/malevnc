@@ -34,6 +34,7 @@ See Bogovic et al. (2018)
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 # one time install of optional package if you don't have it
 if(!requireNamespace('nat.jrcbrains'))

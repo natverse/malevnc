@@ -188,6 +188,7 @@ Other manc-annotation:
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 # note use of test server
 manc_annotate_body(data.frame(bodyid=10002, class='Descending Neuron',

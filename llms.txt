@@ -14,6 +14,7 @@ and tools at
 You can install the development version of malevnc from github:
 
 ``` r
+
 install.packages("natmanager")
 natmanager::install(pkgs="malevnc")
 ```
@@ -33,12 +34,14 @@ Case 1 is now the default. If you usually need the second option then
 you must set
 
 ``` r
+
 options(malevnc.dataset='VNC')
 ```
 
 in your `.Rprofile` e.g. by doing
 
 ``` r
+
 usethis::edit_r_profile()
 ```
 
@@ -46,6 +49,7 @@ You can also make a temporary change in the middle of a session by doing
 one of:
 
 ``` r
+
 malevnc:::choose_malevnc_dataset('VNC')
 malevnc:::choose_malevnc_dataset('MANC')
 ```
@@ -86,6 +90,7 @@ CMTK. To use these you will need a CMTK installation.
 Check that the natverse has found CMTK like so:
 
 ``` r
+
 nat::cmtk.bindir()
 nat::cmtk.dof2mat(version = T)
 ```
@@ -95,6 +100,7 @@ nat::cmtk.dof2mat(version = T)
 You can check everything is working like so:
 
 ``` r
+
 library(nat)
 library(malevnc)
 plot3d(MANC.surf)

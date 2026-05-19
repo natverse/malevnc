@@ -119,11 +119,9 @@ supersedes
 # \donttest{
 # just the XYZ position
 manc_somapos(10000)
-#>       X  Y  Z
-#> [1,] NA NA NA
+#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
 # with details including data source
 manc_somapos(10000, details=TRUE)
-#>   bodyid  n  X  Y  Z source  tag
-#> 1  10000 NA NA NA NA   <NA> <NA>
+#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
 # }
 ```
