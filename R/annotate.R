@@ -378,6 +378,7 @@ manc_annotate_body <- function(x, test=FALSE, version=NULL,
           test=test,
           chunksize=Inf,
           protect=protect,
+          dry_run=dry_run,
           ...
         )
         return(invisible(res))
