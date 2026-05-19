@@ -83,7 +83,8 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
   if(length(nodes)<1)
     stop("Must supply at least one node")
   if(length(nodes)>1) {
-    l=pbapply::pblapply(nodes, manc_mutations, ...)
+    l=pbapply::pblapply(nodes, manc_mutations,
+                        include_first=include_first, bigcols=bigcols, ...)
     df=dplyr::bind_rows(l)
     attr(df, 'dvid_node')=nodes
     return(df)
@@ -161,11 +162,11 @@ manc_islatest <- function(ids, node="neutu",
       res[found]=T
       if(any(!found)) {
         # we still have some to check, we'll do them the old-fashioned way
-        res[!found]=manc_islatest(ids[!found], node=node, method='size')
+        res[!found]=manc_islatest(ids[!found], node=node, method='size', ...)
       }
       return(res)
     }
-    sizes=manc_size(ids, node=node)
+    sizes=manc_size(ids, node=node, ...)
     # should be 0 when missing, but just in case
     sizes>0 & !is.na(sizes)
   }
