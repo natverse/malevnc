@@ -1,23 +1,35 @@
+# NB `server` is part of the memoise key — without it the cache collides
+# whenever two datasets share a Root UUID but live on different DVID servers
+# (e.g. public `male-cns:v0.9` on emdata-mcns vs production CNS DVID).
+# Querying the wrong server returns a DAG that does not contain the expected
+# neuprint snapshot node and downstream calls such as expand_dvid_nodes()
+# then fail. The `with_options(malevnc.server = server)` wrapper ensures the
+# URL built by manc_serverurl() matches the `server` value in the memoise key
+# even if a caller passes `server` explicitly.
 manc_dvid_info <-
   memoise::memoise(cache = cache_mem(max_age = 3600),
-                   function(rootnode = getOption("malevnc.rootnode")) {
-  u = manc_serverurl("api/repo/%s/info", rootnode)
-  info = try(jsonlite::fromJSON(readLines(u, warn = F)))
-  if (inherits(info, 'try-error'))
-   stop("Failed to read DVID summary information!")
-  info
-})
+                   function(rootnode = getOption("malevnc.rootnode"),
+                            server   = getOption("malevnc.server")) {
+    u = withr::with_options(list(malevnc.server = server),
+                            manc_serverurl("api/repo/%s/info", rootnode))
+    info = try(jsonlite::fromJSON(readLines(u, warn = F)))
+    if (inherits(info, 'try-error'))
+      stop("Failed to read DVID summary information!")
+    info
+  })
 
 
 manc_branch_versions <-
   memoise::memoise(cache = cache_mem(max_age = 3600),
-                   function(rootnode = getOption("malevnc.rootnode")) {
-                     u = manc_serverurl("api/repo/%s/branch-versions/master", rootnode)
-                     info = try(jsonlite::fromJSON(readLines(u, warn = F)))
-                     if (inherits(info, 'try-error'))
-                       stop("Failed to read DVID branch versions information!")
-                     info
-                   })
+                   function(rootnode = getOption("malevnc.rootnode"),
+                            server   = getOption("malevnc.server")) {
+    u = withr::with_options(list(malevnc.server = server),
+                            manc_serverurl("api/repo/%s/branch-versions/master", rootnode))
+    info = try(jsonlite::fromJSON(readLines(u, warn = F)))
+    if (inherits(info, 'try-error'))
+      stop("Failed to read DVID branch versions information!")
+    info
+  })
 
 #' Information about DVID nodes / return latest node
 #'
