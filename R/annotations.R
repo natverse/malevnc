@@ -251,9 +251,10 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
   show.extra=match.arg(show.extra)
   nmissing=sum(is.null(ids), is.null(query))
   FUN=if(cache) clio_fetch_memo else clio_fetch
+  ql=list(changes = "false", id_field = "bodyid", show=show.extra)
   if(nmissing==2) {
     # fetch all annotations
-    res=FUN(file.path(baseurl, 'all'), config = config, json = json)
+    res=FUN(file.path(baseurl, 'all'), config = config, query = ql, json = json)
     if(is.list(res$bodyid)) {
       lengths=sapply(res$bodyid, length)
       nbadlengths=sum(lengths!=1)
@@ -270,7 +271,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
 
   if(!is.null(ids)) {
     ids=manc_ids(ids)
-    if(length(ids)>1000 && !json) {
+    if(length(ids)>10000 && !json) {
       # it's quicker to fetch all and then filter post hoc
       # but we can't do that with json
       mba=manc_body_annotations(cache=cache, config=config, update.bodyids=update.bodyids, test=test, show.extra=show.extra, ...)
@@ -302,7 +303,6 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
       query
     }
   }
-  ql=list(changes = "false", id_field = "bodyid", show=show.extra)
   res=FUN(
     u,
     body = body,

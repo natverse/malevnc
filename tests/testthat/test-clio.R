@@ -29,6 +29,36 @@ test_that("manc_body_annotations works", {
   expect_equal(mm[colnames(mba)], mba)
 })
 
+test_that("manc_body_annotations preserves show.extra for large id requests", {
+  ids <- as.character(seq_len(1001))
+  all_rows <- data.frame(
+    bodyid = ids,
+    user = "janedoe@gmail.com",
+    stringsAsFactors = FALSE
+  )
+
+  for (show.extra in c("user", "all")) {
+    requested <- new.env(parent = emptyenv())
+    testthat::local_mocked_bindings(
+      manc_ids = function(x, ...) as.character(x),
+      clio_fetch = function(url, config = NULL, ..., body = NULL, query = NULL,
+                            json = FALSE, app = "natverse") {
+        requested$url <- url
+        requested$query <- query
+        all_rows
+      },
+      .package = "malevnc"
+    )
+
+    res <- manc_body_annotations(ids = ids, show.extra = show.extra)
+
+    expect_match(requested$url, "/all$")
+    expect_equal(requested$query$show, show.extra)
+    expect_equal(nrow(res), length(ids))
+    expect_true("user" %in% colnames(res))
+  }
+})
+
 test_that("manc_body_annotations test-server writes", {
   skip("Skipping since Clio test server is no longer available.")
   expect_error(manc_annotate_body(data.frame(bodyid="9223372036854775809", entry_nerve='None'), test = T))
