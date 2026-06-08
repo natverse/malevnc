@@ -42,10 +42,10 @@ faster when up to date.
 
 ``` r
 manc_size(10056)
-#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
+#> [1] 9371355727
 # zero as doesn't exist
 manc_size(10000056)
-#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
+#> [1] 0
 if (FALSE) { # \dontrun{
 # try splitting up
 ids=manc_size("class:Ascending Interneuron", chunksize=500L, cl=4)

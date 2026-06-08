@@ -37,11 +37,11 @@ A UUID string
 ``` r
 # \donttest{
 manc_dvid_node()
-#> Error in manc_dvid_node(): The package option malevnc.dataset is unset. Please set or manually reload package!
+#> [1] "dabe640270a24993b0805a2b563a2db5"
 manc_dvid_node('neutu')
-#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
+#> [1] "dabe640270a24993b0805a2b563a2db5"
 # force
 manc_dvid_node('neuprint', cached=FALSE)
-#> Error in manc_dvid_node("neuprint", cached = FALSE): The package option malevnc.dataset is unset. Please set or manually reload package!
+#> [1] "7b5e8f7f805c4314bee37b75b4ff9292"
 # }
 ```

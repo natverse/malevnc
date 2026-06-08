@@ -55,7 +55,7 @@ message](https://flyem-cns.slack.com/archives/C01MYQ1AQ5D/p1621448634011800?thre
 
 ``` r
 manc_islatest(10056)
-#> Error in manc_dvid_node("neutu"): The package option malevnc.dataset is unset. Please set or manually reload package!
+#> [1] TRUE
 
 if (FALSE) { # \dontrun{
 manc_islatest(10056:10058)
