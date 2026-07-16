@@ -30,7 +30,7 @@ test_that("manc_body_annotations works", {
 })
 
 test_that("manc_body_annotations preserves show.extra for large id requests", {
-  ids <- as.character(seq_len(1001))
+  ids <- as.character(seq_len(10001))
   all_rows <- data.frame(
     bodyid = ids,
     user = "janedoe@gmail.com",
