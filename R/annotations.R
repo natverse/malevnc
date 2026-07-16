@@ -58,19 +58,34 @@ manc_user_annotations <- function(email = "jefferis@gmail.com",
 }
 
 list2df <- function(x, points=c('collapse', 'expand', 'list'),
-                    lists=c("collapse", "list"), collapse=",", ...) {
+                    lists=c("collapse", "list"), collapse=",",
+                    convert_numeric=FALSE, ...) {
   points=match.arg(points)
   lists=match.arg(lists)
   cns=unique(unlist(sapply(x, names, simplify = F)))
 
-  collapse_col <- function(col) sapply(col, paste, collapse=collapse)
+  collapse_col <- function(col) {
+    vapply(col, function(x) paste(unlist(x, use.names=FALSE), collapse=collapse),
+           character(1))
+  }
   l=list()
   for(i in cns) {
     raw_col = lapply(x, "[[", i)
     raw_col[sapply(raw_col, is.null)]=NA
-    sublens=sapply(raw_col, length)
-    if(all(sublens==1)){
+    sublens=lengths(raw_col)
+    raw_col[sublens==0]=NA
+    scalar_col <- all(sublens %in% 0:1) &&
+      !any(vapply(raw_col[sublens==1], is.list, logical(1)))
+    if(scalar_col){
       raw_col=unlist(raw_col, use.names = FALSE)
+      if(is.character(raw_col)) {
+        raw_col[!nzchar(raw_col)]=NA_character_
+        raw_col[raw_col=='NA']=NA_character_
+        num_nas=sum(is.na(raw_col))
+        num_nums=sum(!is.na(suppressWarnings(as.numeric(raw_col))))
+        if(convert_numeric && (num_nums+num_nas)==length(raw_col))
+          raw_col=as.numeric(raw_col)
+      }
     } else if(grepl("^point", i) && all(sublens==3L)) {
       if(points=='expand') {
         raw_col=lapply(1:3, function(j) sapply(raw_col, "[[", j))
@@ -251,9 +266,10 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
   show.extra=match.arg(show.extra)
   nmissing=sum(is.null(ids), is.null(query))
   FUN=if(cache) clio_fetch_memo else clio_fetch
+  ql=list(changes = "false", id_field = "bodyid", show=show.extra)
   if(nmissing==2) {
     # fetch all annotations
-    res=FUN(file.path(baseurl, 'all'), config = config, json = json)
+    res=FUN(file.path(baseurl, 'all'), config = config, query = ql, json = json)
     if(is.list(res$bodyid)) {
       lengths=sapply(res$bodyid, length)
       nbadlengths=sum(lengths!=1)
@@ -270,7 +286,7 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
 
   if(!is.null(ids)) {
     ids=manc_ids(ids)
-    if(length(ids)>1000 && !json) {
+    if(length(ids)>10000 && !json) {
       # it's quicker to fetch all and then filter post hoc
       # but we can't do that with json
       mba=manc_body_annotations(cache=cache, config=config, update.bodyids=update.bodyids, test=test, show.extra=show.extra, ...)
@@ -302,7 +318,6 @@ manc_body_annotations <- function(ids=NULL, query=NULL, json=FALSE, config=NULL,
       query
     }
   }
-  ql=list(changes = "false", id_field = "bodyid", show=show.extra)
   res=FUN(
     u,
     body = body,

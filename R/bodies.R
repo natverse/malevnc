@@ -90,7 +90,8 @@ manc_mutations <- function(nodes="neutu", include_first=NA, bigcols=FALSE, ...) 
     return(df)
   }
   # GET <api URL>/node/<UUID>/<data name>/mutations[?queryopts]
-  res=manc_get("api/node/%s/%s/mutations", urlargs=list(nodes, "segmentation"))
+  res=manc_get("api/node/%s/%s/mutations", urlargs=list(nodes, "segmentation"),
+               simplifyVector=FALSE)
   rr=list2df(res)
   if(!isTRUE(bigcols)) {
     bigcols="CleavedSupervoxels"
